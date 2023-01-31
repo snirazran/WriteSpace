@@ -1,13 +1,277 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
+/* Global CSS */
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  font-family: Nunito;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --mainColor: #e76f51;
+  --secondaryColor: #f4a261;
+  --gray: #919191;
+  --lightGray: #bfbfbf;
+}
+
+.container {
+  padding: 25px 50px;
+  text-align: center;
+}
+
+/* Spinner Css */
+
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header CSS */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 200px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  margin: 0 10px;
+}
+
+li a:hover {
+  color: var(--secondaryColor);
+}
+
+li .circled {
+  text-decoration: none;
+  color: #fff;
+  background-color: var(--mainColor);
+  padding: 10px 15px;
+  border-radius: 50px;
+  margin: 0 20px;
+  outline: none;
+  border: 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+li .circled:hover {
+  color: #fff;
+  background-color: var(--secondaryColor);
+}
+
+header .nav-btn {
+  padding: 5px;
+  font-size: 25px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: none;
+}
+
+header .nav-btn:hover {
+  color: var(--secondaryColor);
+}
+
+header .nav-login-btn svg path {
+  color: #000;
+}
+
+header .nav-login-btn svg path:hover {
+  color: var(--secondaryColor);
+}
+
+@media only screen and (max-width: 1023px) {
+  header .nav-btn {
+    display: inline-block;
+  }
+
+  header nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: var(--mainColor);
+    transition: 1s;
+    transform: translateY(-100vh);
+  }
+
+  header ul {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  header li {
+    margin: 30px 0;
+    font-size: 30px;
+  }
+
+  header li a {
+    color: white;
+  }
+
+  header li .signup:hover {
+    background-color: transparent;
+    color: var(--secondaryColor);
+  }
+
+  header .nav-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 40px;
+    color: white;
+  }
+
+  header .responsive_nav {
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .container {
+    padding: 15px 15px;
+  }
+  header .logo img {
+    width: 160px;
+  }
+
+  header .nav-btn {
+    padding: 5px;
+    font-size: 20px;
+  }
+}
+
+/* Login & Register Pages */
+
+.heading {
+  margin-top: 50px;
+}
+
+.heading h1 {
+  font-size: 60px;
+  font-weight: 500;
+}
+
+.heading h1 span {
+  color: var(--mainColor);
+}
+
+.heading p {
+  margin-top: 20px;
+  color: var(--gray);
+}
+
+.form {
+  margin: 10px auto;
+  width: 400px;
+}
+
+.form-group input {
+  margin: 10px 0;
+  width: 100%;
+  padding: 15px 15px;
+  font-size: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  outline: none;
+  border-color: var(--lightGray);
+  color: var(--lightGray);
+}
+
+.form-group input::placeholder {
+  color: var(--lightGray);
+}
+
+.form-group input:focus-within {
+  border-width: 2px;
+  border-color: var(--mainColor);
+}
+
+.form-group button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--mainColor);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.login-register {
+  margin-top: 20px;
+  color: var(--gray);
+}
+
+.login-register span a {
+  text-decoration: none;
+  color: var(--mainColor);
+}
+
+@media only screen and (max-width: 520px) {
+  .form {
+    width: 300px;
+  }
+  .heading h1 {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .form {
+    width: 280px;
+  }
+  .heading h1 {
+    font-size: 40px;
+  }
 }

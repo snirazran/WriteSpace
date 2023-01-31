@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
+import { register, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,6 +15,23 @@ function Register() {
 
   const { name, email, password, password2 } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate('/');
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -19,7 +41,22 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (password !== password2) {
+      toast.error('Password do not match');
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -77,9 +114,23 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-block">
+            <button
+              type="submit"
+              onClick={(e) => {
+                console.log('hi');
+              }}
+              className="btn btn-block"
+            >
               Register
             </button>
+          </div>
+          <div className="login-register">
+            <p>
+              Already have an account?{' '}
+              <span>
+                <Link to="/login">Sign in</Link>
+              </span>
+            </p>
           </div>
         </form>
       </section>
