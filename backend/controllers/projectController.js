@@ -17,17 +17,18 @@ const getProjects = asyncHandler(async (req, res) => {
 const setProject = asyncHandler(async (req, res) => {
   if (!req.body.genre) {
     res.status(400);
-    throw new Error('Please add a text field');
+    throw new Error('Please add a genre field');
   }
 
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400);
-    throw new Error('Please add a title field');
+    throw new Error('Please add a project name');
   }
 
   const project = await Project.create({
     genre: req.body.genre,
-    title: req.body.title,
+    name: req.body.name,
+    description: req.body.description,
     img: req.body.img ? req.body.img : null,
     user: req.user.id,
   });
@@ -46,15 +47,13 @@ const updateProject = asyncHandler(async (req, res) => {
     throw new Error('Project not found');
   }
 
-  const user = await User.findById(req.user.id);
-
   //Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error('User not found');
   }
   //Make sure the logged in user matches the goal user
-  if (project.user.toString() !== user.id) {
+  if (project.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }
@@ -79,15 +78,13 @@ const deleteProject = asyncHandler(async (req, res) => {
     throw new Error('Project not found');
   }
 
-  const user = await User.findById(req.user.id);
-
   //Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error('User not found');
   }
   //Make sure the logged in user matches the goal user
-  if (project.user.toString() !== user.id) {
+  if (project.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }

@@ -7,7 +7,7 @@ const User = require('../models/userModel');
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, img } = req.body;
+  const { name, email, password, img, description } = req.body;
   if (!name || !email || !password) {
     res.status(400);
     throw new Error('Please add all fields');
@@ -25,6 +25,11 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
+  // { id1: 1, id2 :2 }
+  // const id = 10
+  // const ids = find($id1 === 10 || $id2 === 10)
+  // ids.filter((x) => x !== id) // [20, 30]
+
   // Create user
 
   const user = await User.create({
@@ -32,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     img: img ? img : null,
+    description: description ? description : null,
   });
 
   if (user) {
@@ -40,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       img: user.img,
+      description: user.description,
       token: generateToken(user._id),
     });
   } else {
@@ -65,6 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       img: user.img,
+      description: user.description,
       token: generateToken(user._id),
     });
   } else {
@@ -77,14 +85,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/me
 // @access Private
 const getMe = asyncHandler(async (req, res) => {
-  const { _id, name, email, img } = await User.findById(req.user.id);
-
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-    img,
-  });
+  res.status(200).json(req.user);
 });
 
 // Generate JWT

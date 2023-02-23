@@ -7,8 +7,12 @@ const projectSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    genre: { type: String, required: [true, 'Please add a genre value'] },
-    title: { type: String, required: [true, 'Please add a type value'] },
+    genre: { type: String, required: [true, 'Please select a genre'] },
+    name: { type: String, required: [true, 'Please add a name'] },
+    description: {
+      type: String,
+      required: [true, 'Please add a project description'],
+    },
     img: String,
   },
   {

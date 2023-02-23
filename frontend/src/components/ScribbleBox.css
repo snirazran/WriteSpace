@@ -1,0 +1,115 @@
+.scribble-box {
+  margin: 100px auto;
+  width: 50%;
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
+    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
+    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  border-radius: 10px;
+  padding: 20px 50px;
+  text-align: left;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.author img {
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
+    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
+    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  border-radius: 100px;
+  width: 60px;
+  height: 60px;
+}
+
+.author-text {
+  margin-left: 18px;
+  font-weight: bold;
+}
+
+.author-text h1 {
+  font-size: 16px;
+}
+
+.author-text p {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.title {
+  margin-top: 25px;
+}
+
+.title h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.title h1 span {
+  color: var(--mainColor);
+}
+
+.content {
+  margin-top: 25px;
+}
+
+.content p {
+  font-size: 18px;
+}
+
+.like-comment {
+  margin-top: 25px;
+}
+
+.like-comment .icons {
+  font-size: 30px;
+  color: var(--mainColor);
+}
+
+.like-comment .comment-icon {
+  margin-left: 10px;
+  color: var(--gray);
+}
+
+.like-comment .like-text h1 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.like-comment .comment-text p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+@media only screen and (max-width: 1024px) {
+  .scribble-box {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .scribble-box {
+    width: 80%;
+    padding: 20px 30px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .scribble-box {
+    width: 90%;
+    padding: 20px 20px;
+  }
+  .title h1 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .content p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.03em;
+  }
+}

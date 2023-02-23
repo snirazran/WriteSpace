@@ -6,10 +6,11 @@ import {
   FaBars,
   FaTimes,
 } from 'react-icons/fa';
+import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, reset } from '../features/auth/authSlice';
-import Logo from '../media/Logo.png';
+import { logout, reset } from '../../features/auth/authSlice';
+import Logo from '../../media/Logo.png';
 
 function Header() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function Header() {
               </li>
               <li>
                 <Link onClick={onClick} className=" " to="/projects">
-                  My Mind
+                  My Projects
                 </Link>
               </li>
               <li>

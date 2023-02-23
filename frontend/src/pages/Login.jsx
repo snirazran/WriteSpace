@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { login, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
+import './Login_Register.css';
 
 function Login() {
   const [formData, setFormData] = useState({

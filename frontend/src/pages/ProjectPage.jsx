@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import ProfileBox from '../components/ProfileBox';
 import Slider from '../components/Slider';
-import './Projects.css';
+import './ProjectPage.css';
+import ProjectBox from '../components/ProjectBox';
 
-function Projects() {
+function ProjectPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -13,13 +13,13 @@ function Projects() {
   );
 
   const onClick = () => {
-    navigate('/projects/create');
+    navigate('/scribble/create');
     window.scrollTo(0, 0);
   };
 
   return (
-    <section className="projects">
-      <ProfileBox />
+    <section className="ProjectPage">
+      <ProjectBox author={`by ${user.name}`} />
       <Slider />
       <button onClick={onClick} className="box-btn">
         Create a new project
@@ -28,4 +28,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default ProjectPage;
