@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
@@ -10,12 +11,17 @@ import { createProject } from '../features/projects/projectSlice';
 
 function CreateProject() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
   const [imageLocal, setImageLocal] = useState(null);
 
   const uploadImage = async () => {
+    if (imageLocal === null) {
+      return imageLocal;
+    }
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
     }
@@ -34,7 +40,6 @@ function CreateProject() {
   // Functions to handle Unsplash image generator
   let unsplashAPI = `https://api.unsplash.com/`;
   let unsplashAPIKEY = `?client_id=` + process.env.REACT_APP_UNSPLASH_KEY;
-  let unsplashAPISEARCH;
 
   const options = [
     { value: 'random', text: 'Random' },
@@ -46,29 +51,6 @@ function CreateProject() {
   ];
 
   const [selected, setSelected] = useState(options[0].value);
-  let randomNum = Math.floor(Math.random() * 10);
-  switch (selected) {
-    case 'random':
-      unsplashAPISEARCH = `photos/random${unsplashAPIKEY}`;
-      break;
-    case 'colorful':
-      unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=colorful&orientation=portrait&page=${randomNum}`;
-      break;
-    case 'minimal':
-      unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=minimal&orientation=portrait&page=${randomNum}`;
-      break;
-    case 'textures':
-      unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=textures&orientation=portrait&page=${randomNum}`;
-      break;
-    case 'patterns':
-      unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=patterns&orientation=portrait&page=${randomNum}`;
-      break;
-    case 'abstract':
-      unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=abstract&orientation=portrait&page=${randomNum}`;
-      break;
-    default:
-      unsplashAPISEARCH = `photos/random${unsplashAPIKEY}`;
-  }
 
   const handleChange = (e) => {
     setSelected(e.target.value);
@@ -81,21 +63,27 @@ function CreateProject() {
 
   const getNewImage = async () => {
     if (selected === 'random') {
-      return fetch(unsplashAPI + unsplashAPISEARCH)
-        .then((response) => response.json())
-        .then((data) => {
-          let allImages = data;
-          return allImages.urls.regular;
-        });
+      let unsplashAPISEARCH = `photos/random${unsplashAPIKEY}`;
+      try {
+        let { data: images } = await axios.get(unsplashAPI + unsplashAPISEARCH);
+        if (images) {
+          return images.urls.regular;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
     let randomNum = Math.floor(Math.random() * 10);
-    return fetch(unsplashAPI + unsplashAPISEARCH)
-      .then((response) => response.json())
-      .then((data) => {
-        let allImages = data.results[randomNum];
-
+    let unsplashAPISEARCH = `search/photos/${unsplashAPIKEY}&query=${selected}&orientation=portrait&page=${randomNum}`;
+    try {
+      let { data: images } = await axios.get(unsplashAPI + unsplashAPISEARCH);
+      if (images) {
+        let allImages = images.results[randomNum];
         return allImages.urls.regular;
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Functions to handle from data & project creation
@@ -127,6 +115,7 @@ function CreateProject() {
         img,
       };
       dispatch(createProject(projectData));
+      navigate(`/projects/${user._id}`);
     } catch (error) {
       console.log(error);
     }
@@ -186,6 +175,7 @@ function CreateProject() {
                 value={name}
                 placeholder="Project Name"
                 onChange={onChange}
+                required
               />
             </div>
             <div className="project-form-group">
@@ -197,6 +187,7 @@ function CreateProject() {
                 value={genre}
                 placeholder="Genre: Diary, Book, Poem, Script, eg..."
                 onChange={onChange}
+                required
               />
             </div>
           </div>
@@ -213,6 +204,7 @@ function CreateProject() {
               value={description}
               placeholder="Description"
               onChange={onChange}
+              required
             ></textarea>
           </div>
           <div className="project-form-group">

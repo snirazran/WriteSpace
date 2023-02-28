@@ -1,13 +1,12 @@
 const asyncHandler = require('express-async-handler');
-
 const Project = require('../models/projectModel');
-const User = require('../models/userModel');
 
 // @desc Get Projects
 // @route GET /api/projects
 // @access Private
 const getProjects = asyncHandler(async (req, res) => {
-  const projects = await Project.find({ user: req.user.id });
+  const { userId } = req.params;
+  const projects = await Project.find({ userId: userId });
   res.status(200).json(projects);
 });
 
@@ -25,12 +24,22 @@ const setProject = asyncHandler(async (req, res) => {
     throw new Error('Please add a project name');
   }
 
+  if (!req.body.description) {
+    res.status(400);
+    throw new Error('Please add a description');
+  }
+  console.log(req.user);
+
   const project = await Project.create({
     genre: req.body.genre,
     name: req.body.name,
     description: req.body.description,
-    img: req.body.img ? req.body.img : null,
-    user: req.user.id,
+    img: req.body.img
+      ? req.body.img
+      : `https://firebasestorage.googleapis.com/v0/b/writespace-f343f.appspot.com/o/projectImages%2Fplaceholder.png?alt=media&token=5c87f4fa-d7a8-4800-873f-82f4947952bf`,
+    userId: req.user.id,
+    userImg: req.user.img,
+    username: req.user.username,
   });
 
   res.status(200).json(project);
@@ -83,7 +92,7 @@ const deleteProject = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('User not found');
   }
-  //Make sure the logged in user matches the goal user
+  //Make sure the logged in user matches the project user
   if (project.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');

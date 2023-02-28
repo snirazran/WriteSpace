@@ -1,11 +1,5 @@
 import { useRef } from 'react';
-import {
-  FaSignInAlt,
-  FaSignOutAlt,
-  FaUser,
-  FaBars,
-  FaTimes,
-} from 'react-icons/fa';
+import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,6 +10,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const userId = user._id;
 
   const onLogout = () => {
     dispatch(logout());
@@ -54,7 +49,11 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link onClick={onClick} className=" " to="/projects">
+                <Link
+                  onClick={onClick}
+                  className=" "
+                  to={`/projects/${userId}`}
+                >
                   My Projects
                 </Link>
               </li>

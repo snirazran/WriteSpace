@@ -1,100 +1,108 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
-// @desc Register new user
-// @route POST /api/users
-// @access Public
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, img, description } = req.body;
-  if (!name || !email || !password) {
-    res.status(400);
-    throw new Error('Please add all fields');
+// @desc Get Users
+// @route GET /api/users/:id
+// @access Private
+const getUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  //Check if user exists
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
   }
 
-  // Check if user exists
-  const userExists = await User.findOne({ email });
+  res.status(200).json(user);
+});
 
-  if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
+// @desc Get User friends
+// @route GET /api/users/:id/friends
+// @access Private
+const getUserFriends = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  //Check if user exists
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
   }
 
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const friends = await Promise.all(
+    user.friends.map((id) => User.findById(id))
+  );
 
-  // { id1: 1, id2 :2 }
-  // const id = 10
-  // const ids = find($id1 === 10 || $id2 === 10)
-  // ids.filter((x) => x !== id) // [20, 30]
+  //MIGHT CAUSE BUGS CHECK IF NOT WORKING
+  //Check if there are friends
+  if (!friends) {
+    res.status(404);
+    throw new Error('User have no friends');
+  }
 
-  // Create user
+  //Format the data for frontend
+  const formattedFriends = friends.map(({ _id, username, bio, img }) => {
+    return { _id, username, bio, img };
+  });
+  res.status(200).json(formattedFriends);
+});
 
-  const user = await User.create({
-    name,
-    email,
-    password: hashedPassword,
-    img: img ? img : null,
-    description: description ? description : null,
+// @desc Add or Remove friend
+// @route PATCH /api/users/:id/:friendId
+// @access Private
+const addRemoveFriend = asyncHandler(async (req, res) => {
+  const { id, friendId } = req.params;
+
+  const user = await User.findById(id);
+
+  //Check if user exists
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  const friend = await User.findById(friendId);
+
+  //Check if friend exists
+  if (!friend) {
+    res.status(404);
+    throw new Error('Friend not found');
+  }
+
+  //Add or remove functionality
+  if (user.friends.includes(friendId)) {
+    user.friends = user.friends.filter((id) => id !== friendId);
+    friend.friends = friend.friends.filter((id) => id !== id);
+  } else {
+    user.friends.push(friendId);
+    friend.friends.push(id);
+  }
+
+  await user.save();
+  await friend.save();
+
+  const friends = await Promise.all(
+    user.friends.map((id) => User.findById(id))
+  );
+
+  //MIGHT CAUSE BUGS CHECK IF NOT WORKING
+  //Check if there are friends
+  if (!friends) {
+    res.status(404);
+    throw new Error('User have no friends');
+  }
+
+  //Format the data for frontend
+  const formattedFriends = friends.map(({ _id, username, bio, img }) => {
+    return { _id, username, bio, img };
   });
 
-  if (user) {
-    res.status(201).json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      img: user.img,
-      description: user.description,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Invalid user data');
-  }
+  res.status(200).json(formattedFriends);
 });
-
-// @desc Authenticate a user
-// @route POST /api/users/login
-// @access Public
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  // Check for user email
-  const user = await User.findOne({ email });
-
-  // Compare passwords
-
-  if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      img: user.img,
-      description: user.description,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Invalid credentials');
-  }
-});
-
-// @desc Get user data
-// @route GET /api/users/me
-// @access Private
-const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
-});
-
-// Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
-};
 
 module.exports = {
-  registerUser,
-  loginUser,
-  getMe,
+  getUser,
+  getUserFriends,
+  addRemoveFriend,
 };

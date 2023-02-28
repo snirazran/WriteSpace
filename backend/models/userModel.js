@@ -2,21 +2,36 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: [true, 'Please add a name'],
+      min: 2,
+      max: 50,
     },
     email: {
       type: String,
       required: [true, 'Please add an email'],
       unique: true,
+      max: 50,
     },
     password: {
       type: String,
       required: [true, 'Please add a password'],
+      min: 6,
     },
-    img: String,
-    description: String,
+    friends: {
+      type: Array,
+      default: [],
+    },
+    bio: {
+      type: String,
+      default: '',
+      max: 200,
+    },
+    img: {
+      type: String,
+      default: '',
+    },
   },
   {
     timeStamps: true,

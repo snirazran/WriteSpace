@@ -5,6 +5,7 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
 const projectRouter = require('./routes/projectRoutes.js');
+const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
 
 connectDB();
@@ -13,8 +14,9 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use('/api/projects', projectRouter);
+app.use('/api/scribbles', projectRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 
 app.use(errorHandler);

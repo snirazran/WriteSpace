@@ -20,9 +20,9 @@ function App() {
             <Route path="/" element={<Feed />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/projects" element={<Projects />} />
             <Route path="/projects/create" element={<CreateProject />} />
             <Route path="/project/page" element={<ProjectPage />} />
+            <Route path="/projects/:userId" element={<Projects />} />
             <Route path="/scribble" element={<Scribble />} />
             <Route path="/scribble/create" element={<CreateScribble />} />
           </Routes>

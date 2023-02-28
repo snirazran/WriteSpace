@@ -2,6 +2,7 @@ import './ProjectBox.css';
 import projectPhoto from '../media/projectphoto.png';
 import userPhoto from '../media/friend.png';
 import SecondaryBtn from './Buttons/SecondaryBtn';
+
 function ProjectBox({ author }) {
   return (
     <div className="project-box">

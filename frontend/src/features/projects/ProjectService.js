@@ -14,8 +14,34 @@ const createProject = async (projectData, token) => {
   return response.data;
 };
 
+//get user projects
+const getProjects = async (userId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL + userId}`, config);
+  return response.data;
+};
+
+//delete user projects
+const deleteProject = async (projectId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(`${API_URL + projectId}`, config);
+  return response.data;
+};
+
 const ProjectService = {
   createProject,
+  getProjects,
+  deleteProject,
 };
 
 export default ProjectService;

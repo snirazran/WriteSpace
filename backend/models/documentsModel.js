@@ -1,18 +1,21 @@
 const mongoose = require('mongoose');
 
-const projectSchema = mongoose.Schema(
+const documentSchema = mongoose.Schema(
   {
-    userId: {
+    projectId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    genre: { type: String, required: [true, 'Please select a genre'] },
+    type: { type: String, required: [true, 'Please select a type'] },
     name: { type: String, required: [true, 'Please add a name'] },
     description: {
       type: String,
-      required: [true, 'Please add a project description'],
+      required: [true, 'Please add a document description'],
     },
     img: String,
+    projectImg: String,
+    projectName: String,
+    projectGenre: String,
     userImg: String,
     username: String,
   },
@@ -21,4 +24,4 @@ const projectSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model('Document', documentSchema);
