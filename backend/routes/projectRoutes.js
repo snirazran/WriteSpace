@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getProjects,
+  getProject,
   setProject,
   updateProject,
   deleteProject,
@@ -15,5 +16,5 @@ router
   .get(protect, getProjects)
   .delete(protect, deleteProject)
   .put(protect, updateProject);
-
+router.route('/project/:id').get(protect, getProject);
 module.exports = router;

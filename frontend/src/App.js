@@ -8,8 +8,9 @@ import Header from './components/Navigation/Header';
 import Projects from './pages/Projects';
 import CreateProject from './pages/CreateProject';
 import ProjectPage from './pages/ProjectPage';
-import Scribble from './pages/Scribble';
-import CreateScribble from './pages/CreateScribble';
+import PostPage from './pages/PostPage';
+import CreatePost from './pages/CreatePost';
+
 function App() {
   return (
     <>
@@ -21,10 +22,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/projects/create" element={<CreateProject />} />
-            <Route path="/project/page" element={<ProjectPage />} />
+            <Route path="/projects/project/:id" element={<ProjectPage />} />
             <Route path="/projects/:userId" element={<Projects />} />
-            <Route path="/scribble" element={<Scribble />} />
-            <Route path="/scribble/create" element={<CreateScribble />} />
+            <Route path="/posts/:id" element={<PostPage />} />
+            <Route path="/posts/create" element={<CreatePost />} />
           </Routes>
         </div>
       </Router>

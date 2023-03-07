@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './Scribble.css';
+import './PostPage.css';
 import ProjectBox from '../components/ProjectBox';
 import ScribbleBox from '../components/ScribbleBox';
 
-function Scribble() {
+function PostPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,4 +20,4 @@ function Scribble() {
   );
 }
 
-export default Scribble;
+export default PostPage;

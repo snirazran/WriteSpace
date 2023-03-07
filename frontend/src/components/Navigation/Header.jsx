@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,7 +10,13 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const userId = user._id;
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    if (user) {
+      setUserId(user._id);
+    }
+  }, [user, setUserId]);
 
   const onLogout = () => {
     dispatch(logout());

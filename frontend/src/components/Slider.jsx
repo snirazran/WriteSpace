@@ -9,22 +9,27 @@ import 'swiper/css/pagination';
 import './Slider.css';
 import { EffectCoverflow, Navigation, Pagination } from 'swiper';
 
-function Slider({ projects }) {
+function Slider({ content }) {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
+  console.log(content);
 
   const onClick = (id) => {
-    navigate(`/project/${id}`);
+    navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
 
   return (
     <div className="content">
-      {projects.length > 0 ? (
+      {content.length > 0 ? (
         <>
           <div className="slider">
-            <h1>My Projects</h1>
+            <h1>
+              {content[0].username.charAt(0).toUpperCase() +
+                content[0].username.slice(1)}
+              's Page
+            </h1>
             <Swiper
               effect={'coverflow'}
               centeredSlides={true}
@@ -42,21 +47,21 @@ function Slider({ projects }) {
               modules={[EffectCoverflow, Navigation, Pagination]}
               className="mySwiper"
             >
-              {projects.map((project) => (
+              {content.map((content) => (
                 <SwiperSlide
-                  key={project._id}
+                  key={content._id}
                   onClick={() => {
-                    onClick(project._id);
+                    onClick(content._id);
                   }}
                 >
-                  <ProjectItem project={project} />
+                  <ProjectItem project={content} />
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
         </>
       ) : (
-        <h3>You have not set any projects</h3>
+        <h3>You have not created any content</h3>
       )}
     </div>
   );

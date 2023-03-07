@@ -14,7 +14,15 @@ const getUser = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 
-  res.status(200).json(user);
+  res.status(200).json({
+    _id: user.id,
+    username: user.username,
+    email: user.email,
+    img: user.img,
+    bio: user.bio,
+    friends: user.friends,
+    likes: user.likes,
+  });
 });
 
 // @desc Get User friends

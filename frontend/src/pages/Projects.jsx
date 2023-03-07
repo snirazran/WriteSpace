@@ -5,7 +5,13 @@ import ProfileBox from '../components/ProfileBox';
 import Slider from '../components/Slider';
 import Spinner from '../components/Spinner';
 import './Projects.css';
-import { getProjects, reset } from '../features/projects/projectSlice';
+import { getProjects, resetProjects } from '../features/projects/projectSlice';
+import {
+  getUser,
+  getUserFriends,
+  addRemoveFriend,
+  resetUser,
+} from '../features/users/userSlice';
 
 function Projects() {
   const navigate = useNavigate();
@@ -13,37 +19,46 @@ function Projects() {
 
   let { userId } = useParams();
 
-  const { user } = useSelector((state) => state.auth);
+  const { projects, projectIsLoading, projectIsError, projectMessage } =
+    useSelector((state) => state.projects);
 
-  const { projects, isLoading, isError, message } = useSelector(
-    (state) => state.projects
-  );
+  const { user, userFriends, userIsLoading, userIsError, userMessage } =
+    useSelector((state) => state.user);
 
   useEffect(() => {
-    if (isError) {
-      console.log(message);
+    if (projectIsError || userIsError) {
+      console.log(projectIsError || userIsError);
     }
 
     dispatch(getProjects(userId));
+    dispatch(getUser(userId));
 
     return () => {
-      dispatch(reset);
+      dispatch(resetUser);
+      dispatch(resetProjects);
     };
-  }, [isError, message, dispatch, userId]);
+  }, [
+    projectIsError,
+    userIsError,
+    projectMessage,
+    userMessage,
+    dispatch,
+    userId,
+  ]);
 
   const onClick = () => {
     navigate('/projects/create');
     window.scrollTo(0, 0);
   };
 
-  if (isLoading) {
+  if (userIsLoading || projectIsLoading) {
     return <Spinner />;
   }
 
   return (
     <section className="projects">
-      <ProfileBox />
-      <Slider projects={projects} />
+      <ProfileBox user={user[0]} userFriends={userFriends} />
+      <Slider content={projects} />
       <button onClick={onClick} className="box-btn">
         Create a new project
       </button>

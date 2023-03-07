@@ -6,13 +6,13 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a name'],
       min: 2,
-      max: 50,
+      max: 20,
     },
     email: {
       type: String,
       required: [true, 'Please add an email'],
       unique: true,
-      max: 50,
+      max: 40,
     },
     password: {
       type: String,

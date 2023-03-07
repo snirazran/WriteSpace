@@ -1,49 +1,56 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Spinner from '../components/Spinner';
 import Slider from '../components/Slider';
 import './ProjectPage.css';
 import ProjectBox from '../components/ProjectBox';
-import { getProjects, reset } from '../features/projects/projectSlice';
+import { getProject, resetProjects } from '../features/projects/projectSlice';
+import { getProjectPosts, resetPosts } from '../features/posts/postSlice';
 
 function ProjectPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  let { id } = useParams();
+
   const { user } = useSelector((state) => state.auth);
 
-  const { projects, isLoading, isError, message } = useSelector(
-    (state) => state.projects
+  const { projects, projectIsLoading, projectIsError, projectMessage } =
+    useSelector((state) => state.projects);
+  const { posts, postIsLoading, postIsError, postMessage } = useSelector(
+    (state) => state.posts
   );
 
   useEffect(() => {
-    if (isError) {
-      console.log(message);
+    if (postIsError || projectIsError) {
+      console.log(projectMessage || postMessage);
     }
 
-    dispatch(getProjects());
+    dispatch(getProject(id));
+    dispatch(getProjectPosts(id));
 
     return () => {
-      dispatch(reset);
+      dispatch(resetProjects);
+      dispatch(resetPosts);
     };
-  }, [isError, message, dispatch]);
+  }, [postIsError, projectIsError, postMessage, projectMessage, dispatch, id]);
 
   const onClick = () => {
-    navigate('/scribble/create');
+    navigate('/posts/create', { state: { projectId: id } });
     window.scrollTo(0, 0);
   };
 
-  if (isLoading) {
+  if (projectIsLoading || postIsLoading) {
     return <Spinner />;
   }
 
   return (
     <section className="ProjectPage">
-      <ProjectBox author={`by ${user.name}`} />
-      <Slider projects={projects} />
+      <ProjectBox content={projects} />
+      <Slider content={posts} />
       <button onClick={onClick} className="box-btn">
-        Create a new project
+        Create a new post
       </button>
     </section>
   );

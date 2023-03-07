@@ -1,18 +1,17 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import './TextEditor.css';
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline'], // toggled buttons
-  ['blockquote', 'code-block'],
+  ['blockquote'],
 
   [{ list: 'ordered' }, { list: 'bullet' }],
   [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
   [{ direction: 'rtl' }], // text direction
 
   [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
   [{ color: [] }, { background: [] }], // dropdown with defaults from theme
   [{ font: [] }],
@@ -22,18 +21,27 @@ const toolbarOptions = [
 ];
 
 function TextEditor() {
+  const [quill, setQuill] = useState();
+
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
     wrapper.innerHTML = '';
     const editor = document.createElement('div');
     wrapper.append(editor);
-    new Quill(editor, {
+    const q = new Quill(editor, {
       theme: 'snow',
       modules: {
         toolbar: toolbarOptions,
       },
     });
+    setQuill(q);
   }, []);
+  if (quill) {
+    quill.on('text-change', function () {
+      let justHtml = quill.root.innerHTML;
+      console.log(justHtml);
+    });
+  }
 
   return <div id="container" ref={wrapperRef}></div>;
 }

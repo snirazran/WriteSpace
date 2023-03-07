@@ -69,6 +69,11 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+#type {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
 .project-form .project-form-group textarea {
   resize: none;

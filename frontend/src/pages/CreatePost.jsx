@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
-import { createProject } from '../features/projects/projectSlice';
+import { createPost } from '../features/posts/postSlice';
+import TextEditor from '../components/TextEditor';
+import './CreatePost.css';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
+import '../components/TextEditor.css';
 
-function CreateProject() {
+function CreatePost() {
+  const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const { projectId } = state;
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
@@ -86,39 +93,82 @@ function CreateProject() {
     }
   };
 
-  //Functions to handle from data & project creation
+  //Functions to handle Text Edtior
+  const toolbarOptions = [
+    ['bold', 'italic', 'underline'], // toggled buttons
+    ['blockquote'],
+
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+    [{ direction: 'rtl' }], // text direction
+
+    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ['clean'], // remove formatting button
+  ];
+
+  const [quill, setQuill] = useState();
+  const [quillInnerHtml, setQuillInnerHtml] = useState();
+
+  const wrapperRef = useCallback((wrapper) => {
+    if (wrapper == null) return;
+    wrapper.innerHTML = '';
+    const editor = document.createElement('div');
+    wrapper.append(editor);
+    const q = new Quill(editor, {
+      theme: 'snow',
+      modules: {
+        toolbar: toolbarOptions,
+      },
+    });
+    setQuill(q);
+  }, []);
+  if (quill) {
+    quill.on('text-change', function () {
+      let justHtml = quill.root.innerHTML;
+      setQuillInnerHtml(justHtml);
+    });
+  }
+
+  //Functions to handle from data & post creation
 
   const [formData, setFormData] = useState({
     name: '',
-    genre: '',
+    type: '',
     description: '',
   });
 
-  const { name, genre, description } = formData;
+  const { name, type, description } = formData;
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(projectId);
+    try {
+      const img = await uploadImage();
+      const postData = {
+        name,
+        type,
+        description,
+        content: quillInnerHtml,
+        projectId: projectId,
+        img,
+      };
+      dispatch(createPost(postData));
+      navigate(`/`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const img = await uploadImage();
-      const projectData = {
-        name,
-        genre,
-        description,
-        img,
-      };
-      dispatch(createProject(projectData));
-      navigate(`/projects/${user._id}`);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -169,34 +219,31 @@ function CreateProject() {
             <div className="project-form-group">
               <input
                 type="text"
-                className="form-control name"
+                className="name"
                 id="project-name"
                 name="name"
                 value={name}
-                placeholder="Project Name"
+                placeholder="Post Name"
                 onChange={onChange}
-                required
               />
             </div>
             <div className="project-form-group">
               <input
                 type="text"
-                className="form-control genre"
-                id="genre"
-                name="genre"
-                value={genre}
-                placeholder="Genre: Diary, Book, Poem, Script, eg..."
+                className="genre"
+                id="type"
+                name="type"
+                value={type}
+                placeholder="type: Diary Note, Book Page, Poem, Song, eg..."
                 onChange={onChange}
-                required
               />
             </div>
           </div>
-
           <div className="project-form-group">
             <textarea
-              id="description"
+              id="scribble-description"
               name="description"
-              className="form-control description"
+              className="description"
               rows="2"
               cols="10"
               minLength="10"
@@ -204,8 +251,12 @@ function CreateProject() {
               value={description}
               placeholder="Description"
               onChange={onChange}
-              required
             ></textarea>
+          </div>
+          <div className="text-editor">
+            {/* Text editor trying */}
+            <div id="container" ref={wrapperRef}></div>
+            {/* Text editor trying */}
           </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
@@ -218,4 +269,4 @@ function CreateProject() {
   );
 }
 
-export default CreateProject;
+export default CreatePost;
