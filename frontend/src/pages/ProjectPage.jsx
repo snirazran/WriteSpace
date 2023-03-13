@@ -5,7 +5,11 @@ import Spinner from '../components/Spinner';
 import Slider from '../components/Slider';
 import './ProjectPage.css';
 import ProjectBox from '../components/ProjectBox';
-import { getProject, resetProjects } from '../features/projects/projectSlice';
+import {
+  getProject,
+  resetProjects,
+  deleteProject,
+} from '../features/projects/projectSlice';
 import { getProjectPosts, resetPosts } from '../features/posts/postSlice';
 
 function ProjectPage() {
@@ -31,8 +35,8 @@ function ProjectPage() {
     dispatch(getProjectPosts(id));
 
     return () => {
-      dispatch(resetProjects);
-      dispatch(resetPosts);
+      dispatch(resetProjects());
+      dispatch(resetPosts());
     };
   }, [postIsError, projectIsError, postMessage, projectMessage, dispatch, id]);
 
@@ -47,7 +51,7 @@ function ProjectPage() {
 
   return (
     <section className="ProjectPage">
-      <ProjectBox content={projects} />
+      <ProjectBox content={projects} deleteFunc={deleteProject} />
       <Slider content={posts} />
       <button onClick={onClick} className="box-btn">
         Create a new post

@@ -29,7 +29,7 @@ const projectSchema = mongoose.Schema(
     username: String,
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 

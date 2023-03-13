@@ -11,10 +11,11 @@ const {
 const { protect } = require('../middleware/authMiddleware');
 
 router.route('/').post(protect, setProject);
+router.route('/:userId').get(protect, getProjects);
+
 router
-  .route('/:userId')
-  .get(protect, getProjects)
-  .delete(protect, deleteProject)
-  .put(protect, updateProject);
-router.route('/project/:id').get(protect, getProject);
+  .route('/project/:id')
+  .get(protect, getProject)
+  .put(protect, updateProject)
+  .delete(protect, deleteProject);
 module.exports = router;

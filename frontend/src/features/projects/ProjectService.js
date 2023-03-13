@@ -38,6 +38,22 @@ const getProject = async (id, token) => {
   return response.data;
 };
 
+//Update user project
+const updateProject = async (projectId, data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(
+    `${API_URL}project/${projectId}`,
+    data,
+    config
+  );
+  return response.data;
+};
+
 //delete user projects
 const deleteProject = async (projectId, token) => {
   const config = {
@@ -46,7 +62,7 @@ const deleteProject = async (projectId, token) => {
     },
   };
 
-  const response = await axios.delete(`${API_URL + projectId}`, config);
+  const response = await axios.delete(`${API_URL}project/${projectId}`, config);
   return response.data;
 };
 
@@ -54,6 +70,7 @@ const ProjectService = {
   createProject,
   getProjects,
   getProject,
+  updateProject,
   deleteProject,
 };
 

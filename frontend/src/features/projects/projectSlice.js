@@ -66,6 +66,25 @@ export const getProject = createAsyncThunk(
   }
 );
 
+//Update user project
+export const updateProject = createAsyncThunk(
+  'projects/update',
+  async ({ id, projectData }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await ProjectService.updateProject(id, projectData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //Delete user project
 export const deleteProject = createAsyncThunk(
   'projects/delete',
@@ -143,6 +162,23 @@ export const projectSlice = createSlice({
         );
       })
       .addCase(deleteProject.rejected, (state, action) => {
+        state.projectIsLoading = false;
+        state.projectIsError = true;
+        state.projectMessage = action.payload;
+      })
+      .addCase(updateProject.pending, (state) => {
+        state.projectIsLoading = true;
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.projectIsLoading = false;
+        state.projectIsSuccess = true;
+        const updatedProject = action.payload;
+        const projectIndex = state.projects.findIndex(
+          (project) => project._id === updatedProject._id
+        );
+        state.projects[projectIndex] = updatedProject;
+      })
+      .addCase(updateProject.rejected, (state, action) => {
         state.projectIsLoading = false;
         state.projectIsError = true;
         state.projectMessage = action.payload;

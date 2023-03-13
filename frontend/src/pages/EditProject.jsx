@@ -1,25 +1,39 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
+import Spinner from '../components/Spinner';
 import './CreateProject.css';
-import { createPost } from '../features/posts/postSlice';
-import TextEditor from '../components/TextEditor';
-import './CreatePost.css';
-import Quill from 'quill';
-import 'quill/dist/quill.snow.css';
-import '../components/TextEditor.css';
+import {
+  getProject,
+  updateProject,
+  resetProjects,
+} from '../features/projects/projectSlice';
 
-function CreatePost() {
-  const { state } = useLocation();
+function EditProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { projectId } = state;
+  const { projects, projectIsLoading, projectIsError, projectMessage } =
+    useSelector((state) => state.projects);
+
+  //Getting the project from the data base
+  useEffect(() => {
+    if (projectIsError) {
+      console.log(projectMessage);
+    }
+
+    dispatch(getProject(id));
+
+    return () => {
+      dispatch(resetProjects());
+    };
+  }, [projectIsError, projectMessage, dispatch, id]);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
@@ -27,12 +41,12 @@ function CreatePost() {
 
   const uploadImage = async () => {
     if (imageLocal === null) {
-      return imageLocal;
+      return projects.img;
     }
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
     }
-    const imageRef = ref(storage, `postImages/${imageFile.name + v4()}`);
+    const imageRef = ref(storage, `projectImages/${imageFile.name + v4()}`);
     try {
       await uploadBytes(imageRef, imageFile);
       const imageURL = await getDownloadURL(imageRef);
@@ -93,75 +107,15 @@ function CreatePost() {
     }
   };
 
-  //Functions to handle Text Edtior
-  const toolbarOptions = [
-    ['bold', 'italic', 'underline'], // toggled buttons
-    ['blockquote'],
-
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-    [{ direction: 'rtl' }], // text direction
-
-    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
-
-    ['clean'], // remove formatting button
-  ];
-
-  const [quill, setQuill] = useState();
-  const [quillInnerHtml, setQuillInnerHtml] = useState();
-
-  const wrapperRef = useCallback((wrapper) => {
-    if (wrapper == null) return;
-    wrapper.innerHTML = '';
-    const editor = document.createElement('div');
-    wrapper.append(editor);
-    const q = new Quill(editor, {
-      theme: 'snow',
-      modules: {
-        toolbar: toolbarOptions,
-      },
-    });
-    setQuill(q);
-  }, []);
-  if (quill) {
-    quill.on('text-change', function () {
-      let justHtml = quill.root.innerHTML;
-      setQuillInnerHtml(justHtml);
-    });
-  }
-
-  //Functions to handle from data & post creation
+  //Functions to handle from data & project creation
 
   const [formData, setFormData] = useState({
-    name: '',
-    type: '',
-    description: '',
+    name: projects.name,
+    genre: projects.genre,
+    description: projects.description,
   });
 
-  const { name, type, description } = formData;
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const img = await uploadImage();
-      const postData = {
-        name,
-        type,
-        description,
-        content: quillInnerHtml,
-        projectId: projectId,
-        img,
-      };
-      dispatch(createPost(postData));
-      navigate(`/projects/project/${projectId}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { name, genre, description } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -170,15 +124,40 @@ function CreatePost() {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const img = await uploadImage();
+      const projectData = {
+        name,
+        genre,
+        description,
+        img,
+      };
+      dispatch(updateProject({ id: id, projectData: projectData }));
+      navigate(`/projects/${user._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (projectIsLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="CreateProject">
+        <div className="edit-text">
+          <h1>Editing the project {projects.name}</h1>
+        </div>
         <div className="pick-photo">
           <label htmlFor="file-input">
             {imageLocal ? (
               <img src={imageLocal} alt="profile" />
             ) : (
-              <img src={placeHolder} alt="profile" />
+              <img src={projects.img} alt="profile" />
             )}
           </label>
           <input
@@ -218,11 +197,11 @@ function CreatePost() {
             <div className="project-form-group">
               <input
                 type="text"
-                className="name"
+                className="form-control name"
                 id="project-name"
                 name="name"
                 value={name}
-                placeholder="Post Name"
+                placeholder="Project Name"
                 onChange={onChange}
                 required
               />
@@ -230,21 +209,22 @@ function CreatePost() {
             <div className="project-form-group">
               <input
                 type="text"
-                className="genre"
-                id="type"
-                name="type"
-                value={type}
-                placeholder="type: Diary Note, Book Page, Poem, Song, eg..."
+                className="form-control genre"
+                id="genre"
+                name="genre"
+                value={genre}
+                placeholder="Genre: Diary, Book, Poem, Script, eg..."
                 onChange={onChange}
                 required
               />
             </div>
           </div>
+
           <div className="project-form-group">
             <textarea
-              id="scribble-description"
+              id="description"
               name="description"
-              className="description"
+              className="form-control description"
               rows="2"
               cols="10"
               minLength="10"
@@ -255,14 +235,9 @@ function CreatePost() {
               required
             ></textarea>
           </div>
-          <div className="text-editor">
-            {/* Text editor trying */}
-            <div id="container" ref={wrapperRef}></div>
-            {/* Text editor trying */}
-          </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
-              Create your post
+              Update your project
             </button>
           </div>
         </form>
@@ -271,4 +246,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default EditProject;

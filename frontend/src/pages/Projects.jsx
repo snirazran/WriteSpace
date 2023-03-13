@@ -34,8 +34,8 @@ function Projects() {
     dispatch(getUser(userId));
 
     return () => {
-      dispatch(resetUser);
-      dispatch(resetProjects);
+      dispatch(resetUser());
+      dispatch(resetProjects());
     };
   }, [
     projectIsError,
@@ -57,7 +57,7 @@ function Projects() {
 
   return (
     <section className="projects">
-      <ProfileBox user={user[0]} userFriends={userFriends} />
+      <ProfileBox user={user} userFriends={userFriends} />
       <Slider content={projects} />
       <button onClick={onClick} className="box-btn">
         Create a new project

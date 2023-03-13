@@ -51,8 +51,8 @@
   color: var(--mainColor);
 }
 
-.content {
-  margin-top: 25px;
+#post-content {
+  height: fit-content;
 }
 
 .content p {

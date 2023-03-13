@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import { register, reset } from '../features/auth/authSlice';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { updateUser, resetUser, getUser } from '../features/users/userSlice';
 import Spinner from '../components/Spinner';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
@@ -10,22 +10,26 @@ import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import '../pages/Login_Register.css';
 
-function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    password2: '',
-  });
-
-  const { username, email, password, password2 } = formData;
-
+function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+  const { user, userIsLoading, userIsError, userMessage } = useSelector(
+    (state) => state.user
   );
+  let { id } = useParams();
+
+  useEffect(() => {
+    if (userIsError) {
+      toast.error(userMessage);
+    }
+
+    dispatch(getUser(id));
+
+    return () => {
+      dispatch(resetUser());
+    };
+  }, [userIsError, userMessage, dispatch, id]);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
@@ -33,7 +37,7 @@ function Register() {
 
   const uploadImage = async () => {
     if (imageLocal === null) {
-      return imageLocal;
+      return user.img;
     }
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
@@ -50,15 +54,13 @@ function Register() {
     }
   };
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    if (isSuccess || user) {
-      navigate('/');
-    }
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  const [formData, setFormData] = useState({
+    username: user.username ? user.username : 'username',
+    email: user.email,
+    bio: user.bio,
+  });
+
+  const { username, bio, email } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -69,26 +71,22 @@ function Register() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      toast.error('Password do not match');
-    } else {
-      try {
-        const img = await uploadImage();
-        const userData = {
-          username,
-          email,
-          password,
-          img,
-        };
-        dispatch(register(userData));
-        navigate(`/`);
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const img = await uploadImage();
+      const userData = {
+        username,
+        bio,
+        email,
+        img,
+      };
+      dispatch(updateUser({ id, userData }));
+      navigate(`/`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  if (isLoading) {
+  if (userIsLoading) {
     return <Spinner />;
   }
 
@@ -96,9 +94,8 @@ function Register() {
     <>
       <section className="heading">
         <h1>
-          Hello<span>!</span>
+          Edit profile<span></span>
         </h1>
-        <p>Create a free account with your email.</p>
       </section>
 
       <div className="register-photo">
@@ -106,7 +103,7 @@ function Register() {
           {imageLocal ? (
             <img src={imageLocal} alt="profile" />
           ) : (
-            <img src={placeHolder} alt="profile" />
+            <img src={user.img} alt="profile" />
           )}
         </label>
         <input
@@ -151,38 +148,19 @@ function Register() {
           </div>
           <div className="form-group">
             <input
-              type="password"
+              type="bio"
               className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password2"
-              name="password2"
-              value={password2}
-              placeholder="Confirm password"
+              id="bio"
+              name="bio"
+              value={bio}
+              placeholder="Enter your bio"
               onChange={onChange}
             />
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">
-              Register
+              Update
             </button>
-          </div>
-          <div className="login-register">
-            <p>
-              Already have an account?{' '}
-              <span>
-                <Link to="/login">Sign in</Link>
-              </span>
-            </p>
           </div>
         </form>
       </section>
@@ -190,4 +168,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default EditProfile;

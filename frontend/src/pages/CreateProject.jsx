@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,12 +7,21 @@ import storage from '../firebase';
 import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
-import { createProject } from '../features/projects/projectSlice';
+import {
+  createProject,
+  resetProjects,
+} from '../features/projects/projectSlice';
 
 function CreateProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetProjects());
+    };
+  }, [dispatch]);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);

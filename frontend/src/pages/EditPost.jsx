@@ -1,25 +1,41 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
-import { createPost } from '../features/posts/postSlice';
+import { getPost, updatePost, resetPosts } from '../features/posts/postSlice';
 import TextEditor from '../components/TextEditor';
 import './CreatePost.css';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import '../components/TextEditor.css';
+import Spinner from '../components/Spinner';
 
-function CreatePost() {
-  const { state } = useLocation();
+function EditPost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { projectId } = state;
+  let { id } = useParams();
+  const { posts, postIsLoading, postIsError, postMessage } = useSelector(
+    (state) => state.posts
+  );
+
+  //Getting the post from the data base
+  useEffect(() => {
+    if (postIsError) {
+      console.log(postMessage);
+    }
+
+    dispatch(getPost(id));
+
+    return () => {
+      dispatch(resetPosts());
+    };
+  }, [postIsError, postMessage, dispatch, id]);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
@@ -27,7 +43,7 @@ function CreatePost() {
 
   const uploadImage = async () => {
     if (imageLocal === null) {
-      return imageLocal;
+      return posts.img;
     }
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
@@ -127,6 +143,14 @@ function CreatePost() {
     });
     setQuill(q);
   }, []);
+
+  if (quill) {
+    const length = quill.getLength() - 1;
+    if (length === 0) {
+      quill.root.innerHTML = posts.content;
+    }
+  }
+
   if (quill) {
     quill.on('text-change', function () {
       let justHtml = quill.root.innerHTML;
@@ -137,9 +161,9 @@ function CreatePost() {
   //Functions to handle from data & post creation
 
   const [formData, setFormData] = useState({
-    name: '',
-    type: '',
-    description: '',
+    name: posts.name,
+    type: posts.type,
+    description: posts.description,
   });
 
   const { name, type, description } = formData;
@@ -153,11 +177,10 @@ function CreatePost() {
         type,
         description,
         content: quillInnerHtml,
-        projectId: projectId,
         img,
       };
-      dispatch(createPost(postData));
-      navigate(`/projects/project/${projectId}`);
+      dispatch(updatePost({ id: id, postData: postData }));
+      navigate(`/posts/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -170,15 +193,22 @@ function CreatePost() {
     }));
   };
 
+  if (postIsLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="CreateProject">
+        <div className="edit-text">
+          <h1>Editing the post {posts.name}</h1>
+        </div>
         <div className="pick-photo">
           <label htmlFor="file-input">
             {imageLocal ? (
               <img src={imageLocal} alt="profile" />
             ) : (
-              <img src={placeHolder} alt="profile" />
+              <img src={posts.img} alt="profile" />
             )}
           </label>
           <input
@@ -262,7 +292,7 @@ function CreatePost() {
           </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
-              Create your post
+              Update your post
             </button>
           </div>
         </form>
@@ -271,4 +301,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default EditPost;

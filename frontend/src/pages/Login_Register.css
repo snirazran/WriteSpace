@@ -60,6 +60,26 @@
   cursor: pointer;
 }
 
+.register-photo {
+  margin-top: 50px;
+}
+
+.register-photo img {
+  border-radius: 100px;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+
+.register-photo-text {
+  margin-top: 10px;
+  color: var(--gray);
+}
+
+.register-photo-text label {
+  cursor: pointer;
+}
+
 .login-register {
   margin-top: 20px;
   color: var(--gray);

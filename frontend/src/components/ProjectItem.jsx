@@ -9,7 +9,7 @@ function ProjectItem({ project }) {
       <img src={project.img} alt="" />
       <div className="box-text ">
         <h1>{project.name}</h1>
-        <p>{project.genre}</p>
+        <p>{project.genre || project.type}</p>
       </div>
     </div>
   );

@@ -2,6 +2,15 @@ const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
 const Project = require('../models/projectModel');
 
+// @desc Get Post by Id
+// @route GET /api/posts/:id
+// @access Private
+const getPost = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+  const posts = await Post.findById(postId);
+  res.status(200).json(posts);
+});
+
 // @desc Get Feed Posts
 // @route GET /api/posts/
 // @access Private
@@ -75,7 +84,8 @@ const setPost = asyncHandler(async (req, res) => {
 // @route PUT /api/posts/:id
 // @access Private
 const updatePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const { postId } = req.params;
+  const post = await Post.findById(postId);
 
   if (!post) {
     res.status(400);
@@ -87,13 +97,13 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('User not found');
   }
-  //Make sure the logged in user matches the goal user
+  //Make sure the logged in user matches the post user
   if (post.userId.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }
 
-  const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
+  const updatedPost = await Post.findByIdAndUpdate(postId, req.body, {
     new: true,
   });
 
@@ -104,7 +114,7 @@ const updatePost = asyncHandler(async (req, res) => {
 // @route DELETE /api/posts/:id
 // @access Private
 const deletePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.postId);
 
   if (!post) {
     res.status(400);
@@ -158,6 +168,7 @@ const likePost = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getPost,
   getProjectPosts,
   getFeedPosts,
   setPost,

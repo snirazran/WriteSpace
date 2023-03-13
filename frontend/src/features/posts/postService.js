@@ -14,6 +14,18 @@ const createPost = async (postData, token) => {
   return response.data;
 };
 
+//get post by id
+const getPost = async (postId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL + postId}`, config);
+  return response.data;
+};
+
 //get project posts
 const getProjectPosts = async (projectId, token) => {
   const config = {
@@ -26,22 +38,36 @@ const getProjectPosts = async (projectId, token) => {
   return response.data;
 };
 
-//delete user post
-const deleteProject = async (postId, token) => {
+//Update user project
+const updatePost = async (id, data, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.delete(`${API_URL + postId}`, config);
+  const response = await axios.put(`${API_URL + id}`, data, config);
+  return response.data;
+};
+
+//delete user post
+const deletePost = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(`${API_URL + id}`, config);
   return response.data;
 };
 
 const postService = {
   createPost,
+  getPost,
   getProjectPosts,
-  deleteProject,
+  updatePost,
+  deletePost,
 };
 
 export default postService;

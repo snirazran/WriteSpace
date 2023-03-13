@@ -13,10 +13,21 @@ function Slider({ content }) {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
-  console.log(content);
+  let project;
+  if (window.location.href.includes('projects/')) {
+    project = true;
+  }
+  if (window.location.href.includes('projects/project/')) {
+    project = false;
+  }
 
   const onClick = (id) => {
-    navigate(`/projects/project/${id}`);
+    if (project) {
+      navigate(`/projects/project/${id}`);
+    }
+    if (!project) {
+      navigate(`/posts/${id}`);
+    }
     window.scrollTo(0, 0);
   };
 
@@ -26,9 +37,15 @@ function Slider({ content }) {
         <>
           <div className="slider">
             <h1>
-              {content[0].username.charAt(0).toUpperCase() +
-                content[0].username.slice(1)}
-              's Page
+              {project
+                ? `${
+                    content[0].username.charAt(0).toUpperCase() +
+                    content[0].username.slice(1)
+                  }'s Page`
+                : `${
+                    content[0].projectName.charAt(0).toUpperCase() +
+                    content[0].projectName.slice(1)
+                  } Posts`}
             </h1>
             <Swiper
               effect={'coverflow'}
@@ -61,7 +78,13 @@ function Slider({ content }) {
           </div>
         </>
       ) : (
-        <h3>You have not created any content</h3>
+        <div className="no-projects">
+          <h3>
+            {project
+              ? `You have not created any projects yet`
+              : `You have not created any posts yet`}
+          </h3>
+        </div>
       )}
     </div>
   );
