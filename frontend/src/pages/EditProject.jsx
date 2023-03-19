@@ -112,10 +112,9 @@ function EditProject() {
   const [formData, setFormData] = useState({
     name: projects.name,
     genre: projects.genre,
-    description: projects.description,
   });
 
-  const { name, genre, description } = formData;
+  const { name, genre } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -132,7 +131,6 @@ function EditProject() {
       const projectData = {
         name,
         genre,
-        description,
         img,
       };
       dispatch(updateProject({ id: id, projectData: projectData }));
@@ -150,14 +148,14 @@ function EditProject() {
     <>
       <section className="CreateProject">
         <div className="edit-text">
-          <h1>Editing the project {projects.name}</h1>
+          <h1>Editing the project {projects[0].name}</h1>
         </div>
         <div className="pick-photo">
           <label htmlFor="file-input">
             {imageLocal ? (
               <img src={imageLocal} alt="profile" />
             ) : (
-              <img src={projects.img} alt="profile" />
+              <img src={projects[0].img} alt="profile" />
             )}
           </label>
           <input
@@ -220,21 +218,6 @@ function EditProject() {
             </div>
           </div>
 
-          <div className="project-form-group">
-            <textarea
-              id="description"
-              name="description"
-              className="form-control description"
-              rows="2"
-              cols="10"
-              minLength="10"
-              maxLength="150"
-              value={description}
-              placeholder="Description"
-              onChange={onChange}
-              required
-            ></textarea>
-          </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
               Update your project

@@ -14,6 +14,18 @@ const createPost = async (postData, token) => {
   return response.data;
 };
 
+//get feed posts
+const getFeedPosts = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}`, config);
+  return response.data;
+};
+
 //get post by id
 const getPost = async (postId, token) => {
   const config = {
@@ -63,6 +75,7 @@ const deletePost = async (id, token) => {
 };
 
 const postService = {
+  getFeedPosts,
   createPost,
   getPost,
   getProjectPosts,

@@ -144,7 +144,7 @@ export const projectSlice = createSlice({
       .addCase(getProject.fulfilled, (state, action) => {
         state.projectIsLoading = false;
         state.projectIsSuccess = true;
-        state.projects = action.payload;
+        state.projects.push(action.payload);
       })
       .addCase(getProject.rejected, (state, action) => {
         state.projectIsLoading = false;

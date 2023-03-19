@@ -18,12 +18,6 @@ const projectSchema = mongoose.Schema(
       min: 2,
       max: 20,
     },
-    description: {
-      type: String,
-      required: [true, 'Please add a project description'],
-      min: 2,
-      max: 200,
-    },
     img: String,
     userImg: String,
     username: String,

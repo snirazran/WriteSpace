@@ -15,7 +15,7 @@ const getPost = asyncHandler(async (req, res) => {
 // @route GET /api/posts/
 // @access Private
 const getFeedPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find({});
   res.status(200).json(posts);
 });
 
@@ -42,11 +42,6 @@ const setPost = asyncHandler(async (req, res) => {
     throw new Error('Please add a post name');
   }
 
-  if (!req.body.description) {
-    res.status(400);
-    throw new Error('Please add a description');
-  }
-
   if (!req.body.content) {
     res.status(400);
     throw new Error('Please add content');
@@ -62,7 +57,6 @@ const setPost = asyncHandler(async (req, res) => {
   const post = await Post.create({
     type: req.body.type,
     name: req.body.name,
-    description: req.body.description,
     content: req.body.content,
     img: req.body.img
       ? req.body.img

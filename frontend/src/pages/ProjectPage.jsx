@@ -11,6 +11,7 @@ import {
   deleteProject,
 } from '../features/projects/projectSlice';
 import { getProjectPosts, resetPosts } from '../features/posts/postSlice';
+import BreadCrumbs from '../components/Navigation/BreadCrumbs';
 
 function ProjectPage() {
   const navigate = useNavigate();
@@ -51,7 +52,8 @@ function ProjectPage() {
 
   return (
     <section className="ProjectPage">
-      <ProjectBox content={projects} deleteFunc={deleteProject} />
+      <BreadCrumbs content={projects[0]}></BreadCrumbs>
+      <ProjectBox content={projects[0]} deleteFunc={deleteProject} />
       <Slider content={posts} />
       <button onClick={onClick} className="box-btn">
         Create a new post

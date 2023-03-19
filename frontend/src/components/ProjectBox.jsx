@@ -5,9 +5,12 @@ import { FaTrash } from 'react-icons/fa';
 import SecondaryBtn from './Buttons/SecondaryBtn';
 
 function ProjectBox({ content, deleteFunc }) {
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
+  const isUserProject = () => {
+    if (user._id === content.userId) {
+      return true;
+    }
+  };
 
   const deleteContent = () => {
     dispatch(deleteFunc(content._id));
@@ -40,33 +43,43 @@ function ProjectBox({ content, deleteFunc }) {
 
   return (
     <div className="project-box">
-      <div className="trash-btn" onClick={deleteContent}>
-        <FaTrash />
-      </div>
+      {isUserProject() ? (
+        <div className="trash-btn" onClick={deleteContent}>
+          <FaTrash />
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="project-details">
         <img src={content.img} alt="" />
         <h1>{content.name}</h1>
       </div>
       <div className="author-details">
         <p>
-          <span>{content.genre || content.type} </span>By {content.username}
+          <span>{content.genre}, </span>
+          <Link to={`/projects/${content.userId}`}>
+            {`By ${content.username}`}
+          </Link>
         </p>
-        <img src={content.userImg} alt="" />
+        <Link to={`/projects/${content.userId}`}>
+          <img src={project ? content.userImg : content.projectImg} alt="" />
+        </Link>
       </div>
-      <div className="project-description">
-        <p>{content.description}</p>
-      </div>
-      <div
-        className="edit-btn"
-        onClick={() => {
-          onClick(content._id);
-        }}
-      >
-        <SecondaryBtn
-          id="project-btn"
-          btnText={project ? `Edit Project` : `Edit Post`}
-        />
-      </div>
+      {isUserProject() ? (
+        <div
+          className="edit-btn"
+          onClick={() => {
+            onClick(content._id);
+          }}
+        >
+          <SecondaryBtn
+            id="project-btn"
+            btnText={project ? `Edit Project` : `Edit Post`}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

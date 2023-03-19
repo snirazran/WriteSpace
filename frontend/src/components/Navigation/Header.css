@@ -3,6 +3,7 @@
 header {
   background: linear-gradient(180deg, #f4a261 0%, rgba(217, 217, 217, 0) 100%);
   padding: 25px 50px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;

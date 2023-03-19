@@ -33,15 +33,9 @@ const setProject = asyncHandler(async (req, res) => {
     throw new Error('Please add a project name');
   }
 
-  if (!req.body.description) {
-    res.status(400);
-    throw new Error('Please add a description');
-  }
-
   const project = await Project.create({
     genre: req.body.genre,
     name: req.body.name,
-    description: req.body.description,
     img: req.body.img
       ? req.body.img
       : `https://firebasestorage.googleapis.com/v0/b/writespace-f343f.appspot.com/o/projectImages%2Fplaceholder.png?alt=media&token=5c87f4fa-d7a8-4800-873f-82f4947952bf`,

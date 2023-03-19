@@ -48,25 +48,6 @@ export const getUserFriends = createAsyncThunk(
   }
 );
 
-//Update user info
-export const updateUser = createAsyncThunk(
-  'posts/update',
-  async ({ id, userData }, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await userService.updateUser(id, userData, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
 //Add or remove friend
 export const addRemoveFriend = createAsyncThunk(
   'users/userId/friendId',
@@ -129,19 +110,6 @@ export const userSlice = createSlice({
         state.userFriends = action.payload;
       })
       .addCase(addRemoveFriend.rejected, (state, action) => {
-        state.userIsLoading = false;
-        state.userIsError = true;
-        state.userMessage = action.payload;
-      })
-      .addCase(updateUser.pending, (state) => {
-        state.userIsLoading = true;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.userIsLoading = false;
-        state.userIsSuccess = true;
-        state.user = action.payload;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
         state.userIsLoading = false;
         state.userIsError = true;
         state.userMessage = action.payload;

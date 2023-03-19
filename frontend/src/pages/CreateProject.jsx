@@ -100,10 +100,9 @@ function CreateProject() {
   const [formData, setFormData] = useState({
     name: '',
     genre: '',
-    description: '',
   });
 
-  const { name, genre, description } = formData;
+  const { name, genre } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -120,7 +119,6 @@ function CreateProject() {
       const projectData = {
         name,
         genre,
-        description,
         img,
       };
       dispatch(createProject(projectData));
@@ -201,21 +199,6 @@ function CreateProject() {
             </div>
           </div>
 
-          <div className="project-form-group">
-            <textarea
-              id="description"
-              name="description"
-              className="form-control description"
-              rows="2"
-              cols="10"
-              minLength="10"
-              maxLength="150"
-              value={description}
-              placeholder="Description"
-              onChange={onChange}
-              required
-            ></textarea>
-          </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
               Create your project

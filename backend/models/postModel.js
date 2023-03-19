@@ -22,12 +22,6 @@ const postSchema = mongoose.Schema(
       min: 2,
       max: 20,
     },
-    description: {
-      type: String,
-      required: [true, 'Please add a post description'],
-      min: 2,
-      max: 200,
-    },
     content: {
       type: String,
       required: [true, 'Please add a post content'],

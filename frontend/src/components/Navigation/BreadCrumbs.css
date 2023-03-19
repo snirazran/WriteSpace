@@ -1,0 +1,18 @@
+.bread-crumbs {
+  text-align: left;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.bread-crumbs p {
+  font-size: 16px;
+}
+
+.bread-crumbs p a {
+  text-decoration: none;
+  color: var(--gray);
+}
+
+.bread-crumbs p .main-bread {
+  color: var(--mainColor);
+}

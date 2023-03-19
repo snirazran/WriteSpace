@@ -12,6 +12,7 @@ import {
   addRemoveFriend,
   resetUser,
 } from '../features/users/userSlice';
+import BreadCrumbs from '../components/Navigation/BreadCrumbs';
 
 function Projects() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function Projects() {
 
   return (
     <section className="projects">
-      <ProfileBox user={user} userFriends={userFriends} />
+      <ProfileBox shownUser={user} userFriends={userFriends} />
       <Slider content={projects} />
       <button onClick={onClick} className="box-btn">
         Create a new project

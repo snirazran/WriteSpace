@@ -1,32 +1,43 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
 import './Post.css';
 import friend from '../media/friend.png';
 
-function Post() {
+function Post({ content }) {
+  const navigate = useNavigate();
+  let options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+  const date = new Date(content.createdAt);
+  const id = content._id;
+  const onClick = (id) => {
+    navigate(`/posts/${id}`);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="post">
       <div className="post-user">
         <img src={friend} alt="" />
         <div className="post-user-text">
-          <h1>Snir Azran</h1>
-          <p>Jan 26, 2023</p>
+          <h1>{content.username}</h1>
+          <p>{date.toLocaleDateString('en-us', options)}</p>
         </div>
       </div>
       <div className="post-content">
         <div className="post-content-title">
           <h1>
-            Black & White, <span>short story</span>
+            {content.name}, <span>{content.type}</span>
           </h1>
         </div>
-        <div className="post-content-text">
-          <h1>
-            Lorem ipsum dolor sit amet consectetur. Sed suspendisse neque augue
-            lacus consequat nulla aliquam molestie. Platea blandit auctor nibh
-            sit in amet semper. Vulputate vel porta accumsan nulla aliquam
-            molestie. Platea blandit auctor nibh sit in amet semper. Vulputate
-            vel porta accumsan nulla aliquam molestie.{' '}
-          </h1>
-        </div>
+
+        <div
+          dangerouslySetInnerHTML={{ __html: content.content }}
+          className="post-content-text"
+        ></div>
         <div className="post-content-like">
           <FaHeart className="like" />
 
@@ -37,7 +48,14 @@ function Post() {
           <p>View all 20 comments</p>
         </div>
       </div>
-      <button className="post-content-btn">Read More</button>
+      <button
+        onClick={() => {
+          onClick(id);
+        }}
+        className="post-content-btn"
+      >
+        Read More
+      </button>
     </div>
   );
 }

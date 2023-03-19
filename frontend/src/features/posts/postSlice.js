@@ -28,6 +28,26 @@ export const createPost = createAsyncThunk(
   }
 );
 
+//Get feed posts
+export const getFeedPosts = createAsyncThunk(
+  'posts/feed',
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+
+      return await postService.getFeedPosts(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //Get post by id
 export const getPost = createAsyncThunk(
   'posts/postId',
@@ -125,6 +145,19 @@ export const postSlice = createSlice({
         state.postIsError = true;
         state.postMessage = action.payload;
       })
+      .addCase(getFeedPosts.pending, (state) => {
+        state.postIsLoading = true;
+      })
+      .addCase(getFeedPosts.fulfilled, (state, action) => {
+        state.postIsLoading = false;
+        state.postIsSuccess = true;
+        state.posts = action.payload;
+      })
+      .addCase(getFeedPosts.rejected, (state, action) => {
+        state.postIsLoading = false;
+        state.postIsError = true;
+        state.postMessage = action.payload;
+      })
       .addCase(getProjectPosts.pending, (state) => {
         state.postIsLoading = true;
       })
@@ -153,6 +186,7 @@ export const postSlice = createSlice({
       })
       .addCase(deletePost.pending, (state) => {
         state.postIsLoading = true;
+        state.postIsSuccess = false;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.postIsLoading = false;

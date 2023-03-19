@@ -27,10 +27,23 @@ const login = async (userData) => {
   return response.data;
 };
 
+//Update user
+const updateUser = async (id, data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(`${API_URL}${id}/edit`, data, config);
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  updateUser,
 };
 
 export default authService;

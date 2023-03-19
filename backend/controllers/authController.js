@@ -86,6 +86,35 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Update user
+// @route PUT /api/users/:id/edit
+// @access Private
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(400);
+    throw new Error('User not found');
+  }
+
+  //Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Your User not found');
+  }
+  //Make sure the logged in user matches the goal user
+  if (user._id.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error('User not authorized');
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json(updatedUser);
+});
+
 // @desc Get user data
 // @route GET /api/users/me
 // @access Private
@@ -101,5 +130,6 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
+  updateUser,
   getMe,
 };

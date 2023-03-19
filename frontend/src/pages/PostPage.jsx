@@ -6,6 +6,7 @@ import { getPost, resetPosts, deletePost } from '../features/posts/postSlice';
 import './PostPage.css';
 import ProjectBox from '../components/ProjectBox';
 import PostBox from '../components/PostBox';
+import BreadCrumbs from '../components/Navigation/BreadCrumbs';
 
 function PostPage() {
   const navigate = useNavigate();
@@ -38,8 +39,8 @@ function PostPage() {
 
   return (
     <section className="PostPage">
-      <ProjectBox content={posts} deleteFunc={deletePost} />
-      <PostBox content={posts} />
+      <BreadCrumbs content={posts}></BreadCrumbs>
+      <PostBox content={posts} deleteFunc={deletePost} />
     </section>
   );
 }

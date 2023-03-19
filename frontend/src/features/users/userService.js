@@ -26,18 +26,6 @@ const getUserFriends = async (userId, token) => {
   return response.data;
 };
 
-//Update user project
-const updateUser = async (id, data, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.put(`${API_URL}${id}/edit`, data, config);
-  return response.data;
-};
-
 //Add or remove friend
 const addRemoveFriend = async (userId, friendId, token) => {
   const config = {
@@ -53,7 +41,6 @@ const addRemoveFriend = async (userId, friendId, token) => {
 const userService = {
   getUser,
   getUserFriends,
-  updateUser,
   addRemoveFriend,
 };
 

@@ -163,10 +163,9 @@ function EditPost() {
   const [formData, setFormData] = useState({
     name: posts.name,
     type: posts.type,
-    description: posts.description,
   });
 
-  const { name, type, description } = formData;
+  const { name, type } = formData;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -175,7 +174,6 @@ function EditPost() {
       const postData = {
         name,
         type,
-        description,
         content: quillInnerHtml,
         img,
       };
@@ -270,21 +268,7 @@ function EditPost() {
               />
             </div>
           </div>
-          <div className="project-form-group">
-            <textarea
-              id="scribble-description"
-              name="description"
-              className="description"
-              rows="2"
-              cols="10"
-              minLength="10"
-              maxLength="150"
-              value={description}
-              placeholder="Description"
-              onChange={onChange}
-              required
-            ></textarea>
-          </div>
+
           <div className="text-editor">
             {/* Text editor trying */}
             <div id="container" ref={wrapperRef}></div>

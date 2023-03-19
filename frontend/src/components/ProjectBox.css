@@ -38,8 +38,12 @@
 .author-details {
   margin-top: 20px;
   justify-content: center;
-  align-items: center;
   display: flex;
+  margin-bottom: 20px;
+}
+.author-details a {
+  text-decoration: none;
+  color: var(--gray);
 }
 
 .author-details p {
@@ -64,6 +68,10 @@
   margin-top: 20px;
   margin-bottom: 20px;
   color: var(--gray);
+}
+
+.from {
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 1024px) {

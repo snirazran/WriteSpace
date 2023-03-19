@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
 import { createPost } from '../features/posts/postSlice';
-import TextEditor from '../components/TextEditor';
+
 import './CreatePost.css';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -139,10 +139,9 @@ function CreatePost() {
   const [formData, setFormData] = useState({
     name: '',
     type: '',
-    description: '',
   });
 
-  const { name, type, description } = formData;
+  const { name, type } = formData;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -151,7 +150,6 @@ function CreatePost() {
       const postData = {
         name,
         type,
-        description,
         content: quillInnerHtml,
         projectId: projectId,
         img,
@@ -240,21 +238,7 @@ function CreatePost() {
               />
             </div>
           </div>
-          <div className="project-form-group">
-            <textarea
-              id="scribble-description"
-              name="description"
-              className="description"
-              rows="2"
-              cols="10"
-              minLength="10"
-              maxLength="150"
-              value={description}
-              placeholder="Description"
-              onChange={onChange}
-              required
-            ></textarea>
-          </div>
+
           <div className="text-editor">
             {/* Text editor trying */}
             <div id="container" ref={wrapperRef}></div>
