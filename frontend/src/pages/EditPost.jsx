@@ -147,7 +147,7 @@ function EditPost() {
   if (quill) {
     const length = quill.getLength() - 1;
     if (length === 0) {
-      quill.root.innerHTML = posts.content;
+      quill.root.innerHTML = posts[0].content ? posts[0].content : 'content';
     }
   }
 
@@ -161,8 +161,8 @@ function EditPost() {
   //Functions to handle from data & post creation
 
   const [formData, setFormData] = useState({
-    name: posts.name,
-    type: posts.type,
+    name: posts[0].name ? posts[0].name : 'name',
+    type: posts[0].type ? posts[0].type : 'type',
   });
 
   const { name, type } = formData;
@@ -199,14 +199,14 @@ function EditPost() {
     <>
       <section className="CreateProject">
         <div className="edit-text">
-          <h1>Editing the post {posts.name}</h1>
+          <h1>Editing the post {posts && posts[0].name}</h1>
         </div>
         <div className="pick-photo">
           <label htmlFor="file-input">
             {imageLocal ? (
               <img src={imageLocal} alt="profile" />
             ) : (
-              <img src={posts.img} alt="profile" />
+              <img src={posts && posts[0].img} alt="profile" />
             )}
           </label>
           <input

@@ -26,8 +26,7 @@ function Feed() {
   );
 
   // get the id
-  const id = user._id;
-
+  let id;
   //get the local time
   let hour;
   const now = new Date();
@@ -53,13 +52,13 @@ function Feed() {
     }
 
     if (!user) {
-      navigate('/login');
+      navigate('/register');
     }
-
-    dispatch(getFeedPosts());
-    dispatch(getProjects(id));
-    dispatch(getUserFriends(id));
-
+    if (user) {
+      dispatch(getFeedPosts());
+      dispatch(getProjects(user._id));
+      dispatch(getUserFriends(user._id));
+    }
     return () => {
       dispatch(resetPosts());
       dispatch(resetProjects());
@@ -88,7 +87,7 @@ function Feed() {
 
       <div className="top-text">
         <h1>
-          Good {hour} {user.username.split(' ')[0]},
+          Good {hour} {user ? user.username.split(' ')[0] : 'user'},
         </h1>
         <div className="selector">
           <label for="sort">Sort by: </label>

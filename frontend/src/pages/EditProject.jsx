@@ -110,8 +110,8 @@ function EditProject() {
   //Functions to handle from data & project creation
 
   const [formData, setFormData] = useState({
-    name: projects.name,
-    genre: projects.genre,
+    name: projects[0].name ? projects[0].name : 'name',
+    genre: projects[0].genre ? projects[0].genre : 'genre',
   });
 
   const { name, genre } = formData;
@@ -148,14 +148,14 @@ function EditProject() {
     <>
       <section className="CreateProject">
         <div className="edit-text">
-          <h1>Editing the project {projects[0].name}</h1>
+          <h1>Editing the project {projects && projects[0].name}</h1>
         </div>
         <div className="pick-photo">
           <label htmlFor="file-input">
             {imageLocal ? (
               <img src={imageLocal} alt="profile" />
             ) : (
-              <img src={projects[0].img} alt="profile" />
+              <img src={projects && projects[0].img} alt="profile" />
             )}
           </label>
           <input

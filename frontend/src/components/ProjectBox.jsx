@@ -6,8 +6,9 @@ import SecondaryBtn from './Buttons/SecondaryBtn';
 
 function ProjectBox({ content, deleteFunc }) {
   const { user } = useSelector((state) => state.auth);
+
   const isUserProject = () => {
-    if (user._id === content.userId) {
+    if (content && user._id === content.userId) {
       return true;
     }
   };
@@ -51,18 +52,18 @@ function ProjectBox({ content, deleteFunc }) {
         <></>
       )}
       <div className="project-details">
-        <img src={content.img} alt="" />
-        <h1>{content.name}</h1>
+        <img src={content && content.img} alt="" />
+        <h1>{content && content.name}</h1>
       </div>
       <div className="author-details">
         <p>
-          <span>{content.genre}, </span>
-          <Link to={`/projects/${content.userId}`}>
-            {`By ${content.username}`}
+          <span>{content && content.genre}, </span>
+          <Link to={`/projects/${content && content.userId}`}>
+            {`By ${content && content.username}`}
           </Link>
         </p>
-        <Link to={`/projects/${content.userId}`}>
-          <img src={project ? content.userImg : content.projectImg} alt="" />
+        <Link to={`/projects/${content && content.userId}`}>
+          <img src={content && content.userImg} alt="" />
         </Link>
       </div>
       {isUserProject() ? (

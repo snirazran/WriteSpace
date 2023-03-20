@@ -39,8 +39,8 @@ function PostPage() {
 
   return (
     <section className="PostPage">
-      <BreadCrumbs content={posts}></BreadCrumbs>
-      <PostBox content={posts} deleteFunc={deletePost} />
+      <BreadCrumbs content={posts[0]}></BreadCrumbs>
+      <PostBox content={posts[0]} deleteFunc={deletePost} />
     </section>
   );
 }

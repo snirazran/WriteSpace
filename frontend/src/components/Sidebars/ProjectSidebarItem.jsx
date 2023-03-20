@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function ProjectSidebarItem({ project }) {
   const navigate = useNavigate();
   const onClick = (id) => {
-    navigate(`/projects/project/edit/${id}`);
+    navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
   return (
