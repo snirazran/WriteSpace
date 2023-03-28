@@ -14,6 +14,18 @@ const getUser = async (userId, token) => {
   return response.data;
 };
 
+//get all users
+const getAllUsers = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}`, config);
+  return response.data;
+};
+
 //get a user friends list by id
 const getUserFriends = async (userId, token) => {
   const config = {
@@ -33,8 +45,11 @@ const addRemoveFriend = async (userId, friendId, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
-  const response = await axios.patch(`${API_URL + userId}/${friendId}`, config);
+  const response = await axios.patch(
+    `${API_URL + userId}/${friendId}`,
+    {},
+    config
+  );
   return response.data;
 };
 
@@ -42,6 +57,7 @@ const userService = {
   getUser,
   getUserFriends,
   addRemoveFriend,
+  getAllUsers,
 };
 
 export default userService;

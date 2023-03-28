@@ -4,7 +4,7 @@ import ProjectSidebarItem from './ProjectSidebarItem';
 
 function ProjectsSidebar({ content }) {
   return (
-    <div className="sidebar your-projects">
+    <div className="sidebar your-projects" id="project-sidebar">
       <h1>Your Projects</h1>
       {content.map((content) => (
         <ProjectSidebarItem key={content._id} project={content} />

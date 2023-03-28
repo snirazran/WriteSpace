@@ -1,14 +1,12 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
-import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
 import { getPost, updatePost, resetPosts } from '../features/posts/postSlice';
-import TextEditor from '../components/TextEditor';
 import './CreatePost.css';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -18,7 +16,6 @@ import Spinner from '../components/Spinner';
 function EditPost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
   let { id } = useParams();
   const { posts, postIsLoading, postIsError, postMessage } = useSelector(
     (state) => state.posts
@@ -147,7 +144,7 @@ function EditPost() {
   if (quill) {
     const length = quill.getLength() - 1;
     if (length === 0) {
-      quill.root.innerHTML = posts[0].content ? posts[0].content : 'content';
+      quill.root.innerHTML = posts[0] && posts[0].content;
     }
   }
 
@@ -161,8 +158,8 @@ function EditPost() {
   //Functions to handle from data & post creation
 
   const [formData, setFormData] = useState({
-    name: posts[0].name ? posts[0].name : 'name',
-    type: posts[0].type ? posts[0].type : 'type',
+    name: posts[0] && posts[0].name,
+    type: posts[0] && posts[0].type,
   });
 
   const { name, type } = formData;

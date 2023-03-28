@@ -26,7 +26,7 @@ function PostBox({ content, deleteFunc }) {
     month: 'short',
     day: 'numeric',
   };
-  const date = new Date(content.createdAt);
+  const date = new Date(content && content.createdAt);
 
   // Determine if project page or post page
 
@@ -69,14 +69,18 @@ function PostBox({ content, deleteFunc }) {
         )}
         <div className="date">{date.toLocaleDateString('en-us', options)}</div>
         <div className="title">
-          <img src={content.img} alt="img"></img>
+          <div className="post-box-img">
+            <img src={content.img} alt="img"></img>
+          </div>
           <h1>{`${content.name}`}</h1>
           <h2> {content.type}</h2>
         </div>
         <div className="author">
           <Link to={`/projects/${content.userId}`}>
             <h1>by {content.username}</h1>
-            <img src={content.userImg} alt="" />
+            <div className="post-user-img">
+              <img src={content.userImg} alt="" />
+            </div>
           </Link>
         </div>
 
@@ -87,7 +91,9 @@ function PostBox({ content, deleteFunc }) {
               {<span className="project-title">"{content.projectName}",</span>}
               <span> {content.projectGenre}</span>
             </h1>
-            <img src={content.projectImg} alt="img"></img>
+            <div className="post-project-img">
+              <img src={content.projectImg} alt="img"></img>
+            </div>
           </Link>
         </div>
 

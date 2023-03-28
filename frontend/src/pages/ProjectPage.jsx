@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Spinner from '../components/Spinner';
@@ -18,8 +18,6 @@ function ProjectPage() {
   const dispatch = useDispatch();
 
   let { id } = useParams();
-
-  const { user } = useSelector((state) => state.auth);
 
   const { projects, projectIsLoading, projectIsError, projectMessage } =
     useSelector((state) => state.projects);

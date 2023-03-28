@@ -10,7 +10,7 @@
 .top-text {
   margin-top: 40px;
   display: flex;
-  width: 40%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
@@ -37,16 +37,25 @@
 }
 
 .main-feed {
-  width: 100%;
+  width: 60%;
+  height: max-content;
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.side-bars {
+  display: flex;
+  flex-direction: column;
+  margin-top: 115px;
+  top: 50px;
+  width: 20%;
 }
 
 /* Main Posts CSS */
 
 .post-row {
-  width: 40%;
+  width: 50%;
 }
 
 @media only screen and (max-width: 1240px) {
@@ -56,6 +65,9 @@
 }
 
 @media only screen and (max-width: 1010px) {
+  .side-bars {
+    display: none;
+  }
   .main-feed {
     justify-content: space-evenly;
   }
@@ -63,7 +75,7 @@
   .top-text {
     margin-top: 40px;
     display: flex;
-    width: 70%;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
   }
@@ -77,7 +89,7 @@
   .top-text {
     margin-top: 40px;
     display: flex;
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
   }

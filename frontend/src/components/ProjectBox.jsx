@@ -52,7 +52,10 @@ function ProjectBox({ content, deleteFunc }) {
         <></>
       )}
       <div className="project-details">
-        <img src={content && content.img} alt="" />
+        <div className="project-datails-image">
+          <img src={content && content.img} alt="" />
+        </div>
+
         <h1>{content && content.name}</h1>
       </div>
       <div className="author-details">
@@ -63,7 +66,9 @@ function ProjectBox({ content, deleteFunc }) {
           </Link>
         </p>
         <Link to={`/projects/${content && content.userId}`}>
-          <img src={content && content.userImg} alt="" />
+          <div className="project-author-img">
+            <img src={content && content.userImg} alt="" />
+          </div>
         </Link>
       </div>
       {isUserProject() ? (

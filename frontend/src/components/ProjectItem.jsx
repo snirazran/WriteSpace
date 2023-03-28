@@ -6,7 +6,9 @@ function ProjectItem({ project }) {
 
   return (
     <div className="box">
-      <img src={project.img} alt="" />
+      <div className="main-slider-img">
+        <img src={project.img} alt="" />
+      </div>
       <div className="box-text ">
         <h1>{project.name}</h1>
         <p>{project.genre || project.type}</p>

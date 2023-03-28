@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileBox from '../components/ProfileBox';
@@ -12,7 +12,6 @@ import {
   addRemoveFriend,
   resetUser,
 } from '../features/users/userSlice';
-import BreadCrumbs from '../components/Navigation/BreadCrumbs';
 
 function Projects() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ function Projects() {
   const { projects, projectIsLoading, projectIsError, projectMessage } =
     useSelector((state) => state.projects);
 
-  const { user, userFriends, userIsLoading, userIsError, userMessage } =
+  const { userList, userFriends, userIsLoading, userIsError, userMessage } =
     useSelector((state) => state.user);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ function Projects() {
 
   return (
     <section className="projects">
-      <ProfileBox shownUser={user} userFriends={userFriends} />
+      <ProfileBox shownUser={userList[0]} userFriends={userFriends} />
       <Slider content={projects} />
       <button onClick={onClick} className="box-btn">
         Create a new project

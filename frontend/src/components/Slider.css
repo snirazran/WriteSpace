@@ -62,7 +62,13 @@
   background: var(--secondaryColor);
 }
 
+.main-slider-img {
+  width: 200px;
+  height: 250px;
+}
+
 .swiper-slide img {
+  object-fit: cover;
   display: block;
   margin: auto;
   width: 200px;

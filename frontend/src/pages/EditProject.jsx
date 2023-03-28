@@ -5,7 +5,6 @@ import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
-import placeHolder from '../media/placeholder.png';
 import Spinner from '../components/Spinner';
 import './CreateProject.css';
 import {
@@ -110,8 +109,8 @@ function EditProject() {
   //Functions to handle from data & project creation
 
   const [formData, setFormData] = useState({
-    name: projects[0].name ? projects[0].name : 'name',
-    genre: projects[0].genre ? projects[0].genre : 'genre',
+    name: projects[0] && projects[0].name,
+    genre: projects[0] && projects[0].genre,
   });
 
   const { name, genre } = formData;

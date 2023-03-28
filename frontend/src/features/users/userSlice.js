@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userService from './userService';
 
 const initialState = {
-  user: [],
+  userList: [],
   userFriends: [],
   userIsError: false,
   userIsSuccess: false,
@@ -29,6 +29,20 @@ export const getUser = createAsyncThunk(
   }
 );
 
+//Get all users
+export const getAllUsers = createAsyncThunk('users/', async (_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token;
+    return await userService.getAllUsers(token);
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 //Get user friends by id
 export const getUserFriends = createAsyncThunk(
   'users/userId/friends',
@@ -51,9 +65,8 @@ export const getUserFriends = createAsyncThunk(
 //Add or remove friend
 export const addRemoveFriend = createAsyncThunk(
   'users/userId/friendId',
-  async (userId, friendId, thunkAPI) => {
+  async ({ userId, friendId, token }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
       return await userService.addRemoveFriend(userId, friendId, token);
     } catch (error) {
       const message =
@@ -81,9 +94,22 @@ export const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.userIsLoading = false;
         state.userIsSuccess = true;
-        state.user = action.payload;
+        state.userList.push(action.payload);
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.userIsLoading = false;
+        state.userIsError = true;
+        state.userMessage = action.payload;
+      })
+      .addCase(getAllUsers.pending, (state) => {
+        state.userIsLoading = true;
+      })
+      .addCase(getAllUsers.fulfilled, (state, action) => {
+        state.userIsLoading = false;
+        state.userIsSuccess = true;
+        state.userList = action.payload;
+      })
+      .addCase(getAllUsers.rejected, (state, action) => {
         state.userIsLoading = false;
         state.userIsError = true;
         state.userMessage = action.payload;

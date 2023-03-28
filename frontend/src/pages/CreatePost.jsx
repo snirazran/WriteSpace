@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -8,7 +8,6 @@ import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import './CreateProject.css';
 import { createPost } from '../features/posts/postSlice';
-
 import './CreatePost.css';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -16,10 +15,10 @@ import '../components/TextEditor.css';
 
 function CreatePost() {
   const { state } = useLocation();
+  const { projectId } = state;
+  console.log(projectId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-  const { projectId } = state;
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);

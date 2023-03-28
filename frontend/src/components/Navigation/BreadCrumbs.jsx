@@ -29,9 +29,9 @@ function BreadCrumbs({ content }) {
           </>
         ) : (
           <>
-            <Link to={`/projects/${content.userId}`}>
+            <Link to={`/projects/${content && content.userId}`}>
               <span>
-                {content.username ? (
+                {content && content.username ? (
                   content.username.charAt(0).toUpperCase() +
                   content.username.slice(1)
                 ) : (
@@ -40,9 +40,9 @@ function BreadCrumbs({ content }) {
                 /{' '}
               </span>
             </Link>
-            <Link to={`/projects/project/${content.projectId}`}>
+            <Link to={`/projects/project/${content && content.projectId}`}>
               <span>
-                {content.projectName ? (
+                {content && content.projectName ? (
                   content.projectName.charAt(0).toUpperCase() +
                   content.projectName.slice(1)
                 ) : (
@@ -53,7 +53,7 @@ function BreadCrumbs({ content }) {
             </Link>
 
             <span className="main-bread">
-              {content.name ? content.name : <></>}
+              {content && content.name ? content.name : <></>}
             </span>
           </>
         )}

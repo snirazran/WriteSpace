@@ -1,6 +1,6 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react';
+
 import './Post.css';
 import friend from '../media/friend.png';
 
@@ -17,6 +17,7 @@ function Post({ content }) {
     navigate(`/posts/${id}`);
     window.scrollTo(0, 0);
   };
+  const shortContent = content.content.slice(0, 300) + '...';
 
   return (
     <div className="post">
@@ -33,11 +34,13 @@ function Post({ content }) {
             {content.name}, <span>{content.type}</span>
           </h1>
         </div>
+        <div className="post-content-text">
+          <div
+            dangerouslySetInnerHTML={{ __html: shortContent }}
+            className="ql-editor"
+          ></div>
+        </div>
 
-        <div
-          dangerouslySetInnerHTML={{ __html: content.content }}
-          className="post-content-text"
-        ></div>
         <div className="post-content-like">
           <FaHeart className="like" />
 

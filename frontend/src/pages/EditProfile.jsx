@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { resetUser, getUser } from '../features/users/userSlice';
 import { updateUser } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../firebase';
 import { v4 } from 'uuid';
-import placeHolder from '../media/placeholder.png';
 import '../pages/Login_Register.css';
 
 function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, userIsLoading, userIsError, userMessage } = useSelector(
+  const { userList, userIsLoading, userIsError, userMessage } = useSelector(
     (state) => state.user
   );
   let { id } = useParams();
@@ -38,7 +37,7 @@ function EditProfile() {
 
   const uploadImage = async () => {
     if (imageLocal === null) {
-      return user.img;
+      return userList.img;
     }
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
@@ -56,9 +55,9 @@ function EditProfile() {
   };
 
   const [formData, setFormData] = useState({
-    username: user.username ? user.username : 'username',
-    email: user.email,
-    bio: user.bio,
+    username: userList[0] && userList[0].username,
+    email: userList[0] && userList[0].email,
+    bio: userList[0] && userList[0].bio,
   });
 
   const { username, bio, email } = formData;
@@ -102,9 +101,13 @@ function EditProfile() {
       <div className="register-photo">
         <label htmlFor="file-input">
           {imageLocal ? (
-            <img src={imageLocal} alt="profile" />
+            <div className="profile-img">
+              <img src={imageLocal} alt="profile" />
+            </div>
           ) : (
-            <img src={user.img} alt="profile" />
+            <div className="profile-img">
+              <img src={userList[0] && userList[0].img} alt="profile" />
+            </div>
           )}
         </label>
         <input

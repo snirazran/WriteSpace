@@ -25,6 +25,21 @@ const getUser = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc Get all Users
+// @route GET /api/users/
+// @access Private
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+
+  //Check if user exists
+  if (!users) {
+    res.status(404);
+    throw new Error('Users not found');
+  }
+
+  res.status(200).json(users);
+});
+
 // @desc Get User friends
 // @route GET /api/users/:id/friends
 // @access Private
@@ -113,4 +128,5 @@ module.exports = {
   getUser,
   getUserFriends,
   addRemoveFriend,
+  getAllUsers,
 };

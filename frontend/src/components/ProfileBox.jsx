@@ -7,11 +7,12 @@ import SecondaryBtn from './Buttons/SecondaryBtn';
 function ProfileBox({ shownUser, userFriends }) {
   const { user } = useSelector((state) => state.auth);
   const isUserProfile = () => {
-    if (user._id === shownUser._id) {
-      return true;
+    if (shownUser) {
+      if (user._id === shownUser._id) {
+        return true;
+      }
     }
   };
-
   const navigate = useNavigate();
   let { id } = useParams();
   const onClick = () => {
@@ -21,7 +22,10 @@ function ProfileBox({ shownUser, userFriends }) {
     <section className="profile">
       <div className="profile-box">
         <div className="profile-details">
-          <img src={shownUser ? shownUser.img : 'User Img'} alt="" />
+          <div className="profile-img">
+            <img src={shownUser ? shownUser.img : 'User Img'} alt="" />
+          </div>
+
           <h1>{shownUser ? shownUser.username : 'user'}</h1>
           <p>{shownUser ? shownUser.bio : 'User Bio'}</p>
         </div>

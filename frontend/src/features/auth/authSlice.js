@@ -77,6 +77,13 @@ export const authSlice = createSlice({
       state.isError = false;
       state.message = '';
     },
+    setFriends: (state, action) => {
+      if (state.user) {
+        state.user.friends = action.payload.friends.payload;
+      } else {
+        console.error('user friends none-existed');
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -129,5 +136,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, setFriends } = authSlice.actions;
 export default authSlice.reducer;

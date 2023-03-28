@@ -1,5 +1,11 @@
 /* Side Bars Css */
 
+#project-sidebar {
+  align-self: flex-start;
+  position: sticky;
+  top: 50px;
+  margin-top: 50px;
+}
 .sidebar {
   height: 33%;
   position: relative;
@@ -22,7 +28,13 @@
   margin-top: 20px;
 }
 
-.sidebar-row img {
+.project-img {
+  width: 50px;
+  height: 50px;
+}
+
+.project-img img {
+  object-fit: cover;
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -49,7 +61,7 @@
 }
 
 .sidebar-btn {
-  position: absolute;
+  /* position: absolute; */
   right: 20px;
   height: 33px;
   width: 90px;

@@ -68,7 +68,6 @@ const updateProject = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('User not authorized');
   }
-  console.log(req.body);
 
   const updatedProject = await Project.findByIdAndUpdate(
     req.params.id,

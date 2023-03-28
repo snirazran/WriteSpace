@@ -2,7 +2,8 @@
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
-
-.container .ql-editor {
-  height: 11in;
+.text-editor .ql-editor {
+  min-height: 250px;
+  max-height: max-content;
+  font-size: 15px;
 }

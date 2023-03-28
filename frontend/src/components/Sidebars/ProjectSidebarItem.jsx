@@ -8,20 +8,21 @@ function ProjectSidebarItem({ project }) {
     window.scrollTo(0, 0);
   };
   return (
-    <div key={project._id} className="sidebar-row">
-      <img src={project.img} alt="" />
+    <div
+      key={project._id}
+      className="sidebar-row"
+      onClick={() => {
+        onClick(project._id);
+      }}
+    >
+      <div className="project-img">
+        <img src={project.img} alt="" />
+      </div>
+
       <div className="sidebar-text">
         <h1>{project.name}</h1>
         <p>{project.genre}</p>
       </div>
-      <button
-        onClick={() => {
-          onClick(project._id);
-        }}
-        className="sidebar-btn projects-btn"
-      >
-        Edit
-      </button>
     </div>
   );
 }
