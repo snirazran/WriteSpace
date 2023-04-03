@@ -12,10 +12,13 @@ import {
   addRemoveFriend,
   resetUser,
 } from '../features/users/userSlice';
+import { useGetAllusers } from '../features/users/useGetAllUsers';
 
 function Projects() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data: allUsersData, isLoading, error } = useGetAllusers();
+  console.log(allUsersData);
 
   let { userId } = useParams();
 
