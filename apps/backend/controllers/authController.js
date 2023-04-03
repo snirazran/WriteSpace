@@ -25,11 +25,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  // { id1: 1, id2 :2 }
-  // const id = 10
-  // const ids = find($id1 === 10 || $id2 === 10)
-  // ids.filter((x) => x !== id) // [20, 30]
-
   // Create user
 
   const user = await User.create({
