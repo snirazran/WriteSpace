@@ -15,8 +15,7 @@ export const getUser = createAsyncThunk(
   'users/userId',
   async (userId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await userService.getUser(userId, token);
+      return await userService.getUser(userId);
     } catch (error) {
       const message =
         (error.response &&
@@ -32,8 +31,7 @@ export const getUser = createAsyncThunk(
 //Get all users
 export const getAllUsers = createAsyncThunk('users/', async (_, thunkAPI) => {
   try {
-    const token = thunkAPI.getState().auth.user.token;
-    return await userService.getAllUsers(token);
+    return await userService.getAllUsers();
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -48,8 +46,7 @@ export const getUserFriends = createAsyncThunk(
   'users/userId/friends',
   async (userId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await userService.getUserFriends(userId, token);
+      return await userService.getUserFriends(userId);
     } catch (error) {
       const message =
         (error.response &&
@@ -65,9 +62,9 @@ export const getUserFriends = createAsyncThunk(
 //Add or remove friend
 export const addRemoveFriend = createAsyncThunk(
   'users/userId/friendId',
-  async ({ userId, friendId, token }, thunkAPI) => {
+  async ({ userId, friendId }, thunkAPI) => {
     try {
-      return await userService.addRemoveFriend(userId, friendId, token);
+      return await userService.addRemoveFriend(userId, friendId);
     } catch (error) {
       const message =
         (error.response &&

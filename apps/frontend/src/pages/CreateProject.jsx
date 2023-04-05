@@ -48,7 +48,7 @@ function CreateProject() {
 
   // Functions to handle Unsplash image generator
   let unsplashAPI = `https://api.unsplash.com/`;
-  let unsplashAPIKEY = `?client_id=` + process.env.REACT_APP_UNSPLASH_KEY;
+  let unsplashAPIKEY = `?client_id=` + import.meta.env.VITE_UNSPLASH_KEY;
 
   const options = [
     { value: 'random', text: 'Random' },

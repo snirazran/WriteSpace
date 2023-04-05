@@ -14,8 +14,7 @@ export const createPost = createAsyncThunk(
   'posts/create',
   async (postData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.createPost(postData, token);
+      return await postService.createPost(postData);
     } catch (error) {
       const message =
         (error.response &&
@@ -33,9 +32,7 @@ export const getFeedPosts = createAsyncThunk(
   'posts/feed',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-
-      return await postService.getFeedPosts(token);
+      return await postService.getFeedPosts();
     } catch (error) {
       const message =
         (error.response &&
@@ -53,8 +50,7 @@ export const getPost = createAsyncThunk(
   'posts/postId',
   async (postId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.getPost(postId, token);
+      return await postService.getPost(postId);
     } catch (error) {
       const message =
         (error.response &&
@@ -72,8 +68,7 @@ export const getProjectPosts = createAsyncThunk(
   'posts/projectId/posts',
   async (projectId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.getProjectPosts(projectId, token);
+      return await postService.getProjectPosts(projectId);
     } catch (error) {
       const message =
         (error.response &&
@@ -91,8 +86,7 @@ export const updatePost = createAsyncThunk(
   'posts/update',
   async ({ id, postData }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.updatePost(id, postData, token);
+      return await postService.updatePost(id, postData);
     } catch (error) {
       const message =
         (error.response &&
@@ -110,8 +104,7 @@ export const deletePost = createAsyncThunk(
   'posts/delete',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.deletePost(id, token);
+      return await postService.deletePost(id);
     } catch (error) {
       const message =
         (error.response &&
