@@ -15,7 +15,7 @@ function FriendsSidebar({
         {content &&
           content.map((friend) => (
             <Friend
-              key={user._id}
+              key={user?._id}
               user={user}
               friend={friend}
               userFriends={userFriends}

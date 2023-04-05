@@ -1,76 +1,40 @@
-import axios from 'axios';
+import instance from '../../axios/axios';
 
 const API_URL = '/api/posts/';
 
 //Create new post
-const createPost = async (postData, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.post(API_URL, postData, config);
+const createPost = async (postData) => {
+  const response = await instance.post(API_URL, postData);
   return response.data;
 };
 
 //get feed posts
-const getFeedPosts = async (token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.get(`${API_URL}`, config);
+const getFeedPosts = async () => {
+  const response = await instance.get(`${API_URL}`);
   return response.data;
 };
 
 //get post by id
-const getPost = async (postId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.get(`${API_URL + postId}`, config);
+const getPost = async (postId) => {
+  const response = await instance.get(`${API_URL + postId}`);
   return response.data;
 };
 
 //get project posts
-const getProjectPosts = async (projectId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.get(`${API_URL + projectId}/posts`, config);
+const getProjectPosts = async (projectId) => {
+  const response = await instance.get(`${API_URL + projectId}/posts`);
   return response.data;
 };
 
 //Update user project
-const updatePost = async (id, data, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.put(`${API_URL + id}`, data, config);
+const updatePost = async (id, data) => {
+  const response = await instance.put(`${API_URL + id}`, data);
   return response.data;
 };
 
 //delete user post
-const deletePost = async (id, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.delete(`${API_URL + id}`, config);
+const deletePost = async (id) => {
+  const response = await instance.delete(`${API_URL + id}`);
   return response.data;
 };
 

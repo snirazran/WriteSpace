@@ -1,68 +1,34 @@
-import axios from 'axios';
+import instance from '../../axios/axios';
 
 const API_URL = '/api/projects/';
 
 //Create new project
-const createProject = async (projectData, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.post(API_URL, projectData, config);
+const createProject = async (projectData) => {
+  const response = await instance.post(API_URL, projectData);
   return response.data;
 };
 
 //get user projects
-const getProjects = async (userId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.get(`${API_URL + userId}`, config);
+const getProjects = async (userId) => {
+  const response = await instance.get(`${API_URL + userId}`);
   return response.data;
 };
 
 //get user projects
-const getProject = async (id, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.get(`${API_URL}project/${id}`, config);
+const getProject = async (id) => {
+  const response = await instance.get(`${API_URL}project/${id}`);
   return response.data;
 };
 
 //Update user project
-const updateProject = async (projectId, data, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.put(
-    `${API_URL}project/${projectId}`,
-    data,
-    config
-  );
+const updateProject = async (projectId, data) => {
+  const response = await instance.put(`${API_URL}project/${projectId}`, data);
   return response.data;
 };
 
 //delete user projects
-const deleteProject = async (projectId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.delete(`${API_URL}project/${projectId}`, config);
+const deleteProject = async (projectId) => {
+  const response = await instance.delete(`${API_URL}project/${projectId}`);
   return response.data;
 };
 

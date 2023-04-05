@@ -14,8 +14,7 @@ export const createProject = createAsyncThunk(
   'projects/create',
   async (projectData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ProjectService.createProject(projectData, token);
+      return await ProjectService.createProject(projectData);
     } catch (error) {
       const message =
         (error.response &&
@@ -33,8 +32,7 @@ export const getProjects = createAsyncThunk(
   'projects/userId',
   async (userId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ProjectService.getProjects(userId, token);
+      return await ProjectService.getProjects(userId);
     } catch (error) {
       const message =
         (error.response &&
@@ -52,8 +50,7 @@ export const getProject = createAsyncThunk(
   'projects/project/id',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ProjectService.getProject(id, token);
+      return await ProjectService.getProject(id);
     } catch (error) {
       const message =
         (error.response &&
@@ -71,8 +68,7 @@ export const updateProject = createAsyncThunk(
   'projects/update',
   async ({ id, projectData }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ProjectService.updateProject(id, projectData, token);
+      return await ProjectService.updateProject(id, projectData);
     } catch (error) {
       const message =
         (error.response &&
@@ -90,8 +86,7 @@ export const deleteProject = createAsyncThunk(
   'projects/delete',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ProjectService.deleteProject(id, token);
+      return await ProjectService.deleteProject(id);
     } catch (error) {
       const message =
         (error.response &&

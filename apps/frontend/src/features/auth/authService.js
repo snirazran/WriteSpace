@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_URL = '/api/auth/';
 
 // Register User
@@ -9,6 +8,7 @@ const register = async (userData) => {
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
+
   return response.data;
 };
 
