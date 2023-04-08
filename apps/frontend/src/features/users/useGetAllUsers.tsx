@@ -4,7 +4,15 @@ import userService from './userService';
 import useSWR from 'swr';
 import useLocalStorage from '../../utils/useLocalStorage';
 
-type User = { name: string };
+type User = {
+  username: string;
+  email: string;
+  token: string;
+  password: string;
+  friends: string[];
+  bio: string;
+  img: string;
+};
 
 //Get all users
 export const getUser = async (url): Promise<User[]> => {
@@ -13,6 +21,5 @@ export const getUser = async (url): Promise<User[]> => {
 
 export const useGetUser = () => {
   const { data, isLoading, error } = useSWR(['users/'], getUser);
-
   return { data, isLoading, error };
 };
