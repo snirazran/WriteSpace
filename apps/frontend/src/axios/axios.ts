@@ -1,17 +1,28 @@
 import axios from 'axios';
+import config from '../config';
+
+interface User {
+  username: string;
+  email: string;
+  token: string;
+  password: string;
+  friends: string[];
+  bio: string;
+  img: string;
+}
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5173',
+  baseURL: config.baseURL,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const getAccessToken = () => {
+const getAccessToken = (): string | null => {
   const userData = localStorage.getItem('user');
-  const user = JSON.parse(userData);
-  return user.token;
+  const user: User | null = userData ? JSON.parse(userData) : null;
+  return user ? user.token : null;
 };
 
 instance.interceptors.request.use(
@@ -28,4 +39,4 @@ instance.interceptors.request.use(
   }
 );
 
-export default instance;
+export { instance as axios };
