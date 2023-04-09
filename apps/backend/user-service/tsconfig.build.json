@@ -1,4 +1,21 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+  "extends": "../../frontend/tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "incremental": true,
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false
+  },
+
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "test"]
+
 }
