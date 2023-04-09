@@ -3,6 +3,6 @@ import { getStorage } from 'firebase/storage';
 import config from './config';
 
 const app = initializeApp(config.firebaseConfig);
-const storage = getStorage(app, import.meta.env.VITE_FIREBASE_STORAGE);
+const storage = getStorage(app, config.firebaseStorage);
 
 export default storage;
