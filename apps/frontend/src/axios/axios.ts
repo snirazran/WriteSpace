@@ -1,15 +1,6 @@
 import axios from 'axios';
 import config from '../config';
-
-interface User {
-  username: string;
-  email: string;
-  token: string;
-  password: string;
-  friends: string[];
-  bio: string;
-  img: string;
-}
+import { User, getUserFromLocalStorage } from '../utils/user';
 
 const instance = axios.create({
   baseURL: config.baseURL,
@@ -20,9 +11,13 @@ const instance = axios.create({
 });
 
 const getAccessToken = (): string | null => {
-  const userData = localStorage.getItem('user');
-  const user: User | null = userData ? JSON.parse(userData) : null;
-  return user ? user.token : null;
+  const user: User | null = getUserFromLocalStorage();
+  if (user) {
+    return user.token;
+  } else {
+    console.log('User not found in local storage');
+    return null;
+  }
 };
 
 instance.interceptors.request.use(
