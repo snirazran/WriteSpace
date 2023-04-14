@@ -1,3 +1,3 @@
-import { GetUserFriendsDTO } from './get-user-friends.dto';
+import { GetUserFriendsRequestDTO } from './get-user-friends.dto';
 
-export class AddRemoveFriendDTO extends GetUserFriendsDTO {}
+export class AddRemoveFriendDTO extends GetUserFriendsRequestDTO {}
