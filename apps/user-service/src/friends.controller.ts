@@ -9,7 +9,7 @@ import { FriendsService } from './friends.service';
 import { GetUserFriendsRequestDTO } from './dtos/get-user-friends.dto';
 import { AddRemoveFriendDTO } from './dtos/add-remove-friends.dto';
 
-@Controller('/api/users')
+@Controller('/api/friends')
 export class FriendController {
   constructor(private readonly friendsService: FriendsService) {}
 
