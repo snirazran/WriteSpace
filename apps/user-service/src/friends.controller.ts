@@ -9,7 +9,7 @@ import { FriendsService } from './friends.service';
 import { GetUserFriendsRequestDTO } from './dtos/get-user-friends.dto';
 import { AddRemoveFriendDTO } from './dtos/add-remove-friends.dto';
 
-@Controller('/api/users')
+@Controller('/api/friends')
 export class FriendController {
   constructor(private readonly friendsService: FriendsService) {}
 
@@ -21,7 +21,10 @@ export class FriendController {
     try {
       return await this.friendsService.getUserFriends(id);
     } catch (e) {
-      if (e instanceof UserNotFoundError) {
+      if (
+        e instanceof UserNotFoundError ||
+        e instanceof UserFriendsNotFoundError
+      ) {
         throw new NotFoundException();
       }
     }

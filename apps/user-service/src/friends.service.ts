@@ -3,36 +3,62 @@ import { User } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GetUserFriendsResponseDTO } from './dtos/get-user-friends.dto';
+import { UserService } from './user.service';
 
 @Injectable()
 export class FriendsService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private userService: UserService,
+  ) {}
 
-  //Get Users
+  //Get the user friends
   async getUserFriends(id: string): Promise<GetUserFriendsResponseDTO[]> {
-    const doc = await this.userModel.findById(id).exec();
+    const { friends: friendsIds } = await this.userService.getUserById(id);
 
-    if (!doc) {
-      throw new UserNotFoundError();
+    const tasks = [];
+
+    for (const friendId of friendsIds) {
+      tasks.push(this.getUserFriend(id, friendId));
     }
 
-    const friendPromises = doc.friends.map((id) => this.userModel.findById(id));
-    const friends = await Promise.all(friendPromises);
+    const friends = (await Promise.all(tasks)).filter((f): f is User => !!f);
 
-    if (!friends || friends.length === 0) {
+    if (!friends?.length) {
       throw new UserFriendsNotFoundError();
     }
 
-    const formattedFriends = friends.map(({ id, username, bio, img }) => ({
-      id,
-      username,
-      bio,
-      img,
-    }));
-
-    return formattedFriends;
+    return friends;
   }
 
-  //Get User by Id
-  async addRemoveFriend(id: string, friendId: string): Promise<User> {}
+  private getUserFriend(userId: string, friendId: string) {
+    try {
+      return this.userService.getUserById(friendId);
+    } catch (e) {
+      if (e instanceof UserNotFoundError) {
+        console.error(`Friend of ${userId} not found`, e);
+      }
+    }
+  }
+
+  //addRemoveFriend to the user friends
+  async addRemoveFriend(id: string, friendId: string): Promise<User> {
+    const user = await this.userModel.findById(id).exec();
+    const friend = await this.userModel.findById(friendId).exec();
+    if (user && friend) {
+      if (!user.friends.includes(friendId)) {
+        user.friends = user.friends.filter((id) => id !== friendId);
+        friend.friends = friend.friends.filter((id) => id !== id);
+      } else {
+        user.friends.push(friendId);
+        friend.friends.push(id);
+      }
+      await user.save();
+      await friend.save();
+    } else {
+      throw new UserNotFoundError();
+    }
+
+    return user.toObject();
+  }
 }
