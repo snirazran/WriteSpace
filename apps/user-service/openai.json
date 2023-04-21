@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/users": {
+      "get": {
+        "operationId": "UserController_getAllUsers",
+        "parameters": [
+          {
+            "name": "Users API",
+            "in": "header",
+            "description": "User related endpoints",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["users"]
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "operationId": "UserController_getUserById",
+        "parameters": [
+          {
+            "name": "Users API",
+            "in": "header",
+            "description": "User related endpoints",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "string for the user id",
+            "schema": { "oneOf": [{ "type": "string" }, { "type": "integer" }] }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["users"]
+      }
+    },
+    "/api/friends/{id}/friends": {
+      "get": {
+        "operationId": "FriendController_getUserFriends",
+        "parameters": [
+          {
+            "name": "Friends API",
+            "in": "header",
+            "description": "Friends related endpoints",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "string for the user id",
+            "schema": { "oneOf": [{ "type": "string" }, { "type": "integer" }] }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["friends"]
+      }
+    },
+    "/api/friends/{id}/{friendId}": {
+      "patch": {
+        "operationId": "FriendController_addRemoveFriend",
+        "parameters": [
+          {
+            "name": "Friends API",
+            "in": "header",
+            "description": "Friends related endpoints",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "friendId",
+            "required": true,
+            "in": "path",
+            "description": "string for the friend id",
+            "schema": { "oneOf": [{ "type": "string" }, { "type": "integer" }] }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "string for the user id",
+            "schema": { "oneOf": [{ "type": "string" }, { "type": "integer" }] }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["friends"]
+      }
+    }
+  },
+  "info": {
+    "title": "User Service",
+    "description": "User Service api documentation",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [{ "name": "user-service", "description": "" }],
+  "servers": [],
+  "components": { "schemas": {} }
+}

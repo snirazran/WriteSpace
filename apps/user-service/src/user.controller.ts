@@ -2,7 +2,13 @@ import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { GetAllUsersDTO } from './dtos/get-users.dto';
 import { GetUserByIdDTO } from './dtos/get-user.dto';
+import { ApiTags, ApiHeader, ApiParam } from '@nestjs/swagger';
 
+@ApiTags('users')
+@ApiHeader({
+  name: 'Users API',
+  description: 'User related endpoints',
+})
 @Controller('/api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -21,6 +27,12 @@ export class UserController {
 
   //Get User By Id
   @Get('/:id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
   async getUserById(
     @Param() { id }: { id: string },
   ): Promise<GetUserByIdDTO | undefined> {
