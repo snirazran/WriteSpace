@@ -126,6 +126,9 @@ importers:
       typescript:
         specifier: ^5.0.3
         version: 5.0.3
+      user-service-client:
+        specifier: workspace:^
+        version: link:../../packages/user-service-client
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
@@ -160,6 +163,9 @@ importers:
       '@nestjs/common':
         specifier: ^9.0.0
         version: 9.0.0(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/config':
+        specifier: ^2.3.1
+        version: 2.3.1(@nestjs/common@9.0.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
       '@nestjs/core':
         specifier: ^9.0.0
         version: 9.0.0(@nestjs/common@9.0.0)(@nestjs/platform-express@9.0.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
@@ -169,6 +175,12 @@ importers:
       '@nestjs/platform-express':
         specifier: ^9.0.0
         version: 9.0.0(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)
+      '@nestjs/swagger':
+        specifier: ^6.3.0
+        version: 6.3.0(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)(reflect-metadata@0.1.13)
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
       mongoose:
         specifier: ^6.8.4
         version: 6.8.4
@@ -348,6 +360,12 @@ importers:
       typescript:
         specifier: ^5.0.3
         version: 5.0.3
+
+  packages/user-service-client:
+    dependencies:
+      axios:
+        specifier: ^1.2.6
+        version: 1.2.6
 
 packages:
 
