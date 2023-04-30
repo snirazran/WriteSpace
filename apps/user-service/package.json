@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "generate-client": "openapi-generator-cli generate -i ./openai.json -g typescript-axios -o ../../packages/user-service-client"
+    "generate-client": "openapi-generator-cli generate -i ./openapi.json -g typescript-axios -o ../../packages/api-client/users"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

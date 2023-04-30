@@ -13,7 +13,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  fs.writeFileSync('./openai.json', JSON.stringify(document));
+  fs.writeFileSync('./openapi.json', JSON.stringify(document));
   await app.listen(3000);
 }
 bootstrap();

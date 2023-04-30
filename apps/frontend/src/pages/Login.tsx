@@ -5,40 +5,50 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
 import './Login_Register.css';
+import { useAuth } from '../context/AuthContext';
+import { useUser } from '../axios/useUser';
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const { user, setUser } = useAuth();
+  const localUser = useUser()[0];
+  const [formData, setFormData] = useState<{ email: string; password: string }>(
+    {
+      email: '',
+      password: '',
+    }
+  );
 
   const { email, password } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state: { auth: any }) => state.auth
   );
 
   useEffect(() => {
+    if (!localUser || !user) {
+      setUser(localUser ? localUser : null);
+      console.log('localUser', localUser, 'user', user);
+    }
+    if (user) {
+      navigate('/');
+    }
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate('/');
-    }
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [localUser, user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const userData = {

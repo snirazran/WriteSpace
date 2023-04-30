@@ -1,32 +1,41 @@
 import { useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useAxios } from '../../context/AxiosContext';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import ProjectsSidebar from '../components/Sidebars/ProjectsSidebar';
-import Post from '../components/Post';
-import Spinner from '../components/Spinner';
-import FriendsSidebar from '../components/Sidebars/FriendsSidebar';
-import QuickPost from '../components/QuickPost';
-import { getFeedPosts, resetPosts } from '../features/posts/postSlice';
-import { getProjects, resetProjects } from '../features/projects/projectSlice';
-import { setFriends } from '../features/auth/authSlice';
+import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
+import Post from '../../components/Post';
+import Spinner from '../../components/Spinner';
+import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
+import QuickPost from '../../components/QuickPost';
+import { getFeedPosts, resetPosts } from '../../features/posts/postSlice';
+import {
+  getProjects,
+  resetProjects,
+} from '../../features/projects/projectSlice';
+import { setFriends } from '../../features/auth/authSlice';
+import { timeOfADay } from '../../utils/timeOfDay';
 import {
   getUserFriends,
   getAllUsers,
   resetUser,
   addRemoveFriend,
-} from '../features/users/userSlice';
-
+} from '../../features/users/userSlice';
+import { useUser } from '../../axios/useUser';
 import './Feed.css';
-import ProfileBar from '../components/ProfileBar';
+import ProfileBar from '../../components/ProfileBar';
+import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 function Feed() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user, setUser } = useAuth();
+  console.log(`the user is: ${user}`);
 
   //Get the states
 
-  const { user, isLoading, isError, message } = useSelector(
-    (state) => state.auth
-  );
+  // const { user, isLoading, isError, message } = useSelector(
+  //   (state) => state.auth
+  // );
   const { projects, projectIsLoading, projectIsError, projectMessage } =
     useSelector((state) => state.projects);
   const { posts, postIsLoading, postIsError, postMessage } = useSelector(
@@ -38,61 +47,44 @@ function Feed() {
   // get the id
   let id;
   //get the local time
-  let hour;
-  const now = new Date();
-  if (now.getHours() >= 5 && now.getHours() < 12) {
-    hour = 'Morning';
-  }
-  if (now.getHours() >= 12 && now.getHours() < 17) {
-    hour = 'Afternoon';
-  }
-  if (now.getHours() >= 17 && now.getHours() < 21) {
-    hour = 'Evening';
-  }
-  if (now.getHours() >= 21 && now.getHours() <= 23) {
-    hour = 'Night';
-  }
-  if (now.getHours() >= 0 && now.getHours() <= 4) {
-    hour = 'Night';
-  }
+  const hour = timeOfADay();
 
-  useEffect(() => {
-    if (isError || projectIsError || postIsError || userIsError) {
-      console.log(projectMessage || postMessage || message || userMessage);
-    }
+  // useEffect(() => {
+  //   if (isError || projectIsError || postIsError || userIsError) {
+  //     console.log(projectMessage || postMessage || message || userMessage);
+  //   }
+  //   if (!user) {
+  //     navigate('/register');
+  //   }
+  //   if (user) {
+  //     dispatch(getFeedPosts());
+  //     dispatch(getProjects(user._id));
+  //     dispatch(getUserFriends(user._id));
+  //     dispatch(getAllUsers(user._id));
+  //   }
+  //   return () => {
+  //     dispatch(resetPosts());
+  //     dispatch(resetProjects());
+  //     dispatch(resetUser());
+  //   };
+  // }, [
+  //   user,
+  //   dispatch,
+  //   postIsError,
+  //   id,
+  //   projectIsError,
+  //   isError,
+  //   userMessage,
+  //   userIsError,
+  //   navigate,
+  //   message,
+  //   postMessage,
+  //   projectMessage,
+  // ]);
 
-    if (!user) {
-      navigate('/register');
-    }
-    if (user) {
-      dispatch(getFeedPosts());
-      dispatch(getProjects(user._id));
-      dispatch(getUserFriends(user._id));
-      dispatch(getAllUsers(user._id));
-    }
-    return () => {
-      dispatch(resetPosts());
-      dispatch(resetProjects());
-      dispatch(resetUser());
-    };
-  }, [
-    user,
-    dispatch,
-    postIsError,
-    id,
-    projectIsError,
-    isError,
-    userMessage,
-    userIsError,
-    navigate,
-    message,
-    postMessage,
-    projectMessage,
-  ]);
-
-  if (isLoading || postIsLoading || projectIsLoading || userIsLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading || postIsLoading || projectIsLoading || userIsLoading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <section className="feed">

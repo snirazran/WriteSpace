@@ -1,5 +1,3 @@
-import { axios } from '../../axios/axios';
-
 const API_URL = '/api/users/';
 
 //get a user by id
