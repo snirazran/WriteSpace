@@ -1,5 +1,13 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 import { User } from '../utils/user';
+import { useUser } from '../axios/useUser';
+import { useLocalStorage } from '../utils/useLocalStorage';
 
 interface AuthContextData {
   user: User | null;
@@ -20,8 +28,20 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const PERSISTANT_USER_KEY = 'user';
+
 export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
-  const [user, setUser] = useState<User | null>(null);
+  const [persistantUser, setPersistantUser] = useLocalStorage<User | null>(
+    PERSISTANT_USER_KEY,
+    null
+  );
+  const [user, setUser] = useState<User | null>(persistantUser);
+
+  useEffect(() => {
+    // Keeps your both states synced
+    setPersistantUser(user);
+  }, [user]);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

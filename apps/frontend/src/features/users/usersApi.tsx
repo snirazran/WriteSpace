@@ -37,7 +37,6 @@ export const useGetUserById = (id: string) => {
 
 export const useGetAllUsers = () => {
   const usersApi = useUsersApi();
-  console.log(usersApi);
   const {
     data,
     error,

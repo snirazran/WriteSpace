@@ -29,7 +29,6 @@ function Feed() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, setUser } = useAuth();
-  console.log(`the user is: ${user}`);
 
   //Get the states
 
@@ -48,6 +47,12 @@ function Feed() {
   let id;
   //get the local time
   const hour = timeOfADay();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   // useEffect(() => {
   //   if (isError || projectIsError || postIsError || userIsError) {

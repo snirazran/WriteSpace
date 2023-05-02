@@ -9,8 +9,7 @@ import { useAuth } from '../context/AuthContext';
 import { useUser } from '../axios/useUser';
 
 function Login() {
-  const { user, setUser } = useAuth();
-  const localUser = useUser()[0];
+  const { user } = useAuth();
   const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
       email: '',
@@ -28,18 +27,17 @@ function Login() {
   );
 
   useEffect(() => {
-    if (!localUser || !user) {
-      setUser(localUser ? localUser : null);
-      console.log('localUser', localUser, 'user', user);
-    }
-    if (user) {
-      navigate('/');
-    }
-    if (isError) {
-      toast.error(message);
-    }
-    dispatch(reset());
-  }, [localUser, user, isError, isSuccess, message, navigate, dispatch]);
+    // if (!localUser || !user) {
+    //   setUser(localUser ? localUser : null);
+    // }
+    // if (user) {
+    //   navigate('/');
+    // }
+    // if (isError) {
+    //   toast.error(message);
+    // }
+    // dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({

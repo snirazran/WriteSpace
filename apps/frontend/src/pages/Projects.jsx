@@ -18,7 +18,6 @@ function Projects() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data: user, isLoading: userLoading } = useGetUserById(userId);
-  console.log(user);
 
   let { userId } = useParams();
 

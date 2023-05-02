@@ -5,8 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { AxiosProvider } from './context/AxiosContext';
+import { useAuth } from './context/AuthContext';
+
+import { AuthProvider } from './context/AuthContext';
+import { AppProviders } from './context/AppProviders';
 
 import Login from './pages/Login';
 import Header from './components/Navigation/Header';
@@ -18,18 +20,11 @@ import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
 import EditProject from './pages/EditProject';
 import EditProfile from './pages/EditProfile';
-
-const Feed = lazy(() => import('./pages/Feed/Feed'));
-const Register = lazy(() => import('./pages/Register'));
-
-const AppProviders: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const { user } = useAuth();
-  return <AxiosProvider user={user}>{children}</AxiosProvider>;
-};
+import Feed from './pages/Feed/Feed';
+import Register from './pages/Register';
 
 const App: React.FC = () => {
+  const { user } = useAuth();
   return (
     <AuthProvider>
       <AppProviders>
@@ -38,20 +33,30 @@ const App: React.FC = () => {
             <div className="container">
               <Header />
               <Routes>
-                <Route path="/" element={<Feed />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/profile/edit/:id" element={<EditProfile />} />
-                <Route path="/projects/create" element={<CreateProject />} />
-                <Route path="/projects/project/:id" element={<ProjectPage />} />
-                <Route
-                  path="/projects/project/edit/:id"
-                  element={<EditProject />}
-                />
-                <Route path="/projects/:userId" element={<Projects />} />
-                <Route path="/posts/create" element={<CreatePost />} />
-                <Route path="/posts/:id" element={<PostPage />} />
-                <Route path="/posts/edit/:id" element={<EditPost />} />
+                {user ? (
+                  <>
+                    <Route path="/" element={<Feed />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/profile/edit/:id" element={<EditProfile />} />
+                    <Route path="/projects" element={<Projects />}>
+                      <Route path="/create" element={<CreateProject />} />
+                      <Route path="/project/:id" element={<ProjectPage />} />
+                      <Route
+                        path="/project/edit/:id"
+                        element={<EditProject />}
+                      />
+                      <Route path="/:userId" element={<Projects />} />
+                    </Route>
+                    <Route path="/posts" element={<PostPage />}>
+                      <Route path="/create" element={<CreatePost />} />
+                      <Route path="/:id" element={<PostPage />} />
+                      <Route path="/edit/:id" element={<EditPost />} />
+                    </Route>
+                  </>
+                ) : (
+                  <></>
+                )}
               </Routes>
             </div>
           </Router>
