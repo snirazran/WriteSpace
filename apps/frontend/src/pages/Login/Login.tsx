@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-import { login, reset } from '../features/auth/authSlice';
-import Spinner from '../components/Spinner';
-import './Login_Register.css';
-import { useAuth } from '../context/AuthContext';
-import { useUser } from '../axios/useUser';
+import Spinner from '../../components/Spinner';
+import '../Login_Register.css';
+import { useAuth } from '../../context/AuthContext';
+import { useLogin } from '../../features/auth/useLogin';
 
 function Login() {
-  const { user } = useAuth();
+  const { setUser } = useAuth();
   const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
       email: '',
@@ -17,27 +16,25 @@ function Login() {
     }
   );
 
+  const { trigger, data: loginResponse, error, isLoading, reset } = useLogin();
+
   const { email, password } = formData;
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (state: { auth: any }) => state.auth
-  );
 
   useEffect(() => {
-    // if (!localUser || !user) {
-    //   setUser(localUser ? localUser : null);
-    // }
-    // if (user) {
-    //   navigate('/');
-    // }
-    // if (isError) {
-    //   toast.error(message);
-    // }
-    // dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+    if (loginResponse) {
+      setUser(loginResponse);
+      navigate('/');
+    }
+    reset();
+  }, [navigate, reset, loginResponse]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -53,7 +50,7 @@ function Login() {
       email,
       password,
     };
-    dispatch(login(userData));
+    trigger(userData);
   };
 
   if (isLoading) {

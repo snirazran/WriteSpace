@@ -1,8 +1,14 @@
 import axios from 'axios';
+import { User } from '../../utils/user';
 const API_URL = '/api/auth/';
 
+interface UserData {
+  email: string;
+  password: string;
+}
+
 // Register User
-const register = async (userData) => {
+export const register = async (userData: UserData) => {
   const response = await axios.post(API_URL, userData);
 
   if (response.data) {
@@ -13,22 +19,18 @@ const register = async (userData) => {
 };
 
 // Logout user
-const logout = () => {
+export const logout = () => {
   localStorage.removeItem('user');
 };
 
 // Login User
-const login = async (userData) => {
-  const response = await axios.post(API_URL + 'login', userData);
-
-  if (response.data) {
-    localStorage.setItem('user', JSON.stringify(response.data));
-  }
+export const login = async (url: string, userData: UserData): Promise<User> => {
+  const response = await axios.post(API_URL + url, userData);
   return response.data;
 };
 
-//Update user
-const updateUser = async (id, data, token) => {
+// Update user
+export const updateUser = async (id: string, data: any, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -39,11 +41,6 @@ const updateUser = async (id, data, token) => {
   return response.data;
 };
 
-const authService = {
-  register,
-  logout,
-  login,
-  updateUser,
-};
+const authService = { register, logout, login, updateUser };
 
 export default authService;

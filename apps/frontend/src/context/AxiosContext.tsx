@@ -2,7 +2,7 @@ import { createContext, useContext, useMemo, ReactNode } from 'react';
 import axios, { AxiosInstance } from 'axios';
 import { User } from '../utils/user';
 import appConfig from '../config';
-
+import { useAuth } from './AuthContext';
 const AxiosContext = createContext<AxiosInstance | undefined>(undefined);
 
 export const useAxios = (): AxiosInstance => {
@@ -15,7 +15,6 @@ export const useAxios = (): AxiosInstance => {
 
 interface AxiosProviderProps {
   children: ReactNode;
-  user: User | null;
 }
 
 const config = {
@@ -28,8 +27,8 @@ const config = {
 
 export const AxiosProvider = ({
   children,
-  user,
 }: AxiosProviderProps): JSX.Element => {
+  const { user } = useAuth();
   const axiosInstance = useMemo(() => {
     const instance = axios.create(config);
 
