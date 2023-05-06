@@ -24,8 +24,8 @@ export const logout = () => {
 };
 
 // Login User
-export const login = async (url: string, userData: UserData): Promise<User> => {
-  const response = await axios.post(API_URL + url, userData);
+export const login = async (userData: UserData): Promise<User> => {
+  const response = await axios.post(`${API_URL}/login`, userData);
   return response.data;
 };
 

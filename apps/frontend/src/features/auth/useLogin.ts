@@ -8,12 +8,9 @@ interface UserData {
 }
 
 export const useLogin = () => {
-  const { data, error, isMutating, reset, trigger } = SWRMutate<User>(
+  const { data, error, isMutating, reset, trigger } = SWRMutate(
     'login',
-    (key: string, options: Readonly<{ arg: UserData }>) => {
-      const { arg: userData } = options;
-      return login(key, userData);
-    }
+    (_url: string, { arg }: { arg: UserData }) => login(arg)
   );
 
   return { data, error, isLoading: isMutating, reset, trigger };
