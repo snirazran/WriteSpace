@@ -1,37 +1,37 @@
-import axios from 'axios';
-import config from '../config';
-import { User, getUserFromLocalStorage } from '../utils/user';
+import axios, { AxiosInstance } from 'axios';
+import { useEffect, useState } from 'react';
+import appConfig from '../config';
+import { useUser } from './useUser';
 
-const instance = axios.create({
-  baseURL: config.baseURL,
+const config = {
+  baseURL: appConfig.baseURL,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
-});
-
-const getAccessToken = (): string | null => {
-  const user: User | null = getUserFromLocalStorage();
-  if (user) {
-    return user.token;
-  } else {
-    console.log('User not found in local storage');
-    return null;
-  }
 };
 
-instance.interceptors.request.use(
-  (config) => {
-    const accessToken = getAccessToken();
+export const useAxios = () => {
+  const [user] = useUser();
+  const [axiosInstance, setAxios] = useState<AxiosInstance>(
+    axios.create(config)
+  );
 
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+  useEffect(() => {
+    const instance = axios.create(config);
+    instance.interceptors.request.use(
+      (config) => {
+        if (user?.token) {
+          config.headers['Authorization'] = `Bearer ${user?.token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+    setAxios(instance);
+  }, [user?.token]);
 
-export { instance as axios };
+  return axiosInstance;
+};

@@ -1,11 +1,12 @@
 {
-  "name": "user-service-client",
+  "name": "api-client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "types": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    "./users": "./users/index.ts"
   },
   "keywords": [],
   "author": "",

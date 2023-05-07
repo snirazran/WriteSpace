@@ -12,20 +12,13 @@ import {
   addRemoveFriend,
   resetUser,
 } from '../features/users/userSlice';
-import { FriendsApiFactory, UsersApiFactory } from 'user-service-client';
-
-// import { useGetAllusers } from '../features/users/useGetAllUsers';
+import { useGetUserById, useGetAllUsers } from '../features/users/usersApi';
 
 function Projects() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { data: allUsersData, isLoading, error } = useGetAllusers();
-  // console.log(allUsersData);
-  UsersApiFactory()
-    .getAllUsers()
-    .then((res) => {
-      console.log(res);
-    });
+  const { data: user, isLoading: userLoading } = useGetUserById(userId);
+
   let { userId } = useParams();
 
   const { projects, projectIsLoading, projectIsError, projectMessage } =

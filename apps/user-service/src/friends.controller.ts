@@ -8,7 +8,7 @@ import {
 import { FriendsService } from './friends.service';
 import { GetUserFriendsRequestDTO } from './dtos/get-user-friends.dto';
 import { AddRemoveFriendDTO } from './dtos/add-remove-friends.dto';
-import { ApiTags, ApiParam, ApiHeader } from '@nestjs/swagger';
+import { ApiTags, ApiParam, ApiHeader, ApiResponse } from '@nestjs/swagger';
 @ApiHeader({
   name: 'Friends API',
   description: 'Friends related endpoints',
@@ -20,6 +20,7 @@ export class FriendController {
 
   //Get User Friends List
   @Get('/:id/friends')
+  @ApiResponse({ type: GetUserFriendsRequestDTO })
   @ApiParam({
     name: 'id',
     required: true,
@@ -43,6 +44,7 @@ export class FriendController {
 
   //Add / Remove User Friend
   @Patch('/:id/:friendId')
+  @ApiResponse({ type: AddRemoveFriendDTO })
   @ApiParam({
     name: 'id',
     required: true,

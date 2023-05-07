@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/schemas/user.schema';
+import { DBUser } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(DBUser.name) private userModel: Model<DBUser>) {}
 
   //Get All Users
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<DBUser[]> {
     const docs = await this.userModel.find({}).exec();
 
     if (!docs) {
       throw new UsersNotFoundError();
     }
 
-    const filteredUsers = docs.reduce((acc: User[], obj) => {
+    const filteredUsers = docs.reduce((acc: DBUser[], obj) => {
       const { username, email, friends, bio, img } = obj;
       const user = Object.fromEntries([
         ['username', username],
@@ -32,7 +32,7 @@ export class UserService {
   }
 
   //Get User by Id
-  async getUserById(id: string): Promise<User> {
+  async getUserById(id: string): Promise<DBUser> {
     const doc = await this.userModel.findById(id).exec();
 
     if (!doc) {

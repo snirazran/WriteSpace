@@ -2,7 +2,7 @@ import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { GetAllUsersDTO } from './dtos/get-users.dto';
 import { GetUserByIdDTO } from './dtos/get-user.dto';
-import { ApiTags, ApiHeader, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiHeader, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('users')
 @ApiHeader({
@@ -15,9 +15,10 @@ export class UserController {
 
   //Get All Users
   @Get('/')
-  async getAllUsers(): Promise<GetAllUsersDTO[] | undefined> {
+  @ApiResponse({ type: GetAllUsersDTO })
+  async getAllUsers(): Promise<GetAllUsersDTO | undefined> {
     try {
-      return await this.userService.getAllUsers();
+      return { users: await this.userService.getAllUsers() };
     } catch (e) {
       if (e instanceof UsersNotFoundError) {
         throw new NotFoundException();
@@ -27,6 +28,7 @@ export class UserController {
 
   //Get User By Id
   @Get('/:id')
+  @ApiResponse({ type: GetUserByIdDTO })
   @ApiParam({
     name: 'id',
     required: true,

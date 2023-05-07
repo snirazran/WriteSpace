@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,8 +10,15 @@ import { v4 } from 'uuid';
 import placeHolder from '../media/placeholder.png';
 import '../pages/Login_Register.css';
 
+interface FormValues {
+  username: string;
+  email: string;
+  password: string;
+  password2: string;
+}
+
 function Register() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormValues>({
     username: '',
     email: '',
     password: '',
@@ -24,12 +31,12 @@ function Register() {
   const dispatch = useDispatch();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+    (state: any) => state.auth
   );
 
   //Functions to handle image upload
-  const [imageFile, setImageFile] = useState(null);
-  const [imageLocal, setImageLocal] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageLocal, setImageLocal] = useState<string | null>(null);
 
   const uploadImage = async () => {
     if (imageLocal === null) {
@@ -38,9 +45,9 @@ function Register() {
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
     }
-    const imageRef = ref(storage, `postImages/${imageFile.name + v4()}`);
+    const imageRef = ref(storage, `postImages/${imageFile!.name + v4()}`);
     try {
-      await uploadBytes(imageRef, imageFile);
+      await uploadBytes(imageRef, imageFile!);
       const imageURL = await getDownloadURL(imageRef);
       if (imageURL) {
         return imageURL;
@@ -60,14 +67,14 @@ function Register() {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== password2) {
       toast.error('Password do not match');
@@ -111,8 +118,8 @@ function Register() {
         </label>
         <input
           onChange={(e) => {
-            setImageLocal(URL.createObjectURL(e.target.files[0]));
-            setImageFile(e.target.files[0]);
+            setImageLocal(URL.createObjectURL(e.target.files![0]));
+            setImageFile(e.target.files![0]);
           }}
           id="file-input"
           type="file"

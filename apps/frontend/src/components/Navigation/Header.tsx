@@ -5,12 +5,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../features/auth/authSlice';
 import Logo from '../../media/Logo.png';
+import { useAuth } from '../../context/AuthContext';
+import { RootState } from '../../app/store';
+import { useUser } from '../../axios/useUser';
 
 function Header() {
+  const { setUser } = useAuth();
+  const localUser = useUser()[0];
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const [userId, setUserId] = useState();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const [userId, setUserId] = useState<string | undefined>();
 
   useEffect(() => {
     if (user) {
@@ -20,18 +25,19 @@ function Header() {
 
   const onLogout = () => {
     dispatch(logout());
+    setUser(null);
     dispatch(reset());
     navigate('/');
   };
 
-  const navRef = useRef();
+  const navRef = useRef<HTMLDivElement>(null);
 
   const showNavBar = () => {
-    navRef.current.classList.toggle('responsive_nav');
+    navRef.current?.classList.toggle('responsive_nav');
   };
 
   const onClick = () => {
-    navRef.current.classList.remove('responsive_nav');
+    navRef.current?.classList.remove('responsive_nav');
   };
   return (
     <header className="header">

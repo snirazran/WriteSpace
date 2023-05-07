@@ -24,6 +24,106 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
 /**
+ * 
+ * @export
+ * @interface AddRemoveFriendDTO
+ */
+export interface AddRemoveFriendDTO {
+    /**
+     * User name
+     * @type {string}
+     * @memberof AddRemoveFriendDTO
+     */
+    'username': string;
+    /**
+     * User bio
+     * @type {string}
+     * @memberof AddRemoveFriendDTO
+     */
+    'bio': string;
+    /**
+     * User img
+     * @type {string}
+     * @memberof AddRemoveFriendDTO
+     */
+    'img': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetAllUsersDTO
+ */
+export interface GetAllUsersDTO {
+    /**
+     * Users
+     * @type {Array<string>}
+     * @memberof GetAllUsersDTO
+     */
+    'users': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetUserByIdDTO
+ */
+export interface GetUserByIdDTO {
+    /**
+     * User name
+     * @type {string}
+     * @memberof GetUserByIdDTO
+     */
+    'username': string;
+    /**
+     * Email
+     * @type {string}
+     * @memberof GetUserByIdDTO
+     */
+    'email': string;
+    /**
+     * Friends list
+     * @type {Array<string>}
+     * @memberof GetUserByIdDTO
+     */
+    'friends': Array<string>;
+    /**
+     * User bio
+     * @type {string}
+     * @memberof GetUserByIdDTO
+     */
+    'bio': string;
+    /**
+     * User img
+     * @type {string}
+     * @memberof GetUserByIdDTO
+     */
+    'img': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetUserFriendsRequestDTO
+ */
+export interface GetUserFriendsRequestDTO {
+    /**
+     * User name
+     * @type {string}
+     * @memberof GetUserFriendsRequestDTO
+     */
+    'username': string;
+    /**
+     * User bio
+     * @type {string}
+     * @memberof GetUserFriendsRequestDTO
+     */
+    'bio': string;
+    /**
+     * User img
+     * @type {string}
+     * @memberof GetUserFriendsRequestDTO
+     */
+    'img': string;
+}
+/**
  * @type UserControllerGetUserByIdIdParameter
  * @export
  */
@@ -134,7 +234,7 @@ export const FriendsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddRemoveFriendDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.friendControllerAddRemoveFriend(friendId, id, friendsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -145,7 +245,7 @@ export const FriendsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserFriendsRequestDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.friendControllerGetUserFriends(id, friendsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -167,7 +267,7 @@ export const FriendsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<void> {
+        friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<AddRemoveFriendDTO> {
             return localVarFp.friendControllerAddRemoveFriend(friendId, id, friendsAPI, options).then((request) => request(axios, basePath));
         },
         /**
@@ -177,7 +277,7 @@ export const FriendsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<void> {
+        friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<GetUserFriendsRequestDTO> {
             return localVarFp.friendControllerGetUserFriends(id, friendsAPI, options).then((request) => request(axios, basePath));
         },
     };
@@ -311,7 +411,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userControllerGetAllUsers(usersAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async userControllerGetAllUsers(usersAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllUsersDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.userControllerGetAllUsers(usersAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -322,7 +422,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserByIdDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.userControllerGetUserById(id, usersAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -342,7 +442,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userControllerGetAllUsers(usersAPI?: string, options?: any): AxiosPromise<void> {
+        userControllerGetAllUsers(usersAPI?: string, options?: any): AxiosPromise<GetAllUsersDTO> {
             return localVarFp.userControllerGetAllUsers(usersAPI, options).then((request) => request(axios, basePath));
         },
         /**
@@ -352,7 +452,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: any): AxiosPromise<void> {
+        userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: any): AxiosPromise<GetUserByIdDTO> {
             return localVarFp.userControllerGetUserById(id, usersAPI, options).then((request) => request(axios, basePath));
         },
     };
