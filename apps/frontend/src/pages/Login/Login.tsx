@@ -1,24 +1,44 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import '../Login_Register.css';
 import { useAuth } from '../../context/AuthContext';
 import { useLogin } from '../../features/auth/useLogin';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 function Login() {
   const { setUser } = useAuth();
-  const [formData, setFormData] = useState<{ email: string; password: string }>(
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => trigger(data);
+
+  const formItems = [
     {
-      email: '',
-      password: '',
-    }
-  );
+      type: 'email',
+      id: 'email',
+      name: 'email',
+      placeholder: 'Enter your email',
+    },
+    {
+      type: 'password',
+      id: 'password',
+      name: 'password',
+      placeholder: 'enter your password',
+    },
+  ];
 
   const { trigger, data: loginResponse, error, isLoading, reset } = useLogin();
-
-  const { email, password } = formData;
 
   const navigate = useNavigate();
 
@@ -36,23 +56,6 @@ function Login() {
     }
   }, [error]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const userData = {
-      email,
-      password,
-    };
-    trigger(userData);
-  };
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -67,29 +70,20 @@ function Login() {
       </section>
 
       <section className="form">
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {formItems.map(({ type, id, name, placeholder }) => (
+            <div className="form-group" key={id}>
+              <input
+                className="form-control"
+                type={type}
+                id={id}
+                placeholder={placeholder}
+                {...register(name === 'email' ? 'email' : 'password', {
+                  required: 'This field is required',
+                })}
+              />
+            </div>
+          ))}
           <div className="form-group">
             <button type="submit" className="btn btn-block">
               Login
