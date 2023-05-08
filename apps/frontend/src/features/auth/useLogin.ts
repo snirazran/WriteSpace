@@ -1,6 +1,5 @@
 import { login } from './authService';
 import SWRMutate from 'swr/mutation';
-import { User } from '../../utils/user';
 
 interface UserData {
   email: string;

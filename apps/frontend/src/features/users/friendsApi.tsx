@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import SWR from 'swr';
-import { UsersApiFactory } from 'api-client/users';
+import { FriendsApiFactory } from 'api-client/users';
 import { useAxios } from '../../context/AxiosContext';
 
-export const useUsersApi = () => {
+export const useFriendsApi = () => {
   const axios = useAxios();
   const [api, setApi] = useState(
-    UsersApiFactory(
+    FriendsApiFactory(
       {
         isJsonMime: (mime) => mime === 'application/json',
       },
@@ -17,7 +17,7 @@ export const useUsersApi = () => {
 
   useEffect(() => {
     setApi(
-      UsersApiFactory(
+      FriendsApiFactory(
         {
           isJsonMime: (mime) => mime === 'application/json',
         },
@@ -30,19 +30,27 @@ export const useUsersApi = () => {
   return api;
 };
 
-export const useGetUserById = (id: string) => {
-  const { userControllerGetUserById } = useUsersApi();
-  const { data, error, isLoading } = SWR(id, userControllerGetUserById);
-};
-
-export const useGetAllUsers = () => {
-  const { userControllerGetAllUsers } = useUsersApi();
+export const useAddRemoveFriend = (id: string, friendId: string) => {
+  const { friendControllerAddRemoveFriend } = useFriendsApi();
   const {
     data,
     error,
     isLoading,
     isValidating: isInitiallyLoading,
     mutate,
-  } = SWR('/allUsers', userControllerGetAllUsers);
+  } = SWR({ id, friendId }, friendControllerAddRemoveFriend);
+};
+
+export const useGetUserFriends = (id: string) => {
+  const { friendControllerGetUserFriends } = useFriendsApi();
+
+  const {
+    data,
+    error,
+    isLoading,
+    isValidating: isInitiallyLoading,
+    mutate,
+  } = SWR(id, friendControllerGetUserFriends);
+
   return { data, error, isLoading, isInitiallyLoading, mutate };
 };

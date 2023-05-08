@@ -2,30 +2,55 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-import { register, reset } from '../features/auth/authSlice';
-import Spinner from '../components/Spinner';
+import { register, reset } from '../../features/auth/authSlice';
+import Spinner from '../../components/Spinner';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import storage from '../firebase';
+import storage from '../../firebase';
 import { v4 } from 'uuid';
-import placeHolder from '../media/placeholder.png';
-import '../pages/Login_Register.css';
+import placeHolder from '../../media/placeholder.png';
+import '../../pages/Login_Register.css';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-interface FormValues {
-  username: string;
+type Inputs = {
+  name: string;
   email: string;
   password: string;
-  password2: string;
-}
+  confirmPassword: string;
+};
+
+const formItems = [
+  {
+    type: 'name',
+    id: 'name',
+    name: 'name',
+    placeholder: 'Enter your name',
+  },
+  {
+    type: 'email',
+    id: 'email',
+    name: 'email',
+    placeholder: 'Enter your email',
+  },
+  {
+    type: 'password',
+    id: 'password',
+    name: 'password',
+    placeholder: 'Enter your password',
+  },
+  {
+    type: 'password',
+    id: 'confirmPassword',
+    name: 'confirmPassword',
+    placeholder: 'Confirm password',
+  },
+];
 
 function Register() {
-  const [formData, setFormData] = useState<FormValues>({
-    username: '',
-    email: '',
-    password: '',
-    password2: '',
-  });
-
-  const { username, email, password, password2 } = formData;
+  const {
+    register: registerForm,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,30 +86,19 @@ function Register() {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate('/');
-    }
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== password2) {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (data.password !== data.confirmPassword) {
       toast.error('Password do not match');
     } else {
       try {
         const img = await uploadImage();
         const userData = {
-          username,
-          email,
-          password,
+          username: data.name,
+          email: data.email,
+          password: data.password,
           img,
         };
         dispatch(register(userData));
@@ -133,51 +147,29 @@ function Register() {
       </div>
 
       <section className="form">
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={username}
-              placeholder="Enter your name"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password2"
-              name="password2"
-              value={password2}
-              placeholder="Confirm password"
-              onChange={onChange}
-            />
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {formItems.map(({ type, id, name, placeholder }) => (
+            <div className="form-group" key={id}>
+              <input
+                className="form-control"
+                type={type}
+                id={id}
+                placeholder={placeholder}
+                {...registerForm(
+                  name === 'name'
+                    ? 'name'
+                    : name === 'email'
+                    ? 'email'
+                    : name === 'password'
+                    ? 'password'
+                    : 'confirmPassword',
+                  {
+                    required: 'This field is required',
+                  }
+                )}
+              />
+            </div>
+          ))}
           <div className="form-group">
             <button type="submit" className="btn btn-block">
               Register
