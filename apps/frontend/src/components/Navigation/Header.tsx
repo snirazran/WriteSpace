@@ -1,32 +1,16 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout, reset } from '../../features/auth/authSlice';
 import Logo from '../../media/Logo.png';
 import { useAuth } from '../../context/AuthContext';
-import { RootState } from '../../app/store';
-import { useUser } from '../../axios/useUser';
 
 function Header() {
-  const { setUser } = useAuth();
-  const localUser = useUser()[0];
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state: RootState) => state.auth);
-  const [userId, setUserId] = useState<string | undefined>();
-
-  useEffect(() => {
-    if (user) {
-      setUserId(user._id);
-    }
-  }, [user, setUserId]);
+  const { user, setUser } = useAuth();
 
   const onLogout = () => {
-    dispatch(logout());
     setUser(null);
-    dispatch(reset());
     navigate('/');
   };
 
@@ -64,7 +48,7 @@ function Header() {
                 <Link
                   onClick={onClick}
                   className=" "
-                  to={`/projects/${userId}`}
+                  to={`/projects/${user._id}`}
                 >
                   My Projects
                 </Link>

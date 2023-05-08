@@ -34,7 +34,7 @@ function Login() {
       type: 'password',
       id: 'password',
       name: 'password',
-      placeholder: 'enter your password',
+      placeholder: 'Enter your password',
     },
   ];
 

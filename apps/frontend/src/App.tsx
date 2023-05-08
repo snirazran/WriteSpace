@@ -19,7 +19,7 @@ import EditPost from './pages/EditPost';
 import EditProject from './pages/EditProject';
 import EditProfile from './pages/EditProfile';
 import Feed from './pages/Feed/Feed';
-import Register from './pages/Register';
+import Register from './pages/Register/Register';
 
 const App: React.FC = () => {
   const { user } = useAuth();
@@ -52,7 +52,8 @@ const App: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Route path="/" element={<Login />} />
+                  <Route path="/" element={<Feed />} />
+                  <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                 </>
               )}
