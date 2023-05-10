@@ -16,7 +16,7 @@ config();
       envFilePath: '../../.env',
     }),
     MongooseModule.forRoot(`${process.env.MONGO_URI}`),
-    MongooseModule.forFeature([{ name: DBUser.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'users', schema: UserSchema }]),
     SwaggerModule,
   ],
 

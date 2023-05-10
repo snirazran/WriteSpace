@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 @Injectable()
 export class FriendsService {
   constructor(
-    @InjectModel(DBUser.name) private userModel: Model<DBUser>,
+    @InjectModel('users') private userModel: Model<DBUser>,
     private userService: UserService,
   ) {}
 

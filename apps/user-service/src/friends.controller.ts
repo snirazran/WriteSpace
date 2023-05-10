@@ -10,7 +10,7 @@ import { GetUserFriendsRequestDTO } from './dtos/get-user-friends.dto';
 import { AddRemoveFriendDTO } from './dtos/add-remove-friends.dto';
 import { ApiTags, ApiParam, ApiHeader, ApiResponse } from '@nestjs/swagger';
 @ApiHeader({
-  name: 'Friends API',
+  name: 'Friends-API',
   description: 'Friends related endpoints',
 })
 @ApiTags('friends')

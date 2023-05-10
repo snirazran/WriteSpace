@@ -39,9 +39,9 @@ function Feed() {
     }
   }, [user, navigate]);
 
-  const { data: users } = useGetAllUsers();
+  const { data: users, error } = useGetAllUsers();
 
-  console.log(users);
+  console.log(error);
 
   useEffect(() => {}, [user, navigate]);
 

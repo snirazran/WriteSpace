@@ -6,7 +6,7 @@ import { ApiTags, ApiHeader, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('users')
 @ApiHeader({
-  name: 'Users API',
+  name: 'Users-API',
   description: 'User related endpoints',
 })
 @Controller('/api/users')

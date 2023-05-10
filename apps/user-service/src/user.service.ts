@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(DBUser.name) private userModel: Model<DBUser>) {}
+  constructor(@InjectModel('users') private userModel: Model<DBUser>) {}
 
   //Get All Users
   async getAllUsers(): Promise<DBUser[]> {
