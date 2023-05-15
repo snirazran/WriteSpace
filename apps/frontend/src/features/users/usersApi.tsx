@@ -5,12 +5,13 @@ import { useAxios } from '../../context/AxiosContext';
 
 export const useUsersApi = () => {
   const axios = useAxios();
+  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3000');
   const [api, setApi] = useState(
     UsersApiFactory(
       {
         isJsonMime: (mime) => mime === 'application/json',
       },
-      undefined,
+      apiBaseUrl,
       axios
     )
   );
@@ -21,7 +22,7 @@ export const useUsersApi = () => {
         {
           isJsonMime: (mime) => mime === 'application/json',
         },
-        undefined,
+        apiBaseUrl,
         axios
       )
     );
@@ -32,7 +33,8 @@ export const useUsersApi = () => {
 
 export const useGetUserById = (id: string) => {
   const { userControllerGetUserById } = useUsersApi();
-  const { data, error, isLoading } = SWR(id, userControllerGetUserById);
+  const { data, error, isLoading, mutate } = SWR(id, userControllerGetUserById);
+  return { data, error, isLoading, mutate };
 };
 
 export const useGetAllUsers = () => {

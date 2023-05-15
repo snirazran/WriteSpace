@@ -164,7 +164,7 @@ export const FriendsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
             if (friendsAPI != null) {
-                localVarHeaderParameter['Friends API'] = String(friendsAPI);
+                localVarHeaderParameter['Friends-API'] = String(friendsAPI);
             }
 
 
@@ -188,7 +188,7 @@ export const FriendsApiAxiosParamCreator = function (configuration?: Configurati
         friendControllerGetUserFriends: async (id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('friendControllerGetUserFriends', 'id', id)
-            const localVarPath = `/api/friends/{id}/friends`
+            const localVarPath = `/api/friends/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -202,7 +202,7 @@ export const FriendsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
             if (friendsAPI != null) {
-                localVarHeaderParameter['Friends API'] = String(friendsAPI);
+                localVarHeaderParameter['Friends-API'] = String(friendsAPI);
             }
 
 
@@ -343,7 +343,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarQueryParameter = {} as any;
 
             if (usersAPI != null) {
-                localVarHeaderParameter['Users API'] = String(usersAPI);
+                localVarHeaderParameter['Users-API'] = String(usersAPI);
             }
 
 
@@ -381,7 +381,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarQueryParameter = {} as any;
 
             if (usersAPI != null) {
-                localVarHeaderParameter['Users API'] = String(usersAPI);
+                localVarHeaderParameter['Users-API'] = String(usersAPI);
             }
 
 

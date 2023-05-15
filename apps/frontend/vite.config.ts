@@ -12,6 +12,7 @@ export default ({ mode }) => {
       proxy: {
         '/api': process.env.VITE_API_URL as string,
         '/api/users': process.env.VITE_API_USERS_URL as string,
+        '/api/friends': process.env.VITE_API_USERS_URL as string,
       },
     },
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],

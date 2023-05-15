@@ -5,12 +5,13 @@ import { useAxios } from '../../context/AxiosContext';
 
 export const useFriendsApi = () => {
   const axios = useAxios();
+  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3000');
   const [api, setApi] = useState(
     FriendsApiFactory(
       {
         isJsonMime: (mime) => mime === 'application/json',
       },
-      undefined,
+      apiBaseUrl,
       axios
     )
   );
@@ -21,7 +22,7 @@ export const useFriendsApi = () => {
         {
           isJsonMime: (mime) => mime === 'application/json',
         },
-        undefined,
+        apiBaseUrl,
         axios
       )
     );

@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { FriendsService } from './friends.service';
 import { DBUser, UserSchema } from './schemas/user.schema';
 import { SwaggerModule } from '@nestjs/swagger';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 config();
 @Module({

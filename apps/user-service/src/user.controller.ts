@@ -3,6 +3,12 @@ import { UserService } from './user.service';
 import { GetAllUsersDTO } from './dtos/get-users.dto';
 import { GetUserByIdDTO } from './dtos/get-user.dto';
 import { ApiTags, ApiHeader, ApiParam, ApiResponse } from '@nestjs/swagger';
+import {
+  UserNotAuthorized,
+  UserFriendsNotFoundError,
+  UserNotFoundError,
+  UsersNotFoundError,
+} from './errors';
 
 @ApiTags('users')
 @ApiHeader({
