@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GetUserFriendsResponseDTO } from './dtos/get-user-friends.dto';
 import { UserService } from './user.service';
+import { UserFriendsNotFoundError, UserNotFoundError } from './errors';
 
 @Injectable()
 export class FriendsService {

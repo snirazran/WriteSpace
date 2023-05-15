@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DBUser } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserNotFoundError, UsersNotFoundError } from './errors';
 
 @Injectable()
 export class UserService {
