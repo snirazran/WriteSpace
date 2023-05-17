@@ -1,28 +1,18 @@
 import { FC, useEffect } from 'react';
 import RegisterForm from './RegisterForm';
-import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { reset } from '../../features/auth/authSlice';
-import Spinner from '../../components/Spinner';
+
 import '../../pages/Login_Register.css';
+import { useRegister } from '../../features/auth/useRegister';
 
 const Register: FC = () => {
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.auth
-  );
-  const dispatch = useDispatch();
+  const { error } = useRegister();
 
-  // TODO: clean up hooks from deps
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
+    if (error) {
+      toast.error(error);
     }
-    dispatch(reset());
-  }, [isError, message, dispatch]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  }, [error]);
 
   return (
     <>

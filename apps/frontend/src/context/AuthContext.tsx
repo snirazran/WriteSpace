@@ -6,7 +6,6 @@ import {
   useEffect,
 } from 'react';
 import { User } from '../utils/user';
-import { useUser } from '../axios/useUser';
 import { useLocalStorage } from '../utils/useLocalStorage';
 
 interface AuthContextData {

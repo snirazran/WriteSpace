@@ -2,19 +2,24 @@ import axios from 'axios';
 import { User } from '../../utils/user';
 const API_URL = '/api/auth/';
 
-interface UserData {
+interface loginData {
   email: string;
   password: string;
 }
 
-// Register User
-export const register = async (userData: UserData) => {
-  const response = await axios.post(API_URL, userData);
+interface RegisterData {
+  username: string;
+  email: string;
+  password: string;
+  img?: string;
+}
 
+// Register User
+export const register = async (userData: RegisterData): Promise<User> => {
+  const response = await axios.post(API_URL, userData);
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
-
   return response.data;
 };
 
@@ -24,7 +29,7 @@ export const logout = () => {
 };
 
 // Login User
-export const login = async (userData: UserData): Promise<User> => {
+export const login = async (userData: loginData): Promise<User> => {
   const response = await axios.post(`${API_URL}/login`, userData);
   return response.data;
 };

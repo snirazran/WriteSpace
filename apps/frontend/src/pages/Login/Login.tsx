@@ -1,15 +1,7 @@
-import Spinner from '../../components/Spinner';
 import '../Login_Register.css';
-import { useLogin } from '../../features/auth/useLogin';
 import LoginForm from './LoginForm';
 
 function Login() {
-  const { isLoading } = useLogin();
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
     <>
       <section className="heading">
