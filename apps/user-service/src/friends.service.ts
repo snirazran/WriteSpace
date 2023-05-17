@@ -16,7 +16,6 @@ export class FriendsService {
   //Get the user friends
   async getUserFriends(id: string): Promise<GetUserFriendsResponseDTO[]> {
     const { friends: friendsIds } = await this.userService.getUserById(id);
-
     const tasks = [];
 
     for (const friendId of friendsIds) {
