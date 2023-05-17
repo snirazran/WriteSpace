@@ -12,12 +12,11 @@ import {
   getProjects,
   resetProjects,
 } from '../../features/projects/projectSlice';
-import { setFriends } from '../../features/auth/authSlice';
 import { timeOfADay } from '../../utils/timeOfDay';
 
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useUser } from '../../axios/useUser';
-import './Feed.css';
+import './Feed.scss';
 import ProfileBar from '../../components/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 function Feed() {
