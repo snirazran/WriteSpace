@@ -16,7 +16,7 @@ import { timeOfADay } from '../../utils/timeOfDay';
 
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useUser } from '../../axios/useUser';
-import './Feed.scss';
+import './Feed.css';
 import ProfileBar from '../../components/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 function Feed() {
