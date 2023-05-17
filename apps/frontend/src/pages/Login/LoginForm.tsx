@@ -1,16 +1,16 @@
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LoginInputs } from './LoginTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { useLogin } from '../../features/auth/useLogin';
+import Spinner from '../../components/Spinner';
 
 function LoginForm() {
   const { setUser } = useAuth();
   const navigate = useNavigate();
-  const { trigger, data: loginResponse, error, reset } = useLogin();
+  const { trigger, data: loginResponse, error, reset, isLoading } = useLogin();
 
   useEffect(() => {
     if (loginResponse) {
@@ -48,6 +48,9 @@ function LoginForm() {
       placeholder: 'Enter your password',
     },
   ];
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

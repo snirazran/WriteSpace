@@ -1,25 +1,35 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { UploadImage } from '../../components';
-import { register } from '../../features/auth/authSlice';
 import storage from '../../firebase';
 import '../../pages/Login_Register.css';
 import { RegisterForm, RegistrationFormItem } from './RegisterTypes';
+import { useRegister } from '../../features/auth/useRegister';
+import { useAuth } from '../../context/AuthContext';
+import Spinner from '../../components/Spinner';
 
 const RegisterForm: FC = () => {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+  const { trigger, data: registerResponse, reset, isLoading } = useRegister();
+
+  useEffect(() => {
+    if (registerResponse) {
+      setUser(registerResponse);
+      navigate('/');
+    }
+    reset();
+  }, [navigate, reset, registerResponse]);
+
   const {
     register: registerForm,
     handleSubmit,
     formState: { errors, defaultValues },
   } = useForm<RegisterForm>();
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const uploadImage = async (file: File) => {
     const imageRef = ref(storage, `postImages/${file!.name + v4()}`);
@@ -47,8 +57,7 @@ const RegisterForm: FC = () => {
           password: data.password,
           img,
         };
-        dispatch(register(userData));
-        navigate(`/`);
+        trigger(userData);
       } catch (error) {
         console.log(error);
       }
@@ -117,6 +126,10 @@ const RegisterForm: FC = () => {
       render: renderInput,
     },
   ];
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <section className="form">
