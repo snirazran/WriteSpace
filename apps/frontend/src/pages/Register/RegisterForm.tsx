@@ -36,9 +36,10 @@ const RegisterForm: FC = () => {
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     if (data.password !== data.confirmPassword) {
-      toast.error('Password do not match');
+      toast.error('Passwords do not match');
     } else {
       try {
+        if (!data.profileImage[0]) toast.error('Please upload a profile image');
         const img = await uploadImage(data.profileImage[0]);
         const userData = {
           username: data.name,

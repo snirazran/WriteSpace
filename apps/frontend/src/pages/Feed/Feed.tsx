@@ -25,11 +25,8 @@ function Feed() {
   const dispatch = useDispatch();
   const { user, setUser } = useAuth();
 
-  // const { userList, userFriends, userIsLoading, userIsError, userMessage } =
-  //   useSelector((state) => state.user);
-
   // get the id
-  let id = '642314a0e6919dad9eb43ab0';
+  const id = user?._id;
   //get the local time
   const hour = timeOfADay();
 
@@ -39,15 +36,17 @@ function Feed() {
     }
   }, [user, navigate]);
 
-  const { data: users } = useGetAllUsers();
+  const {
+    data: users,
+    error,
+    isLoading: usersLoading,
+    isInitiallyLoading,
+    mutate,
+  } = useGetAllUsers();
 
-  console.log(users);
-
-  useEffect(() => {}, [user, navigate]);
-
-  // if (isLoading || postIsLoading || projectIsLoading || userIsLoading) {
-  //   return <Spinner />;
-  // }
+  if (usersLoading) {
+    return <Spinner />;
+  }
 
   return (
     <section className="feed">

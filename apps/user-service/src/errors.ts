@@ -1,22 +1,22 @@
-class UsersNotFoundError extends Error {
+export class UsersNotFoundError extends Error {
   constructor() {
-    super('User not found');
+    super('Users not found');
   }
 }
 
-class UserNotFoundError extends Error {
+export class UserNotFoundError extends Error {
   constructor() {
-    super('User not found');
+    super('Users not found');
   }
 }
 
-class UserFriendsNotFoundError extends Error {
+export class UserFriendsNotFoundError extends Error {
   constructor() {
     super('User friends not found');
   }
 }
 
-class UserNotAuthorized extends Error {
+export class UserNotAuthorized extends Error {
   constructor() {
     super('User not authorized');
   }

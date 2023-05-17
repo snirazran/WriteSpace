@@ -6,60 +6,55 @@ import Slider from '../components/Slider';
 import Spinner from '../components/Spinner';
 import './Projects.css';
 import { getProjects, resetProjects } from '../features/projects/projectSlice';
-import {
-  getUser,
-  getUserFriends,
-  addRemoveFriend,
-  resetUser,
-} from '../features/users/userSlice';
-import { useGetUserById, useGetAllUsers } from '../features/users/usersApi';
+import { useGetUserById } from '../features/users/usersApi';
+import { useGetUserFriends } from '../features/users/friendsApi';
 
 function Projects() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: user, isLoading: userLoading } = useGetUserById(userId);
-
   let { userId } = useParams();
+  // const {
+  //   data: user,
+  //   error: userError,
+  //   isLoading: userIsLoading,
+  //   mutate: mutateUser,
+  // } = useGetUserById(userId);
+  const {
+    data: userFriends,
+    error: userFriendsError,
+    isLoading: userFriendsIsLoading,
+    mutate: mutateUserFriends,
+  } = useGetUserFriends(userId);
+
+  console.log(userFriends);
 
   const { projects, projectIsLoading, projectIsError, projectMessage } =
     useSelector((state) => state.projects);
 
-  const { userList, userFriends, userIsLoading, userIsError, userMessage } =
-    useSelector((state) => state.user);
+  // useEffect(() => {
+  //   if (projectIsError || userError || userFriendsError) {
+  //     console.log(projectIsError || error);
+  //   }
 
-  useEffect(() => {
-    if (projectIsError || userIsError) {
-      console.log(projectIsError || userIsError);
-    }
+  //   dispatch(getProjects(userId));
 
-    dispatch(getProjects(userId));
-    dispatch(getUser(userId));
-
-    return () => {
-      dispatch(resetUser());
-      dispatch(resetProjects());
-    };
-  }, [
-    projectIsError,
-    userIsError,
-    projectMessage,
-    userMessage,
-    dispatch,
-    userId,
-  ]);
+  //   return () => {
+  //     dispatch(resetProjects());
+  //   };
+  // }, [projectIsError, projectMessage, dispatch, userId]);
 
   const onClick = () => {
     navigate('/projects/create');
     window.scrollTo(0, 0);
   };
 
-  if (userIsLoading || projectIsLoading) {
-    return <Spinner />;
-  }
+  // if (userIsLoading || userFriendsIsLoading || projectIsLoading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <section className="projects">
-      <ProfileBox shownUser={userList[0]} userFriends={userFriends} />
+      {/* <ProfileBox shownUser={user} userFriends={userFriends} /> */}
       <Slider content={projects} />
       <button onClick={onClick} className="box-btn">
         Create a new project

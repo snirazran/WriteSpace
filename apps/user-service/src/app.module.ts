@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { FriendsService } from './friends.service';
 import { DBUser, UserSchema } from './schemas/user.schema';
 import { SwaggerModule } from '@nestjs/swagger';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 config();
 @Module({
@@ -16,7 +17,7 @@ config();
       envFilePath: '../../.env',
     }),
     MongooseModule.forRoot(`${process.env.MONGO_URI}`),
-    MongooseModule.forFeature([{ name: DBUser.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'users', schema: UserSchema }]),
     SwaggerModule,
   ],
 

@@ -4,18 +4,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GetUserFriendsResponseDTO } from './dtos/get-user-friends.dto';
 import { UserService } from './user.service';
+import { UserFriendsNotFoundError, UserNotFoundError } from './errors';
 
 @Injectable()
 export class FriendsService {
   constructor(
-    @InjectModel(DBUser.name) private userModel: Model<DBUser>,
+    @InjectModel('users') private userModel: Model<DBUser>,
     private userService: UserService,
   ) {}
 
   //Get the user friends
   async getUserFriends(id: string): Promise<GetUserFriendsResponseDTO[]> {
     const { friends: friendsIds } = await this.userService.getUserById(id);
-
     const tasks = [];
 
     for (const friendId of friendsIds) {
