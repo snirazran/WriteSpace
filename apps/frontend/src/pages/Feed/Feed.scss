@@ -1,26 +1,24 @@
 /* Feed CSS */
-
+/* Main Posts CSS */
 .feed {
   padding: 25px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .top-text {
   margin-top: 40px;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  h1 {
+    font-size: 18px;
+  }
+  label {
+    font-size: 18px;
+  }
 }
-.top-text h1 {
-  font-size: 18px;
-}
-.top-text label {
-  font-size: 18px;
-}
-
 #sort {
   width: 66px;
   -webkit-appearance: none;
@@ -35,7 +33,6 @@
   border-color: #fff;
   color: var(--mainColor);
 }
-
 .main-feed {
   width: 60%;
   height: max-content;
@@ -43,7 +40,6 @@
   display: flex;
   justify-content: space-evenly;
 }
-
 .side-bars {
   display: flex;
   flex-direction: column;
@@ -51,19 +47,14 @@
   top: 50px;
   width: 20%;
 }
-
-/* Main Posts CSS */
-
 .post-row {
   width: 50%;
 }
-
 @media only screen and (max-width: 1240px) {
   .post-row {
     width: 50%;
   }
 }
-
 @media only screen and (max-width: 1010px) {
   .side-bars {
     display: none;
@@ -71,7 +62,6 @@
   .main-feed {
     justify-content: space-evenly;
   }
-
   .top-text {
     margin-top: 40px;
     display: flex;
@@ -79,12 +69,10 @@
     justify-content: space-between;
     align-items: center;
   }
-
   .post-row {
     width: 70%;
   }
 }
-
 @media only screen and (max-width: 768px) {
   .top-text {
     margin-top: 40px;
@@ -92,29 +80,23 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    h1 {
+      font-size: 15px;
+    }
+    label {
+      font-size: 15px;
+    }
   }
-
-  .top-text h1 {
-    font-size: 15px;
-  }
-
-  .top-text label {
-    font-size: 15px;
-  }
-
   #sort {
     font-size: 15px;
   }
-
   .post-row {
     width: 80%;
   }
-
   .feed {
     padding: 25px 20px;
   }
 }
-
 @media only screen and (max-width: 600px) {
   .top-text {
     margin-top: 40px;
@@ -122,20 +104,16 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    h1 {
+      font-size: 15px;
+    }
+    label {
+      font-size: 15px;
+    }
   }
-
-  .top-text h1 {
-    font-size: 15px;
-  }
-
-  .top-text label {
-    font-size: 15px;
-  }
-
   #sort {
     font-size: 15px;
   }
-
   .post-row {
     width: 100%;
   }
