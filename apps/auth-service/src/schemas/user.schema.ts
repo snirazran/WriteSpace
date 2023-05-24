@@ -12,7 +12,13 @@ export class DBUser implements IUser {
   @Prop({ type: String, required: true, maxlength: 40 })
   email: string;
 
-  @Prop({ type: String, required: true, minlength: 6, maxlength: 20 })
+  @Prop({
+    type: String,
+    required: true,
+    minlength: 6,
+    maxlength: 20,
+    select: false,
+  })
   password: string;
 
   @Prop({ type: Array, default: [] })
