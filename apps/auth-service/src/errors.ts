@@ -10,9 +10,9 @@ export class UserNotFoundError extends Error {
   }
 }
 
-export class UserFriendsNotFoundError extends Error {
+export class InvalidDetails extends Error {
   constructor() {
-    super('User friends not found');
+    super('Invalid email or password');
   }
 }
 
