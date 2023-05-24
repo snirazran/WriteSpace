@@ -23,6 +23,9 @@ export class DBUser implements IUser {
 
   @Prop({ type: String, default: '', maxlength: 100 })
   img: string;
+
+  @Prop({ type: String })
+  token: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(DBUser);
