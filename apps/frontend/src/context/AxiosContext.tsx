@@ -1,6 +1,5 @@
 import { createContext, useContext, useMemo, ReactNode } from 'react';
 import axios, { AxiosInstance } from 'axios';
-import { User } from '../utils/user';
 import appConfig from '../config';
 import { useAuth } from './AuthContext';
 const AxiosContext = createContext<AxiosInstance | undefined>(undefined);

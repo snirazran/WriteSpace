@@ -22,5 +22,6 @@ config();
 
   controllers: [UserController, FriendController],
   providers: [UserService, FriendsService],
+  exports: [UserService],
 })
 export class AppModule {}
