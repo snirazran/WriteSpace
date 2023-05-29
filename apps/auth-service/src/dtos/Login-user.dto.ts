@@ -6,7 +6,6 @@ export class LoginUserReqDto {
     description: 'Email',
     maximum: 40,
   })
-  @IsNotEmpty()
   @IsEmail()
   email: string;
 

@@ -6,6 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { UserSchema } from './schemas/user.schema';
 import { config } from 'dotenv';
+import { JwtStrategy } from './jwt.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { jwtConstants } from './constants';
 
 config();
 @Module({
@@ -16,8 +20,13 @@ config();
     MongooseModule.forRoot(`${process.env.MONGO_URI}`),
     MongooseModule.forFeature([{ name: 'users', schema: UserSchema }]),
     SwaggerModule,
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: jwtConstants.expiersIn },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AppModule {}

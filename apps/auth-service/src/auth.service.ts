@@ -9,6 +9,8 @@ import { UserAlreadyExists, UserNotFoundError, InvalidDetails } from './errors';
 import { LoginUserReqDto } from './dtos/Login-user.dto';
 import { LoginUserResDto } from './dtos/Login-user-response.dto';
 import { CreateUserResponseDto } from './dtos/Create-user-response.dto';
+import { UpdateUserReqDto } from './dtos/Update-user.dto';
+import { UpdateUserResDto } from './dtos/Update-user-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,11 +31,12 @@ export class AuthService {
 
     // Create new user
     const user = new this.userModel(userData);
+    const TOKEN_EXPIRY = '30d';
     user.password = await hash(user.password, 10); // bcrypt password hashing
     user.token = this.jwtService.sign(
       { email: user.email },
       {
-        expiresIn: '30d',
+        expiresIn: TOKEN_EXPIRY,
       },
     ); // generate token
 
@@ -54,5 +57,22 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async updateUser(
+    id: string,
+    userData: UpdateUserReqDto,
+  ): Promise<UpdateUserResDto> {
+    // Check if user exists
+    const user = await this.userModel.findById(id).exec();
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+    // Update user
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, userData, {
+      new: true,
+    });
+
+    return updatedUser;
   }
 }
