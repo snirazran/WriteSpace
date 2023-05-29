@@ -13,7 +13,7 @@ async function bootstrap() {
     .addTag('auth-service')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('authApi', app, document);
   fs.writeFileSync('./openapi.json', JSON.stringify(document));
   await app.listen(3001);
 }
