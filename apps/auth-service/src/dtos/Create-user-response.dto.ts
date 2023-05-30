@@ -4,11 +4,6 @@ import { ObjectId } from 'mongoose';
 
 export class CreateUserResponseDto {
   @ApiProperty({
-    description: 'User id',
-  })
-  _id: ObjectId | string;
-
-  @ApiProperty({
     description: 'User name',
     minimum: 2,
     maximum: 20,

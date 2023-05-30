@@ -7,9 +7,6 @@ export type UserDocument = HydratedDocument<IUser>;
 
 @Schema({ timestamps: true })
 export class DBUser implements IUser {
-  @Prop({ type: mongoose.Schema.Types.ObjectId || String })
-  _id: ObjectId | string;
-
   @Prop({ type: String, required: true, minlength: 2, maxlength: 20 })
   username: string;
 

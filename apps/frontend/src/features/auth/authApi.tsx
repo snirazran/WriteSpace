@@ -1,19 +1,11 @@
 import { useEffect, useState } from 'react';
 import SWRMutate from 'swr/mutation';
-import { AuthApiFactory, CreateUserDto } from 'api-client/auth';
+import {
+  AuthApiFactory,
+  CreateUserDto,
+  LoginUserReqDto,
+} from 'api-client/auth';
 import { useAxios } from '../../context/AxiosContext';
-
-interface RegisterUserData {
-  username: string;
-  email: string;
-  password: string;
-  img: string | null;
-}
-
-interface LoginUserData {
-  email: string;
-  password: string;
-}
 
 export const useAuthApi = () => {
   const axios = useAxios();
@@ -47,10 +39,9 @@ export const useLogin = () => {
   const { authControllerLoginUser } = useAuthApi();
   const { data, error, isMutating, reset, trigger } = SWRMutate(
     'login',
-    (_url: string, { arg }: { arg: LoginUserData }) =>
+    (_url: string, { arg }: { arg: LoginUserReqDto }) =>
       authControllerLoginUser(arg)
   );
-
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
@@ -58,7 +49,7 @@ export const useRegister = () => {
   const { authControllerRegisterUser } = useAuthApi();
   const { data, error, isMutating, reset, trigger } = SWRMutate(
     'register',
-    (_url: string, { arg }: { arg: RegisterUserData }) =>
+    (_url: string, { arg }: { arg: CreateUserDto }) =>
       authControllerRegisterUser(arg)
   );
 

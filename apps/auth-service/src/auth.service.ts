@@ -55,7 +55,6 @@ export class AuthService {
     if (!passwordValid) {
       throw new InvalidDetails();
     }
-
     return user;
   }
 
