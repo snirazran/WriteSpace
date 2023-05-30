@@ -54,23 +54,11 @@ export interface CreateUserDto {
      */
     'password': string;
     /**
-     * Friends list
-     * @type {Array<string>}
-     * @memberof CreateUserDto
-     */
-    'friends': Array<string>;
-    /**
-     * User bio
-     * @type {string}
-     * @memberof CreateUserDto
-     */
-    'bio': string;
-    /**
      * User img
      * @type {string}
      * @memberof CreateUserDto
      */
-    'img': string;
+    'img': string | null;
 }
 /**
  * 
@@ -79,11 +67,23 @@ export interface CreateUserDto {
  */
 export interface CreateUserResponseDto {
     /**
+     * User id
+     * @type {object}
+     * @memberof CreateUserResponseDto
+     */
+    '_id': object;
+    /**
      * User name
      * @type {string}
      * @memberof CreateUserResponseDto
      */
     'username': string;
+    /**
+     * User password
+     * @type {string}
+     * @memberof CreateUserResponseDto
+     */
+    'password': string;
     /**
      * Email
      * @type {string}
@@ -141,11 +141,23 @@ export interface LoginUserReqDto {
  */
 export interface LoginUserResDto {
     /**
+     * User id
+     * @type {object}
+     * @memberof LoginUserResDto
+     */
+    '_id': object;
+    /**
      * User name
      * @type {string}
      * @memberof LoginUserResDto
      */
     'username': string;
+    /**
+     * User password
+     * @type {string}
+     * @memberof LoginUserResDto
+     */
+    'password': string;
     /**
      * Email
      * @type {string}

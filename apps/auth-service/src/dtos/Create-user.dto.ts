@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { IUser } from 'src/types/user';
 
-export class CreateUserDto implements Omit<IUser, 'password'> {
+export class CreateUserDto {
   @ApiProperty({
     description: 'User name',
     minimum: 2,
@@ -28,22 +27,10 @@ export class CreateUserDto implements Omit<IUser, 'password'> {
   password: string;
 
   @ApiProperty({
-    description: 'Friends list',
-    default: [],
-  })
-  friends: Array<string>;
-
-  @ApiProperty({
-    description: 'User bio',
-    maximum: 200,
-    default: '',
-  })
-  bio: string;
-
-  @ApiProperty({
+    nullable: true,
     description: 'User img',
     maximum: 100,
     default: '',
   })
-  img: string;
+  img: string | undefined;
 }

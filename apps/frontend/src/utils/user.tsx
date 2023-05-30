@@ -1,12 +1,12 @@
 export interface User {
-  _id: string;
+  _id: Object | string;
   username: string;
   email: string;
   token: string;
   password: string;
   friends: string[];
   bio: string;
-  img: string;
+  img: string | null;
 }
 
 export function getUserFromLocalStorage(): User | null {

@@ -43,7 +43,7 @@ export class AuthService {
     return user.save();
   }
 
-  //Register new User
+  //Login User
   async loginUser(userData: LoginUserReqDto): Promise<LoginUserResDto> {
     // Check if user exists
     const user = await this.userModel.findOne({ email: userData.email }).exec();

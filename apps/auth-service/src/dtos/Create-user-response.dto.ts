@@ -1,12 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
 export class CreateUserResponseDto {
+  @ApiProperty({
+    description: 'User id',
+  })
+  _id: ObjectId | string;
+
   @ApiProperty({
     description: 'User name',
     minimum: 2,
     maximum: 20,
   })
   username: string;
+
+  @ApiProperty({
+    description: 'User password',
+    minimum: 6,
+    maximum: 20,
+  })
+  @IsNotEmpty()
+  password: string;
 
   @ApiProperty({
     description: 'Email',
@@ -32,7 +47,7 @@ export class CreateUserResponseDto {
     maximum: 100,
     default: '',
   })
-  img: string;
+  img: string | undefined;
 
   @ApiProperty({
     description: 'User token',
