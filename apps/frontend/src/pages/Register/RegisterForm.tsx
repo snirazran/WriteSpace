@@ -8,7 +8,7 @@ import { UploadImage } from '../../components';
 import storage from '../../firebase';
 import '../../pages/Login_Register.css';
 import { RegisterForm, RegistrationFormItem } from './RegisterTypes';
-import { useRegister } from '../../features/auth/useRegister';
+import { useRegister } from '../../features/auth/authApi';
 import { useAuth } from '../../context/AuthContext';
 import Spinner from '../../components/Spinner';
 
@@ -19,7 +19,7 @@ const RegisterForm: FC = () => {
 
   useEffect(() => {
     if (registerResponse) {
-      setUser(registerResponse);
+      setUser(registerResponse.data);
       navigate('/');
     }
     reset();
@@ -55,7 +55,7 @@ const RegisterForm: FC = () => {
           username: data.name,
           email: data.email,
           password: data.password,
-          img,
+          img: img !== undefined ? img : null,
         };
         trigger(userData);
       } catch (error) {

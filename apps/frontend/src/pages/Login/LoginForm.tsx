@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LoginInputs } from './LoginTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLogin } from '../../features/auth/useLogin';
+import { useLogin } from '../../features/auth/authApi';
 import Spinner from '../../components/Spinner';
 
 function LoginForm() {
@@ -14,7 +14,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (loginResponse) {
-      setUser(loginResponse);
+      setUser(loginResponse.data);
       navigate('/');
     }
     reset();
