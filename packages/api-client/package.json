@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "exports": {
-    "./users": "./users/index.ts"
+    "./users": "./users/index.ts",
+    "./auth": "./auth/index.ts"
   },
   "keywords": [],
   "author": "",
