@@ -10,6 +10,19 @@
       "name": "Launch Chrome against localhost",
       "url": "http://localhost:5173",
       "webRoot": "./apps"
-    }
+    },
+    {
+      "name": "Debug Auth Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1111
+    },
+    {
+      "name": "Debug User Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1112
+    },
+  
   ]
 }
