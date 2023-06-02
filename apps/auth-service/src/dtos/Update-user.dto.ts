@@ -22,9 +22,9 @@ export class UpdateUserReqDto {
   bio: string;
 
   @ApiProperty({
+    nullable: true,
     description: 'User img',
-    maximum: 100,
     default: '',
   })
-  img: string;
+  img: string | undefined;
 }

@@ -8,25 +8,24 @@ import {
 } from 'react';
 import placeholderImgUrl from '../media/placeholder.png';
 import classes from './UploadImage.scss?inline';
-import { UseFormRegister } from 'react-hook-form';
-import { RegisterForm } from '../pages/Register/RegisterTypes';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-type Props = {
+type Props<T extends FieldValues> = {
   alt?: string;
   description?: string;
-  name: keyof RegisterForm;
-  register?: UseFormRegister<RegisterForm>;
+  name: Path<T>;
+  register?: UseFormRegister<T>;
 } & HTMLAttributes<HTMLInputElement>;
 
 // TODO: handle style, use SCSS modules
-const UploadImage: FC<Props> = ({
+const UploadImage = <T extends object>({
   alt,
   name,
   description,
   onChange,
   register,
   ...inputAttr
-}) => {
+}: Props<T>) => {
   const [imageLocal, setImageLocal] = useState<string | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];

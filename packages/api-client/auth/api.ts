@@ -68,10 +68,10 @@ export interface CreateUserDto {
 export interface CreateUserResponseDto {
     /**
      * User id
-     * @type {object}
+     * @type {string}
      * @memberof CreateUserResponseDto
      */
-    '_id': object;
+    '_id': string;
     /**
      * User name
      * @type {string}
@@ -142,10 +142,10 @@ export interface LoginUserReqDto {
 export interface LoginUserResDto {
     /**
      * User id
-     * @type {object}
+     * @type {string}
      * @memberof LoginUserResDto
      */
-    '_id': object;
+    '_id': string;
     /**
      * User name
      * @type {string}
@@ -218,7 +218,7 @@ export interface UpdateUserReqDto {
      * @type {string}
      * @memberof UpdateUserReqDto
      */
-    'img': string;
+    'img': string | null;
 }
 /**
  * 

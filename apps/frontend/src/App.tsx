@@ -15,9 +15,8 @@ import PostPage from './pages/PostPage';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
 import EditProject from './pages/EditProject';
-import EditProfile from './pages/EditProfile';
+import EditProfile from './pages/Profile/EditProfile';
 import Feed from './pages/Feed/Feed';
-import RegisterForm from './pages/Register/RegisterForm';
 import { lazy } from 'react';
 const LazyRegister = lazy(() => import('./pages/Register/Register'));
 
@@ -35,7 +34,7 @@ const App: React.FC = () => {
                   <Route path="/" element={<Feed />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<LazyRegister />} />
-                  <Route path="/profile/edit/:id" element={<EditProfile />} />
+                  <Route path="/profile/:id" element={<EditProfile />} />
                   <Route path="/projects/create" element={<CreateProject />} />
                   <Route
                     path="/projects/project/:id"

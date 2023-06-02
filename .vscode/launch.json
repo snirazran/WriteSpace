@@ -5,11 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Frontend in Chrome",
       "type": "chrome",
       "request": "launch",
-      "name": "Launch Chrome against localhost",
-      "url": "http://localhost:5173",
-      "webRoot": "./apps"
+      "url": "http://localhost:5173/",
+      "webRoot": "${workspaceFolder}/apps/frontend",
+      "preLaunchTask": "start-frontend"
+    },
+    {
+      "name": "Debug Auth Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1111
+    },
+    {
+      "name": "Debug User Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1112
     }
   ]
 }
