@@ -23,7 +23,6 @@ export class UpdateUserReqDto {
 
   @ApiProperty({
     description: 'User img',
-    maximum: 100,
     default: '',
   })
   img: string;

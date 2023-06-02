@@ -11,8 +11,6 @@ export class LoginUserReqDto {
 
   @ApiProperty({
     description: 'User password',
-    minimum: 6,
-    maximum: 20,
   })
   @IsNotEmpty()
   password: string;

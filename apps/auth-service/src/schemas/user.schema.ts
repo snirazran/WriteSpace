@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, ObjectId } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { IUser } from 'src/types/user';
-import * as mongoose from 'mongoose';
 
 export type UserDocument = HydratedDocument<IUser>;
 
@@ -16,8 +15,6 @@ export class DBUser implements IUser {
   @Prop({
     type: String,
     required: true,
-    minlength: 6,
-    maxlength: 20,
     select: false,
   })
   password: string;
@@ -28,7 +25,7 @@ export class DBUser implements IUser {
   @Prop({ type: String, default: '', maxlength: 200 })
   bio: string;
 
-  @Prop({ type: String, default: '', maxlength: 100 })
+  @Prop({ type: String, default: '' })
   img: string;
 
   @Prop({ type: String })

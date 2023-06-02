@@ -29,7 +29,6 @@ export class CreateUserDto {
   @ApiProperty({
     nullable: true,
     description: 'User img',
-    maximum: 100,
     default: '',
   })
   img: string | undefined;

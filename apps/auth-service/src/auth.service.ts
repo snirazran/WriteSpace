@@ -46,7 +46,10 @@ export class AuthService {
   //Login User
   async loginUser(userData: LoginUserReqDto): Promise<LoginUserResDto> {
     // Check if user exists
-    const user = await this.userModel.findOne({ email: userData.email }).exec();
+    const user = await this.userModel
+      .findOne({ email: userData.email })
+      .select('+password')
+      .exec();
     if (!user) {
       throw new UserNotFoundError();
     }
@@ -55,7 +58,14 @@ export class AuthService {
     if (!passwordValid) {
       throw new InvalidDetails();
     }
-    return user;
+
+    const userPlainObject = user.toObject();
+    const userStringId: LoginUserResDto = {
+      ...userPlainObject,
+      _id: user._id.toString(),
+    };
+
+    return userStringId;
   }
 
   async updateUser(
@@ -63,7 +73,7 @@ export class AuthService {
     userData: UpdateUserReqDto,
   ): Promise<UpdateUserResDto> {
     // Check if user exists
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel.findById(id).select('+password').exec();
     if (!user) {
       throw new UserNotFoundError();
     }

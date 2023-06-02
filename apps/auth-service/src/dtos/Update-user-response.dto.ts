@@ -29,7 +29,6 @@ export class UpdateUserResDto {
 
   @ApiProperty({
     description: 'User img',
-    maximum: 100,
     default: '',
   })
   img: string;
