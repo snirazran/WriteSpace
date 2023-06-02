@@ -4,6 +4,7 @@ import {
   AuthApiFactory,
   CreateUserDto,
   LoginUserReqDto,
+  UpdateUserReqDto,
 } from 'api-client/auth';
 import { useAxios } from '../../context/AxiosContext';
 
@@ -51,6 +52,17 @@ export const useRegister = () => {
     'register',
     (_url: string, { arg }: { arg: CreateUserDto }) =>
       authControllerRegisterUser(arg)
+  );
+
+  return { data, error, isLoading: isMutating, reset, trigger };
+};
+
+export const useUpdateUser = (id: string) => {
+  const { authControllerUpdateUser } = useAuthApi();
+  const { data, error, isMutating, reset, trigger } = SWRMutate(
+    'register',
+    (_url: string, { arg }: { arg: UpdateUserReqDto }) =>
+      authControllerUpdateUser(id, arg)
   );
 
   return { data, error, isLoading: isMutating, reset, trigger };

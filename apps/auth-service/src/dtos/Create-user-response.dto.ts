@@ -3,6 +3,11 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserResponseDto {
   @ApiProperty({
+    description: 'User id',
+  })
+  _id: string;
+
+  @ApiProperty({
     description: 'User name',
     minimum: 2,
     maximum: 20,

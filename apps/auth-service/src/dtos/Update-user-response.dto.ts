@@ -31,7 +31,7 @@ export class UpdateUserResDto {
     description: 'User img',
     default: '',
   })
-  img: string;
+  img: string | undefined;
 
   @ApiProperty({
     description: 'User token',

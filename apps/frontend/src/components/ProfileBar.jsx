@@ -1,6 +1,7 @@
 import './ProfileBar.css';
-
+import { useNavigate } from 'react-router-dom';
 function ProfileBar({ user }) {
+  const navigate = useNavigate();
   return (
     <div className="profile-bar">
       <div className="profile-bar-img">

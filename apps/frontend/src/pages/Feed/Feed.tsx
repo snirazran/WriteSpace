@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
 import Post from '../../components/Post';
@@ -26,6 +26,7 @@ function Feed() {
 
   // get the id
   const id = user?._id;
+  console.log(id);
   //get the local time
   const hour = timeOfADay();
 
@@ -55,6 +56,7 @@ function Feed() {
         <div className="side-bars">
           {/* profile sidebar */}
           <ProfileBar user={user} />
+          <Link to={`/profile/${user?._id}`}>Edit Profile</Link>
           {/* Your-projects side bar */}
 
           {/* {<ProjectsSidebar content={projects} />} */}

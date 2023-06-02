@@ -40,7 +40,14 @@ export class AuthService {
       },
     ); // generate token
 
-    return user.save();
+    user.save();
+
+    const userPlainObject = user.toObject();
+    const userStringId: CreateUserResponseDto = {
+      ...userPlainObject,
+      _id: user._id.toString(),
+    };
+    return userStringId;
   }
 
   //Login User
