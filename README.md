@@ -49,10 +49,17 @@ WriteSpace is packed with several features to enhance the experience of its user
 To get started with WriteSpace, you'll need to clone the repository and install dependencies. Here's a basic rundown of what you'll need to do.
 
 **Step 1: Clone the Repository**
+
 https://github.com/snirazran/WriteSpace.git
+
 **Step 2: Install Dependencies**
+
 npm install
+
 **Step 3: Run the Application**
-Create a .env file, there is an ExpamleEnv file with the parameters you need.
+
+Create a .env file, there are ExpamleEnv files in each directory that require a .env file.
+
 **Step 4: Run the Application**
+
 npm start
