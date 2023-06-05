@@ -1,5 +1,5 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -10,17 +10,25 @@ import '../Login_Register.css';
 import { EditProfileForm, EditProfileFormItem } from './EditProfileTypes';
 import { useRegister, useUpdateUser } from '../../features/auth/authApi';
 import { useGetUserById } from '../../features/users/usersApi';
+import { GetUserByIdDTO } from 'api-client/users';
 
 function EditProfileForm() {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const {
-    data: user,
+    data: userData,
     error: userError,
     isLoading: userIsLoading,
     mutate,
   } = useGetUserById(id!);
+
+  useEffect(() => {
+    if (userError) {
+      toast.error(userError.message);
+    }
+    setUser(userData?.data);
+  }, [userError, userData]);
 
   const {
     trigger,
@@ -30,13 +38,19 @@ function EditProfileForm() {
     isLoading: updateIsLoading,
   } = useUpdateUser(id!);
 
-  useEffect(() => {}, []);
+  const [user, setUser] = useState<GetUserByIdDTO | undefined>(undefined);
 
   const {
     register: registerForm,
     handleSubmit,
     formState: { errors, defaultValues },
-  } = useForm<EditProfileForm>();
+  } = useForm<EditProfileForm>({
+    defaultValues: {
+      name: user?.username,
+      email: user?.email,
+      bio: user?.bio,
+    },
+  });
 
   const uploadImage = async (file: File) => {
     const imageRef = ref(storage, `postImages/${file!.name + v4()}`);
@@ -58,7 +72,6 @@ function EditProfileForm() {
       const userData = {
         username: data.name,
         email: data.email,
-        password: data.password,
         img: img ?? null,
         bio: data.bio,
       };
@@ -102,7 +115,7 @@ function EditProfileForm() {
       ),
     },
     {
-      type: user?.data.username || 'name',
+      type: 'name',
       id: 'name',
       name: 'name',
       placeholder: 'Enter your name',
@@ -120,13 +133,6 @@ function EditProfileForm() {
       id: 'bio',
       name: 'bio',
       placeholder: 'Enter your bio',
-      render: renderInput,
-    },
-    {
-      type: 'password',
-      id: 'password',
-      name: 'password',
-      placeholder: 'Enter your password',
       render: renderInput,
     },
   ];
