@@ -1,36 +1,62 @@
 # WriteSpace
-A writing platform, to help writers manage their work and share it easily
 
-# Getting Started
-First, run the development server:
-```
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-Open http://localhost:5173/ with your browser to see the result.
+Welcome to WriteSpace, a unique social media platform exclusively built for writers. WriteSpace allows writers to pen their thoughts, share their masterpieces, and explore a diverse range of content crafted by other writers, all in a convenient and interactive way.
 
-# Root DotEnv
-add this to the .env file in the root dir
-```
-NODE_ENV = development
-PORT = 5000
-MONGO_URI = mongoDb URI
-JWT_SECRET = JWT Secret
-```
+![WriteSpace Banner](./path-to-banner-image)
 
-# Frontend DotEnv
-add this to the .env file in the frontend dir
-```
-VITE_FIREBASE_STORAGE = FIREBASE_STORAGE
-VITE_API_KEY = API_KEY
-VITE_AUTH_DOMAIN = AUTH_DOMAIN
-VITE_PROJECT_ID = PROJECT_ID
-VITE_STORAGE_BUCKET = STORAGE_BUCKET
-VITE_MESSAGING_SENDER_ID = MESSAGING_SENDER_ID
-VITE_APP_ID = APP_ID
-VITE_UNSPLASH_KEY = UNSPLASH_KEY
-VITE_API_URL = "http://localhost:5000"
-```
+## Table of Contents
+
+1. [Features](#features)
+2. [Tech Stack](#tech-stack)
+3. [Getting Started](#getting-started)
+4. [Contributing](#contributing)
+5. [License](#license)
+
+## Features
+
+WriteSpace is packed with several features to enhance the experience of its users:
+
+- **Rich Text Editor:** Empowering writers to express their creativity with a myriad of formatting options.
+- **Friends System:** Building a community of writers who learn and grow together.
+- **Authentication System:** Ensuring security and privacy for all WriteSpace users.
+- **Like/Comment System:** Facilitating engagement and sparking insightful discussions.
+- **Sharing and Viewing:** Providing a stage for writers to showcase their work and a platform for readers to explore.
+
+## Tech Stack
+
+### Programming Language
+
+- TypeScript
+
+### Frontend
+
+- React
+- SWR
+- Vite.js
+- SASS
+
+### Backend
+
+- Node.js
+- Nest.js
+
+### Database
+
+- MongoDB
+
+### Tools
+
+- OpenAPI
+
+## Getting Started
+
+To get started with WriteSpace, you'll need to clone the repository and install dependencies. Here's a basic rundown of what you'll need to do.
+
+**Step 1: Clone the Repository**
+https://github.com/snirazran/WriteSpace.git
+**Step 2: Install Dependencies**
+npm install
+**Step 3: Run the Application**
+Create a .env file, there is an ExpamleEnv file with the parameters you need.
+**Step 4: Run the Application**
+npm start
