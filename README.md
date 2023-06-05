@@ -2,15 +2,11 @@
 
 Welcome to WriteSpace, a unique social media platform exclusively built for writers. WriteSpace allows writers to pen their thoughts, share their masterpieces, and explore a diverse range of content crafted by other writers, all in a convenient and interactive way.
 
-![WriteSpace Banner](./path-to-banner-image)
-
 ## Table of Contents
 
 1. [Features](#features)
 2. [Tech Stack](#tech-stack)
 3. [Getting Started](#getting-started)
-4. [Contributing](#contributing)
-5. [License](#license)
 
 ## Features
 
