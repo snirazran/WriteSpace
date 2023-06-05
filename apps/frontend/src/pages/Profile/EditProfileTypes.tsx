@@ -4,7 +4,6 @@ import { RegisterOptions } from 'react-hook-form';
 export type EditProfileForm = {
   name: string;
   email: string;
-  password: string;
   bio: string;
   profileImage: FileList; // react-hook-form override the onChange and sent the original event
 };
