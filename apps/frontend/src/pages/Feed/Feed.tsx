@@ -26,7 +26,6 @@ function Feed() {
 
   // get the id
   const id = user?._id;
-  console.log(id);
   //get the local time
   const hour = timeOfADay();
 

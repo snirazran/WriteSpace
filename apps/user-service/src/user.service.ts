@@ -4,42 +4,50 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserNotFoundError, UsersNotFoundError } from './errors';
 
+import { UserResponseDTO } from './dtos/user-response.dto';
+
 @Injectable()
 export class UserService {
   constructor(@InjectModel('users') private userModel: Model<DBUser>) {}
 
   //Get All Users
-  async getAllUsers(): Promise<DBUser[]> {
+  async getAllUsers(): Promise<UserResponseDTO[]> {
     const docs = await this.userModel.find({}).exec();
 
     if (!docs) {
       throw new UsersNotFoundError();
     }
 
-    const filteredUsers = docs.reduce((acc: DBUser[], obj) => {
-      const { username, email, friends, bio, img } = obj;
-      const user = Object.fromEntries([
-        ['username', username],
-        ['email', email],
-        ['friends', friends],
-        ['bio', bio],
-        ['img', img],
-      ]);
-      acc.push(user);
-      return acc;
-    }, []);
+    const filteredUsers = docs.map((obj) => {
+      const { _id, username, email, friends, bio, img } = obj;
+      const user = {
+        _id: _id.toString(), // Convert ObjectId to string
+        username,
+        email,
+        friends,
+        bio,
+        img,
+      };
+      return user;
+    });
 
     return filteredUsers;
   }
 
   //Get User by Id
-  async getUserById(id: string): Promise<DBUser> {
+  async getUserById(id: string): Promise<UserResponseDTO> {
     const doc = await this.userModel.findById(id).exec();
 
     if (!doc) {
       throw new UserNotFoundError();
     }
 
-    return doc.toObject();
+    const userPlainObject = doc.toObject();
+    const userStringId: UserResponseDTO = {
+      ...userPlainObject,
+      _id: doc._id.toString(),
+    };
+
+    return userStringId;
   }
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import SWR from 'swr';
 import { UsersApiFactory } from 'api-client/users';
 import { useAxios } from '../../context/AxiosContext';
+import { useAuth } from '../../context/AuthContext';
 
 export const useUsersApi = () => {
   const axios = useAxios();

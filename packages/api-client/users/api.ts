@@ -68,6 +68,12 @@ export interface GetAllUsersDTO {
  */
 export interface GetUserByIdDTO {
     /**
+     * User id
+     * @type {string}
+     * @memberof GetUserByIdDTO
+     */
+    '_id': string;
+    /**
      * User name
      * @type {string}
      * @memberof GetUserByIdDTO

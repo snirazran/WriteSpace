@@ -5,4 +5,5 @@ export interface IUser {
   friends: Array<string>;
   img: string;
   bio: string;
+  token: string;
 }

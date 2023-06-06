@@ -1,35 +1,36 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { UploadImage } from '../../components';
 import storage from '../../firebase';
 import '../Login_Register.css';
 import { EditProfileForm, EditProfileFormItem } from './EditProfileTypes';
-import { useRegister, useUpdateUser } from '../../features/auth/authApi';
-import { useGetUserById } from '../../features/users/usersApi';
+import { useUpdateUser } from '../../features/auth/authApi';
+import Image from '../../components/Image';
 import { GetUserByIdDTO } from 'api-client/users';
+import { User } from '../../utils/user';
 
-function EditProfileForm() {
+// Props for EditProfileForm
+type EditProfileFormProps = {
+  id?: string;
+  loggedInUser?: User;
+  userData?: GetUserByIdDTO;
+  userIsLoading?: boolean;
+  isEditMode?: boolean;
+};
+
+const EditProfileForm: React.FC<EditProfileFormProps> = ({
+  id,
+  userData,
+  userIsLoading,
+  loggedInUser,
+  isEditMode,
+}) => {
   const navigate = useNavigate();
-  const { id } = useParams();
 
-  const {
-    data: userData,
-    error: userError,
-    isLoading: userIsLoading,
-    mutate,
-  } = useGetUserById(id!);
-
-  useEffect(() => {
-    if (userError) {
-      toast.error(userError.message);
-    }
-    setUser(userData?.data);
-  }, [userError, userData]);
-
+  // Update user functionality
   const {
     trigger,
     data: updateResponse,
@@ -38,17 +39,15 @@ function EditProfileForm() {
     isLoading: updateIsLoading,
   } = useUpdateUser(id!);
 
-  const [user, setUser] = useState<GetUserByIdDTO | undefined>(undefined);
-
   const {
     register: registerForm,
     handleSubmit,
     formState: { errors, defaultValues },
   } = useForm<EditProfileForm>({
     defaultValues: {
-      name: user?.username,
-      email: user?.email,
-      bio: user?.bio,
+      username: userData?.username,
+      email: userData?.email,
+      bio: userData?.bio,
     },
   });
 
@@ -67,10 +66,10 @@ function EditProfileForm() {
 
   const onSubmit: SubmitHandler<EditProfileForm> = async (data) => {
     try {
-      if (!data.profileImage[0]) toast.error('Please upload a profile image');
-      const img = await uploadImage(data.profileImage[0]);
+      if (!data.img[0]) toast.error('Please upload a profile image');
+      const img = await uploadImage(data.img[0]);
       const userData = {
-        username: data.name,
+        username: data.username,
         email: data.email,
         img: img ?? null,
         bio: data.bio,
@@ -103,21 +102,24 @@ function EditProfileForm() {
     {
       type: 'file',
       id: 'file-input',
-      name: 'profileImage',
+      name: 'img',
       placeholder: 'Pick a profile picture',
-      render: ({ name, ...rest }) => (
-        <UploadImage
-          name={name}
-          alt="profile"
-          register={registerForm}
-          {...rest}
-        />
-      ),
+      render: ({ name, ...rest }) =>
+        isEditMode ? (
+          <Image src={loggedInUser?.img ?? ' '} />
+        ) : (
+          <UploadImage
+            name={name}
+            alt="profile"
+            register={registerForm}
+            {...rest}
+          />
+        ),
     },
     {
       type: 'name',
       id: 'name',
-      name: 'name',
+      name: 'username',
       placeholder: 'Enter your name',
       render: renderInput,
     },
@@ -155,5 +157,5 @@ function EditProfileForm() {
       </section>
     </>
   );
-}
+};
 export default EditProfileForm;

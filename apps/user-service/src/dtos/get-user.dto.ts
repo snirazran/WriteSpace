@@ -1,3 +1,3 @@
-import { UserDTO } from './user.dto';
+import { UserResponseDTO } from './user-response.dto';
 
-export class GetUserByIdDTO extends UserDTO {}
+export class GetUserByIdDTO extends UserResponseDTO {}

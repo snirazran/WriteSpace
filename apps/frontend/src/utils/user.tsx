@@ -1,13 +1,5 @@
-export interface User {
-  _id: string;
-  username: string;
-  email: string;
-  token: string;
-  password: string;
-  friends: string[];
-  bio: string;
-  img: string | null;
-}
+import { UserDTO } from '../../../user-service/src/dtos/user.dto';
+export interface User extends UserDTO {}
 
 export function getUserFromLocalStorage(): User | null {
   const userJSON = localStorage.getItem('user');
