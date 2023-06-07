@@ -8,25 +8,17 @@ import storage from '../../firebase';
 import '../Login_Register.css';
 import { EditProfileForm, EditProfileFormItem } from './EditProfileTypes';
 import { useUpdateUser } from '../../features/auth/authApi';
-import Image from '../../components/Image';
-import { GetUserByIdDTO } from 'api-client/users';
 import { User } from '../../utils/user';
 
 // Props for EditProfileForm
 type EditProfileFormProps = {
-  id?: string;
   loggedInUser?: User;
-  userData?: GetUserByIdDTO;
-  userIsLoading?: boolean;
-  isEditMode?: boolean;
+  setUser: (user: User) => void;
 };
 
 const EditProfileForm: React.FC<EditProfileFormProps> = ({
-  id,
-  userData,
-  userIsLoading,
+  setUser,
   loggedInUser,
-  isEditMode,
 }) => {
   const navigate = useNavigate();
 
@@ -37,7 +29,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
     error: updateError,
     reset: updateReset,
     isLoading: updateIsLoading,
-  } = useUpdateUser(id!);
+  } = useUpdateUser(loggedInUser?._id!);
 
   const {
     register: registerForm,
@@ -45,9 +37,9 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
     formState: { errors, defaultValues },
   } = useForm<EditProfileForm>({
     defaultValues: {
-      username: userData?.username,
-      email: userData?.email,
-      bio: userData?.bio,
+      username: loggedInUser?.username,
+      email: loggedInUser?.email,
+      bio: loggedInUser?.bio,
     },
   });
 
@@ -66,15 +58,25 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
   const onSubmit: SubmitHandler<EditProfileForm> = async (data) => {
     try {
-      if (!data.img[0]) toast.error('Please upload a profile image');
-      const img = await uploadImage(data.img[0]);
-      const userData = {
-        username: data.username,
-        email: data.email,
-        img: img ?? null,
-        bio: data.bio,
-      };
-      trigger(userData);
+      if (!data.img[0]) {
+        const img = loggedInUser?.img;
+        const userData = {
+          username: data.username,
+          email: data.email,
+          img: img ?? null,
+          bio: data.bio,
+        };
+        trigger(userData);
+      } else {
+        const img = await uploadImage(data.img[0]);
+        const userData = {
+          username: data.username,
+          email: data.email,
+          img: img ?? null,
+          bio: data.bio,
+        };
+        trigger(userData);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -104,17 +106,15 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
       id: 'file-input',
       name: 'img',
       placeholder: 'Pick a profile picture',
-      render: ({ name, ...rest }) =>
-        isEditMode ? (
-          <Image src={loggedInUser?.img ?? ' '} />
-        ) : (
-          <UploadImage
-            name={name}
-            alt="profile"
-            register={registerForm}
-            {...rest}
-          />
-        ),
+      render: ({ name, ...rest }) => (
+        <UploadImage
+          userImage={loggedInUser?.img}
+          name={name}
+          alt="profile"
+          register={registerForm}
+          {...rest}
+        />
+      ),
     },
     {
       type: 'name',

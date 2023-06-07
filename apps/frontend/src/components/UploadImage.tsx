@@ -15,6 +15,7 @@ type Props<T extends FieldValues> = {
   description?: string;
   name: Path<T>;
   register?: UseFormRegister<T>;
+  userImage?: string;
 } & HTMLAttributes<HTMLInputElement>;
 
 // TODO: handle style, use SCSS modules
@@ -22,11 +23,14 @@ const UploadImage = <T extends object>({
   alt,
   name,
   description,
+  userImage,
   onChange,
   register,
   ...inputAttr
 }: Props<T>) => {
-  const [imageLocal, setImageLocal] = useState<string | null>(null);
+  const [imageLocal, setImageLocal] = useState<string | null>(
+    userImage ?? null
+  );
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     const objectUrl = URL.createObjectURL(file);

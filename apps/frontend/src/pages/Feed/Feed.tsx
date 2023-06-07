@@ -55,7 +55,7 @@ function Feed() {
         <div className="side-bars">
           {/* profile sidebar */}
           <ProfileBar user={user} />
-          <Link to={`/profile/${user?._id}`}>Edit Profile</Link>
+          <Link to={`/profile/edit`}>Edit Profile</Link>
           {/* Your-projects side bar */}
 
           {/* {<ProjectsSidebar content={projects} />} */}

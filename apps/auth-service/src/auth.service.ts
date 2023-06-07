@@ -34,7 +34,7 @@ export class AuthService {
     const TOKEN_EXPIRY = '30d';
     user.password = await hash(user.password, 10); // bcrypt password hashing
     user.token = this.jwtService.sign(
-      { email: user.email },
+      { _id: user._id },
       {
         expiresIn: TOKEN_EXPIRY,
       },

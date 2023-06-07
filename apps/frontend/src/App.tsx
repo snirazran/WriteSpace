@@ -8,7 +8,7 @@ import { AppProviders } from './context/AppProviders';
 
 import Login from './pages/Login/Login';
 import Header from './components/Navigation/Header';
-import Projects from './pages/Projects';
+import Profile from './pages/Profile/Profile';
 import CreateProject from './pages/CreateProject';
 import ProjectPage from './pages/ProjectPage';
 import PostPage from './pages/PostPage';
@@ -41,7 +41,8 @@ const App: React.FC = () => {
                       </Suspense>
                     }
                   />
-                  <Route path="/profile/:id" element={<EditProfile />} />
+                  <Route path="/profile/:id" element={<Profile />} />
+                  <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/projects/create" element={<CreateProject />} />
                   <Route
                     path="/projects/project/:id"
@@ -51,7 +52,6 @@ const App: React.FC = () => {
                     path="/projects/project/edit/:id"
                     element={<EditProject />}
                   />
-                  <Route path="/projects/:userId" element={<Projects />} />
                   <Route path="/posts/create" element={<CreatePost />} />
                   <Route path="/posts/:id" element={<PostPage />} />
                   <Route path="/posts/edit/:id" element={<EditPost />} />
