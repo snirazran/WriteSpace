@@ -227,11 +227,23 @@ export interface UpdateUserReqDto {
  */
 export interface UpdateUserResDto {
     /**
+     * User id
+     * @type {string}
+     * @memberof UpdateUserResDto
+     */
+    '_id': string;
+    /**
      * User name
      * @type {string}
      * @memberof UpdateUserResDto
      */
     'username': string;
+    /**
+     * User Password
+     * @type {string}
+     * @memberof UpdateUserResDto
+     */
+    'password': string;
     /**
      * Email
      * @type {string}
@@ -256,12 +268,6 @@ export interface UpdateUserResDto {
      * @memberof UpdateUserResDto
      */
     'img': string;
-    /**
-     * User token
-     * @type {string}
-     * @memberof UpdateUserResDto
-     */
-    'token': string;
 }
 
 /**

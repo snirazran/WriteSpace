@@ -9,6 +9,8 @@ import '../Login_Register.css';
 import { EditProfileForm, EditProfileFormItem } from './EditProfileTypes';
 import { useUpdateUser } from '../../features/auth/authApi';
 import { User } from '../../utils/user';
+import { useEffect } from 'react';
+import Spinner from '../../components/Spinner';
 
 // Props for EditProfileForm
 type EditProfileFormProps = {
@@ -29,7 +31,20 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
     error: updateError,
     reset: updateReset,
     isLoading: updateIsLoading,
+    reset,
   } = useUpdateUser(loggedInUser?._id!);
+
+  useEffect(() => {
+    if (updateResponse) {
+      setUser(updateResponse.data);
+      navigate('/');
+    }
+
+    if (updateError) {
+      toast.error(updateError.message);
+    }
+    reset();
+  }, [navigate, updateResponse]);
 
   const {
     register: registerForm,
@@ -58,27 +73,25 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
   const onSubmit: SubmitHandler<EditProfileForm> = async (data) => {
     try {
+      let userImage: string | undefined;
+
       if (!data.img[0]) {
-        const img = loggedInUser?.img;
-        const userData = {
-          username: data.username,
-          email: data.email,
-          img: img ?? null,
-          bio: data.bio,
-        };
-        trigger(userData);
+        userImage = loggedInUser?.img;
       } else {
-        const img = await uploadImage(data.img[0]);
-        const userData = {
-          username: data.username,
-          email: data.email,
-          img: img ?? null,
-          bio: data.bio,
-        };
-        trigger(userData);
+        userImage = await uploadImage(data.img[0]);
       }
+
+      const userData = {
+        username: data.username,
+        email: data.email,
+        img: userImage ?? null,
+        bio: data.bio,
+      };
+
+      trigger(userData);
     } catch (error) {
-      console.log(error);
+      console.error('Failed to submit profile:', error);
+      toast.error('Failed to submit profile');
     }
   };
 
@@ -138,6 +151,8 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
       render: renderInput,
     },
   ];
+
+  if (updateIsLoading) return <Spinner />;
 
   return (
     <>

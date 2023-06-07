@@ -2,11 +2,21 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateUserResDto {
   @ApiProperty({
+    description: 'User id',
+  })
+  _id: string;
+
+  @ApiProperty({
     description: 'User name',
     minimum: 2,
     maximum: 20,
   })
   username: string;
+
+  @ApiProperty({
+    description: 'User Password',
+  })
+  password: string;
 
   @ApiProperty({
     description: 'Email',
@@ -31,10 +41,5 @@ export class UpdateUserResDto {
     description: 'User img',
     default: '',
   })
-  img: string | undefined;
-
-  @ApiProperty({
-    description: 'User token',
-  })
-  token: string;
+  img: string;
 }

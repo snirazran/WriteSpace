@@ -23,6 +23,12 @@
       "type": "node",
       "request": "attach",
       "port": 1112
+    },
+    {
+      "name": "Debug Projects Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1113
     }
   ]
 }

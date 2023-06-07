@@ -89,6 +89,12 @@ export class AuthService {
       new: true,
     });
 
-    return updatedUser;
+    const userPlainObject = updatedUser.toObject();
+    const userStringId: UpdateUserResDto = {
+      ...userPlainObject,
+      _id: user._id.toString(),
+    };
+
+    return userStringId;
   }
 }
