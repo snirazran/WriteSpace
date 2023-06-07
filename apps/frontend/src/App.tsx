@@ -8,7 +8,7 @@ import { AppProviders } from './context/AppProviders';
 
 import Login from './pages/Login/Login';
 import Header from './components/Navigation/Header';
-import Projects from './pages/Projects';
+import Profile from './pages/Profile/Profile';
 import CreateProject from './pages/CreateProject';
 import ProjectPage from './pages/ProjectPage';
 import PostPage from './pages/PostPage';
@@ -17,7 +17,7 @@ import EditPost from './pages/EditPost';
 import EditProject from './pages/EditProject';
 import EditProfile from './pages/Profile/EditProfile';
 import Feed from './pages/Feed/Feed';
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 const LazyRegister = lazy(() => import('./pages/Register/Register'));
 
 const App: React.FC = () => {
@@ -33,8 +33,16 @@ const App: React.FC = () => {
                 <>
                   <Route path="/" element={<Feed />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<LazyRegister />} />
-                  <Route path="/profile/:id" element={<EditProfile />} />
+                  <Route
+                    path="/register"
+                    element={
+                      <Suspense>
+                        <LazyRegister />
+                      </Suspense>
+                    }
+                  />
+                  <Route path="/profile/:id" element={<Profile />} />
+                  <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/projects/create" element={<CreateProject />} />
                   <Route
                     path="/projects/project/:id"
@@ -44,7 +52,6 @@ const App: React.FC = () => {
                     path="/projects/project/edit/:id"
                     element={<EditProject />}
                   />
-                  <Route path="/projects/:userId" element={<Projects />} />
                   <Route path="/posts/create" element={<CreatePost />} />
                   <Route path="/posts/:id" element={<PostPage />} />
                   <Route path="/posts/edit/:id" element={<EditPost />} />

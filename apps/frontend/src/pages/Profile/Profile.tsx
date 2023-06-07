@@ -1,35 +1,17 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ProfileBox from '../components/ProfileBox';
-import Slider from '../components/Slider';
-import Spinner from '../components/Spinner';
-import './Projects.css';
-import { getProjects, resetProjects } from '../features/projects/projectSlice';
-import { useGetUserById } from '../features/users/usersApi';
-import { useGetUserFriends } from '../features/users/friendsApi';
+import ProfileBox from '../../components/ProfileBox';
+import Slider from '../../components/Slider';
+import Spinner from '../../components/Spinner';
+import './Profile.css';
+import { useGetUserById } from '../../features/users/usersApi';
+import { useGetUserFriends } from '../../features/users/friendsApi';
 
-function Projects() {
+function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { userId } = useParams();
-  // const {
-  //   data: user,
-  //   error: userError,
-  //   isLoading: userIsLoading,
-  //   mutate: mutateUser,
-  // } = useGetUserById(userId);
-  const {
-    data: userFriends,
-    error: userFriendsError,
-    isLoading: userFriendsIsLoading,
-    mutate: mutateUserFriends,
-  } = useGetUserFriends(userId);
-
-  console.log(userFriends);
-
-  const { projects, projectIsLoading, projectIsError, projectMessage } =
-    useSelector((state) => state.projects);
 
   // useEffect(() => {
   //   if (projectIsError || userError || userFriendsError) {
@@ -55,7 +37,7 @@ function Projects() {
   return (
     <section className="projects">
       {/* <ProfileBox shownUser={user} userFriends={userFriends} /> */}
-      <Slider content={projects} />
+      {/* <Slider content={projects} /> */}
       <button onClick={onClick} className="box-btn">
         Create a new project
       </button>
@@ -63,4 +45,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default Profile;

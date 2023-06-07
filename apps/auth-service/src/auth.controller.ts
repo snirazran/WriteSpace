@@ -78,7 +78,7 @@ export class AuthController {
     @Body() userData: UpdateUserReqDto,
   ): Promise<UpdateUserResDto | undefined> {
     // Check if the user is the same as the one that is logged in
-    if (req.user.userId !== id) {
+    if (req.user._id !== id) {
       throw new UnauthorizedException();
     }
     // Update user

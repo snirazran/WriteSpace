@@ -1,12 +1,8 @@
+import { UpdateUserReqDto } from 'api-client/auth';
 import { HTMLInputTypeAttribute } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 
-export type EditProfileForm = {
-  name: string;
-  email: string;
-  bio: string;
-  profileImage: FileList; // react-hook-form override the onChange and sent the original event
-};
+export type EditProfileForm = Omit<UpdateUserReqDto, 'img'> & { img: FileList };
 
 export type EditProfileFormItem = {
   id: string;

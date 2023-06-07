@@ -1,13 +1,22 @@
 import '../Login_Register.css';
 import EditProfileForm from './EditProfileForm';
+import { useAuth } from '../../context/AuthContext';
 
 function EditProfile() {
+  //get user from api
+  const { user: loggedInUser, setUser } = useAuth();
+
   return (
     <>
       <section className="heading">
-        <h1>Edit profile</h1>
+        <h1>Edit Profile</h1>
       </section>
-      <EditProfileForm />
+      <div className="edit-profile-content">
+        <EditProfileForm
+          loggedInUser={loggedInUser ? loggedInUser : undefined}
+          setUser={setUser}
+        />
+      </div>
     </>
   );
 }

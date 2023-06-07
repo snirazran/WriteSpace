@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { GetUserFriendsResponseDTO } from './dtos/get-user-friends.dto';
 import { UserService } from './user.service';
 import { UserFriendsNotFoundError, UserNotFoundError } from './errors';
+import { UserResponseDTO } from './dtos/user-response.dto';
 
 @Injectable()
 export class FriendsService {
@@ -14,7 +15,7 @@ export class FriendsService {
   ) {}
 
   //Get the user friends
-  async getUserFriends(id: string): Promise<GetUserFriendsResponseDTO[]> {
+  async getUserFriends(id: string): Promise<UserResponseDTO[]> {
     const { friends: friendsIds } = await this.userService.getUserById(id);
     const tasks = [];
 
@@ -22,7 +23,9 @@ export class FriendsService {
       tasks.push(this.getUserFriend(id, friendId));
     }
 
-    const friends = (await Promise.all(tasks)).filter((f): f is DBUser => !!f);
+    const friends = (await Promise.all(tasks)).filter(
+      (f): f is UserResponseDTO => !!f,
+    );
 
     if (!friends?.length) {
       throw new UserFriendsNotFoundError();
@@ -31,12 +34,18 @@ export class FriendsService {
     return friends;
   }
 
-  private getUserFriend(userId: string, friendId: string) {
+  private async getUserFriend(
+    userId: string,
+    friendId: string,
+  ): Promise<UserResponseDTO | null> {
     try {
       return this.userService.getUserById(friendId);
     } catch (e) {
       if (e instanceof UserNotFoundError) {
         console.error(`Friend of ${userId} not found`, e);
+        return null;
+      } else {
+        throw e;
       }
     }
   }
