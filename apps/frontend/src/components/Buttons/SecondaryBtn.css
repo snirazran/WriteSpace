@@ -1,0 +1,15 @@
+.secondaryBtn {
+  width: auto;
+  padding: 8px 16px;
+  font-size: 12px;
+  background-color: var(--secondaryColor);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+
+.secondaryBtn:hover {
+  background-color: var(--mainColor);
+}

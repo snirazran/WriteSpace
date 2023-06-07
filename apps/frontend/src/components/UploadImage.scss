@@ -1,0 +1,19 @@
+.register-photo {
+  margin-top: 50px;
+
+  img {
+    border-radius: 100px;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+  }
+}
+
+.register-photo-text {
+  margin-top: 10px;
+  color: var(--gray);
+
+  label {
+    cursor: pointer;
+  }
+}

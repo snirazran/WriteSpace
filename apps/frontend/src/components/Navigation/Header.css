@@ -1,0 +1,140 @@
+/* Header CSS */
+
+header {
+  background: linear-gradient(180deg, #f4a261 0%, rgba(217, 217, 217, 0) 100%);
+  padding: 25px 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 200px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+li a:hover {
+  color: var(--secondaryColor);
+}
+
+li .circled {
+  text-decoration: none;
+  color: #fff;
+  background-color: var(--mainColor);
+  padding: 10px 15px;
+  border-radius: 50px;
+  margin: 0 20px;
+  outline: none;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+li .circled:hover {
+  color: #fff;
+  background-color: var(--secondaryColor);
+}
+
+header .nav-btn {
+  padding: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: none;
+}
+
+header .nav-btn:hover {
+  color: var(--secondaryColor);
+}
+
+header .nav-login-btn svg path {
+  color: #000;
+}
+
+header .nav-login-btn svg path:hover {
+  color: var(--secondaryColor);
+}
+
+@media only screen and (max-width: 1023px) {
+  header .nav-btn {
+    display: inline-block;
+  }
+
+  header nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mainColor);
+    transition: 1s;
+    transform: translateY(-100vh);
+  }
+
+  header ul {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  header li {
+    margin: 30px 0;
+    font-size: 3rem;
+  }
+
+  header li a {
+    color: white;
+  }
+
+  header li .signup:hover {
+    background-color: transparent;
+    color: var(--secondaryColor);
+  }
+
+  header .nav-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 30px;
+    color: white;
+  }
+
+  header .responsive_nav {
+    transform: none;
+    z-index: 2;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  header {
+    padding: 25px 20px;
+  }
+
+  header .logo img {
+    width: 160px;
+  }
+
+  #nav-icon-btn {
+    padding: 5px;
+    font-size: 20px;
+  }
+}

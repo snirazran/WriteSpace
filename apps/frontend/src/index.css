@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+/* Global CSS */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  font-family: Nunito, Rubik;
+}
+
+:root {
+  --mainColor: #e76f51;
+  --secondaryColor: #f4a261;
+  --gray: #919191;
+  --lightGray: #bfbfbf;
+}
+
+.container {
+  text-align: center;
+}
