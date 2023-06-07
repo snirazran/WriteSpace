@@ -9,12 +9,40 @@ import {
   InvalidDetails,
   UserNotFoundError,
 } from './errors';
+import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectModel('projects') private projectModel: Model<DBProject>,
   ) {}
+
+  //Create a new project
+  async createProject(
+    ProjectData: CreateProjectRequestDTO,
+  ): Promise<ProjectResponseDTO> {
+    try {
+      const project = new this.projectModel(ProjectData);
+
+      project.userId = ProjectData.userId;
+      project.name = `A new ${project.genre}`;
+      project.description = `A ${project.genre} description`;
+
+      await project.save();
+
+      const projectPlainObject = project.toObject();
+      const projectStringId: ProjectResponseDTO = {
+        ...projectPlainObject,
+        _id: project._id.toString(),
+      };
+      return projectStringId;
+    } catch (error) {
+      if (error.name === 'CastError' && error.path === 'userId') {
+        throw new InvalidDetails();
+      }
+      throw error;
+    }
+  }
 
   //Get All User Projects
   async getAllUserProjects(id: string): Promise<ProjectResponseDTO[]> {

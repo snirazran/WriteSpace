@@ -1,4 +1,13 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
 import { GetAllUserProjectsDTO } from './dtos/get-user-projects.dto';
@@ -9,6 +18,7 @@ import {
   UserNotFoundError,
 } from './errors';
 import { ProjectResponseDTO } from './dtos/project.dto';
+import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 
 @ApiTags('projects')
 @ApiHeader({
@@ -18,6 +28,24 @@ import { ProjectResponseDTO } from './dtos/project.dto';
 @Controller('/api/projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
+
+  //Create a project
+  @Post('/')
+  @ApiResponse({ type: ProjectResponseDTO })
+  async createProject(
+    @Body() ProjectData: CreateProjectRequestDTO,
+  ): Promise<ProjectResponseDTO | undefined> {
+    try {
+      return await this.projectsService.createProject(ProjectData);
+    } catch (e) {
+      if (e instanceof InvalidDetails) {
+        throw new ConflictException('Invalid details');
+      }
+      if (e) {
+        console.log(e);
+      }
+    }
+  }
 
   //Get All Projects
   @Get('/:id')
