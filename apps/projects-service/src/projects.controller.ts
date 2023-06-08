@@ -7,6 +7,10 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
+  Request,
+  UnauthorizedException,
+  Delete,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
@@ -19,6 +23,9 @@ import {
 } from './errors';
 import { ProjectResponseDTO } from './dtos/project.dto';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
+import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 
 @ApiTags('projects')
 @ApiHeader({
@@ -85,6 +92,63 @@ export class ProjectsController {
   ): Promise<ProjectResponseDTO | undefined> {
     try {
       return await this.projectsService.getUserProjectById(projectId);
+    } catch (e) {
+      if (e instanceof ProjectNotFound) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Update a project
+  @UseGuards(JwtAuthGuard)
+  @Put('/:id')
+  @ApiResponse({ type: ProjectResponseDTO })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the project id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async updateProject(
+    @Param('id') id: string,
+    @Request() req: any, // change to specific type
+    @Body() projectData: UpdateProjectRequestDTO,
+  ): Promise<ProjectResponseDTO | undefined> {
+    // Check if the user is the same as the one that is logged in
+    if (req.user._id !== id) {
+      throw new UnauthorizedException();
+    }
+    // Update user
+    try {
+      return await this.projectsService.updateProject(id, projectData);
+    } catch (e) {
+      if (e instanceof ProjectNotFound) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Delete a project
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
+  @ApiResponse({ type: ProjectResponseDTO })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the project id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async deleteProject(
+    @Param('id') id: string,
+    @Request() req: any, // change to specific type
+  ): Promise<DeleteProjectResDTO | undefined> {
+    // Check if the user is the same as the one that is logged in
+    if (req.user._id !== id) {
+      throw new UnauthorizedException();
+    }
+    // Update user
+    try {
+      return await this.projectsService.deleteProject(id);
     } catch (e) {
       if (e instanceof ProjectNotFound) {
         throw new NotFoundException();

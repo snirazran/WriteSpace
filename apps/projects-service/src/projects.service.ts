@@ -3,13 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DBProject } from './schemas/project.schema';
 import { ProjectResponseDTO } from './dtos/project.dto';
-import {
-  ProjectNotFound,
-  ProjectsNotFound,
-  InvalidDetails,
-  UserNotFoundError,
-} from './errors';
+import { ProjectNotFound, ProjectsNotFound, InvalidDetails } from './errors';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
+import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
+import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -75,7 +72,7 @@ export class ProjectsService {
   //Get a Project by id
   async getUserProjectById(projectId: string): Promise<ProjectResponseDTO> {
     const doc = await this.projectModel
-      .findById({ projectId })
+      .findById(projectId)
       .populate('userId')
       .exec();
 
@@ -90,5 +87,57 @@ export class ProjectsService {
     };
 
     return ProjectStringId;
+  }
+
+  //Update a Project
+  async updateProject(
+    id: string,
+    projectData: UpdateProjectRequestDTO,
+  ): Promise<ProjectResponseDTO> {
+    // Check if project exists
+    const project = await this.projectModel
+      .findById(id)
+      .populate('userId')
+      .exec();
+    if (!project) {
+      throw new ProjectNotFound();
+    }
+    // Update project
+
+    const updatedProject = await this.projectModel.findByIdAndUpdate(
+      id,
+      projectData,
+      {
+        new: true,
+      },
+    );
+
+    if (!updatedProject) {
+      throw new ProjectNotFound();
+    }
+
+    const projectPlainObject = updatedProject.toObject();
+    const projectStringId: ProjectResponseDTO = {
+      ...projectPlainObject,
+      _id: project._id.toString(),
+    };
+    return projectStringId;
+  }
+
+  //Delete a Project
+  async deleteProject(id: string): Promise<DeleteProjectResDTO> {
+    // Check if project exists
+    const project = await this.projectModel
+      .findById(id)
+      .populate('userId')
+      .exec();
+    if (!project) {
+      throw new ProjectNotFound();
+    }
+
+    await project.remove();
+
+    const deleteProjectResDTO: DeleteProjectResDTO = { _id: id };
+    return deleteProjectResDTO;
   }
 }

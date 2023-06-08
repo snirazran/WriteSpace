@@ -22,14 +22,19 @@
     "generate-client": "openapi-generator-cli generate -i ./openapi.json -g typescript-axios -o ../../packages/api-client/projects"
   },
   "dependencies": {
+    "@nestjs/axios": "^2.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
     "@nestjs/mongoose": "^9.2.2",
+    "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
+    "@types/passport-jwt": "^3.0.8",
+    "axios": "^1.2.6",
     "dotenv": "^16.0.3",
     "mongoose": "^6.8.4",
+    "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

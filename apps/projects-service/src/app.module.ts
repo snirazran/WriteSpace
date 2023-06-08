@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SwaggerModule } from '@nestjs/swagger';
 import { ProjectSchema } from './schemas/project.schema';
+import { JwtStrategy } from './jwt.strategy';
+import { HttpModule } from '@nestjs/axios';
+import { PassportModule } from '@nestjs/passport';
 
 config();
 @Module({
@@ -16,8 +19,10 @@ config();
     MongooseModule.forRoot(`${process.env.MONGO_URI}`),
     MongooseModule.forFeature([{ name: 'projects', schema: ProjectSchema }]),
     SwaggerModule,
+    PassportModule,
+    HttpModule,
   ],
   controllers: [ProjectsController],
-  providers: [ProjectsService],
+  providers: [ProjectsService, JwtStrategy],
 })
 export class AppModule {}
