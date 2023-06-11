@@ -60,7 +60,7 @@ export const useRegister = () => {
 export const useUpdateUser = (id: string) => {
   const { authControllerUpdateUser } = useAuthApi();
   const { data, error, isMutating, reset, trigger } = SWRMutate(
-    'register',
+    'updateUser',
     (_url: string, { arg }: { arg: UpdateUserReqDto }) =>
       authControllerUpdateUser(id, arg)
   );
