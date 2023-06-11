@@ -110,6 +110,37 @@ export interface ProjectResponseDTO {
  */
 export type ProjectsControllerGetAllUserProjectsIdParameter = number | string;
 
+/**
+ * 
+ * @export
+ * @interface UpdateProjectRequestDTO
+ */
+export interface UpdateProjectRequestDTO {
+    /**
+     * Project name
+     * @type {string}
+     * @memberof UpdateProjectRequestDTO
+     */
+    'name': string;
+    /**
+     * Project img
+     * @type {string}
+     * @memberof UpdateProjectRequestDTO
+     */
+    'img': string;
+    /**
+     * Project description
+     * @type {string}
+     * @memberof UpdateProjectRequestDTO
+     */
+    'description': string;
+    /**
+     * Project share status
+     * @type {boolean}
+     * @memberof UpdateProjectRequestDTO
+     */
+    'shared': boolean;
+}
 
 /**
  * ProjectsApi - axios parameter creator
@@ -151,6 +182,44 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createProjectRequestDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerDeleteProject: async (id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('projectsControllerDeleteProject', 'id', id)
+            const localVarPath = `/api/projects/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (projectsAPI != null) {
+                localVarHeaderParameter['Projects-API'] = String(projectsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -233,6 +302,50 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerUpdateProject: async (id: ProjectsControllerGetAllUserProjectsIdParameter, updateProjectRequestDTO: UpdateProjectRequestDTO, projectsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('projectsControllerUpdateProject', 'id', id)
+            // verify required parameter 'updateProjectRequestDTO' is not null or undefined
+            assertParamExists('projectsControllerUpdateProject', 'updateProjectRequestDTO', updateProjectRequestDTO)
+            const localVarPath = `/api/projects/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (projectsAPI != null) {
+                localVarHeaderParameter['Projects-API'] = String(projectsAPI);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateProjectRequestDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -252,6 +365,17 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          */
         async projectsControllerCreateProject(createProjectRequestDTO: CreateProjectRequestDTO, projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectResponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerCreateProject(createProjectRequestDTO, projectsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerDeleteProject(id, projectsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -276,6 +400,18 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerGetUserProjectById(projectId, projectsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async projectsControllerUpdateProject(id: ProjectsControllerGetAllUserProjectsIdParameter, updateProjectRequestDTO: UpdateProjectRequestDTO, projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerUpdateProject(id, updateProjectRequestDTO, projectsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -298,6 +434,16 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: any): AxiosPromise<ProjectResponseDTO> {
+            return localVarFp.projectsControllerDeleteProject(id, projectsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the user id
          * @param {string} [projectsAPI] Projects related endpoints
          * @param {*} [options] Override http request option.
@@ -315,6 +461,17 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          */
         projectsControllerGetUserProjectById(projectId: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: any): AxiosPromise<ProjectResponseDTO> {
             return localVarFp.projectsControllerGetUserProjectById(projectId, projectsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+         * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerUpdateProject(id: ProjectsControllerGetAllUserProjectsIdParameter, updateProjectRequestDTO: UpdateProjectRequestDTO, projectsAPI?: string, options?: any): AxiosPromise<ProjectResponseDTO> {
+            return localVarFp.projectsControllerUpdateProject(id, updateProjectRequestDTO, projectsAPI, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -340,6 +497,18 @@ export class ProjectsApi extends BaseAPI {
 
     /**
      * 
+     * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+     * @param {string} [projectsAPI] Projects related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig) {
+        return ProjectsApiFp(this.configuration).projectsControllerDeleteProject(id, projectsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the user id
      * @param {string} [projectsAPI] Projects related endpoints
      * @param {*} [options] Override http request option.
@@ -360,6 +529,19 @@ export class ProjectsApi extends BaseAPI {
      */
     public projectsControllerGetUserProjectById(projectId: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig) {
         return ProjectsApiFp(this.configuration).projectsControllerGetUserProjectById(projectId, projectsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
+     * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
+     * @param {string} [projectsAPI] Projects related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public projectsControllerUpdateProject(id: ProjectsControllerGetAllUserProjectsIdParameter, updateProjectRequestDTO: UpdateProjectRequestDTO, projectsAPI?: string, options?: AxiosRequestConfig) {
+        return ProjectsApiFp(this.configuration).projectsControllerUpdateProject(id, updateProjectRequestDTO, projectsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
