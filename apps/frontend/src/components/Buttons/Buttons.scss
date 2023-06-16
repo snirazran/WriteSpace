@@ -1,0 +1,31 @@
+.main-small-btn {
+  background-color: var(mainColor);
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+.second-small-btn {
+  background-color: var(--secondaryColor);
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
