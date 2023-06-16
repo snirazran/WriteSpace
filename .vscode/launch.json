@@ -29,6 +29,12 @@
       "type": "node",
       "request": "attach",
       "port": 1113
+    },
+    {
+      "name": "Debug Documents Service",
+      "type": "node",
+      "request": "attach",
+      "port": 1114
     }
   ]
 }
