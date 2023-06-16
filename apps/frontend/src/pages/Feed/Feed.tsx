@@ -6,7 +6,6 @@ import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
 import Post from '../../components/Post';
 import Spinner from '../../components/Spinner';
 import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
-import QuickPost from '../../components/QuickPost';
 import { getFeedPosts, resetPosts } from '../../features/posts/postSlice';
 import {
   getProjects,
@@ -19,6 +18,7 @@ import { useUser } from '../../axios/useUser';
 import './Feed.css';
 import ProfileBar from '../../components/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
+import QuickProject from '../../components/Project/QuickProject';
 function Feed() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -80,7 +80,7 @@ function Feed() {
           </div>
 
           {/* Quick post section */}
-          <QuickPost />
+          <QuickProject />
           {/* {posts.map((content) => (
             <Post key={content._id} content={content} />
           ))} */}
