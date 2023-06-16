@@ -131,7 +131,7 @@ export class ProjectsController {
   //Delete a project
   @UseGuards(JwtAuthGuard)
   @Delete('/:id')
-  @ApiResponse({ type: ProjectResponseDTO })
+  @ApiResponse({ type: DeleteProjectResDTO })
   @ApiParam({
     name: 'id',
     required: true,
