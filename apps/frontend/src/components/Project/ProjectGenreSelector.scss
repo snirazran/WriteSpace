@@ -24,7 +24,14 @@
   h1 {
     font-size: 20px;
     font-weight: bold;
+    padding: 20px;
     margin-bottom: 20px;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 2px;
+    border-color: var(--secondaryColor);
+    border-style: dashed;
   }
 }
 
@@ -46,10 +53,22 @@
   border-radius: 10px;
   background-color: var(--secondaryColor);
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: var(--mainColor);
+    color: #fff;
+  }
 
   h2 {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
   }
+}
+
+.project-genre-selector-buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  margin-top: 20px;
 }

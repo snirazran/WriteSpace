@@ -36,9 +36,10 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
           <h2>General</h2>
         </div>
       </div>
-      <div className="project-genre-selector-buttons"></div>
-      <SecondSmallBtn text="Cancel" />
-      <MainSmallBtn text="Create" />
+      <div className="project-genre-selector-buttons">
+        <SecondSmallBtn text="Cancel" />
+        <MainSmallBtn text="Create" />
+      </div>
     </div>
   );
 };
