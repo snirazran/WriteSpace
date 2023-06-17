@@ -17,6 +17,9 @@
 :root {
   --mainColor: #e76f51;
   --secondaryColor: #f4a261;
+  --yellow: #e9c46a;
+  --green: #2a9d8f;
+  --blue: #264653;
   --gray: #919191;
   --lightGray: #bfbfbf;
 }

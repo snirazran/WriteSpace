@@ -21,7 +21,6 @@ export class ProjectsService {
     try {
       const project = new this.projectModel(ProjectData);
 
-      project.userId = ProjectData.userId;
       project.name = `A new ${project.genre}`;
       project.description = `A ${project.genre} description`;
 
