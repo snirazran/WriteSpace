@@ -13,7 +13,7 @@
     0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   border-radius: 6px;
   position: fixed;
-  width: 30%;
+  width: 600px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -45,7 +45,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 130px;
+  height: 120px;
   border-radius: 6px;
   background-color: var(--green);
   cursor: pointer;
@@ -83,4 +83,29 @@
   gap: 10px;
   justify-content: flex-end;
   margin-top: 30px;
+}
+
+@media only screen and (max-width: 650px) {
+  .project-genre-selector {
+    width: 80%;
+  }
+  .project-genre-selector-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .project-genre-selector-buttons {
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .project-genre-selector {
+    width: 85%;
+    padding: 20px 15px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .project-genre-selector {
+    width: 90%;
+  }
 }

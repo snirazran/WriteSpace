@@ -30,11 +30,11 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
  */
 export interface CreateProjectRequestDTO {
     /**
-     * 
-     * @type {object}
+     * User id
+     * @type {string}
      * @memberof CreateProjectRequestDTO
      */
-    'userId': object;
+    'userId': string;
     /**
      * Project genre
      * @type {string}

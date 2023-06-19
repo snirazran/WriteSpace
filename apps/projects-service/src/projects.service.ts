@@ -21,8 +21,8 @@ export class ProjectsService {
     try {
       const project = new this.projectModel(ProjectData);
 
-      project.name = `A new ${project.genre}`;
-      project.description = `A ${project.genre} description`;
+      project.name = `A New ${project.genre}`;
+      project.description = `A ${project.genre} Description`;
 
       await project.save();
 
@@ -33,7 +33,7 @@ export class ProjectsService {
       };
       return projectStringId;
     } catch (error) {
-      if (error.name === 'CastError' && error.path === 'userId') {
+      if (error) {
         throw new InvalidDetails();
       }
       throw error;
@@ -54,7 +54,7 @@ export class ProjectsService {
     const filteredProjects = docs.map((obj) => {
       const { _id, name, userId, description, genre, img, shared } = obj;
       const projects = {
-        _id: _id.toString(), // Convert ObjectId to string
+        _id: _id.toString(),
         userId,
         name,
         description,

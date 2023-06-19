@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useCreateProject } from '../../features/projects/ProjectsApi';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 type ProjectGenreSelectorProps = {
   isActive: boolean;
@@ -45,6 +46,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
 
   const createProject = () => {
     if (selectedGenre === null) {
+      toast.error('Please pick a project genre');
       return;
     }
     const projectData = {
@@ -105,7 +107,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
           <SecondSmallBtn onClick={() => setIsActive(false)} text="Cancel" />
         </div>
         <div className="project-genre-selector-buttons-create">
-          <MainSmallBtn text="Create" />
+          <MainSmallBtn onClick={() => createProject()} text="Create" />
         </div>
       </div>
     </div>

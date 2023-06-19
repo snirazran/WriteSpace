@@ -7,7 +7,9 @@
   },
   "exports": {
     "./users": "./users/index.ts",
-    "./auth": "./auth/index.ts"
+    "./auth": "./auth/index.ts",
+    "./projects": "./projects/index.ts",
+    "./documents": "./documents/index.ts"
   },
   "keywords": [],
   "author": "",
