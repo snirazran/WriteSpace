@@ -35,7 +35,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
 
   useEffect(() => {
     if (createProjectResponse) {
-      navigate('/');
+      navigate(`/projects/project/${createProjectResponse.data._id}`);
     }
     reset();
   }, [navigate, reset, createProjectResponse]);

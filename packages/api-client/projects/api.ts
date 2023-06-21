@@ -81,11 +81,11 @@ export interface ProjectResponseDTO {
      */
     '_id': string;
     /**
-     * 
+     * User info
      * @type {object}
      * @memberof ProjectResponseDTO
      */
-    'userId': object;
+    'userInfo': object;
     /**
      * Project name
      * @type {string}

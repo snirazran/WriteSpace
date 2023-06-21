@@ -96,6 +96,9 @@ export class ProjectsController {
       if (e instanceof ProjectNotFound) {
         throw new NotFoundException();
       }
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
     }
   }
 

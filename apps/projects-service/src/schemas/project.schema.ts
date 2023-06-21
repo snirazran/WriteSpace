@@ -4,10 +4,21 @@ import { IProject } from 'src/types/project';
 
 export type ProjectDocument = HydratedDocument<IProject>;
 
+class UserInfo {
+  @Prop({ required: true })
+  userId: string;
+
+  @Prop({ required: true })
+  username: string;
+
+  @Prop({ required: true })
+  img: string;
+}
+
 @Schema({ timestamps: true })
 export class DBProject {
-  @Prop({ type: Types.ObjectId, ref: 'DBUser' })
-  userId: Types.ObjectId;
+  @Prop({ type: UserInfo, ref: 'DBUser' })
+  userInfo: UserInfo;
 
   @Prop({ type: String, minlength: 2, maxlength: 30 })
   name: string;

@@ -10,7 +10,7 @@ import Login from './pages/Login/Login';
 import Header from './components/Navigation/Header';
 import Profile from './pages/Profile/Profile';
 import CreateProject from './pages/CreateProject';
-import ProjectPage from './pages/ProjectPage';
+import ProjectPage from './pages/Project/ProjectPage';
 import PostPage from './pages/PostPage';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';

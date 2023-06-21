@@ -1,29 +1,28 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './ProjectBox.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
 import SecondaryBtn from './Buttons/SecondaryBtn';
+import { useAuth } from '../context/AuthContext';
 
 function ProjectBox({ content, deleteFunc }) {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useAuth();
 
-  const isUserProject = () => {
-    if (content && user._id === content.userId) {
-      return true;
-    }
-  };
+  // Determine if user is the owner of the project
+  let isUserProject = () => (user?._id === content?.userId ? true : false);
 
   const deleteContent = () => {
-    dispatch(deleteFunc(content._id));
-
-    navigate(`/projects/${user._id}`);
+    deleteFunc(content._id);
+    navigate(`/projects/${user!._id}`);
   };
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // Determine if project page or post page
+  const isProject = () => {
+    return window.location.href.includes('projects/') ? true : false;
+  };
 
-  let project;
+  let project: boolean;
   if (window.location.href.includes('projects/')) {
     project = true;
   }
@@ -32,7 +31,7 @@ function ProjectBox({ content, deleteFunc }) {
   }
   // Edit button click function
 
-  const onClick = (id) => {
+  const onClick = (id: string) => {
     if (project) {
       navigate(`/projects/project/edit/${id}`);
     }
@@ -53,21 +52,21 @@ function ProjectBox({ content, deleteFunc }) {
       )}
       <div className="project-details">
         <div className="project-datails-image">
-          <img src={content && content.img} alt="" />
+          <img src={content ? content.img : ''} alt="" />
         </div>
 
-        <h1>{content && content.name}</h1>
+        <h1>{content ? content.name : ''}</h1>
       </div>
       <div className="author-details">
         <p>
-          <span>{content && content.genre}, </span>
-          <Link to={`/projects/${content && content.userId}`}>
-            {`By ${content && content.username}`}
+          <span>{content ? content.genre : ''}, </span>
+          <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
+            {`By ${content ? content.userInfo.username : ''}`}
           </Link>
         </p>
-        <Link to={`/projects/${content && content.userId}`}>
+        <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
           <div className="project-author-img">
-            <img src={content && content.userImg} alt="" />
+            <img src={content ? content.userInfo.img : ''} alt="" />
           </div>
         </Link>
       </div>
@@ -75,13 +74,10 @@ function ProjectBox({ content, deleteFunc }) {
         <div
           className="edit-btn"
           onClick={() => {
-            onClick(content._id);
+            onClick(content ?? content._id);
           }}
         >
-          <SecondaryBtn
-            id="project-btn"
-            btnText={project ? `Edit Project` : `Edit Post`}
-          />
+          <SecondaryBtn btnText={isProject() ? 'Edit Project' : 'Edit Post'} />
         </div>
       ) : (
         <></>
