@@ -67,7 +67,7 @@ export class ProjectsService {
 
   //Get All User Projects
   async getAllUserProjects(id: string): Promise<ProjectResponseDTO[]> {
-    const docs = await this.projectModel.find({ userId: id }).exec();
+    const docs = await this.projectModel.find({ 'userInfo.userId': id }).exec();
 
     if (!docs) {
       throw new ProjectsNotFound();

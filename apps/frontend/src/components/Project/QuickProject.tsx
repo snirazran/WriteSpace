@@ -4,22 +4,16 @@ import { FaPen } from 'react-icons/fa';
 import ProjectGenreSelector from '../Project/ProjectGenreSelector';
 
 function QuickProject() {
-  const [isActvie, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const btnClicked = () => {
-    setIsActive(!isActvie);
+    setIsActive(!isActive);
   };
-
-  if (isActvie) {
-    document.body.classList.add('show-div');
-  } else {
-    document.body.classList.remove('show-div');
-  }
 
   return (
     <React.Fragment>
-      {isActvie && (
-        <ProjectGenreSelector setIsActive={btnClicked} isActive={isActvie} />
+      {isActive && (
+        <ProjectGenreSelector setIsActive={btnClicked} isActive={isActive} />
       )}
       <section className="quick-post">
         <div className="qp-main">

@@ -1,6 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Types } from 'mongoose';
-import { userInfo } from 'os';
 
 export class ProjectResponseDTO {
   @ApiProperty({

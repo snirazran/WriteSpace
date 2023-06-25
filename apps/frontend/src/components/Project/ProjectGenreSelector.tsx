@@ -38,22 +38,23 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
       navigate(`/projects/project/${createProjectResponse.data._id}`);
     }
     reset();
-  }, [navigate, reset, createProjectResponse]);
+  }, [navigate, reset, createProjectResponse, setIsActive, isActive]);
 
   const genreBtnClicked = (genre: string) => {
     setSelectedGenre(genre);
   };
 
-  const createProject = () => {
+  const createProject = async () => {
     if (selectedGenre === null) {
       toast.error('Please pick a project genre');
       return;
     }
+
     const projectData = {
       userId: user!._id,
       genre: selectedGenre,
     };
-    trigger(projectData);
+    await trigger(projectData);
   };
 
   let gridItems = [
