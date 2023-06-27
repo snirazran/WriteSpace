@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Types } from 'mongoose';
 
 export class ProjectResponseDTO {
   @ApiProperty({
@@ -8,9 +7,9 @@ export class ProjectResponseDTO {
   _id: string;
 
   @ApiProperty({
-    description: 'User id',
+    description: 'User info',
   })
-  userId: Types.ObjectId;
+  userInfo: { userId: string; username: string; img: string };
 
   @ApiProperty({
     description: 'Project name',

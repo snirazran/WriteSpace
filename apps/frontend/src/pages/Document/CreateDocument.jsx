@@ -1,27 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import storage from '../firebase';
+import storage from '../../firebase';
 import { v4 } from 'uuid';
-import placeHolder from '../media/placeholder.png';
-import './CreateProject.css';
-import {
-  createProject,
-  resetProjects,
-} from '../features/projects/projectSlice';
+import placeHolder from '../../media/placeholder.png';
+import '../Project/CreateProject.css';
+import { createPost } from '../../features/posts/postSlice';
+import './CreateDocument.css';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
+import '../../components/TextEditor.css';
 
-function CreateProject() {
+function CreateDocument() {
+  const { state } = useLocation();
+  const { projectId } = state;
+  console.log(projectId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetProjects());
-    };
-  }, [dispatch]);
 
   //Functions to handle image upload
   const [imageFile, setImageFile] = useState(null);
@@ -34,7 +31,7 @@ function CreateProject() {
     if (imageLocal.includes('https://images.unsplash.com')) {
       return imageLocal;
     }
-    const imageRef = ref(storage, `projectImages/${imageFile.name + v4()}`);
+    const imageRef = ref(storage, `postImages/${imageFile.name + v4()}`);
     try {
       await uploadBytes(imageRef, imageFile);
       const imageURL = await getDownloadURL(imageRef);
@@ -95,37 +92,79 @@ function CreateProject() {
     }
   };
 
-  //Functions to handle from data & project creation
+  //Functions to handle Text Edtior
+  const toolbarOptions = [
+    ['bold', 'italic', 'underline'], // toggled buttons
+    ['blockquote'],
+
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+    [{ direction: 'rtl' }], // text direction
+
+    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ['clean'], // remove formatting button
+  ];
+
+  const [quill, setQuill] = useState();
+  const [quillInnerHtml, setQuillInnerHtml] = useState();
+
+  const wrapperRef = useCallback((wrapper) => {
+    if (wrapper == null) return;
+    wrapper.innerHTML = '';
+    const editor = document.createElement('div');
+    wrapper.append(editor);
+    const q = new Quill(editor, {
+      theme: 'snow',
+      modules: {
+        toolbar: toolbarOptions,
+      },
+    });
+    setQuill(q);
+  }, []);
+  if (quill) {
+    quill.on('text-change', function () {
+      let justHtml = quill.root.innerHTML;
+      setQuillInnerHtml(justHtml);
+    });
+  }
+
+  //Functions to handle from data & post creation
 
   const [formData, setFormData] = useState({
     name: '',
-    genre: '',
+    type: '',
   });
 
-  const { name, genre } = formData;
+  const { name, type } = formData;
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const img = await uploadImage();
+      const postData = {
+        name,
+        type,
+        content: quillInnerHtml,
+        projectId: projectId,
+        img,
+      };
+      dispatch(createPost(postData));
+      navigate(`/projects/project/${projectId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const img = await uploadImage();
-      const projectData = {
-        name,
-        genre,
-        img,
-      };
-      dispatch(createProject(projectData));
-      navigate(`/projects/${user._id}`);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -176,11 +215,11 @@ function CreateProject() {
             <div className="project-form-group">
               <input
                 type="text"
-                className="form-control name"
+                className="name"
                 id="project-name"
                 name="name"
                 value={name}
-                placeholder="Project Name"
+                placeholder="Post Name"
                 onChange={onChange}
                 required
               />
@@ -188,20 +227,25 @@ function CreateProject() {
             <div className="project-form-group">
               <input
                 type="text"
-                className="form-control genre"
-                id="genre"
-                name="genre"
-                value={genre}
-                placeholder="Genre: Diary, Book, Poem, Script, eg..."
+                className="genre"
+                id="type"
+                name="type"
+                value={type}
+                placeholder="type: Diary Note, Book Page, Poem, Song, eg..."
                 onChange={onChange}
                 required
               />
             </div>
           </div>
 
+          <div className="text-editor">
+            {/* Text editor trying */}
+            <div id="container" ref={wrapperRef}></div>
+            {/* Text editor trying */}
+          </div>
           <div className="project-form-group">
             <button type="submit" className="btn btn-block">
-              Create your project
+              Create your post
             </button>
           </div>
         </form>
@@ -210,4 +254,4 @@ function CreateProject() {
   );
 }
 
-export default CreateProject;
+export default CreateDocument;

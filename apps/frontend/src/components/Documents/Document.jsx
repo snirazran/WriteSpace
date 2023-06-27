@@ -1,10 +1,10 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import './Document.css';
+import friend from '../../media/friend.png';
 
-import './Post.css';
-import friend from '../media/friend.png';
-
-function Post({ content }) {
+const Document = ({ content }) => {
   const navigate = useNavigate();
   let options = {
     year: 'numeric',
@@ -61,6 +61,6 @@ function Post({ content }) {
       </button>
     </div>
   );
-}
+};
 
-export default Post;
+export default Document;

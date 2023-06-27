@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import storage from '../firebase';
+import storage from '../../firebase';
 import { v4 } from 'uuid';
-import Spinner from '../components/Spinner';
+import Spinner from '../../components/Spinner';
 import './CreateProject.css';
 import {
   getProject,
   updateProject,
   resetProjects,
-} from '../features/projects/projectSlice';
+} from '../../features/projects/projectSlice';
 
 function EditProject() {
   const dispatch = useDispatch();

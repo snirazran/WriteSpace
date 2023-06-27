@@ -1,23 +1,18 @@
 import './ProfileBox.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
-import SecondaryBtn from './Buttons/SecondaryBtn';
+import SecondaryBtn from './../Buttons/SecondaryBtn';
 
 function ProfileBox({ shownUser, userFriends }) {
-  const { user } = useSelector((state) => state.auth);
-  const isUserProfile = () => {
-    if (shownUser) {
-      if (user._id === shownUser._id) {
-        return true;
-      }
-    }
-  };
+  const { user } = useAuth();
   const navigate = useNavigate();
-  let { id } = useParams();
+  const isUserProfile = () => user?._id === shownUser?._id;
+
   const onClick = () => {
-    navigate(`/profile/edit/${shownUser._id}`);
+    navigate(`/profile/edit/${shownUser?._id}`);
   };
+
   return (
     <section className="profile">
       <div className="profile-box">
@@ -31,7 +26,7 @@ function ProfileBox({ shownUser, userFriends }) {
         </div>
         {isUserProfile() ? (
           <div className="edit-btn" onClick={onClick}>
-            <SecondaryBtn id="profile-btn" btnText={'Edit profile'} />
+            <SecondaryBtn btnText={'Edit profile'} />
           </div>
         ) : (
           <></>

@@ -1,32 +1,31 @@
 .main-small-btn {
-  background-color: var(mainColor);
-  border: 1px solid #000;
-  border-radius: 5px;
-  color: #000;
+  background-color: var(--mainColor);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 20px;
-  text-transform: uppercase;
+  padding: 10px 30px;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .main-small-btn:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--secondaryColor);
 }
 
 .second-small-btn {
-  background-color: var(--secondaryColor);
-  border: 1px solid #000;
-  border-radius: 5px;
-  color: #000;
+  background-color: var(--lightGray);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 20px;
-  text-transform: uppercase;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .second-small-btn:hover {
-  background-color: #000;
+  background-color: var(--gray);
   color: #fff;
 }
 

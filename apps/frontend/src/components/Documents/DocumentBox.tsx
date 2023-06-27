@@ -1,25 +1,16 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import SecondaryBtn from './Buttons/SecondaryBtn';
+import SecondaryBtn from '../Buttons/SecondaryBtn';
 import { FaTrash } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
 
-import './PostBox.css';
+import './DocumentBox.css';
 import 'quill/dist/quill.snow.css';
 
-function PostBox({ content, deleteFunc }) {
+const DocumentBox = ({ content, deleteFunc }) => {
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { posts, postIsLoading, postIsError, postMessage, postIsSuccess } =
-    useSelector((state) => state.posts);
-  const { user } = useSelector((state) => state.auth);
-
-  const isUserPost = () => {
-    if (user._id === content.userId) {
-      return true;
-    }
-  };
+  const isUserPost = () => user!._id === content.userId;
 
   let options = {
     year: 'numeric',
@@ -133,6 +124,6 @@ function PostBox({ content, deleteFunc }) {
       </div>
     );
   }
-}
+};
 
-export default PostBox;
+export default DocumentBox;

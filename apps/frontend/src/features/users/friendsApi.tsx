@@ -45,13 +45,14 @@ export const useAddRemoveFriend = (id: string, friendId: string) => {
 export const useGetUserFriends = (id: string) => {
   const { friendControllerGetUserFriends } = useFriendsApi();
 
+  const fetcher = (_key: string) => friendControllerGetUserFriends(id);
+
   const {
     data,
     error,
     isLoading,
     isValidating: isInitiallyLoading,
     mutate,
-  } = SWR(id, friendControllerGetUserFriends);
-
-  return { data, error, isLoading, isInitiallyLoading, mutate };
+  } = SWR(`userFriends-${id}`, fetcher);
+  return { data, error, isLoading, isValidating: isInitiallyLoading, mutate };
 };

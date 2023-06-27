@@ -1,6 +1,6 @@
 export const timeOfADay = () => {
   //get the local time
-  let hour;
+  let hour: string = '';
   const now = new Date();
   if (now.getHours() >= 5 && now.getHours() < 12) {
     hour = 'Morning';

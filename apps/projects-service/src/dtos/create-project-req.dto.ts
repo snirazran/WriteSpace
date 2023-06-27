@@ -5,7 +5,7 @@ export class CreateProjectRequestDTO {
   @ApiProperty({
     description: 'User id',
   })
-  userId: Types.ObjectId;
+  userId: string;
 
   @ApiProperty({
     description: 'Project genre',

@@ -34,7 +34,10 @@ export const useUsersApi = () => {
 
 export const useGetUserById = (id: string) => {
   const { userControllerGetUserById } = useUsersApi();
-  const { data, error, isLoading, mutate } = SWR(id, userControllerGetUserById);
+
+  const fetcher = (_key: string) => userControllerGetUserById(id);
+
+  const { data, error, isLoading, mutate } = SWR(`user-${id}`, fetcher);
   return { data, error, isLoading, mutate };
 };
 

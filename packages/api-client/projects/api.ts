@@ -30,17 +30,30 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
  */
 export interface CreateProjectRequestDTO {
     /**
-     * 
-     * @type {object}
+     * User id
+     * @type {string}
      * @memberof CreateProjectRequestDTO
      */
-    'userId': object;
+    'userId': string;
     /**
      * Project genre
      * @type {string}
      * @memberof CreateProjectRequestDTO
      */
     'genre': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteProjectResDTO
+ */
+export interface DeleteProjectResDTO {
+    /**
+     * project id
+     * @type {string}
+     * @memberof DeleteProjectResDTO
+     */
+    '_id': string;
 }
 /**
  * 
@@ -68,11 +81,11 @@ export interface ProjectResponseDTO {
      */
     '_id': string;
     /**
-     * 
+     * User info
      * @type {object}
      * @memberof ProjectResponseDTO
      */
-    'userId': object;
+    'userInfo': object;
     /**
      * Project name
      * @type {string}
@@ -374,7 +387,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectResponseDTO>> {
+        async projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteProjectResDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerDeleteProject(id, projectsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -439,7 +452,7 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: any): AxiosPromise<ProjectResponseDTO> {
+        projectsControllerDeleteProject(id: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: any): AxiosPromise<DeleteProjectResDTO> {
             return localVarFp.projectsControllerDeleteProject(id, projectsAPI, options).then((request) => request(axios, basePath));
         },
         /**
