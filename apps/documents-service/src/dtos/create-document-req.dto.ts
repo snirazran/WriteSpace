@@ -5,12 +5,12 @@ export class CreateDocumentRequestDTO {
   @ApiProperty({
     description: 'User id',
   })
-  userId: Types.ObjectId;
+  userId: string;
 
   @ApiProperty({
     description: 'Project id',
   })
-  projectId: Types.ObjectId;
+  projectId: string;
 
   @ApiProperty({
     description: 'Document type',

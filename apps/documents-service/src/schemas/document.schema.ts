@@ -4,8 +4,39 @@ import { IDocument } from 'src/types/document';
 
 export type DocumentsDocument = HydratedDocument<IDocument>;
 
+class UserInfo {
+  @Prop({ required: true })
+  userId: string;
+
+  @Prop({ required: true })
+  username: string;
+
+  @Prop({ required: true })
+  img: string;
+}
+
+class ProjectInfo {
+  @Prop({ required: true })
+  projectId: string;
+
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  img: string;
+
+  @Prop({ required: true })
+  genre: string;
+}
+
 @Schema({ timestamps: true })
 export class DBDocument {
+  @Prop({ type: UserInfo, ref: 'DBUser' })
+  userInfo: UserInfo;
+
+  @Prop({ type: ProjectInfo, ref: 'DBProject' })
+  projectInfo: ProjectInfo;
+
   @Prop({ type: Types.ObjectId, ref: 'DBUser' })
   userId: Types.ObjectId;
 

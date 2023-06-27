@@ -2,16 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DBDocument } from './schemas/document.schema';
-import { DocumentNotFound, DocumentsNotFound, InvalidDetails } from './errors';
+import {
+  DocumentNotFound,
+  DocumentsNotFound,
+  InvalidDetails,
+  ProjectNotFoundError,
+  UserNotFoundError,
+} from './errors';
 import { DocumentResponseDTO } from './dtos/document.dto';
 import { CreateDocumentRequestDTO } from './dtos/create-document-req.dto';
 import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class DocumentsService {
   constructor(
     @InjectModel('documents') private documentModel: Model<DBDocument>,
+    private readonly httpService: HttpService,
   ) {}
 
   //Create a new document
@@ -20,6 +29,47 @@ export class DocumentsService {
   ): Promise<DocumentResponseDTO> {
     try {
       const document = new this.documentModel(DocumentData);
+
+      let user;
+      let project;
+
+      try {
+        const responses = await Promise.all([
+          firstValueFrom(
+            this.httpService.get(
+              `http://localhost:3000/api/users/${DocumentData.userId}`,
+            ),
+          ).catch(() => {
+            throw new UserNotFoundError();
+          }),
+
+          firstValueFrom(
+            this.httpService.get(
+              `http://localhost:3002/api/projects/${DocumentData.projectId}`,
+            ),
+          ).catch(() => {
+            throw new ProjectNotFoundError();
+          }),
+        ]);
+
+        user = responses[0].data;
+        project = responses[1].data;
+      } catch (error) {
+        console.error(error);
+      }
+
+      document.userInfo = {
+        userId: user._id.toString(),
+        username: user.username,
+        img: user.img,
+      };
+
+      document.projectInfo = {
+        projectId: project._id.toString(),
+        name: project.name,
+        img: project.img,
+        genre: project.genre,
+      };
 
       await document.save();
 

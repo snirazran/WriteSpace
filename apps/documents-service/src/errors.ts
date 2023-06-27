@@ -4,6 +4,12 @@ export class UserNotFoundError extends Error {
   }
 }
 
+export class ProjectNotFoundError extends Error {
+  constructor() {
+    super('Project not found');
+  }
+}
+
 export class DocumentsNotFound extends Error {
   constructor() {
     super('Documents not found');
