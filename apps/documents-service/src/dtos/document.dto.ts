@@ -8,14 +8,14 @@ export class DocumentResponseDTO {
   _id: string;
 
   @ApiProperty({
-    description: 'User id',
+    description: 'User info',
   })
-  userId: Types.ObjectId;
+  userInfo: { userId: string; username: string; img: string };
 
   @ApiProperty({
-    description: 'Project id',
+    description: 'Project info',
   })
-  projectId: Types.ObjectId;
+  projectInfo: { projectId: string; name: string; img: string; genre: string };
 
   @ApiProperty({
     description: 'Document name',
