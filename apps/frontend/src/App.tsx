@@ -9,12 +9,12 @@ import { AppProviders } from './context/AppProviders';
 import Login from './pages/Login/Login';
 import Header from './components/Navigation/Header';
 import Profile from './pages/Profile/Profile';
-import CreateProject from './pages/CreateProject';
+import CreateProject from './pages/Project/CreateProject';
 import ProjectPage from './pages/Project/ProjectPage';
-import PostPage from './pages/PostPage';
-import CreatePost from './pages/CreatePost';
-import EditPost from './pages/EditPost';
-import EditProject from './pages/EditProject';
+import DocumentPage from './pages/Document/DocumentPage';
+import CreateDocument from './pages/Document/CreateDocument';
+import EditDocument from './pages/Document/EditDocument';
+import EditProject from './pages/Project/EditProject';
 import EditProfile from './pages/Profile/EditProfile';
 import Feed from './pages/Feed/Feed';
 import { Suspense, lazy } from 'react';
@@ -52,9 +52,9 @@ const App: React.FC = () => {
                     path="/projects/project/edit/:id"
                     element={<EditProject />}
                   />
-                  <Route path="/posts/create" element={<CreatePost />} />
-                  <Route path="/posts/:id" element={<PostPage />} />
-                  <Route path="/posts/edit/:id" element={<EditPost />} />
+                  <Route path="/document/create" element={<CreateDocument />} />
+                  <Route path="/document/:id" element={<DocumentPage />} />
+                  <Route path="/document/edit/:id" element={<EditDocument />} />
                 </>
               ) : (
                 <>

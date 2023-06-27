@@ -1,8 +1,8 @@
 import './ProfileBox.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
-import SecondaryBtn from './Buttons/SecondaryBtn';
+import SecondaryBtn from './../Buttons/SecondaryBtn';
 
 function ProfileBox({ shownUser, userFriends }) {
   const { user } = useAuth();

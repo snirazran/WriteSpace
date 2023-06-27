@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
-import Post from '../../components/Post';
+import Document from '../../components/Documents/Document';
 import Spinner from '../../components/Spinner';
 import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
 import { getFeedPosts, resetPosts } from '../../features/posts/postSlice';
@@ -16,7 +16,7 @@ import { timeOfADay } from '../../utils/timeOfDay';
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useUser } from '../../axios/useUser';
 import './Feed.css';
-import ProfileBar from '../../components/ProfileBar';
+import ProfileBar from '../../components/Profile/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 import QuickProject from '../../components/Project/QuickProject';
 function Feed() {
@@ -56,7 +56,7 @@ function Feed() {
           {/* profile sidebar */}
           <ProfileBar user={user} />
           <Link to={`/profile/edit`}>Edit Profile</Link>
-          <Link to={`/profile/647f2f809925c9292d6eb487`}>User Profile</Link>
+          <Link to={`/profile/647fa634fc96f161098cab4d`}>User Profile</Link>
           {/* Your-projects side bar */}
 
           {/* {<ProjectsSidebar content={projects} />} */}

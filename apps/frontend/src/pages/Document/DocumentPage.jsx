@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Spinner from '../components/Spinner';
-import { getPost, resetPosts, deletePost } from '../features/posts/postSlice';
-import './PostPage.css';
-import PostBox from '../components/PostBox';
-import BreadCrumbs from '../components/Navigation/BreadCrumbs';
+import Spinner from '../../components/Spinner';
+import {
+  getPost,
+  resetPosts,
+  deletePost,
+} from '../../features/posts/postSlice';
+import './DocumentPage.css';
+import DocumentBox from '../../components/Documents/DocumentBox';
+import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
 
-function PostPage() {
+function DocumentPage() {
   const dispatch = useDispatch();
 
   let { id } = useParams();
@@ -35,9 +39,9 @@ function PostPage() {
   return (
     <section className="PostPage">
       <BreadCrumbs content={posts[0]}></BreadCrumbs>
-      <PostBox content={posts[0]} deleteFunc={deletePost} />
+      <DocumentBox content={posts[0]} deleteFunc={deletePost} />
     </section>
   );
 }
 
-export default PostPage;
+export default DocumentPage;

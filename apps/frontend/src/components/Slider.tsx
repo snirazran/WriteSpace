@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ProjectItem from './ProjectItem';
+import ProjectItem from './Project/ProjectItem';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
@@ -34,7 +34,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
       navigate(`/projects/project/${id}`);
     }
     if (!isProject) {
-      navigate(`/posts/${id}`);
+      navigate(`/document/${id}`);
     }
     window.scrollTo(0, 0);
   };

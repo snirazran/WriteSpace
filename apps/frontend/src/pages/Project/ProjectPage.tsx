@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Spinner from '../../components/Spinner';
 import Slider from '../../components/Slider';
 import './ProjectPage.css';
-import ProjectBox from '../../components/ProjectBox';
+import ProjectBox from '../../components/Project/ProjectBox';
 import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
 import {
   useGetUserProjectById,

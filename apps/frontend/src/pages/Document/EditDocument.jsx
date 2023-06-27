@@ -3,17 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import storage from '../firebase';
+import storage from '../../firebase';
 import { v4 } from 'uuid';
-import './CreateProject.css';
-import { getPost, updatePost, resetPosts } from '../features/posts/postSlice';
-import './CreatePost.css';
+import '../Project/CreateProject.css';
+import {
+  getPost,
+  updatePost,
+  resetPosts,
+} from '../../features/posts/postSlice';
+import './CreateDocument.css';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
-import '../components/TextEditor.css';
-import Spinner from '../components/Spinner';
+import '../../components/TextEditor.css';
+import Spinner from '../../components/Spinner';
 
-function EditPost() {
+function EditDocument() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let { id } = useParams();
@@ -282,4 +286,4 @@ function EditPost() {
   );
 }
 
-export default EditPost;
+export default EditDocument;
