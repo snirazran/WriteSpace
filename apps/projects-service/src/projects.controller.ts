@@ -20,6 +20,7 @@ import {
   ProjectsNotFound,
   InvalidDetails,
   UserNotFoundError,
+  UserNotAuthorized,
 } from './errors';
 import { ProjectResponseDTO } from './dtos/project.dto';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
@@ -117,16 +118,18 @@ export class ProjectsController {
     @Request() req: any, // change to specific type
     @Body() projectData: UpdateProjectRequestDTO,
   ): Promise<ProjectResponseDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
-    // Update user
     try {
-      return await this.projectsService.updateProject(id, projectData);
+      return await this.projectsService.updateProject(
+        id,
+        req.user,
+        projectData,
+      );
     } catch (e) {
       if (e instanceof ProjectNotFound) {
         throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
       }
     }
   }
@@ -145,16 +148,15 @@ export class ProjectsController {
     @Param('id') id: string,
     @Request() req: any, // change to specific type
   ): Promise<DeleteProjectResDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
-    // Update user
+    // Delete project
     try {
-      return await this.projectsService.deleteProject(id);
+      return await this.projectsService.deleteProject(id, req.user);
     } catch (e) {
       if (e instanceof ProjectNotFound) {
         throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
       }
     }
   }

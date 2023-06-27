@@ -8,6 +8,7 @@ import {
   ProjectsNotFound,
   InvalidDetails,
   UserNotFoundError,
+  UserNotAuthorized,
 } from './errors';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
@@ -146,14 +147,21 @@ export class ProjectsService {
   //Update a Project
   async updateProject(
     id: string,
+    userData: any,
     projectData: UpdateProjectRequestDTO,
   ): Promise<ProjectResponseDTO> {
     // Check if project exists
     const project = await this.projectModel.findById(id).exec();
-
     if (!project) {
       throw new ProjectNotFound();
     }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== project.userInfo.userId) {
+      throw new UserNotAuthorized();
+    }
+
+    // Update user
 
     let user;
     try {
@@ -197,11 +205,16 @@ export class ProjectsService {
   }
 
   //Delete a Project
-  async deleteProject(id: string): Promise<DeleteProjectResDTO> {
+  async deleteProject(id: string, userData: any): Promise<DeleteProjectResDTO> {
     // Check if project exists
     const project = await this.projectModel.findById(id).exec();
     if (!project) {
       throw new ProjectNotFound();
+    }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== project.userInfo.userId) {
+      throw new UserNotAuthorized();
     }
 
     await project.remove();

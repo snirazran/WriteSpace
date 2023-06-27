@@ -37,13 +37,15 @@ export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
   //Create a document
+  @UseGuards(JwtAuthGuard)
   @Post('/')
   @ApiResponse({ type: DocumentResponseDTO })
   async createDocument(
     @Body() DocumentData: CreateDocumentRequestDTO,
+    @Request() req: any, // change to specific type
   ): Promise<DocumentResponseDTO | undefined> {
     try {
-      return await this.documentsService.createDocument(DocumentData);
+      return await this.documentsService.createDocument(DocumentData, req.user);
     } catch (e) {
       if (e instanceof InvalidDetails) {
         throw new ConflictException('Invalid details');
@@ -122,7 +124,11 @@ export class DocumentsController {
     }
     // Update user
     try {
-      return await this.documentsService.updateDocument(id, documentData);
+      return await this.documentsService.updateDocument(
+        id,
+        req.user,
+        documentData,
+      );
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
@@ -144,13 +150,9 @@ export class DocumentsController {
     @Param('id') id: string,
     @Request() req: any, // change to specific type
   ): Promise<DeleteDocumentResDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
-    // Update user
+    // delete Document
     try {
-      return await this.documentsService.deleteDocument(id);
+      return await this.documentsService.deleteDocument(id, req.user);
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
