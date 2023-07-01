@@ -30,17 +30,17 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
  */
 export interface CreateDocumentRequestDTO {
     /**
-     * 
-     * @type {object}
+     * User id
+     * @type {string}
      * @memberof CreateDocumentRequestDTO
      */
-    'userId': object;
+    'userId': string;
     /**
-     * 
-     * @type {object}
+     * Project id
+     * @type {string}
      * @memberof CreateDocumentRequestDTO
      */
-    'projectId': object;
+    'projectId': string;
     /**
      * Document type
      * @type {string}
@@ -74,17 +74,17 @@ export interface DocumentResponseDTO {
      */
     '_id': string;
     /**
-     * 
+     * User info
      * @type {object}
      * @memberof DocumentResponseDTO
      */
-    'userId': object;
+    'userInfo': object;
     /**
-     * 
+     * Project info
      * @type {object}
      * @memberof DocumentResponseDTO
      */
-    'projectId': object;
+    'projectInfo': object;
     /**
      * Document name
      * @type {string}

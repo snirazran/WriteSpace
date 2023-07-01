@@ -156,19 +156,49 @@ export class DocumentsService {
 
   //Get a document by id
   async getDocumentById(documentId: string): Promise<DocumentResponseDTO> {
-    const document = await this.documentModel
-      .findById(documentId)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(documentId).exec();
 
     if (!document) {
       throw new DocumentNotFound();
+    }
+
+    let user;
+    let project;
+    try {
+      const responses = await Promise.all([
+        firstValueFrom(
+          this.httpService.get(
+            `http://localhost:3000/api/users/${document.userInfo.userId}`,
+          ),
+        ),
+        firstValueFrom(
+          this.httpService.get(
+            `http://localhost:3002/api/projects/${document.projectInfo.projectId}`,
+          ),
+        ),
+      ]);
+
+      user = responses[0].data;
+      project = responses[1].data;
+    } catch (error) {
+      console.error(error);
     }
 
     const documentPlainObject = document.toObject();
     const documentStringId: DocumentResponseDTO = {
       ...documentPlainObject,
       _id: document._id.toString(),
+      userInfo: {
+        userId: user._id.toString(),
+        username: user.username,
+        img: user.img,
+      },
+      projectInfo: {
+        projectId: project._id.toString(),
+        name: project.name,
+        img: project.img,
+        genre: project.genre,
+      },
     };
 
     return documentStringId;
@@ -181,10 +211,8 @@ export class DocumentsService {
     documentData: UpdateDocumentRequestDTO,
   ): Promise<DocumentResponseDTO> {
     // Check if document exists
-    const document = await this.documentModel
-      .findById(id)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(id).exec();
+
     if (!document) {
       throw new DocumentNotFound();
     }
@@ -222,10 +250,7 @@ export class DocumentsService {
     userData: any,
   ): Promise<DeleteDocumentResDTO> {
     // Check if project exists
-    const document = await this.documentModel
-      .findById(id)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(id).exec();
     if (!document) {
       throw new DocumentNotFound();
     }

@@ -3,8 +3,14 @@ import './ProjectBox.css';
 import { FaTrash } from 'react-icons/fa';
 import SecondaryBtn from './../Buttons/SecondaryBtn';
 import { useAuth } from '../../context/AuthContext';
+import { ProjectResponseDTO } from 'api-client/projects';
 
-function ProjectBox({ content, deleteFunc }) {
+type ProjectBoxProps = {
+  content: ProjectResponseDTO;
+  deleteFunc: (id: string) => void;
+};
+
+const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
   const { user } = useAuth();
 
   // Determine if user is the owner of the project
@@ -77,13 +83,16 @@ function ProjectBox({ content, deleteFunc }) {
             onClick(content ?? content._id);
           }}
         >
-          <SecondaryBtn btnText={isProject() ? 'Edit Project' : 'Edit Post'} />
+          {/* <SecondaryBtn
+            onClick={}
+            btnText={isProject() ? 'Edit Project' : 'Edit Post'}
+          /> */}
         </div>
       ) : (
         <></>
       )}
     </div>
   );
-}
+};
 
 export default ProjectBox;

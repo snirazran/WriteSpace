@@ -9,12 +9,14 @@ import {
   InvalidDetails,
   UserNotFoundError,
   UserNotAuthorized,
+  DocumentCreationFailed,
 } from './errors';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
 import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { docType } from './utils/docType';
 
 @Injectable()
 export class ProjectsService {
@@ -52,11 +54,31 @@ export class ProjectsService {
       };
       await project.save();
 
+      // Create a document for the project
+      const documentData = {
+        projectId: project._id.toString(),
+        userId: user._id.toString(),
+        type: docType(project.genre),
+      };
+
+      try {
+        const documentResponse = await firstValueFrom(
+          this.httpService.post(
+            'http://localhost:3003/api/documents',
+            documentData,
+          ),
+        );
+        const document = documentResponse.data;
+      } catch (error) {
+        throw new DocumentCreationFailed();
+      }
+
       const projectPlainObject = project.toObject();
       const projectStringId: ProjectResponseDTO = {
         ...projectPlainObject,
         _id: project._id.toString(),
       };
+
       return projectStringId;
     } catch (error) {
       if (error) {

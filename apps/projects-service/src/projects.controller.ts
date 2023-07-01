@@ -21,6 +21,7 @@ import {
   InvalidDetails,
   UserNotFoundError,
   UserNotAuthorized,
+  DocumentCreationFailed,
 } from './errors';
 import { ProjectResponseDTO } from './dtos/project.dto';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
@@ -48,6 +49,9 @@ export class ProjectsController {
     } catch (e) {
       if (e instanceof InvalidDetails) {
         throw new ConflictException('Invalid details');
+      }
+      if (e instanceof DocumentCreationFailed) {
+        throw new ConflictException('Document creation failed');
       }
       if (e) {
         console.log(e);

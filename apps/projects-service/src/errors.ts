@@ -22,6 +22,12 @@ export class InvalidDetails extends Error {
   }
 }
 
+export class DocumentCreationFailed extends Error {
+  constructor() {
+    super('Cant create document');
+  }
+}
+
 export class UserNotAuthorized extends Error {
   constructor() {
     super('User not authorized');

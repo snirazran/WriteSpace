@@ -9,6 +9,9 @@ import {
   useGetUserProjectById,
   useDeleteProject,
 } from '../../features/projects/ProjectsApi';
+import MainBtn from '../../components/Buttons/MainBtn';
+import { docType } from '../../utils/DocTypeCheck';
+import { useCreateDocument } from '../../features/documents/documentsApi';
 
 function ProjectPage() {
   const navigate = useNavigate();
@@ -19,12 +22,14 @@ function ProjectPage() {
     isLoading,
     mutate,
   } = useGetUserProjectById(id!);
-  console.log(project?.data);
+
   useEffect(() => {}, []);
 
   const onClick = () => {
-    navigate('/posts/create', { state: { projectId: id } });
-    window.scrollTo(0, 0);
+    const documentData = {
+      userId: project?.data.userInfo.userId,
+    };
+    useCreateDocument();
   };
 
   if (isLoading) {
@@ -36,9 +41,10 @@ function ProjectPage() {
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
       {/* <Slider content={posts} /> */}
-      <button onClick={onClick} className="box-btn">
-        Create a new post
-      </button>
+      <MainBtn
+        btnText={`Create a new ${docType(project?.data.genre!)}`}
+        onClick={onClick}
+      ></MainBtn>
     </section>
   );
 }
