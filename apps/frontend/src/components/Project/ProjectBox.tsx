@@ -76,21 +76,6 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
           </div>
         </Link>
       </div>
-      {isUserProject() ? (
-        <div
-          className="edit-btn"
-          onClick={() => {
-            onClick(content!.userInfo.userId);
-          }}
-        >
-          {/* <SecondaryBtn
-            onClick={}
-            btnText={isProject() ? 'Edit Project' : 'Edit Post'}
-          /> */}
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };
