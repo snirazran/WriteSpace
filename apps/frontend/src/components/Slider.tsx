@@ -11,12 +11,16 @@ import { EffectCoverflow, Navigation, Pagination } from 'swiper';
 import { Project } from '../utils/project';
 
 import { GetUserByIdDTO } from 'api-client/users';
-import { GetAllUserProjectsDTO } from 'api-client/projects';
+import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
-import { ProjectInfo } from '../types/projectsType';
+
+import {
+  DocumentResponseDTO,
+  GetAllProjectDocumentsDTO,
+} from 'api-client/documents';
 
 type ProjectGenreSelectorProps = {
-  content?: GetAllUserProjectsDTO;
+  content?: GetAllUserProjectsDTO | GetAllProjectDocumentsDTO;
   shownUser?: GetUserByIdDTO;
 };
 
@@ -27,7 +31,6 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
   let { id } = useParams();
   const navigate = useNavigate();
   const isProject = checkIfProject();
-  let projects = content?.projects as unknown as ProjectInfo[];
 
   const onClick = (id: string) => {
     if (isProject) {
@@ -40,15 +43,22 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
   };
 
   if (content) {
+    let items: Array<DocumentResponseDTO | ProjectResponseDTO> = [];
+
+    if ('projects' in content) {
+      items = content.projects;
+    } else if ('documents' in content) {
+      items = content.documents;
+    }
     return (
       <div className="content">
-        {projects.length > 0 ? (
+        {items.length > 0 ? (
           <>
             <div className="slider">
               <h1>
-                {isProject
+                {/* {isProject
                   ? `${toCapital(shownUser ? shownUser?.username : '')}'s Page`
-                  : `${toCapital(projects[0].name)} Posts`}
+                  : `${toCapital(content[0].name)} Posts`} */}
               </h1>
               <Swiper
                 effect={'coverflow'}
@@ -67,7 +77,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
                 modules={[EffectCoverflow, Navigation, Pagination]}
                 className="mySwiper"
               >
-                {projects.map((content) => (
+                {items.map((content) => (
                   <SwiperSlide
                     key={content._id}
                     onClick={() => {

@@ -43,7 +43,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     if (projectError || documentError || documentsError) {
-      console.log(projectError || documentError);
+      console.log(projectError || documentError || documentsError);
     }
   }, [documentError, projectError]);
 
@@ -59,12 +59,11 @@ const ProjectPage = () => {
   if (isLoadingProject || isLoadingDocument || isLoadingDocuments) {
     return <Spinner />;
   }
-  console.log(documents?.data);
   return (
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-      {/* <Slider content={documents?.data} /> */}
+      <Slider content={documents?.data} />
       <MainBtn
         btnText={`Create a new ${docType(project?.data.genre!)}`}
         onClick={onClick}
