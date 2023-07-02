@@ -63,7 +63,7 @@ const ProjectPage = () => {
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-      <Slider content={documents?.data} />
+      {/* <Slider content={documents?.data} /> */}
       <MainBtn
         btnText={`Create a new ${docType(project?.data.genre!)}`}
         onClick={onClick}

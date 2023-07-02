@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProjectItem from './Project/ProjectItem';
 import 'swiper/css';
@@ -6,21 +6,13 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Slider.css';
-import { checkIfProject } from '../utils/checkIfProject';
 import { EffectCoverflow, Navigation, Pagination } from 'swiper';
-import { Project } from '../utils/project';
-
 import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
 
-import {
-  DocumentResponseDTO,
-  GetAllProjectDocumentsDTO,
-} from 'api-client/documents';
-
 type ProjectGenreSelectorProps = {
-  content?: GetAllUserProjectsDTO | GetAllProjectDocumentsDTO;
+  content?: GetAllUserProjectsDTO;
   shownUser?: GetUserByIdDTO;
 };
 
@@ -28,37 +20,23 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
   content,
   shownUser,
 }) => {
-  let { id } = useParams();
   const navigate = useNavigate();
-  const isProject = checkIfProject();
 
   const onClick = (id: string) => {
-    if (isProject) {
-      navigate(`/projects/project/${id}`);
-    }
-    if (!isProject) {
-      navigate(`/document/${id}`);
-    }
+    navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
 
   if (content) {
-    let items: Array<DocumentResponseDTO | ProjectResponseDTO> = [];
-
-    if ('projects' in content) {
-      items = content.projects;
-    } else if ('documents' in content) {
-      items = content.documents;
-    }
+    let items: Array<ProjectResponseDTO> = [];
+    items = content.projects;
     return (
       <div className="content">
         {items.length > 0 ? (
           <>
             <div className="slider">
               <h1>
-                {/* {isProject
-                  ? `${toCapital(shownUser ? shownUser?.username : '')}'s Page`
-                  : `${toCapital(content[0].name)} Posts`} */}
+                {`${toCapital(shownUser ? shownUser?.username : '')}'s Page`}
               </h1>
               <Swiper
                 effect={'coverflow'}
@@ -92,11 +70,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
           </>
         ) : (
           <div className="no-projects">
-            <h3>
-              {isProject
-                ? `You have not created any projects yet`
-                : `You have not created any posts yet`}
-            </h3>
+            <h3>You have not created any projects yet</h3>
           </div>
         )}
       </div>
