@@ -8,12 +8,15 @@ import {
   ProjectsNotFound,
   InvalidDetails,
   UserNotFoundError,
+  UserNotAuthorized,
+  DocumentCreationFailed,
 } from './errors';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
 import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { docType } from './utils/docType';
 
 @Injectable()
 export class ProjectsService {
@@ -51,11 +54,31 @@ export class ProjectsService {
       };
       await project.save();
 
+      // Create a document for the project
+      const documentData = {
+        projectId: project._id.toString(),
+        userId: user._id.toString(),
+        type: docType(project.genre),
+      };
+
+      try {
+        const documentResponse = await firstValueFrom(
+          this.httpService.post(
+            'http://localhost:3003/api/documents',
+            documentData,
+          ),
+        );
+        const document = documentResponse.data;
+      } catch (error) {
+        throw new DocumentCreationFailed();
+      }
+
       const projectPlainObject = project.toObject();
       const projectStringId: ProjectResponseDTO = {
         ...projectPlainObject,
         _id: project._id.toString(),
       };
+
       return projectStringId;
     } catch (error) {
       if (error) {
@@ -82,8 +105,8 @@ export class ProjectsService {
               `http://localhost:3000/api/users/${doc.userInfo.userId}`,
             ),
           );
-          const { userId, img, username } = response.data;
-          user = { userId, img, username };
+          const { _id, img, username } = response.data;
+          user = { _id, img, username };
         } catch (error) {
           throw new UserNotFoundError();
         }
@@ -92,7 +115,7 @@ export class ProjectsService {
         return {
           _id: _id.toString(),
           userInfo: {
-            userId: user.userId,
+            userId: user._id.toString(),
             username: user.username,
             img: user.img,
           },
@@ -123,8 +146,8 @@ export class ProjectsService {
           `http://localhost:3000/api/users/${doc.userInfo.userId}`,
         ),
       );
-      const { userId, img, username } = response.data;
-      user = { userId, img, username };
+      const { _id, img, username } = response.data;
+      user = { _id, img, username };
     } catch (error) {
       throw new UserNotFoundError();
     }
@@ -134,7 +157,7 @@ export class ProjectsService {
       ...ProjectPlainObject,
       _id: doc._id.toString(),
       userInfo: {
-        userId: user.userId,
+        userId: user._id.toString(),
         username: user.username,
         img: user.img,
       },
@@ -146,14 +169,21 @@ export class ProjectsService {
   //Update a Project
   async updateProject(
     id: string,
+    userData: any,
     projectData: UpdateProjectRequestDTO,
   ): Promise<ProjectResponseDTO> {
     // Check if project exists
     const project = await this.projectModel.findById(id).exec();
-
     if (!project) {
       throw new ProjectNotFound();
     }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== project.userInfo.userId) {
+      throw new UserNotAuthorized();
+    }
+
+    // Update user
 
     let user;
     try {
@@ -163,8 +193,8 @@ export class ProjectsService {
         ),
       );
 
-      const { userId, img, username } = response.data;
-      user = { userId, img, username };
+      const { _id, img, username } = response.data;
+      user = { _id, img, username };
     } catch (error) {
       throw new UserNotFoundError();
     }
@@ -188,7 +218,7 @@ export class ProjectsService {
       ...projectPlainObject,
       _id: project._id.toString(),
       userInfo: {
-        userId: user.userId,
+        userId: user._id.toString(),
         username: user.username,
         img: user.img,
       },
@@ -197,11 +227,16 @@ export class ProjectsService {
   }
 
   //Delete a Project
-  async deleteProject(id: string): Promise<DeleteProjectResDTO> {
+  async deleteProject(id: string, userData: any): Promise<DeleteProjectResDTO> {
     // Check if project exists
     const project = await this.projectModel.findById(id).exec();
     if (!project) {
       throw new ProjectNotFound();
+    }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== project.userInfo.userId) {
+      throw new UserNotAuthorized();
     }
 
     await project.remove();

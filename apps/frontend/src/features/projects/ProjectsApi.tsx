@@ -59,10 +59,15 @@ export const useGetAllUserProjects = (id: string) => {
 
 export const useGetUserProjectById = (projectId: string) => {
   const { projectsControllerGetUserProjectById } = useProjectsApi();
+
+  const fetcher = (_key: string) =>
+    projectsControllerGetUserProjectById(projectId);
+
   const { data, error, isLoading, mutate } = SWR(
-    projectId,
-    projectsControllerGetUserProjectById
+    `project-${projectId}`,
+    fetcher
   );
+
   return { data, error, isLoading, mutate };
 };
 

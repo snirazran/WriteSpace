@@ -3,19 +3,25 @@ import './ProjectBox.css';
 import { FaTrash } from 'react-icons/fa';
 import SecondaryBtn from './../Buttons/SecondaryBtn';
 import { useAuth } from '../../context/AuthContext';
+import { ProjectResponseDTO } from 'api-client/projects';
 
-function ProjectBox({ content, deleteFunc }) {
+type ProjectBoxProps = {
+  content?: ProjectResponseDTO;
+  deleteFunc: (id: string) => void;
+};
+
+const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   // Determine if user is the owner of the project
-  let isUserProject = () => (user?._id === content?.userId ? true : false);
+  let isUserProject = () =>
+    user?._id === content?.userInfo.userId ? true : false;
 
   const deleteContent = () => {
-    deleteFunc(content._id);
-    navigate(`/projects/${user!._id}`);
+    deleteFunc(content?.userInfo.userId!);
+    navigate(`/profile/${user!._id}`);
   };
-
-  const navigate = useNavigate();
 
   // Determine if project page or post page
   const isProject = () => {
@@ -74,16 +80,19 @@ function ProjectBox({ content, deleteFunc }) {
         <div
           className="edit-btn"
           onClick={() => {
-            onClick(content ?? content._id);
+            onClick(content!.userInfo.userId);
           }}
         >
-          <SecondaryBtn btnText={isProject() ? 'Edit Project' : 'Edit Post'} />
+          {/* <SecondaryBtn
+            onClick={}
+            btnText={isProject() ? 'Edit Project' : 'Edit Post'}
+          /> */}
         </div>
       ) : (
         <></>
       )}
     </div>
   );
-}
+};
 
 export default ProjectBox;

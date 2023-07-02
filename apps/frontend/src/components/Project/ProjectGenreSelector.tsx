@@ -68,7 +68,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
     },
     {
       photo: song,
-      text: 'Song',
+      text: 'Songs',
     },
     {
       photo: diary,
@@ -76,7 +76,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
     },
     {
       photo: poem,
-      text: 'Poem',
+      text: 'Poems',
     },
     {
       photo: general,

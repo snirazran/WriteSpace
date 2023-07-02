@@ -37,12 +37,6 @@ export class DBDocument {
   @Prop({ type: ProjectInfo, ref: 'DBProject' })
   projectInfo: ProjectInfo;
 
-  @Prop({ type: Types.ObjectId, ref: 'DBUser' })
-  userId: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'DBProject' })
-  projectId: Types.ObjectId;
-
   @Prop({ type: String, maxlength: 30 })
   name: string;
 

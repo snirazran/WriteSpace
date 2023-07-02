@@ -68,7 +68,7 @@ export class DocumentsController {
   ): Promise<GetAllProjectDocumentsDTO | undefined> {
     try {
       return {
-        projects: await this.documentsService.getAllProjectDocuments(id),
+        documents: await this.documentsService.getAllProjectDocuments(id),
       };
     } catch (e) {
       if (e instanceof UserNotFoundError) {
@@ -122,7 +122,11 @@ export class DocumentsController {
     }
     // Update user
     try {
-      return await this.documentsService.updateDocument(id, documentData);
+      return await this.documentsService.updateDocument(
+        id,
+        req.user,
+        documentData,
+      );
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
@@ -144,13 +148,9 @@ export class DocumentsController {
     @Param('id') id: string,
     @Request() req: any, // change to specific type
   ): Promise<DeleteDocumentResDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
-    // Update user
+    // delete Document
     try {
-      return await this.documentsService.deleteDocument(id);
+      return await this.documentsService.deleteDocument(id, req.user);
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();

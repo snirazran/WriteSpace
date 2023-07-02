@@ -5,5 +5,5 @@ export class GetAllProjectDocumentsDTO {
   @ApiProperty({
     description: 'Documents',
   })
-  projects: Array<DocumentResponseDTO>;
+  documents: Array<DocumentResponseDTO>;
 }

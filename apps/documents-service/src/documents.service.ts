@@ -7,6 +7,7 @@ import {
   DocumentsNotFound,
   InvalidDetails,
   ProjectNotFoundError,
+  UserNotAuthorized,
   UserNotFoundError,
 } from './errors';
 import { DocumentResponseDTO } from './dtos/document.dto';
@@ -28,8 +29,6 @@ export class DocumentsService {
     DocumentData: CreateDocumentRequestDTO,
   ): Promise<DocumentResponseDTO> {
     try {
-      const document = new this.documentModel(DocumentData);
-
       let user;
       let project;
 
@@ -45,7 +44,7 @@ export class DocumentsService {
 
           firstValueFrom(
             this.httpService.get(
-              `http://localhost:3002/api/projects/${DocumentData.projectId}`,
+              `http://localhost:3002/api/projects/project/${DocumentData.projectId}`,
             ),
           ).catch(() => {
             throw new ProjectNotFoundError();
@@ -57,6 +56,8 @@ export class DocumentsService {
       } catch (error) {
         console.error(error);
       }
+
+      const document = new this.documentModel(DocumentData);
 
       document.userInfo = {
         userId: user._id.toString(),
@@ -90,48 +91,108 @@ export class DocumentsService {
   //Get all project documents
   async getAllProjectDocuments(id: string): Promise<DocumentResponseDTO[]> {
     const docs = await this.documentModel
-      .find({ projectId: id })
-      .populate('projectId', 'userId')
+      .find({ 'projectInfo.projectId': id })
       .exec();
 
     if (!docs) {
       throw new DocumentsNotFound();
     }
 
-    const filteredDocuments = docs.map((obj) => {
-      const { _id, name, userId, type, content, shared, projectId, wordCount } =
-        obj;
-      const documents = {
-        _id: _id.toString(), // Convert ObjectId to string
-        projectId,
-        userId,
-        name,
-        type,
-        content,
-        wordCount,
-        shared,
-      };
-      return documents;
-    });
+    const documentsWithUserAndProjectData = await Promise.all(
+      docs.map(async (doc) => {
+        let user;
+        let project;
+        try {
+          const responses = await Promise.all([
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+              ),
+            ),
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+              ),
+            ),
+          ]);
 
-    return filteredDocuments;
+          user = responses[0].data;
+          project = responses[1].data;
+        } catch (error) {
+          console.error(error);
+        }
+
+        const { _id, name, type, content, wordCount, shared } = doc;
+        return {
+          _id: _id.toString(),
+          userInfo: {
+            userId: user._id.toString(),
+            username: user.username,
+            img: user.img,
+          },
+          projectInfo: {
+            projectId: project._id.toString(),
+            name: project.name,
+            img: project.img,
+            genre: project.genre,
+          },
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+        };
+      }),
+    );
+
+    return documentsWithUserAndProjectData;
   }
 
   //Get a document by id
   async getDocumentById(documentId: string): Promise<DocumentResponseDTO> {
-    const document = await this.documentModel
-      .findById(documentId)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(documentId).exec();
 
     if (!document) {
       throw new DocumentNotFound();
+    }
+
+    let user;
+    let project;
+    try {
+      const responses = await Promise.all([
+        firstValueFrom(
+          this.httpService.get(
+            `http://localhost:3000/api/users/${document.userInfo.userId}`,
+          ),
+        ),
+        firstValueFrom(
+          this.httpService.get(
+            `http://localhost:3002/api/projects/project/${document.projectInfo.projectId}`,
+          ),
+        ),
+      ]);
+
+      user = responses[0].data;
+      project = responses[1].data;
+    } catch (error) {
+      console.error(error);
     }
 
     const documentPlainObject = document.toObject();
     const documentStringId: DocumentResponseDTO = {
       ...documentPlainObject,
       _id: document._id.toString(),
+      userInfo: {
+        userId: user._id.toString(),
+        username: user.username,
+        img: user.img,
+      },
+      projectInfo: {
+        projectId: project._id.toString(),
+        name: project.name,
+        img: project.img,
+        genre: project.genre,
+      },
     };
 
     return documentStringId;
@@ -140,16 +201,21 @@ export class DocumentsService {
   //Update a document
   async updateDocument(
     id: string,
+    userData: any,
     documentData: UpdateDocumentRequestDTO,
   ): Promise<DocumentResponseDTO> {
     // Check if document exists
-    const document = await this.documentModel
-      .findById(id)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(id).exec();
+
     if (!document) {
       throw new DocumentNotFound();
     }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== document.userInfo.userId) {
+      throw new UserNotAuthorized();
+    }
+
     // Update document
 
     const updatedDocument = await this.documentModel.findByIdAndUpdate(
@@ -173,14 +239,19 @@ export class DocumentsService {
   }
 
   //Delete a Document
-  async deleteDocument(id: string): Promise<DeleteDocumentResDTO> {
+  async deleteDocument(
+    id: string,
+    userData: any,
+  ): Promise<DeleteDocumentResDTO> {
     // Check if project exists
-    const document = await this.documentModel
-      .findById(id)
-      .populate('projectId', 'userId')
-      .exec();
+    const document = await this.documentModel.findById(id).exec();
     if (!document) {
       throw new DocumentNotFound();
+    }
+
+    // Check if the user is the same as the one that is logged in
+    if (userData._id !== document.userInfo.userId) {
+      throw new UserNotAuthorized();
     }
 
     await document.remove();

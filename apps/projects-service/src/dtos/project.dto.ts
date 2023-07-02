@@ -1,5 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+class UserInfo {
+  @ApiProperty({
+    description: 'User ID',
+  })
+  userId: string;
+
+  @ApiProperty({
+    description: 'Username',
+  })
+  username: string;
+
+  @ApiProperty({
+    description: 'User Image',
+  })
+  img: string;
+}
+
 export class ProjectResponseDTO {
   @ApiProperty({
     description: 'Project id',
@@ -8,8 +25,9 @@ export class ProjectResponseDTO {
 
   @ApiProperty({
     description: 'User info',
+    type: UserInfo,
   })
-  userInfo: { userId: string; username: string; img: string };
+  userInfo: UserInfo;
 
   @ApiProperty({
     description: 'Project name',

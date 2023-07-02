@@ -30,17 +30,17 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
  */
 export interface CreateDocumentRequestDTO {
     /**
-     * 
-     * @type {object}
+     * User id
+     * @type {string}
      * @memberof CreateDocumentRequestDTO
      */
-    'userId': object;
+    'userId': string;
     /**
-     * 
-     * @type {object}
+     * Project id
+     * @type {string}
      * @memberof CreateDocumentRequestDTO
      */
-    'projectId': object;
+    'projectId': string;
     /**
      * Document type
      * @type {string}
@@ -75,16 +75,16 @@ export interface DocumentResponseDTO {
     '_id': string;
     /**
      * 
-     * @type {object}
+     * @type {DocumentResponseDTOUserInfo}
      * @memberof DocumentResponseDTO
      */
-    'userId': object;
+    'userInfo': DocumentResponseDTOUserInfo;
     /**
      * 
-     * @type {object}
+     * @type {DocumentResponseDTOProjectInfo}
      * @memberof DocumentResponseDTO
      */
-    'projectId': object;
+    'projectInfo': DocumentResponseDTOProjectInfo;
     /**
      * Document name
      * @type {string}
@@ -117,6 +117,62 @@ export interface DocumentResponseDTO {
     'shared': boolean;
 }
 /**
+ * Project info
+ * @export
+ * @interface DocumentResponseDTOProjectInfo
+ */
+export interface DocumentResponseDTOProjectInfo {
+    /**
+     * Project ID
+     * @type {string}
+     * @memberof DocumentResponseDTOProjectInfo
+     */
+    'projectId': string;
+    /**
+     * Project name
+     * @type {string}
+     * @memberof DocumentResponseDTOProjectInfo
+     */
+    'name': string;
+    /**
+     * Project Image
+     * @type {string}
+     * @memberof DocumentResponseDTOProjectInfo
+     */
+    'img': string;
+    /**
+     * Project Genre
+     * @type {string}
+     * @memberof DocumentResponseDTOProjectInfo
+     */
+    'genre': string;
+}
+/**
+ * User info
+ * @export
+ * @interface DocumentResponseDTOUserInfo
+ */
+export interface DocumentResponseDTOUserInfo {
+    /**
+     * User ID
+     * @type {string}
+     * @memberof DocumentResponseDTOUserInfo
+     */
+    'userId': string;
+    /**
+     * Username
+     * @type {string}
+     * @memberof DocumentResponseDTOUserInfo
+     */
+    'username': string;
+    /**
+     * User Image
+     * @type {string}
+     * @memberof DocumentResponseDTOUserInfo
+     */
+    'img': string;
+}
+/**
  * @type DocumentsControllerGetAllProjectDocumentsIdParameter
  * @export
  */
@@ -134,6 +190,37 @@ export interface GetAllProjectDocumentsDTO {
      * @memberof GetAllProjectDocumentsDTO
      */
     'projects': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ProjectInfo
+ */
+export interface ProjectInfo {
+    /**
+     * Project ID
+     * @type {string}
+     * @memberof ProjectInfo
+     */
+    'projectId': string;
+    /**
+     * Project name
+     * @type {string}
+     * @memberof ProjectInfo
+     */
+    'name': string;
+    /**
+     * Project Image
+     * @type {string}
+     * @memberof ProjectInfo
+     */
+    'img': string;
+    /**
+     * Project Genre
+     * @type {string}
+     * @memberof ProjectInfo
+     */
+    'genre': string;
 }
 /**
  * 
@@ -165,6 +252,31 @@ export interface UpdateDocumentRequestDTO {
      * @memberof UpdateDocumentRequestDTO
      */
     'shared': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UserInfo
+ */
+export interface UserInfo {
+    /**
+     * User ID
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'userId': string;
+    /**
+     * Username
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'username': string;
+    /**
+     * User Image
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'img': string;
 }
 
 /**

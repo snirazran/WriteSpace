@@ -9,38 +9,68 @@ import {
   useGetUserProjectById,
   useDeleteProject,
 } from '../../features/projects/ProjectsApi';
+import MainBtn from '../../components/Buttons/MainBtn';
+import { docType } from '../../utils/DocTypeCheck';
+import {
+  useCreateDocument,
+  useGetAllProjectDocuments,
+} from '../../features/documents/documentsApi';
 
-function ProjectPage() {
+const ProjectPage = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const {
     data: project,
-    error,
-    isLoading,
-    mutate,
+    error: projectError,
+    isLoading: isLoadingProject,
+    mutate: mutateProject,
   } = useGetUserProjectById(id!);
-  console.log(project?.data);
-  useEffect(() => {}, []);
+
+  const {
+    data: documents,
+    error: documentsError,
+    isLoading: isLoadingDocuments,
+    mutate: mutateDocuments,
+  } = useGetAllProjectDocuments(id!);
+
+  const {
+    data: document,
+    error: documentError,
+    isLoading: isLoadingDocument,
+    reset: resetDocument,
+    trigger: triggerDocument,
+  } = useCreateDocument();
+
+  useEffect(() => {
+    if (projectError || documentError || documentsError) {
+      console.log(projectError || documentError);
+    }
+  }, [documentError, projectError]);
 
   const onClick = () => {
-    navigate('/posts/create', { state: { projectId: id } });
-    window.scrollTo(0, 0);
+    const documentData = {
+      userId: project!.data.userInfo.userId,
+      projectId: project!.data._id,
+      type: docType(project!.data.genre),
+    };
+    triggerDocument(documentData);
   };
 
-  if (isLoading) {
+  if (isLoadingProject || isLoadingDocument || isLoadingDocuments) {
     return <Spinner />;
   }
-
+  console.log(documents?.data);
   return (
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-      {/* <Slider content={posts} /> */}
-      <button onClick={onClick} className="box-btn">
-        Create a new post
-      </button>
+      {/* <Slider content={documents?.data} /> */}
+      <MainBtn
+        btnText={`Create a new ${docType(project?.data.genre!)}`}
+        onClick={onClick}
+      ></MainBtn>
     </section>
   );
-}
+};
 
 export default ProjectPage;

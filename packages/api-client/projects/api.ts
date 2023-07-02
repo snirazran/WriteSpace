@@ -81,11 +81,11 @@ export interface ProjectResponseDTO {
      */
     '_id': string;
     /**
-     * User info
-     * @type {object}
+     * 
+     * @type {ProjectResponseDTOUserInfo}
      * @memberof ProjectResponseDTO
      */
-    'userInfo': object;
+    'userInfo': ProjectResponseDTOUserInfo;
     /**
      * Project name
      * @type {string}
@@ -116,6 +116,31 @@ export interface ProjectResponseDTO {
      * @memberof ProjectResponseDTO
      */
     'shared': boolean;
+}
+/**
+ * User info
+ * @export
+ * @interface ProjectResponseDTOUserInfo
+ */
+export interface ProjectResponseDTOUserInfo {
+    /**
+     * User ID
+     * @type {string}
+     * @memberof ProjectResponseDTOUserInfo
+     */
+    'userId': string;
+    /**
+     * Username
+     * @type {string}
+     * @memberof ProjectResponseDTOUserInfo
+     */
+    'username': string;
+    /**
+     * User Image
+     * @type {string}
+     * @memberof ProjectResponseDTOUserInfo
+     */
+    'img': string;
 }
 /**
  * @type ProjectsControllerGetAllUserProjectsIdParameter
@@ -153,6 +178,31 @@ export interface UpdateProjectRequestDTO {
      * @memberof UpdateProjectRequestDTO
      */
     'shared': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UserInfo
+ */
+export interface UserInfo {
+    /**
+     * User ID
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'userId': string;
+    /**
+     * Username
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'username': string;
+    /**
+     * User Image
+     * @type {string}
+     * @memberof UserInfo
+     */
+    'img': string;
 }
 
 /**
