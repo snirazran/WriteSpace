@@ -49,19 +49,26 @@ export const useCreateDocument = () => {
 
 export const useGetAllProjectDocuments = (id: string) => {
   const { documentsControllerGetAllProjectDocuments } = useDocumentsApi();
-  const { data, error, isLoading, mutate } = SWR(
-    id,
-    documentsControllerGetAllProjectDocuments
-  );
+
+  const fetcher = (_key: string) =>
+    documentsControllerGetAllProjectDocuments(id);
+
+  const { data, error, isLoading, mutate } = SWR(`allDocuments-${id}`, fetcher);
+
   return { data, error, isLoading, mutate };
 };
 
 export const useGetDocumentById = (documentId: string) => {
   const { documentsControllerGetDocumentById } = useDocumentsApi();
+
+  const fetcher = (_key: string) =>
+    documentsControllerGetDocumentById(documentId);
+
   const { data, error, isLoading, mutate } = SWR(
-    documentId,
-    documentsControllerGetDocumentById
+    `Document-${documentId}`,
+    fetcher
   );
+
   return { data, error, isLoading, mutate };
 };
 

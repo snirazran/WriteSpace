@@ -68,7 +68,7 @@ export class DocumentsController {
   ): Promise<GetAllProjectDocumentsDTO | undefined> {
     try {
       return {
-        projects: await this.documentsService.getAllProjectDocuments(id),
+        documents: await this.documentsService.getAllProjectDocuments(id),
       };
     } catch (e) {
       if (e instanceof UserNotFoundError) {

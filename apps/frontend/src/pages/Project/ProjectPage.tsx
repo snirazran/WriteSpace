@@ -11,7 +11,10 @@ import {
 } from '../../features/projects/ProjectsApi';
 import MainBtn from '../../components/Buttons/MainBtn';
 import { docType } from '../../utils/DocTypeCheck';
-import { useCreateDocument } from '../../features/documents/documentsApi';
+import {
+  useCreateDocument,
+  useGetAllProjectDocuments,
+} from '../../features/documents/documentsApi';
 
 const ProjectPage = () => {
   const navigate = useNavigate();
@@ -24,6 +27,13 @@ const ProjectPage = () => {
   } = useGetUserProjectById(id!);
 
   const {
+    data: documents,
+    error: documentsError,
+    isLoading: isLoadingDocuments,
+    mutate: mutateDocuments,
+  } = useGetAllProjectDocuments(id!);
+
+  const {
     data: document,
     error: documentError,
     isLoading: isLoadingDocument,
@@ -32,7 +42,7 @@ const ProjectPage = () => {
   } = useCreateDocument();
 
   useEffect(() => {
-    if (projectError || documentError) {
+    if (projectError || documentError || documentsError) {
       console.log(projectError || documentError);
     }
   }, [documentError, projectError]);
@@ -46,15 +56,15 @@ const ProjectPage = () => {
     triggerDocument(documentData);
   };
 
-  if (isLoadingProject || isLoadingDocument) {
+  if (isLoadingProject || isLoadingDocument || isLoadingDocuments) {
     return <Spinner />;
   }
-
+  console.log(documents?.data);
   return (
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-      {/* <Slider content={posts} /> */}
+      {/* <Slider content={documents?.data} /> */}
       <MainBtn
         btnText={`Create a new ${docType(project?.data.genre!)}`}
         onClick={onClick}

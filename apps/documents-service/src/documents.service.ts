@@ -44,7 +44,7 @@ export class DocumentsService {
 
           firstValueFrom(
             this.httpService.get(
-              `http://localhost:3002/api/projects/${DocumentData.projectId}`,
+              `http://localhost:3002/api/projects/project/${DocumentData.projectId}`,
             ),
           ).catch(() => {
             throw new ProjectNotFoundError();
@@ -91,7 +91,7 @@ export class DocumentsService {
   //Get all project documents
   async getAllProjectDocuments(id: string): Promise<DocumentResponseDTO[]> {
     const docs = await this.documentModel
-      .find({ 'userInfo.userId': id })
+      .find({ 'projectInfo.projectId': id })
       .exec();
 
     if (!docs) {
@@ -111,7 +111,7 @@ export class DocumentsService {
             ),
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3002/api/projects/${doc.projectInfo.projectId}`,
+                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -167,7 +167,7 @@ export class DocumentsService {
         ),
         firstValueFrom(
           this.httpService.get(
-            `http://localhost:3002/api/projects/${document.projectInfo.projectId}`,
+            `http://localhost:3002/api/projects/project/${document.projectInfo.projectId}`,
           ),
         ),
       ]);
