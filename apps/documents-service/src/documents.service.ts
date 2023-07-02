@@ -27,7 +27,6 @@ export class DocumentsService {
   //Create a new document
   async createDocument(
     DocumentData: CreateDocumentRequestDTO,
-    userData: any,
   ): Promise<DocumentResponseDTO> {
     try {
       let user;
@@ -56,11 +55,6 @@ export class DocumentsService {
         project = responses[1].data;
       } catch (error) {
         console.error(error);
-      }
-
-      // Check if the project user is the same as the one that is logged in
-      if (userData._id !== project.userInfo.userId) {
-        throw new UserNotAuthorized();
       }
 
       const document = new this.documentModel(DocumentData);

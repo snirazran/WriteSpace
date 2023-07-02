@@ -6,22 +6,22 @@ import { useAuth } from '../../context/AuthContext';
 import { ProjectResponseDTO } from 'api-client/projects';
 
 type ProjectBoxProps = {
-  content: ProjectResponseDTO;
+  content?: ProjectResponseDTO;
   deleteFunc: (id: string) => void;
 };
 
 const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   // Determine if user is the owner of the project
-  let isUserProject = () => (user?._id === content?.userId ? true : false);
+  let isUserProject = () =>
+    user?._id === content?.userInfo.userId ? true : false;
 
   const deleteContent = () => {
-    deleteFunc(content._id);
-    navigate(`/projects/${user!._id}`);
+    deleteFunc(content?.userInfo.userId!);
+    navigate(`/profile/${user!._id}`);
   };
-
-  const navigate = useNavigate();
 
   // Determine if project page or post page
   const isProject = () => {
@@ -80,7 +80,7 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
         <div
           className="edit-btn"
           onClick={() => {
-            onClick(content ?? content._id);
+            onClick(content!.userInfo.userId);
           }}
         >
           {/* <SecondaryBtn

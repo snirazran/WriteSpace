@@ -1,5 +1,43 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+class UserInfo {
+  @ApiProperty({
+    description: 'User ID',
+  })
+  userId: string;
+
+  @ApiProperty({
+    description: 'Username',
+  })
+  username: string;
+
+  @ApiProperty({
+    description: 'User Image',
+  })
+  img: string;
+}
+
+class ProjectInfo {
+  @ApiProperty({
+    description: 'Project ID',
+  })
+  projectId: string;
+
+  @ApiProperty({
+    description: 'Project name',
+  })
+  name: string;
+
+  @ApiProperty({
+    description: 'Project Image',
+  })
+  img: string;
+  @ApiProperty({
+    description: 'Project Genre',
+  })
+  genre: string;
+}
+
 export class DocumentResponseDTO {
   @ApiProperty({
     description: 'Document id',
@@ -8,13 +46,15 @@ export class DocumentResponseDTO {
 
   @ApiProperty({
     description: 'User info',
+    type: UserInfo,
   })
-  userInfo: { userId: string; username: string; img: string };
+  userInfo: UserInfo;
 
   @ApiProperty({
     description: 'Project info',
+    type: ProjectInfo,
   })
-  projectInfo: { projectId: string; name: string; img: string; genre: string };
+  projectInfo: ProjectInfo;
 
   @ApiProperty({
     description: 'Document name',

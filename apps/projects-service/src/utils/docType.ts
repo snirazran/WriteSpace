@@ -14,4 +14,6 @@ export const docType = (genre: string) => {
   if (genre === 'General') {
     return 'Document';
   }
+
+  return 'Document';
 };

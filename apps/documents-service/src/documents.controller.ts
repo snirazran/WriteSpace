@@ -37,15 +37,13 @@ export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
   //Create a document
-  @UseGuards(JwtAuthGuard)
   @Post('/')
   @ApiResponse({ type: DocumentResponseDTO })
   async createDocument(
     @Body() DocumentData: CreateDocumentRequestDTO,
-    @Request() req: any, // change to specific type
   ): Promise<DocumentResponseDTO | undefined> {
     try {
-      return await this.documentsService.createDocument(DocumentData, req.user);
+      return await this.documentsService.createDocument(DocumentData);
     } catch (e) {
       if (e instanceof InvalidDetails) {
         throw new ConflictException('Invalid details');

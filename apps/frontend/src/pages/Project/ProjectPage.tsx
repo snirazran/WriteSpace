@@ -13,26 +13,40 @@ import MainBtn from '../../components/Buttons/MainBtn';
 import { docType } from '../../utils/DocTypeCheck';
 import { useCreateDocument } from '../../features/documents/documentsApi';
 
-function ProjectPage() {
+const ProjectPage = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const {
     data: project,
-    error,
-    isLoading,
-    mutate,
+    error: projectError,
+    isLoading: isLoadingProject,
+    mutate: mutateProject,
   } = useGetUserProjectById(id!);
 
-  useEffect(() => {}, []);
+  const {
+    data: document,
+    error: documentError,
+    isLoading: isLoadingDocument,
+    reset: resetDocument,
+    trigger: triggerDocument,
+  } = useCreateDocument();
+
+  useEffect(() => {
+    if (projectError || documentError) {
+      console.log(projectError || documentError);
+    }
+  }, [documentError, projectError]);
 
   const onClick = () => {
     const documentData = {
-      userId: project?.data.userInfo.userId,
+      userId: project!.data.userInfo.userId,
+      projectId: project!.data._id,
+      type: docType(project!.data.genre),
     };
-    useCreateDocument();
+    triggerDocument(documentData);
   };
 
-  if (isLoading) {
+  if (isLoadingProject || isLoadingDocument) {
     return <Spinner />;
   }
 
@@ -47,6 +61,6 @@ function ProjectPage() {
       ></MainBtn>
     </section>
   );
-}
+};
 
 export default ProjectPage;

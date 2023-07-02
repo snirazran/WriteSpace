@@ -105,8 +105,8 @@ export class ProjectsService {
               `http://localhost:3000/api/users/${doc.userInfo.userId}`,
             ),
           );
-          const { userId, img, username } = response.data;
-          user = { userId, img, username };
+          const { _id, img, username } = response.data;
+          user = { _id, img, username };
         } catch (error) {
           throw new UserNotFoundError();
         }
@@ -115,7 +115,7 @@ export class ProjectsService {
         return {
           _id: _id.toString(),
           userInfo: {
-            userId: user.userId,
+            userId: user._id.toString(),
             username: user.username,
             img: user.img,
           },
@@ -146,8 +146,8 @@ export class ProjectsService {
           `http://localhost:3000/api/users/${doc.userInfo.userId}`,
         ),
       );
-      const { userId, img, username } = response.data;
-      user = { userId, img, username };
+      const { _id, img, username } = response.data;
+      user = { _id, img, username };
     } catch (error) {
       throw new UserNotFoundError();
     }
@@ -157,7 +157,7 @@ export class ProjectsService {
       ...ProjectPlainObject,
       _id: doc._id.toString(),
       userInfo: {
-        userId: user.userId,
+        userId: user._id.toString(),
         username: user.username,
         img: user.img,
       },
@@ -193,8 +193,8 @@ export class ProjectsService {
         ),
       );
 
-      const { userId, img, username } = response.data;
-      user = { userId, img, username };
+      const { _id, img, username } = response.data;
+      user = { _id, img, username };
     } catch (error) {
       throw new UserNotFoundError();
     }
@@ -218,7 +218,7 @@ export class ProjectsService {
       ...projectPlainObject,
       _id: project._id.toString(),
       userInfo: {
-        userId: user.userId,
+        userId: user._id.toString(),
         username: user.username,
         img: user.img,
       },
