@@ -63,10 +63,10 @@ export interface DeleteProjectResDTO {
 export interface GetAllUserProjectsDTO {
     /**
      * Projects
-     * @type {Array<string>}
+     * @type {Array<ProjectResponseDTO>}
      * @memberof GetAllUserProjectsDTO
      */
-    'projects': Array<string>;
+    'projects': Array<ProjectResponseDTO>;
 }
 /**
  * 

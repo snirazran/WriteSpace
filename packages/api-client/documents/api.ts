@@ -186,10 +186,10 @@ export type DocumentsControllerGetAllProjectDocumentsIdParameter = number | stri
 export interface GetAllProjectDocumentsDTO {
     /**
      * Documents
-     * @type {Array<string>}
+     * @type {Array<DocumentResponseDTO>}
      * @memberof GetAllProjectDocumentsDTO
      */
-    'projects': Array<string>;
+    'documents': Array<DocumentResponseDTO>;
 }
 /**
  * 
