@@ -1,9 +1,13 @@
-import React from 'react';
+import { ProjectResponseDTO } from 'api-client/projects';
+import { useNavigate } from 'react-router-dom';
 
-import { Link, useNavigate } from 'react-router-dom';
-function ProjectSidebarItem({ project }) {
+type ProjectSidebarItemProps = {
+  project: ProjectResponseDTO | undefined;
+};
+
+const ProjectSidebarItem: React.FC<ProjectSidebarItemProps> = ({ project }) => {
   const navigate = useNavigate();
-  const onClick = (id) => {
+  const onClick = (id: string) => {
     navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
@@ -25,6 +29,6 @@ function ProjectSidebarItem({ project }) {
       </div>
     </div>
   );
-}
+};
 
 export default ProjectSidebarItem;

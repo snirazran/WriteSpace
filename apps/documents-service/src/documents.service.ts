@@ -89,6 +89,64 @@ export class DocumentsService {
   }
 
   //Get all project documents
+  async getFeedDocuments(): Promise<DocumentResponseDTO[]> {
+    const docs = await this.documentModel.find({}).exec();
+
+    if (!docs) {
+      throw new DocumentsNotFound();
+    }
+
+    const documentsWithUserAndProjectData = await Promise.all(
+      docs.map(async (doc) => {
+        let user;
+        let project;
+        try {
+          const responses = await Promise.all([
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+              ),
+            ),
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+              ),
+            ),
+          ]);
+
+          user = responses[0].data;
+          project = responses[1].data;
+        } catch (error) {
+          console.error(error);
+        }
+
+        const { _id, name, type, content, wordCount, shared } = doc;
+        return {
+          _id: _id.toString(),
+          userInfo: {
+            userId: user._id.toString(),
+            username: user.username,
+            img: user.img,
+          },
+          projectInfo: {
+            projectId: project._id.toString(),
+            name: project.name,
+            img: project.img,
+            genre: project.genre,
+          },
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+        };
+      }),
+    );
+
+    return documentsWithUserAndProjectData;
+  }
+
+  //Get all project documents
   async getAllProjectDocuments(id: string): Promise<DocumentResponseDTO[]> {
     const docs = await this.documentModel
       .find({ 'projectInfo.projectId': id })

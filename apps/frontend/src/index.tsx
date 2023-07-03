@@ -5,9 +5,7 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import { ChakraProvider } from '@chakra-ui/react';
 import { AppProviders } from './context/AppProviders';
-import { theme } from './Chakra/globalTheme';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -15,9 +13,7 @@ const root = createRoot(container);
 root.render(
   <AppProviders>
     <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
+      <App />
     </Provider>
   </AppProviders>
 );

@@ -54,6 +54,24 @@ export class DocumentsController {
     }
   }
 
+  //Get feed documents
+  @Get('/')
+  @ApiResponse({ type: GetAllProjectDocumentsDTO })
+  async getFeedDocuments(): Promise<GetAllProjectDocumentsDTO | undefined> {
+    try {
+      return {
+        documents: await this.documentsService.getFeedDocuments(),
+      };
+    } catch (e) {
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+      if (e instanceof DocumentsNotFound) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
   //Get all project documents
   @Get('/:id')
   @ApiResponse({ type: GetAllProjectDocumentsDTO })

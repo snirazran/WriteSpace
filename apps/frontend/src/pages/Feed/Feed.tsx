@@ -6,19 +6,16 @@ import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
 import Document from '../../components/Documents/Document';
 import Spinner from '../../components/Spinner';
 import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
-import { getFeedPosts, resetPosts } from '../../features/posts/postSlice';
-import {
-  getProjects,
-  resetProjects,
-} from '../../features/projects/projectSlice';
 import { timeOfADay } from '../../utils/timeOfDay';
-
+import { useGetFeedPosts } from '../../features/documents/documentsApi';
 import { useGetUserFriends } from '../../features/users/friendsApi';
+import { useGetAllUserProjects } from '../../features/projects/ProjectsApi';
 import { useUser } from '../../axios/useUser';
 import './Feed.css';
 import ProfileBar from '../../components/Profile/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 import QuickProject from '../../components/Project/QuickProject';
+
 function Feed() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,14 +33,29 @@ function Feed() {
   }, [user, navigate]);
 
   const {
-    data: users,
-    error,
+    data: feedPosts,
+    error: feedPostsError,
+    isLoading: feedPostsLoading,
+    isInitiallyLoading: feedPostsInitiallyLoading,
+    mutate: feedPostsMutate,
+  } = useGetFeedPosts();
+
+  const {
+    data: userProjects,
+    error: projectsError,
+    isLoading: projectsLoading,
+    mutate: projectsMutate,
+  } = useGetAllUserProjects(id!);
+
+  const {
+    data: allUsers,
+    error: usersError,
     isLoading: usersLoading,
-    isInitiallyLoading,
-    mutate,
+    isInitiallyLoading: usersInitiallyLoading,
+    mutate: usersMutate,
   } = useGetAllUsers();
 
-  if (usersLoading) {
+  if (usersLoading || feedPostsLoading || projectsLoading) {
     return <Spinner />;
   }
 
@@ -59,7 +71,7 @@ function Feed() {
           <Link to={`/profile/647fa634fc96f161098cab4d`}>User Profile</Link>
           {/* Your-projects side bar */}
 
-          {/* {<ProjectsSidebar content={projects} />} */}
+          {<ProjectsSidebar content={userProjects?.data} />}
         </div>
 
         {/* Main Post Feed */}

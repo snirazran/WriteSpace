@@ -441,6 +441,40 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetFeedDocuments: async (documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/documents`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
          * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
@@ -539,6 +573,16 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerGetFeedDocuments(documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetFeedDocuments(documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
          * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
@@ -598,6 +642,15 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
          */
         documentsControllerGetDocumentById(documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
             return localVarFp.documentsControllerGetDocumentById(documentId, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetFeedDocuments(documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
+            return localVarFp.documentsControllerGetFeedDocuments(documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -666,6 +719,17 @@ export class DocumentsApi extends BaseAPI {
      */
     public documentsControllerGetDocumentById(documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerGetDocumentById(documentId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerGetFeedDocuments(documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerGetFeedDocuments(documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
