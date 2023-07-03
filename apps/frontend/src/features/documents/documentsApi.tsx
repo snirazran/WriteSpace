@@ -47,6 +47,18 @@ export const useCreateDocument = () => {
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
+export const useGetFeedPosts = () => {
+  const { documentsControllerGetFeedDocuments } = useDocumentsApi();
+  const {
+    data,
+    error,
+    isLoading,
+    isValidating: isInitiallyLoading,
+    mutate,
+  } = SWR('/feedPosts', documentsControllerGetFeedDocuments);
+  return { data, error, isLoading, isInitiallyLoading, mutate };
+};
+
 export const useGetAllProjectDocuments = (id: string) => {
   const { documentsControllerGetAllProjectDocuments } = useDocumentsApi();
 
