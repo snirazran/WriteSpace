@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import SWR from 'swr';
 import { FriendsApiFactory } from 'api-client/users';
 import { useAxios } from '../../context/AxiosContext';
-
+import SWRMutate from 'swr/mutation';
 export const useFriendsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3000');
@@ -31,15 +31,15 @@ export const useFriendsApi = () => {
   return api;
 };
 
-export const useAddRemoveFriend = (id: string, friendId: string) => {
+export const useAddRemoveFriend = () => {
   const { friendControllerAddRemoveFriend } = useFriendsApi();
-  const {
-    data,
-    error,
-    isLoading,
-    isValidating: isInitiallyLoading,
-    mutate,
-  } = SWR({ id, friendId }, friendControllerAddRemoveFriend);
+  const { data, error, isMutating, reset, trigger } = SWRMutate(
+    'addRemoveFriend',
+    (_url: string, { arg }: { arg: { id: string; friendId: string } }) =>
+      friendControllerAddRemoveFriend(arg.friendId, arg.id)
+  );
+
+  return { data, error, isLoading: isMutating, reset, trigger };
 };
 
 export const useGetUserFriends = (id: string) => {

@@ -110,11 +110,23 @@ export interface DocumentResponseDTO {
      */
     'wordCount': number;
     /**
-     * Project share status
+     * Document share status
      * @type {boolean}
      * @memberof DocumentResponseDTO
      */
     'shared': boolean;
+    /**
+     * Date document created at
+     * @type {string}
+     * @memberof DocumentResponseDTO
+     */
+    'createdAt': string;
+    /**
+     * Date document was last updated
+     * @type {string}
+     * @memberof DocumentResponseDTO
+     */
+    'updatedAt': string;
 }
 /**
  * Project info

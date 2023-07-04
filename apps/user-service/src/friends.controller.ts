@@ -15,6 +15,8 @@ import {
   UserNotFoundError,
   UsersNotFoundError,
 } from './errors';
+import { UserResponseDTO } from './dtos/user-response.dto';
+import { GetAllUsersFriendsDTO } from './dtos/get-user-friends-res.dto';
 
 @ApiHeader({
   name: 'Friends-API',
@@ -27,7 +29,7 @@ export class FriendController {
 
   //Get User Friends List
   @Get('/:id')
-  @ApiResponse({ type: GetUserFriendsRequestDTO })
+  @ApiResponse({ type: GetAllUsersFriendsDTO })
   @ApiParam({
     name: 'id',
     required: true,
@@ -36,7 +38,7 @@ export class FriendController {
   })
   async getUserFriends(
     @Param() { id }: { id: string },
-  ): Promise<GetUserFriendsRequestDTO[] | undefined> {
+  ): Promise<UserResponseDTO[] | undefined> {
     try {
       return await this.friendsService.getUserFriends(id);
     } catch (e) {

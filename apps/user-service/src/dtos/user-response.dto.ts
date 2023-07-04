@@ -22,6 +22,7 @@ export class UserResponseDTO {
   @ApiProperty({
     description: 'Friends list',
     default: [],
+    type: [UserResponseDTO],
   })
   friends: Array<string>;
 

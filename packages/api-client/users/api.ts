@@ -56,10 +56,23 @@ export interface AddRemoveFriendDTO {
 export interface GetAllUsersDTO {
     /**
      * Users
-     * @type {Array<string>}
+     * @type {Array<UserResponseDTO>}
      * @memberof GetAllUsersDTO
      */
-    'users': Array<string>;
+    'users': Array<UserResponseDTO>;
+}
+/**
+ * 
+ * @export
+ * @interface GetAllUsersFriendsDTO
+ */
+export interface GetAllUsersFriendsDTO {
+    /**
+     * User friends
+     * @type {Array<UserResponseDTO>}
+     * @memberof GetAllUsersFriendsDTO
+     */
+    'userFriends': Array<UserResponseDTO>;
 }
 /**
  * 
@@ -87,10 +100,10 @@ export interface GetUserByIdDTO {
     'email': string;
     /**
      * Friends list
-     * @type {Array<string>}
+     * @type {Array<UserResponseDTO>}
      * @memberof GetUserByIdDTO
      */
-    'friends': Array<string>;
+    'friends': Array<UserResponseDTO>;
     /**
      * User bio
      * @type {string}
@@ -101,31 +114,6 @@ export interface GetUserByIdDTO {
      * User img
      * @type {string}
      * @memberof GetUserByIdDTO
-     */
-    'img': string;
-}
-/**
- * 
- * @export
- * @interface GetUserFriendsRequestDTO
- */
-export interface GetUserFriendsRequestDTO {
-    /**
-     * User name
-     * @type {string}
-     * @memberof GetUserFriendsRequestDTO
-     */
-    'username': string;
-    /**
-     * User bio
-     * @type {string}
-     * @memberof GetUserFriendsRequestDTO
-     */
-    'bio': string;
-    /**
-     * User img
-     * @type {string}
-     * @memberof GetUserFriendsRequestDTO
      */
     'img': string;
 }
@@ -135,6 +123,49 @@ export interface GetUserFriendsRequestDTO {
  */
 export type UserControllerGetUserByIdIdParameter = number | string;
 
+/**
+ * 
+ * @export
+ * @interface UserResponseDTO
+ */
+export interface UserResponseDTO {
+    /**
+     * User id
+     * @type {string}
+     * @memberof UserResponseDTO
+     */
+    '_id': string;
+    /**
+     * User name
+     * @type {string}
+     * @memberof UserResponseDTO
+     */
+    'username': string;
+    /**
+     * Email
+     * @type {string}
+     * @memberof UserResponseDTO
+     */
+    'email': string;
+    /**
+     * Friends list
+     * @type {Array<UserResponseDTO>}
+     * @memberof UserResponseDTO
+     */
+    'friends': Array<UserResponseDTO>;
+    /**
+     * User bio
+     * @type {string}
+     * @memberof UserResponseDTO
+     */
+    'bio': string;
+    /**
+     * User img
+     * @type {string}
+     * @memberof UserResponseDTO
+     */
+    'img': string;
+}
 
 /**
  * FriendsApi - axios parameter creator
@@ -251,7 +282,7 @@ export const FriendsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserFriendsRequestDTO>> {
+        async friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllUsersFriendsDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.friendControllerGetUserFriends(id, friendsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -283,7 +314,7 @@ export const FriendsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<GetUserFriendsRequestDTO> {
+        friendControllerGetUserFriends(id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<GetAllUsersFriendsDTO> {
             return localVarFp.friendControllerGetUserFriends(id, friendsAPI, options).then((request) => request(axios, basePath));
         },
     };

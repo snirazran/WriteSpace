@@ -16,7 +16,7 @@ const Document: React.FC<DocumentProps> = ({ content }) => {
     month: 'short',
     day: 'numeric',
   };
-  const date = new Date(content?.createdAt);
+
   const id = content?._id;
   const onClick = (id: string) => {
     navigate(`/document/${id}`);

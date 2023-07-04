@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserResponseDTO } from './user-response.dto';
 
-export class GetAllUsersDTO {
+export class GetAllUsersFriendsDTO {
   @ApiProperty({
-    description: 'Users',
+    description: 'User friends',
     type: [UserResponseDTO],
   })
-  users: Array<UserResponseDTO>;
+  userFriends: Array<UserResponseDTO>;
 }

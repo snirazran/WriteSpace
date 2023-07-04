@@ -8,7 +8,7 @@ type ProjectsSideBarProps = {
 };
 
 const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
-  if (!content)
+  if (content?.projects.length === 0)
     return (
       <div className="sidebar your-projects" id="project-sidebar">
         <h1>Your Projects</h1>
@@ -16,7 +16,7 @@ const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
       </div>
     );
   let items: Array<ProjectResponseDTO> = [];
-  items = content.projects;
+  if (content) items = content.projects;
   return (
     <div className="sidebar your-projects" id="project-sidebar">
       <h1>Your Projects</h1>
