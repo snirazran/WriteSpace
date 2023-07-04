@@ -81,8 +81,20 @@ export class DocumentResponseDTO {
   wordCount: number;
 
   @ApiProperty({
-    description: 'Project share status',
+    description: 'Document share status',
     default: true,
   })
   shared: boolean;
+
+  @ApiProperty({
+    description: 'Date document created at',
+    type: Date,
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    description: 'Date document was last updated',
+    type: Date,
+  })
+  updatedAt: Date;
 }

@@ -120,7 +120,16 @@ export class DocumentsService {
           console.error(error);
         }
 
-        const { _id, name, type, content, wordCount, shared } = doc;
+        const {
+          _id,
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          updatedAt,
+          createdAt,
+        } = doc;
         return {
           _id: _id.toString(),
           userInfo: {
@@ -139,6 +148,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          updatedAt,
+          createdAt,
         };
       }),
     );
@@ -180,7 +191,16 @@ export class DocumentsService {
           console.error(error);
         }
 
-        const { _id, name, type, content, wordCount, shared } = doc;
+        const {
+          _id,
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          updatedAt,
+          createdAt,
+        } = doc;
         return {
           _id: _id.toString(),
           userInfo: {
@@ -199,6 +219,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          updatedAt,
+          createdAt,
         };
       }),
     );

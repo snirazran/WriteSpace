@@ -15,6 +15,7 @@ import './Feed.css';
 import ProfileBar from '../../components/Profile/ProfileBar';
 import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
 import QuickProject from '../../components/Project/QuickProject';
+import { DocumentResponseDTO } from 'api-client/documents';
 
 function Feed() {
   const navigate = useNavigate();
@@ -39,6 +40,9 @@ function Feed() {
     isInitiallyLoading: feedPostsInitiallyLoading,
     mutate: feedPostsMutate,
   } = useGetFeedPosts();
+
+  let feedPostsArray: Array<DocumentResponseDTO> = [];
+  feedPostsArray = feedPosts!.data.documents;
 
   const {
     data: userProjects,
@@ -94,9 +98,9 @@ function Feed() {
 
           {/* Quick post section */}
           <QuickProject />
-          {/* {posts.map((content) => (
-            <Post key={content._id} content={content} />
-          ))} */}
+          {feedPostsArray?.map((content) => (
+            <Document key={content._id} content={content} />
+          ))}
         </div>
         <div className="side-bars">
           {/* Find Friends sidebar */}

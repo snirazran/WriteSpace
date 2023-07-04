@@ -13,19 +13,19 @@ const ProjectSidebarItem: React.FC<ProjectSidebarItemProps> = ({ project }) => {
   };
   return (
     <div
-      key={project._id}
+      key={project?._id}
       className="sidebar-row"
       onClick={() => {
-        onClick(project._id);
+        onClick(project?._id!);
       }}
     >
       <div className="project-img">
-        <img src={project.img} alt="" />
+        <img src={project?.img} alt="" />
       </div>
 
       <div className="sidebar-text">
-        <h1>{project.name}</h1>
-        <p>{project.genre}</p>
+        <h1>{project?.name}</h1>
+        <p>{project?.genre}</p>
       </div>
     </div>
   );
