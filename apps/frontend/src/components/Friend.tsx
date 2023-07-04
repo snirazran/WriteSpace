@@ -1,18 +1,31 @@
 import { useNavigate } from 'react-router-dom';
 import { User } from '../utils/user';
-import { UserResponseDTO } from 'api-client/users';
+import {
+  GetAllUsersDTO,
+  GetAllUsersFriendsDTO,
+  UserResponseDTO,
+} from 'api-client/users';
 import { useAddRemoveFriend } from '../features/users/friendsApi';
+import { useAuth } from '../context/AuthContext';
+import { KeyedMutator } from 'swr';
+import { AxiosResponse } from 'axios';
 
 type FriendProps = {
   key: string | undefined;
   user: User | null;
   friend: UserResponseDTO | undefined;
   userFriends: UserResponseDTO[] | undefined;
+  usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
-const Friend: React.FC<FriendProps> = ({ friend, userFriends, user }) => {
+const Friend: React.FC<FriendProps> = ({
+  friend,
+  userFriends,
+  user,
+  usersMutate,
+}) => {
   const navigate = useNavigate();
-
+  const { setUser } = useAuth();
   const isFriend: UserResponseDTO | undefined = userFriends?.find(
     (userFriend) => userFriend._id === friend?._id
   );
@@ -30,11 +43,15 @@ const Friend: React.FC<FriendProps> = ({ friend, userFriends, user }) => {
 
   const patchFriend = async () => {
     if (id && friendId) {
-      trigger({ id, friendId });
+      await trigger({ id, friendId });
+      if (data?.data) {
+        setUser(data.data);
+        usersMutate();
+      }
     }
   };
 
-  console.log(data?.data);
+  console.log(friend);
 
   const onClick = () => {
     navigate(`/profile/${friend?._id}`);

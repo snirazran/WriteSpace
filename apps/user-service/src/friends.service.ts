@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { UserService } from './user.service';
 import { UserFriendsNotFoundError, UserNotFoundError } from './errors';
 import { UserResponseDTO } from './dtos/user-response.dto';
+import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
 export class FriendsService {
@@ -51,19 +52,21 @@ export class FriendsService {
   }
 
   //addRemoveFriend to the user friends
-  async addRemoveFriend(id: string, friendId: string): Promise<DBUser> {
+  async addRemoveFriend(id: string, friendId: string): Promise<UserDTO> {
     const user = await this.userModel.findById(id).exec();
     const friend = await this.userModel.findById(friendId).exec();
     if (!user || !friend) throw new UserNotFoundError();
-    if (!user.friends.includes(friendId)) {
-      user.friends = user.friends.filter((id) => id !== friendId);
-      friend.friends = friend.friends.filter((id) => id !== id);
+    if (user.friends.includes(friendId)) {
+      user.friends = user.friends.filter((fId) => fId !== friendId);
+      friend.friends = friend.friends.filter((fId) => fId !== id);
     } else {
       user.friends.push(friendId);
       friend.friends.push(id);
     }
     await user.save();
+    console.log('user', user);
     await friend.save();
+    console.log('friend', friend);
     return user.toObject();
   }
 }

@@ -26,31 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
- * @interface AddRemoveFriendDTO
- */
-export interface AddRemoveFriendDTO {
-    /**
-     * User name
-     * @type {string}
-     * @memberof AddRemoveFriendDTO
-     */
-    'username': string;
-    /**
-     * User bio
-     * @type {string}
-     * @memberof AddRemoveFriendDTO
-     */
-    'bio': string;
-    /**
-     * User img
-     * @type {string}
-     * @memberof AddRemoveFriendDTO
-     */
-    'img': string;
-}
-/**
- * 
- * @export
  * @interface GetAllUsersDTO
  */
 export interface GetAllUsersDTO {
@@ -123,6 +98,55 @@ export interface GetUserByIdDTO {
  */
 export type UserControllerGetUserByIdIdParameter = number | string;
 
+/**
+ * 
+ * @export
+ * @interface UserDTO
+ */
+export interface UserDTO {
+    /**
+     * User id
+     * @type {string}
+     * @memberof UserDTO
+     */
+    '_id': string;
+    /**
+     * User name
+     * @type {string}
+     * @memberof UserDTO
+     */
+    'username': string;
+    /**
+     * User Password
+     * @type {string}
+     * @memberof UserDTO
+     */
+    'password': string;
+    /**
+     * Email
+     * @type {string}
+     * @memberof UserDTO
+     */
+    'email': string;
+    /**
+     * Friends list
+     * @type {Array<string>}
+     * @memberof UserDTO
+     */
+    'friends': Array<string>;
+    /**
+     * User bio
+     * @type {string}
+     * @memberof UserDTO
+     */
+    'bio': string;
+    /**
+     * User img
+     * @type {string}
+     * @memberof UserDTO
+     */
+    'img': string;
+}
 /**
  * 
  * @export
@@ -271,7 +295,7 @@ export const FriendsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddRemoveFriendDTO>> {
+        async friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.friendControllerAddRemoveFriend(friendId, id, friendsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -304,7 +328,7 @@ export const FriendsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<AddRemoveFriendDTO> {
+        friendControllerAddRemoveFriend(friendId: UserControllerGetUserByIdIdParameter, id: UserControllerGetUserByIdIdParameter, friendsAPI?: string, options?: any): AxiosPromise<UserDTO> {
             return localVarFp.friendControllerAddRemoveFriend(friendId, id, friendsAPI, options).then((request) => request(axios, basePath));
         },
         /**

@@ -17,6 +17,7 @@ import {
 } from './errors';
 import { UserResponseDTO } from './dtos/user-response.dto';
 import { GetAllUsersFriendsDTO } from './dtos/get-user-friends-res.dto';
+import { UserDTO } from './dtos/user.dto';
 
 @ApiHeader({
   name: 'Friends-API',
@@ -50,7 +51,7 @@ export class FriendController {
 
   //Add / Remove User Friend
   @Patch('/:id/:friendId')
-  @ApiResponse({ type: AddRemoveFriendDTO })
+  @ApiResponse({ type: UserDTO })
   @ApiParam({
     name: 'id',
     required: true,
@@ -66,7 +67,7 @@ export class FriendController {
   async addRemoveFriend(
     @Param() { id }: { id: string },
     @Param() { friendId }: { friendId: string },
-  ): Promise<AddRemoveFriendDTO | undefined> {
+  ): Promise<UserDTO | undefined> {
     try {
       return await this.friendsService.addRemoveFriend(id, friendId);
     } catch (e) {

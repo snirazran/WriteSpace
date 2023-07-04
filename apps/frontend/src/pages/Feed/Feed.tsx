@@ -110,6 +110,7 @@ function Feed() {
           <FriendsSidebar
             user={user}
             userFriends={friendsArray}
+            usersMutate={usersMutate}
             content={allUsers?.data}
           />
         </div>
