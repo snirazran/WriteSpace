@@ -27,7 +27,7 @@ export class FriendsService {
       (f): f is UserResponseDTO => !!f,
     );
 
-    if (!friends?.length) {
+    if (friends?.length === 0) {
       console.log(`Friends of ${id} not found`);
       throw new UserFriendsNotFoundError();
     }

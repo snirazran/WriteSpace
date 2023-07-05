@@ -9,12 +9,14 @@ import { useAddRemoveFriend } from '../features/users/friendsApi';
 import { useAuth } from '../context/AuthContext';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
+import { useState } from 'react';
 
 type FriendProps = {
   key: string | undefined;
   user: User | null;
   friend: UserResponseDTO | undefined;
   userFriends: UserResponseDTO[] | undefined;
+  friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
   usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
@@ -22,13 +24,12 @@ const Friend: React.FC<FriendProps> = ({
   friend,
   userFriends,
   user,
+  friendsMutate,
   usersMutate,
 }) => {
   const navigate = useNavigate();
   const { setUser } = useAuth();
-  const isFriend: UserResponseDTO | undefined = userFriends?.find(
-    (userFriend) => userFriend._id === friend?._id
-  );
+  const [isFriend, setIsFriend] = useState(false);
 
   const id = user?._id;
   const friendId = friend?._id;
@@ -47,12 +48,14 @@ const Friend: React.FC<FriendProps> = ({
       if (data?.data) {
         setUser(data.data);
         usersMutate();
+        friendsMutate();
+        // if (userFriends?.includes(friend)) {
+        //   setIsFriend(!isFriend);
+        // }
       }
     }
   };
-  console.log(user);
-  console.log(friend);
-
+  console.log(userFriends);
   const onClick = () => {
     navigate(`/profile/${friend?._id}`);
     window.scrollTo(0, 0);

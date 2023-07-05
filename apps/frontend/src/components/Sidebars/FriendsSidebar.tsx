@@ -1,6 +1,10 @@
 import './FriendsSidebar.css';
 import Friend from '../Friend';
-import { GetAllUsersDTO, UserResponseDTO } from 'api-client/users';
+import {
+  GetAllUsersDTO,
+  GetAllUsersFriendsDTO,
+  UserResponseDTO,
+} from 'api-client/users';
 import { User } from '../../utils/user';
 
 import { KeyedMutator } from 'swr';
@@ -10,6 +14,7 @@ type FriendsSidebarProps = {
   content: GetAllUsersDTO | undefined;
   user: User | null;
   userFriends: UserResponseDTO[] | undefined;
+  friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
   usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
@@ -17,6 +22,7 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
   content,
   user: myUser,
   userFriends,
+  friendsMutate,
   usersMutate,
 }) => {
   let userList = content?.users.filter((user) => user._id !== myUser?._id);
@@ -36,6 +42,7 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
           user={myUser}
           friend={friend}
           userFriends={userFriends}
+          friendsMutate={friendsMutate}
           usersMutate={usersMutate}
         />
       ))}

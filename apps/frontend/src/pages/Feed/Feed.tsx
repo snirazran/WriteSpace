@@ -111,6 +111,7 @@ function Feed() {
             user={user}
             userFriends={friendsArray}
             usersMutate={usersMutate}
+            friendsMutate={friendsMutate}
             content={allUsers?.data}
           />
         </div>

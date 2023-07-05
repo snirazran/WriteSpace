@@ -18,6 +18,7 @@ import {
 import { UserResponseDTO } from './dtos/user-response.dto';
 import { GetAllUsersFriendsDTO } from './dtos/get-user-friends-res.dto';
 import { UserDTO } from './dtos/user.dto';
+import { get } from 'http';
 
 @ApiHeader({
   name: 'Friends-API',
@@ -39,9 +40,9 @@ export class FriendController {
   })
   async getUserFriends(
     @Param() { id }: { id: string },
-  ): Promise<UserResponseDTO[] | undefined> {
+  ): Promise<GetAllUsersFriendsDTO | undefined> {
     try {
-      return await this.friendsService.getUserFriends(id);
+      return { userFriends: await this.friendsService.getUserFriends(id) };
     } catch (e) {
       if (e instanceof UserFriendsNotFoundError) {
         throw new NotFoundException();
