@@ -9,7 +9,7 @@ import { useAddRemoveFriend } from '../features/users/friendsApi';
 import { useAuth } from '../context/AuthContext';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type FriendProps = {
   key: string | undefined;
@@ -45,17 +45,28 @@ const Friend: React.FC<FriendProps> = ({
   const patchFriend = async () => {
     if (id && friendId) {
       await trigger({ id, friendId });
-      if (data?.data) {
-        setUser(data.data);
-        usersMutate();
-        friendsMutate();
-        // if (userFriends?.includes(friend)) {
-        //   setIsFriend(!isFriend);
-        // }
-      }
     }
   };
-  console.log(userFriends);
+
+  useEffect(() => {
+    if (data?.data) {
+      setUser(data.data);
+      usersMutate();
+      friendsMutate();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (userFriends) {
+      const friend = userFriends.find((friend) => friend._id === friendId);
+      if (friend) {
+        setIsFriend(true);
+      } else {
+        setIsFriend(false);
+      }
+    }
+  }, [userFriends]);
+
   const onClick = () => {
     navigate(`/profile/${friend?._id}`);
     window.scrollTo(0, 0);

@@ -28,8 +28,7 @@ export class FriendsService {
     );
 
     if (friends?.length === 0) {
-      console.log(`Friends of ${id} not found`);
-      throw new UserFriendsNotFoundError();
+      return [];
     }
 
     return friends;

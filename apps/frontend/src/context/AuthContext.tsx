@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { User } from '../utils/user';
 import { useLocalStorage } from '../utils/useLocalStorage';
+import { useGetUserById } from '../features/users/usersApi';
 
 interface AuthContextData {
   user: User | null;
