@@ -77,7 +77,7 @@ function Feed() {
           {/* profile sidebar */}
           <ProfileBar user={user} />
           <Link to={`/profile/edit`}>Edit Profile</Link>
-          <Link to={`/profile/647fa634fc96f161098cab4d`}>User Profile</Link>
+          <Link to={`/profile/${id}`}>User Profile</Link>
           {/* Your-projects side bar */}
           {<ProjectsSidebar content={userProjects?.data} />}
         </div>

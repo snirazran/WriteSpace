@@ -30,7 +30,7 @@ function DocumentPage() {
   return (
     <section className="PostPage">
       <BreadCrumbs content={post?.data}></BreadCrumbs>
-      {/* <DocumentBox content={post?.data} deleteFunc={useDeleteDocument} /> */}
+      <DocumentBox content={post?.data} deleteFunc={useDeleteDocument} />
     </section>
   );
 }
