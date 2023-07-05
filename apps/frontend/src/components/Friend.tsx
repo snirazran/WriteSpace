@@ -50,7 +50,7 @@ const Friend: React.FC<FriendProps> = ({
       }
     }
   };
-
+  console.log(user);
   console.log(friend);
 
   const onClick = () => {

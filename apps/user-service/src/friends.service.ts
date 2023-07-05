@@ -63,10 +63,12 @@ export class FriendsService {
       user.friends.push(friendId);
       friend.friends.push(id);
     }
+
+    user.markModified('friends');
+    friend.markModified('friends');
+
     await user.save();
-    console.log('user', user);
     await friend.save();
-    console.log('friend', friend);
     return user.toObject();
   }
 }

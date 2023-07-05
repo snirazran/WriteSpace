@@ -1,12 +1,8 @@
 import './FriendsSidebar.css';
 import Friend from '../Friend';
-import {
-  GetAllUsersDTO,
-  GetAllUsersFriendsDTO,
-  UserResponseDTO,
-} from 'api-client/users';
+import { GetAllUsersDTO, UserResponseDTO } from 'api-client/users';
 import { User } from '../../utils/user';
-import { useAddRemoveFriend } from '../../features/users/friendsApi';
+
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
 
