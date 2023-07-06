@@ -14,11 +14,11 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 
 type ProjectGenreSelectorProps = {
-  onClose: () => void;
+  close: () => void;
 };
 
 const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
-  onClose,
+  close,
 }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -84,30 +84,35 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
   ];
 
   return (
-    <div className="project-genre-selector">
-      <h1>Create Project</h1>
-      <div className="project-genre-selector-grid">
-        {gridItems.map(({ photo, text }) => (
-          <button
-            onClick={(event) => genreBtnClicked(text, event)}
-            className={`project-genre-selector-grid-item ${
-              selectedGenre === text ? 'selected-genre-btn' : ''
-            }`}
-            key={text}
-          >
-            <div className="project-genre-selector-grid-item-photo">
-              <img src={photo} alt="" />
-            </div>
-            <h2>{text}</h2>
-          </button>
-        ))}
-      </div>
-      <div className="project-genre-selector-buttons">
-        <div className="project-genre-selector-buttons-cancle">
-          <SecondSmallBtn onClick={onClose} text="Cancel" />
+    <div className="project-create-overlay" onClick={close}>
+      <div
+        className="project-genre-selector"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h1>Create Project</h1>
+        <div className="project-genre-selector-grid">
+          {gridItems.map(({ photo, text }) => (
+            <button
+              onClick={(event) => genreBtnClicked(text, event)}
+              className={`project-genre-selector-grid-item ${
+                selectedGenre === text ? 'selected-genre-btn' : ''
+              }`}
+              key={text}
+            >
+              <div className="project-genre-selector-grid-item-photo">
+                <img src={photo} alt="" />
+              </div>
+              <h2>{text}</h2>
+            </button>
+          ))}
         </div>
-        <div className="project-genre-selector-buttons-create">
-          <MainSmallBtn onClick={() => createProject()} text="Create" />
+        <div className="project-genre-selector-buttons">
+          <div className="project-genre-selector-buttons-cancle">
+            <SecondSmallBtn onClick={close} text="Cancel" />
+          </div>
+          <div className="project-genre-selector-buttons-create">
+            <MainSmallBtn onClick={() => createProject()} text="Create" />
+          </div>
         </div>
       </div>
     </div>
