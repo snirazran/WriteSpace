@@ -7,16 +7,12 @@ import Document from '../../components/Documents/Document';
 import Spinner from '../../components/Spinner';
 import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
 import { timeOfADay } from '../../utils/timeOfDay';
-import { useGetFeedPosts } from '../../features/documents/documentsApi';
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useGetAllUserProjects } from '../../features/projects/ProjectsApi';
-
-import { useUser } from '../../axios/useUser';
 import './Feed.css';
 import ProfileBar from '../../components/Profile/ProfileBar';
-import { useGetUserById, useGetAllUsers } from '../../features/users/usersApi';
+import { useGetAllUsers } from '../../features/users/usersApi';
 import QuickProject from '../../components/Project/QuickProject';
-import { DocumentResponseDTO } from 'api-client/documents';
 import { UserResponseDTO } from 'api-client/users';
 import FeedDocuments from '../../components/Documents/FeedDocuments';
 
@@ -76,8 +72,7 @@ function Feed() {
         <div className="side-bars">
           {/* profile sidebar */}
           <ProfileBar user={user} />
-          <Link to={`/profile/edit`}>Edit Profile</Link>
-          <Link to={`/profile/${id}`}>User Profile</Link>
+
           {/* Your-projects side bar */}
           {<ProjectsSidebar content={userProjects?.data} />}
         </div>
