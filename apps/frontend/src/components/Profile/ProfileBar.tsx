@@ -3,14 +3,28 @@ import SecondaryBtn from '../Buttons/SecondaryBtn';
 import './ProfileBar.css';
 import { useNavigate } from 'react-router-dom';
 import FriendsList from '../Friends/FriendsList';
-import { UserDTO, UserResponseDTO } from 'api-client/users';
+import {
+  GetAllUsersDTO,
+  GetAllUsersFriendsDTO,
+  UserDTO,
+  UserResponseDTO,
+} from 'api-client/users';
+import { KeyedMutator } from 'swr';
+import { AxiosResponse } from 'axios';
 
 type ProfileBarProps = {
   user: UserDTO | null;
   userFriends: UserResponseDTO[];
+  friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
+  usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
-const ProfileBar: React.FC<ProfileBarProps> = ({ user, userFriends }) => {
+const ProfileBar: React.FC<ProfileBarProps> = ({
+  user,
+  userFriends,
+  friendsMutate,
+  usersMutate,
+}) => {
   const navigate = useNavigate();
   const [showFriends, setShowFriends] = useState(false);
 
@@ -32,6 +46,9 @@ const ProfileBar: React.FC<ProfileBarProps> = ({ user, userFriends }) => {
         <FriendsList
           friends={userFriends}
           close={() => setShowFriends(false)}
+          user={user}
+          friendsMutate={friendsMutate}
+          usersMutate={usersMutate}
         />
       )}
       <div className="profile-bar-img">

@@ -15,17 +15,16 @@
 .friend-list {
   background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 6px;
   max-width: 500px;
   width: 80%;
   animation: fadeIn 0.3s ease-in-out;
 }
-.friend-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-.friend-list li {
-  margin: 10px 0;
+
+.friend-list-closebtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
 }
 
 /*# sourceMappingURL=FriendList.css.map */

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ProjectsSidebar from '../../components/Sidebars/ProjectsSidebar';
-import Document from '../../components/Documents/Document';
 import Spinner from '../../components/Spinner';
 import FriendsSidebar from '../../components/Sidebars/FriendsSidebar';
 import { timeOfADay } from '../../utils/timeOfDay';
@@ -18,7 +16,6 @@ import FeedDocuments from '../../components/Documents/FeedDocuments';
 
 function Feed() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { user, setUser } = useAuth();
 
   // get the id
@@ -71,7 +68,12 @@ function Feed() {
       <div className="main-feed">
         <div className="side-bars">
           {/* profile sidebar */}
-          <ProfileBar userFriends={friendsArray} user={user} />
+          <ProfileBar
+            friendsMutate={friendsMutate}
+            usersMutate={usersMutate}
+            userFriends={friendsArray}
+            user={user}
+          />
 
           {/* Your-projects side bar */}
           {<ProjectsSidebar content={userProjects?.data} />}
