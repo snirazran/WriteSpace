@@ -14,13 +14,11 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 
 type ProjectGenreSelectorProps = {
-  isActive: boolean;
-  setIsActive: (isActive: boolean) => void;
+  onClose: () => void;
 };
 
 const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
-  isActive,
-  setIsActive,
+  onClose,
 }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -38,9 +36,10 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
       navigate(`/projects/project/${createProjectResponse.data._id}`);
     }
     reset();
-  }, [navigate, reset, createProjectResponse, setIsActive, isActive]);
+  }, [navigate, reset, createProjectResponse]);
 
-  const genreBtnClicked = (genre: string) => {
+  const genreBtnClicked = (genre: string, event: React.MouseEvent) => {
+    event.stopPropagation();
     setSelectedGenre(genre);
   };
 
@@ -85,12 +84,12 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
   ];
 
   return (
-    <div className={`project-genre-selector ${isActive ? 'visible' : ''}`}>
+    <div className="project-genre-selector">
       <h1>Create Project</h1>
       <div className="project-genre-selector-grid">
         {gridItems.map(({ photo, text }) => (
           <button
-            onClick={() => genreBtnClicked(text)}
+            onClick={(event) => genreBtnClicked(text, event)}
             className={`project-genre-selector-grid-item ${
               selectedGenre === text ? 'selected-genre-btn' : ''
             }`}
@@ -105,7 +104,7 @@ const ProjectGenreSelector: React.FC<ProjectGenreSelectorProps> = ({
       </div>
       <div className="project-genre-selector-buttons">
         <div className="project-genre-selector-buttons-cancle">
-          <SecondSmallBtn onClick={() => setIsActive(false)} text="Cancel" />
+          <SecondSmallBtn onClick={onClose} text="Cancel" />
         </div>
         <div className="project-genre-selector-buttons-create">
           <MainSmallBtn onClick={() => createProject()} text="Create" />

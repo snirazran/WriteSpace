@@ -71,7 +71,7 @@ function Feed() {
       <div className="main-feed">
         <div className="side-bars">
           {/* profile sidebar */}
-          <ProfileBar user={user} />
+          <ProfileBar userFriends={friendsArray} user={user} />
 
           {/* Your-projects side bar */}
           {<ProjectsSidebar content={userProjects?.data} />}

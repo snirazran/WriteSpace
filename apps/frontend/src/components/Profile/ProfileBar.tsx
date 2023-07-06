@@ -1,14 +1,18 @@
-import { UserDTO } from '../../../../user-service/src/dtos/user.dto';
+import { useState } from 'react';
 import SecondaryBtn from '../Buttons/SecondaryBtn';
 import './ProfileBar.css';
 import { useNavigate } from 'react-router-dom';
+import FriendsList from '../Friends/FriendsList';
+import { UserDTO, UserResponseDTO } from 'api-client/users';
 
 type ProfileBarProps = {
   user: UserDTO | null;
+  userFriends: UserResponseDTO[];
 };
 
-const ProfileBar: React.FC<ProfileBarProps> = ({ user }) => {
+const ProfileBar: React.FC<ProfileBarProps> = ({ user, userFriends }) => {
   const navigate = useNavigate();
+  const [showFriends, setShowFriends] = useState(false);
 
   const onClick = () => {
     navigate(`/profile/${user?._id}`);
@@ -18,8 +22,18 @@ const ProfileBar: React.FC<ProfileBarProps> = ({ user }) => {
     navigate(`/profile/edit`);
   };
 
+  const onFriendsClick = () => {
+    setShowFriends(true);
+  };
+
   return (
     <div className="profile-bar">
+      {showFriends && (
+        <FriendsList
+          friends={userFriends}
+          close={() => setShowFriends(false)}
+        />
+      )}
       <div className="profile-bar-img">
         <img onClick={onClick} src={user?.img} alt="" />
       </div>
@@ -31,7 +45,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({ user }) => {
         </div>
       </div>
       <div className="profile-bar-stats">
-        <div className="profile-bar-friends">
+        <div onClick={onFriendsClick} className="profile-bar-friends">
           <h1>{user?.friends.length ? user.friends.length : 0}</h1>
           <p>Friends</p>
         </div>

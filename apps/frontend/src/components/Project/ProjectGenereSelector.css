@@ -13,9 +13,7 @@
 
 .project-genre-selector {
   z-index: 99;
-  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
-    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
-    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01), 0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09), 0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   border-radius: 6px;
   position: fixed;
   width: 600px;
@@ -26,13 +24,12 @@
   padding: 20px 30px;
   animation: fadeIn 0.3s ease-in-out;
   opacity: 0;
-
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
+}
+.project-genre-selector h1 {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .project-genre-selector-grid {
@@ -52,17 +49,16 @@
   cursor: pointer;
   border: none;
   transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: var(--blue);
-    color: #fff;
-  }
-
-  h2 {
-    margin-top: 15px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff;
-  }
+}
+.project-genre-selector-grid-item:hover {
+  background-color: var(--blue);
+  color: #fff;
+}
+.project-genre-selector-grid-item h2 {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
 }
 
 .selected-genre-btn {
@@ -73,10 +69,9 @@
 .project-genre-selector-grid-item-photo {
   width: 60px;
   height: 50px;
-
-  img {
-    width: 100%;
-  }
+}
+.project-genre-selector-grid-item-photo img {
+  width: 100%;
 }
 
 .project-genre-selector-buttons {
@@ -97,16 +92,16 @@
     justify-content: center;
   }
 }
-
 @media only screen and (max-width: 375px) {
   .project-genre-selector {
     width: 85%;
     padding: 20px 15px;
   }
 }
-
 @media only screen and (max-width: 320px) {
   .project-genre-selector {
     width: 90%;
   }
 }
+
+/*# sourceMappingURL=ProjectGenereSelector.css.map */

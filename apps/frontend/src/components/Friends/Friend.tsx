@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { User } from '../utils/user';
+import { User } from '../../utils/user';
 import {
   GetAllUsersDTO,
   GetAllUsersFriendsDTO,
   UserResponseDTO,
 } from 'api-client/users';
-import { useAddRemoveFriend } from '../features/users/friendsApi';
-import { useAuth } from '../context/AuthContext';
+import { useAddRemoveFriend } from '../../features/users/friendsApi';
+import { useAuth } from '../../context/AuthContext';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';

@@ -1,5 +1,5 @@
 import './FriendsSidebar.css';
-import Friend from '../Friend';
+import Friend from '../Friends/Friend';
 import {
   GetAllUsersDTO,
   GetAllUsersFriendsDTO,
