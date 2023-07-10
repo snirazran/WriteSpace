@@ -16,10 +16,25 @@
   padding: 20px;
   border-radius: 6px;
   max-width: 500px;
-  width: 80%;
+  width: 20%;
+  height: auto;
+  max-height: 80%;
+  overflow-y: auto;
+
+  h1 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   animation: fadeIn 0.3s ease-in-out;
 }
-
 .friend-list-closebtn {
   display: flex;
   justify-content: flex-end;

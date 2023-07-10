@@ -24,15 +24,6 @@
   }
 }
 
-.profile-bar-userinfo p::after {
-  content: '';
-  position: absolute;
-  left: -20px; /* adjust this value to match your .profile-bar padding */
-  right: -20px; /* adjust this value to match your .profile-bar padding */
-  bottom: -75px;
-  border: 1px dashed var(--secondaryColor); /* corrected border property */
-}
-
 .profile-bar-img {
   cursor: pointer;
   margin: 0 auto;

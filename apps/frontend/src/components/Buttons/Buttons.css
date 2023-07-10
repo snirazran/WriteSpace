@@ -5,7 +5,7 @@
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 30px;
+  padding: 6px 18px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -20,7 +20,7 @@
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 6px 12px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
