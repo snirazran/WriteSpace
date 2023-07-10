@@ -6,7 +6,6 @@ import {
   UserResponseDTO,
 } from 'api-client/users';
 import { User } from '../../utils/user';
-
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
 
@@ -29,13 +28,13 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
   if (userList?.length === 0)
     return (
       <div className="sidebar find-friends">
-        <h1>Discover new friends</h1>
+        <h1>Find Inspiration</h1>
         <p>No users found</p>
       </div>
     );
   return (
     <div className="sidebar find-friends">
-      <h1>Discover new friends</h1>
+      <h1>Find Inspiration</h1>
       {userList?.map((friend) => (
         <Friend
           key={myUser?._id}

@@ -19,7 +19,7 @@
   font-size: 18px;
 }
 
-.sidebar-row {
+.your-projects .sidebar-row {
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -40,15 +40,15 @@
   display: flex;
 }
 
-.sidebar-text {
+.your-projects .sidebar-text {
   margin-left: 10px;
   text-align: left;
 }
-.sidebar-text h1 {
+.your-projects .sidebar-text h1 {
   font-size: 16px;
   font-weight: 500;
 }
-.sidebar-text p {
+.your-projects .sidebar-text p {
   font-size: 14px;
   margin-top: 5px;
   font-weight: 400;
@@ -64,7 +64,7 @@
   .sidebar-row {
     flex-direction: column;
   }
-  .sidebar-text {
+  #project-sidebar .sidebar-row .sidebar-text {
     margin-top: 10px;
     margin-left: 0px;
     text-align: center;
@@ -76,4 +76,4 @@
   }
 }
 
-/*# sourceMappingURL=ProjectSideBar.css.map */
+/*# sourceMappingURL=ProjectSidebar.css.map */

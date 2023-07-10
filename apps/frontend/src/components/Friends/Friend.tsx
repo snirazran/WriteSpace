@@ -10,6 +10,7 @@ import { useAuth } from '../../context/AuthContext';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
+import SecondaryBtn from '../Buttons/SecondaryBtn';
 
 type FriendProps = {
   key: string | undefined;
@@ -83,19 +84,9 @@ const Friend: React.FC<FriendProps> = ({
         </div>
         <div className="friend-sidebar-btn">
           {!isFriend ? (
-            <button
-              onClick={() => patchFriend()}
-              className="sidebar-btn friends-btn"
-            >
-              Add Friend
-            </button>
+            <SecondaryBtn onClick={patchFriend} btnText="Add Friend" />
           ) : (
-            <button
-              onClick={() => patchFriend()}
-              className="sidebar-btn friends-btn"
-            >
-              Remove Friend
-            </button>
+            <SecondaryBtn onClick={patchFriend} btnText="Remove Friend" />
           )}
         </div>
       </div>

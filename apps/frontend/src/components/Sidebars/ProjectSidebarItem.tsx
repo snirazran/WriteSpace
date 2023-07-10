@@ -1,5 +1,6 @@
 import { ProjectResponseDTO } from 'api-client/projects';
 import { useNavigate } from 'react-router-dom';
+import './ProjectsSidebar.css';
 
 type ProjectSidebarItemProps = {
   project: ProjectResponseDTO | undefined;
