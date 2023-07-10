@@ -3,9 +3,7 @@ import { DocumentResponseDTO } from 'api-client/documents';
 import Document from './Document';
 import Spinner from '../Spinner';
 
-type FeedDocumentsProps = {};
-
-const FeedDocuments: React.FC<FeedDocumentsProps> = ({}) => {
+const FeedDocuments: React.FC = () => {
   const {
     data: feedPosts,
     error: feedPostsError,

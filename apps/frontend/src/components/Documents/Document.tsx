@@ -2,7 +2,6 @@ import { FaHeart, FaComment } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import './Document.css';
-import friend from '../../media/friend.png';
 import { DocumentResponseDTO } from 'api-client/documents';
 
 type DocumentProps = {
@@ -27,7 +26,7 @@ const Document: React.FC<DocumentProps> = ({ content }) => {
   return (
     <div className="post">
       <div className="post-user">
-        <img src={friend} alt="" />
+        <img src={content?.userInfo.img} alt="" />
         <div className="post-user-text">
           <h1>{content?.userInfo.username}</h1>
           {/* <p>{date.toLocaleDateString('en-us', options)}</p> */}

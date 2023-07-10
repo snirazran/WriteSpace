@@ -89,9 +89,7 @@ const DocumentBox = ({ content, deleteFunc }) => {
           onClick={() => {
             onClick(content._id);
           }}
-        >
-          <SecondaryBtn btnText={project ? `Edit Project` : `Edit Post`} />
-        </div>
+        ></div>
       ) : (
         <></>
       )}
