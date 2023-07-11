@@ -30,7 +30,7 @@ const FriendList: React.FC<FriendListProps> = ({
     <div className="friend-list-overlay" onClick={close}>
       <div className="friend-list" onClick={(e) => e.stopPropagation()}>
         <h1>Friend List</h1>
-
+        {!friends?.length && <p>No friends yet</p>}
         {friends?.map((friend, index) => (
           <Friend
             key={friend._id}

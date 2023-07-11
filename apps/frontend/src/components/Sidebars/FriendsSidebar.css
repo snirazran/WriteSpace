@@ -1,22 +1,22 @@
 /* Side Bars Css */
-.sidebar {
+.find-friends {
   height: max-content;
   width: 100%;
+  min-width: 220px;
   box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01), 0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09), 0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   border-radius: 10px;
   padding: 20px;
 }
-.sidebar h1 {
+.find-friends h1 {
   text-align: left;
   font-size: 18px;
 }
 
-.sidebar-row {
+.find-friends .sidebar-row {
   display: flex;
-  align-items: center;
   margin-top: 30px;
 }
-.sidebar-row img {
+.find-friends .sidebar-row img {
   cursor: pointer;
 }
 
@@ -39,7 +39,7 @@
   margin-left: 0;
 }
 .find-friends .sidebar-text h1 {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 .find-friends .sidebar-text p {
@@ -49,7 +49,7 @@
 }
 
 .friend-sidebar-right {
-  margin-left: 10px;
+  margin-left: 15px;
   display: flex;
   height: fit-content;
   flex-direction: column;
@@ -84,7 +84,7 @@
 .friend-list .sidebar-row .sidebar-text h1 {
   margin: 0;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -93,11 +93,15 @@
     margin-left: 0px;
   }
   .sidebar-row {
+    align-items: center;
     margin-top: 20px;
     margin-bottom: 20px;
     flex-direction: column;
   }
-  .sidebar h1 {
+  .find-friends {
+    min-width: 175px;
+  }
+  .find-friends h1 {
     text-align: center;
   }
   .sidebar-text {
