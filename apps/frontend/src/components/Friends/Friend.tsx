@@ -18,7 +18,7 @@ type FriendProps = {
   friend: UserResponseDTO | undefined;
   userFriends: UserResponseDTO[] | undefined;
   friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
-  usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
+  usersMutate?: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
 const Friend: React.FC<FriendProps> = ({
@@ -50,21 +50,21 @@ const Friend: React.FC<FriendProps> = ({
   };
 
   useEffect(() => {
-    if (data?.data) {
+    if (data?.data && friendsMutate) {
+      setUser(data.data);
+      friendsMutate();
+    }
+    if (data?.data && usersMutate) {
       setUser(data.data);
       usersMutate();
-      friendsMutate();
     }
   }, [data]);
 
   useEffect(() => {
-    if (userFriends) {
-      const friend = userFriends.find((friend) => friend._id === friendId);
-      if (friend) {
-        setIsFriend(true);
-      } else {
-        setIsFriend(false);
-      }
+    if (user?.friends.includes(friendId!)) {
+      setIsFriend(true);
+    } else {
+      setIsFriend(false);
     }
   }, [userFriends]);
 
@@ -83,11 +83,12 @@ const Friend: React.FC<FriendProps> = ({
           <h1>{friend?.username}</h1>
         </div>
         <div className="friend-sidebar-btn">
-          {!isFriend ? (
-            <SecondaryBtn onClick={patchFriend} btnText="Add Friend" />
-          ) : (
-            <SecondaryBtn onClick={patchFriend} btnText="Remove Friend" />
-          )}
+          {friendId !== id &&
+            (!isFriend ? (
+              <SecondaryBtn onClick={patchFriend} btnText="Add Friend" />
+            ) : (
+              <SecondaryBtn onClick={patchFriend} btnText="Remove Friend" />
+            ))}
         </div>
       </div>
     </div>

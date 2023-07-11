@@ -1,0 +1,33 @@
+//Profile box stats
+.profile-stats {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.profile-stat {
+  width: 33%;
+  h1 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+    color: var(--gray);
+  }
+}
+
+// profile bar stats
+.profile-bar-stats {
+  margin: 0 auto;
+  width: fit-content;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.profile-bar-friends {
+  h1 {
+    font-size: 25px;
+  }
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}

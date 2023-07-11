@@ -1,0 +1,33 @@
+.profile-stats {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.profile-stat {
+  width: 33%;
+}
+.profile-stat h1 {
+  font-size: 20px;
+}
+.profile-stat p {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.profile-bar-stats {
+  margin: 0 auto;
+  width: fit-content;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.profile-bar-friends h1 {
+  font-size: 25px;
+}
+.profile-bar-friends p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/*# sourceMappingURL=ProfileStats.css.map */

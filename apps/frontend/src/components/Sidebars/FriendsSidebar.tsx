@@ -37,7 +37,7 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
       <h1>Find Inspiration</h1>
       {userList?.map((friend) => (
         <Friend
-          key={myUser?._id}
+          key={friend._id}
           user={myUser}
           friend={friend}
           userFriends={userFriends}

@@ -11,6 +11,7 @@ import {
 } from 'api-client/users';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
+import ProfileStats from './ProfileStats';
 
 type ProfileBarProps = {
   user: UserDTO | null;
@@ -36,10 +37,6 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     navigate(`/profile/edit`);
   };
 
-  const onFriendsClick = () => {
-    setShowFriends(true);
-  };
-
   return (
     <div className="profile-bar">
       {showFriends && (
@@ -61,12 +58,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
           <SecondaryBtn onClick={onEditProfileClick} btnText="Edit Profile" />
         </div>
       </div>
-      <div className="profile-bar-stats">
-        <div onClick={onFriendsClick} className="profile-bar-friends">
-          <h1>{user?.friends.length ? user.friends.length : 0}</h1>
-          <p>Friends</p>
-        </div>
-      </div>
+      <ProfileStats userFriends={userFriends} setShowFriends={setShowFriends} />
     </div>
   );
 };

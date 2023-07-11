@@ -39,7 +39,11 @@ const Profile: React.FC = () => {
 
   return (
     <section className="projects">
-      <ProfileBox shownUser={user?.data} userFriends={userFriends?.data} />
+      <ProfileBox
+        friendsMutate={userFriendsMutate}
+        shownUser={user?.data}
+        userFriends={userFriends?.data}
+      />
       <Slider shownUser={user?.data} content={projects?.data} />
     </section>
   );

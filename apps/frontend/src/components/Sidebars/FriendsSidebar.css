@@ -76,6 +76,7 @@
 
 .friend-list .friend-sidebar-right {
   margin-left: 15px;
+  align-items: flex-start;
 }
 
 .friend-list .sidebar-row .sidebar-text {

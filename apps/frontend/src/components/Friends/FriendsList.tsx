@@ -16,7 +16,7 @@ type FriendListProps = {
   close: () => void;
   user: UserDTO | null;
   friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
-  usersMutate: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
+  usersMutate?: KeyedMutator<AxiosResponse<GetAllUsersDTO, any>>;
 };
 
 const FriendList: React.FC<FriendListProps> = ({

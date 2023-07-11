@@ -34,23 +34,6 @@
   color: var(--gray);
 }
 
-.profile-stats {
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.profile-stat {
-  width: 33%;
-}
-.profile-stat h1 {
-  font-size: 20px;
-}
-.profile-stat p {
-  font-size: 14px;
-  color: var(--gray);
-}
-
 @media only screen and (max-width: 1024px) {
   .profile-box {
     width: 50%;
