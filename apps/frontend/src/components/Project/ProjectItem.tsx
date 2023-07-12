@@ -1,9 +1,10 @@
-import { SwiperSlide } from 'swiper/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { ProjectResponseDTO } from 'api-client/projects';
 
-function ProjectItem({ project }) {
-  const navigate = useNavigate();
+type ProjectItemProps = {
+  project: ProjectResponseDTO;
+};
 
+const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
   return (
     <div className="box">
       <div className="main-slider-img">
@@ -11,10 +12,10 @@ function ProjectItem({ project }) {
       </div>
       <div className="box-text ">
         <h1>{project.name}</h1>
-        <p>{project.genre || project.type}</p>
+        <p>{project.genre}</p>
       </div>
     </div>
   );
-}
+};
 
 export default ProjectItem;

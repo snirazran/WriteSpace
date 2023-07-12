@@ -2,11 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProjectItem from './Project/ProjectItem';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import './Slider.css';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation } from 'swiper';
 import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
@@ -39,20 +37,11 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
                 <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
               </div>
               <Swiper
-                effect={'slide'}
-                centeredSlides={false}
                 slidesPerView={'auto'}
-                spaceBetween={10}
-                coverflowEffect={{
-                  rotate: 20,
-                  stretch: 0,
-                  depth: 20,
-                  modifier: 1,
-                  slideShadows: false,
-                }}
+                spaceBetween={20}
                 navigation={true}
                 pagination={true}
-                modules={[Navigation, Pagination]}
+                modules={[Navigation]}
                 className="mySwiper"
               >
                 {items.map((content) => (

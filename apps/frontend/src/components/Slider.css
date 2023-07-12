@@ -1,52 +1,42 @@
 /* Slider CSS */
 .slider {
-  margin: auto;
   margin-top: 50px;
-  padding: 0 250px;
 }
 .slider h1 {
   text-align: left;
   font-size: 26px;
   font-weight: bold;
 }
-.slider .box-btn {
-  margin-top: 20px;
-  background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
-  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02), 0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13), 0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
-  width: 300px;
-  padding: 15px 60px;
-  border-radius: 10px;
-  font-size: 18px;
-  color: #fff;
-  background-color: var(--mainColor);
-  border: none;
-  outline: none;
-  cursor: pointer;
+
+.slider-title h1 {
+  font-size: 26px;
+  font-weight: bold;
 }
 
 .box .box-text {
   padding: 20px;
 }
 .box .box-text h1 {
-  font-weight: 500;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 18px;
   text-align: center;
 }
 .box .box-text p {
   margin-top: 10px;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .swiper {
   padding-top: 50px;
   padding-bottom: 50px;
+  position: relative;
 }
 
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: auto;
+  width: 200px;
   height: auto;
   cursor: pointer;
 }
@@ -72,24 +62,30 @@
 
 .swiper-button-prev {
   background-color: var(--secondaryColor);
-  width: 60px;
-  height: 60px;
+  position: absolute;
+  top: 35%;
+  width: 40px;
+  height: 40px;
   border-radius: 80px;
   color: #fff;
 }
 .swiper-button-prev::after {
-  font-size: 20px;
+  font-size: 8px;
+  font-weight: bold;
 }
 
 .swiper-button-next {
   background-color: var(--secondaryColor);
-  width: 60px;
-  height: 60px;
+  position: absolute;
+  top: 35%;
+  width: 40px;
+  height: 40px;
   border-radius: 80px;
   color: #fff;
 }
 .swiper-button-next::after {
-  font-size: 20px;
+  font-size: 8px;
+  font-weight: bold;
 }
 
 .no-projects {
@@ -98,61 +94,38 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .swiper-button-prev {
-    background-color: var(--secondaryColor);
-    width: 50px;
-    height: 50px;
-    border-radius: 80px;
-    color: #fff;
-  }
-  .swiper-button-prev::after {
-    font-size: 16px;
-  }
+  .swiper-button-prev,
   .swiper-button-next {
-    background-color: var(--secondaryColor);
-    width: 50px;
-    height: 50px;
-    border-radius: 80px;
-    color: #fff;
+    display: none;
   }
-  .swiper-button-next::after {
+  .slider-title h1 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .box .box-text {
+    padding: 20px 0 10px 0;
+  }
+  .box .box-text h1 {
     font-size: 16px;
+    text-align: center;
+  }
+  .box .box-text p {
+    margin-top: 10px;
+    font-size: 12px;
   }
 }
 @media only screen and (max-width: 420px) {
   .swiper {
-    padding-top: 40px;
+    padding-top: 30px;
     padding-bottom: 30px;
   }
-  .slider {
-    width: 90%;
+  .slider-title h1 {
+    font-size: 20px;
+    font-weight: bold;
   }
-  .slider h1 {
-    font-size: 30px;
-  }
-  .slider .box-btn {
-    width: auto;
-    font-size: 14px;
-  }
-  .swiper-button-prev {
-    background-color: var(--secondaryColor);
-    width: 40px;
-    height: 40px;
-    border-radius: 80px;
-    color: #fff;
-  }
-  .swiper-button-prev::after {
-    font-size: 12px;
-  }
+  .swiper-button-prev,
   .swiper-button-next {
-    background-color: var(--secondaryColor);
-    width: 40px;
-    height: 40px;
-    border-radius: 80px;
-    color: #fff;
-  }
-  .swiper-button-next::after {
-    font-size: 12px;
+    display: none;
   }
 }
 

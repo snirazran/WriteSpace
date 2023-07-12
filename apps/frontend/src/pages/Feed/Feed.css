@@ -1,7 +1,6 @@
 /* Feed CSS */
 /* Main Posts CSS */
 .feed {
-  padding: 25px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,6 +36,7 @@
 
 .main-feed {
   width: 75%;
+  margin-top: 50px;
   height: max-content;
   display: flex;
   justify-content: space-evenly;
