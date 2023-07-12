@@ -6,7 +6,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Slider.css';
-import { EffectCoverflow, Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination } from 'swiper';
 import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
@@ -31,16 +31,18 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
     let items: Array<ProjectResponseDTO> = [];
     items = content.projects;
     return (
-      <div className="content">
+      <>
         {items.length > 0 ? (
           <>
             <div className="slider">
-              <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
+              <div className="slider-title">
+                <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
+              </div>
               <Swiper
-                effect={'coverflow'}
-                centeredSlides={true}
+                effect={'slide'}
+                centeredSlides={false}
                 slidesPerView={'auto'}
-                spaceBetween={120}
+                spaceBetween={10}
                 coverflowEffect={{
                   rotate: 20,
                   stretch: 0,
@@ -50,7 +52,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
                 }}
                 navigation={true}
                 pagination={true}
-                modules={[EffectCoverflow, Navigation, Pagination]}
+                modules={[Navigation, Pagination]}
                 className="mySwiper"
               >
                 {items.map((content) => (
@@ -71,7 +73,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
             <h3>You have not created any projects yet</h3>
           </div>
         )}
-      </div>
+      </>
     );
   } else {
     return null;

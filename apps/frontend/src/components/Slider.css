@@ -2,12 +2,12 @@
 .slider {
   margin: auto;
   margin-top: 50px;
-  width: 80%;
-  padding: 0 0 50px 0;
+  padding: 0 250px;
 }
 .slider h1 {
-  font-size: 40px;
-  font-weight: 500;
+  text-align: left;
+  font-size: 26px;
+  font-weight: bold;
 }
 .slider .box-btn {
   margin-top: 20px;
@@ -30,6 +30,7 @@
 .box .box-text h1 {
   font-weight: 500;
   font-size: 24px;
+  text-align: center;
 }
 .box .box-text p {
   margin-top: 10px;
@@ -38,7 +39,6 @@
 }
 
 .swiper {
-  width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
 }

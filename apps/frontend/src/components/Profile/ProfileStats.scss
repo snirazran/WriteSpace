@@ -1,43 +1,58 @@
 //Profile box stats
-.profile-stats {
-  margin-top: 25px;
+
+.profile-box .profile-bar-stats {
+  margin-top: 20px;
   display: flex;
-  justify-content: space-evenly;
-}
-.profile-stat {
-  width: 33%;
-  h1 {
-    font-size: 20px;
-  }
-  p {
-    font-size: 14px;
-    color: var(--gray);
-  }
+  justify-content: space-between;
 }
 
-// profile bar stats
-.profile-bar-stats {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
-.profile-bar-friends,
+.profile-box .profile-bar-friends,
 .profile-bar-projects,
 .profile-bar-likes {
-  width: 33%;
-  margin: 0 10px;
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 33%;
 
   h1 {
     margin: 0 auto;
     cursor: pointer;
     width: fit-content;
-    font-size: 25px;
+    font-size: 24px;
   }
   p {
+    color: var(--gray);
     cursor: pointer;
     width: fit-content;
     margin: 0 auto;
-    font-size: 14px;
+    padding-left: 10px;
+    font-size: 16px;
   }
 }
+
+// // profile bar stats
+// .profile-bar-stats {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 30px;
+// }
+// .profile-bar .profile-bar-friends,
+// .profile-bar-projects,
+// .profile-bar-likes {
+//   width: 33%;
+//   margin: 0 10px;
+
+//   h1 {
+//     margin: 0 auto;
+//     cursor: pointer;
+//     width: fit-content;
+//     font-size: 25px;
+//   }
+//   p {
+//     cursor: pointer;
+//     width: fit-content;
+//     margin: 0 auto;
+//     font-size: 14px;
+//   }
+// }
