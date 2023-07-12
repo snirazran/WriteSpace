@@ -14,9 +14,17 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   };
   return (
     <div className="profile-bar-stats">
+      <div className="profile-bar-projects">
+        <h1>0</h1>
+        <p>Projects</p>
+      </div>
       <div onClick={onFriendsClick} className="profile-bar-friends">
         <h1>{userFriends?.length || '0'}</h1>
         <p>Friends</p>
+      </div>
+      <div className="profile-bar-likes">
+        <h1>0</h1>
+        <p>Likes</p>
       </div>
     </div>
   );

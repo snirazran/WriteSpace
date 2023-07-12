@@ -35,7 +35,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
         {items.length > 0 ? (
           <>
             <div className="slider">
-              <h1>{`${toCapital(shownUser?.username!)}'s Page`}</h1>
+              <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
               <Swiper
                 effect={'coverflow'}
                 centeredSlides={true}
