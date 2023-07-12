@@ -38,7 +38,7 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <section className="projects">
+    <section className="profile-page">
       <ProfileBox
         friendsMutate={userFriendsMutate}
         shownUser={user?.data}

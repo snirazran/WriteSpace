@@ -16,7 +16,7 @@ const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
     );
   let items: Array<ProjectResponseDTO> = [];
   if (content) items = content.projects;
-  const projects = items.slice(0, 5);
+  const projects = items.slice(0, 3);
   return (
     <div className="sidebar your-projects" id="project-sidebar">
       <h1>Recent Projects</h1>

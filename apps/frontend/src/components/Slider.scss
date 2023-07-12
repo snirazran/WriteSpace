@@ -4,99 +4,96 @@
   margin-top: 50px;
   width: 80%;
   padding: 0 0 50px 0;
+  h1 {
+    font-size: 40px;
+    font-weight: 500;
+  }
+  .box-btn {
+    margin-top: 20px;
+    background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
+    box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
+      0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
+      0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
+    width: 300px;
+    padding: 15px 60px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #fff;
+    background-color: var(--mainColor);
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 }
-.slider h1 {
-  font-size: 40px;
-  font-weight: 500;
+.box {
+  .box-text {
+    padding: 20px;
+    h1 {
+      font-weight: 500;
+      font-size: 24px;
+    }
+    p {
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
 }
-.slider .box-btn {
-  margin-top: 20px;
-  background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
-  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02), 0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13), 0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
-  width: 300px;
-  padding: 15px 60px;
-  border-radius: 10px;
-  font-size: 18px;
-  color: #fff;
-  background-color: var(--mainColor);
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.box .box-text {
-  padding: 20px;
-}
-.box .box-text h1 {
-  font-weight: 500;
-  font-size: 24px;
-}
-.box .box-text p {
-  margin-top: 10px;
-  font-weight: 400;
-  font-size: 16px;
-}
-
 .swiper {
   width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
 .swiper-slide {
   background-position: center;
   background-size: cover;
   width: auto;
   height: auto;
   cursor: pointer;
+  img {
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    width: 200px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
+      0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
+      0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
+  }
 }
-.swiper-slide img {
-  object-fit: cover;
-  display: block;
-  margin: auto;
-  width: 200px;
-  height: 250px;
-  border-radius: 10px;
-  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02), 0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13), 0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
-}
-
 .swiper-pagination-bullet-active {
   background: var(--secondaryColor);
 }
-
 .main-slider-img {
   margin: 0 auto;
   width: 200px;
   height: 250px;
 }
-
 .swiper-button-prev {
   background-color: var(--secondaryColor);
   width: 60px;
   height: 60px;
   border-radius: 80px;
   color: #fff;
+  &::after {
+    font-size: 20px;
+  }
 }
-.swiper-button-prev::after {
-  font-size: 20px;
-}
-
 .swiper-button-next {
   background-color: var(--secondaryColor);
   width: 60px;
   height: 60px;
   border-radius: 80px;
   color: #fff;
+  &::after {
+    font-size: 20px;
+  }
 }
-.swiper-button-next::after {
-  font-size: 20px;
-}
-
 .no-projects {
   margin-top: 100px;
   margin-bottom: 30px;
 }
-
 @media only screen and (max-width: 768px) {
   .swiper-button-prev {
     background-color: var(--secondaryColor);
@@ -104,9 +101,9 @@
     height: 50px;
     border-radius: 80px;
     color: #fff;
-  }
-  .swiper-button-prev::after {
-    font-size: 16px;
+    &::after {
+      font-size: 16px;
+    }
   }
   .swiper-button-next {
     background-color: var(--secondaryColor);
@@ -114,9 +111,9 @@
     height: 50px;
     border-radius: 80px;
     color: #fff;
-  }
-  .swiper-button-next::after {
-    font-size: 16px;
+    &::after {
+      font-size: 16px;
+    }
   }
 }
 @media only screen and (max-width: 420px) {
@@ -126,13 +123,13 @@
   }
   .slider {
     width: 90%;
-  }
-  .slider h1 {
-    font-size: 30px;
-  }
-  .slider .box-btn {
-    width: auto;
-    font-size: 14px;
+    h1 {
+      font-size: 30px;
+    }
+    .box-btn {
+      width: auto;
+      font-size: 14px;
+    }
   }
   .swiper-button-prev {
     background-color: var(--secondaryColor);
@@ -140,9 +137,9 @@
     height: 40px;
     border-radius: 80px;
     color: #fff;
-  }
-  .swiper-button-prev::after {
-    font-size: 12px;
+    &::after {
+      font-size: 12px;
+    }
   }
   .swiper-button-next {
     background-color: var(--secondaryColor);
@@ -150,10 +147,8 @@
     height: 40px;
     border-radius: 80px;
     color: #fff;
-  }
-  .swiper-button-next::after {
-    font-size: 12px;
+    &::after {
+      font-size: 12px;
+    }
   }
 }
-
-/*# sourceMappingURL=Slider.css.map */
