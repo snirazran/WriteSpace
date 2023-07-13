@@ -35,7 +35,7 @@
 }
 
 .main-feed {
-  width: 75%;
+  width: 80%;
   margin-top: 50px;
   height: max-content;
   display: flex;
@@ -54,12 +54,16 @@
   width: 50%;
 }
 
-@media only screen and (max-width: 1240px) {
+@media only screen and (max-width: 1440px) {
   .post-row {
     width: 50%;
   }
+  .side-bars {
+    width: 15%;
+    min-width: 100px;
+  }
 }
-@media only screen and (max-width: 1010px) {
+@media only screen and (max-width: 1023px) {
   .side-bars {
     display: none;
   }

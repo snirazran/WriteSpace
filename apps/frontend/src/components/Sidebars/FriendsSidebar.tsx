@@ -25,6 +25,7 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
   usersMutate,
 }) => {
   let userList = content?.users.filter((user) => user._id !== myUser?._id);
+  userList = userList?.slice(0, 5);
   if (userList?.length === 0)
     return (
       <div className="sidebar find-friends">

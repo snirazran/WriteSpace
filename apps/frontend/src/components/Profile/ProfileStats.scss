@@ -7,8 +7,8 @@
 }
 
 .profile-box .profile-bar-friends,
-.profile-bar-projects,
-.profile-bar-likes {
+.profile-box .profile-bar-projects,
+.profile-box .profile-bar-likes {
   align-items: center;
   display: flex;
   justify-content: space-evenly;
@@ -30,29 +30,29 @@
   }
 }
 
-// // profile bar stats
-// .profile-bar-stats {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin-top: 30px;
-// }
-// .profile-bar .profile-bar-friends,
-// .profile-bar-projects,
-// .profile-bar-likes {
-//   width: 33%;
-//   margin: 0 10px;
+// profile bar stats
+.profile-bar .profile-bar-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.profile-bar .profile-bar-friends,
+.profile-bar .profile-bar-projects,
+.profile-bar .profile-bar-likes {
+  width: 25%;
+  margin: 0 10px;
 
-//   h1 {
-//     margin: 0 auto;
-//     cursor: pointer;
-//     width: fit-content;
-//     font-size: 25px;
-//   }
-//   p {
-//     cursor: pointer;
-//     width: fit-content;
-//     margin: 0 auto;
-//     font-size: 14px;
-//   }
-// }
+  h1 {
+    margin: 0 auto;
+    cursor: pointer;
+    width: fit-content;
+    font-size: 18px;
+  }
+  p {
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 10px;
+  }
+}
