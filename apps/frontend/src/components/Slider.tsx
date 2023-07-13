@@ -9,6 +9,11 @@ import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
 
+import ProjectGenreSelector from './Project/ProjectGenreSelector';
+import { useState } from 'react';
+import QuickProjectBtn from './Buttons/QuickProjectBtn';
+import { useAuth } from '../context/AuthContext';
+
 type ProjectGenreSelectorProps = {
   content?: GetAllUserProjectsDTO;
   shownUser?: GetUserByIdDTO;
@@ -19,22 +24,36 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
   shownUser,
 }) => {
   const navigate = useNavigate();
-
+  const { user } = useAuth();
+  const isUserProfile = () => user?._id === shownUser?._id;
   const onClick = (id: string) => {
     navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
-
+  const [isSelectorVisible, setSelectorVisible] = useState(false);
+  const onBtnClick = () => {
+    setSelectorVisible(true);
+  };
+  console.log(isSelectorVisible);
   if (content) {
     let items: Array<ProjectResponseDTO> = [];
     items = content.projects;
     return (
       <>
+        {isSelectorVisible && (
+          <ProjectGenreSelector close={() => setSelectorVisible(false)} />
+        )}
         {items.length > 0 ? (
           <>
             <div className="slider">
               <div className="slider-title">
                 <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
+                {isUserProfile() && (
+                  <QuickProjectBtn
+                    btnText="Create Project"
+                    onClick={onBtnClick}
+                  />
+                )}
               </div>
               <Swiper
                 slidesPerView={'auto'}

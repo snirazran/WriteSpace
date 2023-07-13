@@ -32,7 +32,7 @@
   color: var(--mainColor);
 }
 .main-feed {
-  width: 80%;
+  width: 75%;
   margin-top: 50px;
   height: max-content;
   display: flex;
@@ -55,7 +55,7 @@
   }
   .side-bars {
     width: 15%;
-    min-width: 100px;
+    min-width: 140px;
   }
 }
 @media only screen and (max-width: 1023px) {

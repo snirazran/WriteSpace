@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileBox from '../../components/Profile/ProfileBox';
 import Slider from '../../components/Slider';
 import Spinner from '../../components/Spinner';
@@ -7,6 +7,9 @@ import './Profile.css';
 import { useGetUserById } from '../../features/users/usersApi';
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useGetAllUserProjects } from '../../features/projects/ProjectsApi';
+import QuickProject from '../../components/Project/QuickProject';
+import ProjectGenreSelector from '../../components/Project/ProjectGenreSelector';
+import QuickProjectBtn from '../../components/Buttons/QuickProjectBtn';
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   let { id } = useParams();

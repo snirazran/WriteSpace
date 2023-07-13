@@ -8,6 +8,11 @@
   font-weight: bold;
 }
 
+.slider-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .slider-title h1 {
   font-size: 26px;
   font-weight: bold;
