@@ -14,6 +14,7 @@ import {
   useCreateDocument,
   useGetAllProjectDocuments,
 } from '../../features/documents/documentsApi';
+import DocumentSlider from '../../components/DocumentSlider';
 
 const ProjectPage = () => {
   const navigate = useNavigate();
@@ -32,41 +33,24 @@ const ProjectPage = () => {
     mutate: mutateDocuments,
   } = useGetAllProjectDocuments(id!);
 
-  const {
-    data: document,
-    error: documentError,
-    isLoading: isLoadingDocument,
-    reset: resetDocument,
-    trigger: triggerDocument,
-  } = useCreateDocument();
-
   useEffect(() => {
-    if (projectError || documentError || documentsError) {
-      console.log(projectError || documentError || documentsError);
+    if (projectError || documentsError) {
+      console.log(projectError || documentsError);
     }
-  }, [documentError, projectError]);
+  }, [projectError]);
 
-  const onClick = () => {
-    const documentData = {
-      userId: project!.data.userInfo.userId,
-      projectId: project!.data._id,
-      type: docType(project!.data.genre),
-    };
-    triggerDocument(documentData);
-  };
-
-  if (isLoadingProject || isLoadingDocument || isLoadingDocuments) {
+  if (isLoadingProject || isLoadingDocuments) {
     return <Spinner />;
   }
   return (
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-
-      {/* <MainBtn
-        btnText={`Create a new ${docType(project?.data.genre!)}`}
-        onClick={onClick}
-      ></MainBtn> */}
+      <DocumentSlider
+        project={project}
+        documents={documents}
+        content={documents?.data}
+      />
     </section>
   );
 };

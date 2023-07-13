@@ -87,8 +87,8 @@
   margin-bottom: 30px;
 }
 @media only screen and (max-width: 768px) {
-  .swiper-button-prev,
-  .swiper-button-next {
+  .slider .swiper-button-prev,
+  .slider swiper-button-next {
     display: none;
   }
 
@@ -124,8 +124,8 @@
     }
   }
 
-  .swiper-button-prev,
-  .swiper-button-next {
+  .slider .swiper-button-prev,
+  .slider .swiper-button-next {
     display: none;
   }
 }
