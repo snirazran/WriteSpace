@@ -1,13 +1,5 @@
-import {
-  ChangeEvent,
-  FC,
-  HTMLAttributes,
-  Ref,
-  forwardRef,
-  useState,
-} from 'react';
+import { ChangeEvent, HTMLAttributes, useState } from 'react';
 import placeholderImgUrl from '../media/placeholder.png';
-import classes from './UploadImage.scss?inline';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type Props<T extends FieldValues> = {
@@ -18,7 +10,6 @@ type Props<T extends FieldValues> = {
   userImage?: string;
 } & HTMLAttributes<HTMLInputElement>;
 
-// TODO: handle style, use SCSS modules
 const UploadImage = <T extends object>({
   alt,
   name,

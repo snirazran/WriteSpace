@@ -1,5 +1,7 @@
 import { UserDTO } from '../../../user-service/src/dtos/user.dto';
-export interface User extends UserDTO {}
+export interface User extends UserDTO {
+  token?: string;
+}
 
 export function getUserFromLocalStorage(): User | null {
   const userJSON = localStorage.getItem('user');

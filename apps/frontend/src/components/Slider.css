@@ -1,6 +1,6 @@
 /* Slider CSS */
 .slider {
-  margin-top: 50px;
+  margin-top: 75px;
 }
 .slider h1 {
   text-align: left;
@@ -35,6 +35,10 @@
 .swiper {
   padding-top: 50px;
   padding-bottom: 50px;
+  position: relative;
+}
+
+.swiper-wrapper {
   position: relative;
 }
 

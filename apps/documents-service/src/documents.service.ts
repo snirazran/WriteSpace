@@ -16,6 +16,7 @@ import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { docName } from './utils/docName';
 
 @Injectable()
 export class DocumentsService {
@@ -58,6 +59,8 @@ export class DocumentsService {
       }
 
       const document = new this.documentModel(DocumentData);
+
+      document.name = docName(project.genre);
 
       document.userInfo = {
         userId: user._id.toString(),

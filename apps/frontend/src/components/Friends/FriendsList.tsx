@@ -1,15 +1,20 @@
+// Imports
 import React from 'react';
+import { AxiosResponse } from 'axios';
+import { KeyedMutator } from 'swr';
+
+// Local imports
+import Friend from './Friend';
+import SecondSmallBtn from '../Buttons/SecondSmallBtn';
 import './FriendList.css';
+
+// Types
 import {
   GetAllUsersDTO,
   GetAllUsersFriendsDTO,
   UserDTO,
   UserResponseDTO,
 } from 'api-client/users';
-import Friend from './Friend';
-import { KeyedMutator } from 'swr';
-import { AxiosResponse } from 'axios';
-import SecondSmallBtn from '../Buttons/SecondSmallBtn';
 
 type FriendListProps = {
   friends: UserResponseDTO[];
@@ -26,9 +31,11 @@ const FriendList: React.FC<FriendListProps> = ({
   friendsMutate,
   usersMutate,
 }) => {
+  const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
+
   return (
     <div className="friend-list-overlay" onClick={close}>
-      <div className="friend-list" onClick={(e) => e.stopPropagation()}>
+      <div className="friend-list" onClick={stopPropagation}>
         <h1>Friend List</h1>
         {!friends?.length && <p>No friends yet</p>}
         {friends?.map((friend, index) => (

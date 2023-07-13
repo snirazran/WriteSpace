@@ -1,11 +1,10 @@
+.project {
+  display: flex;
+}
+
 .project-box {
-  margin: 50px auto;
-  width: 33%;
-  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
-    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
-    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  align-items: start;
   border-radius: 10px;
-  padding: 20px;
 }
 
 .trash-btn {
@@ -16,70 +15,66 @@
   cursor: pointer;
   color: var(--lightGray);
 }
-
 .trash-btn:hover {
   color: var(--mainColor);
 }
 
-.project-datails-image {
-  margin: 0 auto;
-  width: 120px;
-  height: 120px;
-}
-
-.project-details img {
-  object-fit: cover;
-  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
-    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
-    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
-  border-radius: 10px;
-  width: 120px;
-  height: 120px;
-}
-
-.project-details h1 {
-  font-size: 22px;
-  margin-top: 20px;
-}
-
-.author-details {
-  margin-top: 20px;
-  justify-content: center;
+.project-details {
   display: flex;
-  margin-bottom: 20px;
+  text-align: left;
 }
-.author-details a {
+
+.project-datails-image {
+  width: 240px;
+  height: 240px;
+}
+.project-datails-image img {
+  object-fit: cover;
+  width: 240px;
+  height: 240px;
+  border-radius: 6px;
+}
+
+.project-details-text {
+  margin-left: 20px;
+  flex-direction: column;
+  display: flex;
+  width: max-content;
+}
+.project-details-text h1 {
+  font-size: 32px;
+  font-weight: bolder;
+}
+.project-details-text a {
   text-decoration: none;
   color: var(--gray);
 }
-
-.author-details p {
-  font-size: 14px;
+.project-details-text p {
+  font-size: 18px;
   color: var(--gray);
 }
-
-.author-details span {
-  font-size: 16px;
+.project-details-text span {
+  font-size: 22px;
   color: var(--secondaryColor);
 }
-
-.project-author-img {
-  width: 20px;
-  height: 20px;
-}
-
-.author-details img {
+.project-details-text img {
   object-fit: cover;
   margin-left: 5px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 100px;
 }
 
+.project-details-author {
+  align-items: center;
+  margin-top: 10px;
+  display: flex;
+}
+
 .project-description p {
-  font-size: 16px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--gray);
 }
 
@@ -87,20 +82,4 @@
   margin-top: 20px;
 }
 
-@media only screen and (max-width: 1024px) {
-  .project-box {
-    width: 50%;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .project-box {
-    width: 60%;
-  }
-}
-
-@media only screen and (max-width: 425px) {
-  .project-box {
-    width: 85%;
-  }
-}
+/*# sourceMappingURL=ProjectBox.css.map */

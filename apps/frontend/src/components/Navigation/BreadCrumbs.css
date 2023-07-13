@@ -1,18 +1,18 @@
 .bread-crumbs {
   text-align: left;
-  margin-top: 20px;
-  margin-left: 100px;
+  position: absolute;
+  top: 0;
+  left: -10%;
 }
-
 .bread-crumbs p {
   font-size: 16px;
 }
-
 .bread-crumbs p a {
   text-decoration: none;
   color: var(--gray);
 }
-
 .bread-crumbs p .main-bread {
   color: var(--mainColor);
 }
+
+/*# sourceMappingURL=BreadCrumbs.css.map */

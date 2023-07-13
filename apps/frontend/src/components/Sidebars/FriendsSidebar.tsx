@@ -1,4 +1,4 @@
-import './FriendsSidebar.css';
+import React from 'react';
 import Friend from '../Friends/Friend';
 import {
   GetAllUsersDTO,
@@ -8,6 +8,7 @@ import {
 import { User } from '../../utils/user';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
+import './FriendsSidebar.css';
 
 type FriendsSidebarProps = {
   content: GetAllUsersDTO | undefined;
@@ -24,19 +25,22 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
   friendsMutate,
   usersMutate,
 }) => {
-  let userList = content?.users.filter((user) => user._id !== myUser?._id);
-  userList = userList?.slice(0, 5);
-  if (userList?.length === 0)
+  const filteredUserList = content?.users
+    .filter((user) => user._id !== myUser?._id)
+    .slice(0, 5);
+
+  if (!filteredUserList?.length)
     return (
       <div className="sidebar find-friends">
         <h1>Find Inspiration</h1>
         <p>No users found</p>
       </div>
     );
+
   return (
     <div className="sidebar find-friends">
       <h1>Find Inspiration</h1>
-      {userList?.map((friend) => (
+      {filteredUserList?.map((friend) => (
         <Friend
           key={friend._id}
           user={myUser}

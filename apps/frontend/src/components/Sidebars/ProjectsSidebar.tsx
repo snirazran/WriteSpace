@@ -1,27 +1,31 @@
+import React from 'react';
 import './ProjectsSidebar.css';
 import ProjectSidebarItem from './ProjectSidebarItem';
-import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
+import { GetAllUserProjectsDTO } from 'api-client/projects';
 
 type ProjectsSideBarProps = {
   content: GetAllUserProjectsDTO | undefined;
 };
 
 const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
-  if (content?.projects.length === 0)
-    return (
-      <div className="sidebar your-projects" id="project-sidebar">
-        <h1>Recent Projects</h1>
-        <p>You have no projects yet</p>
-      </div>
-    );
-  let items: Array<ProjectResponseDTO> = [];
-  if (content) items = content.projects;
-  const projects = items.slice(0, 3);
+  const noProjectsMessage = (
+    <div className="sidebar your-projects" id="project-sidebar">
+      <h1>Recent Projects</h1>
+      <p>You have no projects yet</p>
+    </div>
+  );
+
+  if (!content || content.projects.length === 0) {
+    return noProjectsMessage;
+  }
+
+  const projects = content.projects.slice(0, 3);
+
   return (
     <div className="sidebar your-projects" id="project-sidebar">
       <h1>Recent Projects</h1>
-      {projects.map((content) => (
-        <ProjectSidebarItem key={content._id} project={content} />
+      {projects.map((project) => (
+        <ProjectSidebarItem key={project._id} project={project} />
       ))}
     </div>
   );

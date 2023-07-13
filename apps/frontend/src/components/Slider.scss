@@ -1,6 +1,6 @@
 /* Slider CSS */
 .slider {
-  margin-top: 50px;
+  margin-top: 75px;
   h1 {
     text-align: left;
     font-size: 26px;
@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   h1 {
     font-size: 26px;
     font-weight: bold;
@@ -35,6 +36,9 @@
 .swiper {
   padding-top: 50px;
   padding-bottom: 50px;
+  position: relative;
+}
+.swiper-wrapper {
   position: relative;
 }
 .swiper-slide {

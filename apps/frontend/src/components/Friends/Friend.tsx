@@ -1,16 +1,21 @@
+// Imports
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
+
+// Local imports
+import SecondaryBtn from '../Buttons/SecondaryBtn';
+import { useAddRemoveFriend } from '../../features/users/friendsApi';
+import { useAuth } from '../../context/AuthContext';
 import { User } from '../../utils/user';
+
+// Types
 import {
   GetAllUsersDTO,
   GetAllUsersFriendsDTO,
   UserResponseDTO,
 } from 'api-client/users';
-import { useAddRemoveFriend } from '../../features/users/friendsApi';
-import { useAuth } from '../../context/AuthContext';
 import { KeyedMutator } from 'swr';
-import { AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
-import SecondaryBtn from '../Buttons/SecondaryBtn';
 
 type FriendProps = {
   key: string | undefined;
@@ -28,13 +33,12 @@ const Friend: React.FC<FriendProps> = ({
   friendsMutate,
   usersMutate,
 }) => {
-  const navigate = useNavigate();
-  const { setUser } = useAuth();
+  // States
   const [isFriend, setIsFriend] = useState(false);
 
-  const id = user?._id;
-  const friendId = friend?._id;
-
+  // Hooks
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
   const {
     data,
     error,
@@ -43,12 +47,23 @@ const Friend: React.FC<FriendProps> = ({
     trigger,
   } = useAddRemoveFriend();
 
+  // Variables
+  const id = user?._id;
+  const friendId = friend?._id;
+
+  // Functions
   const patchFriend = async () => {
     if (id && friendId) {
       await trigger({ id, friendId });
     }
   };
 
+  const onClick = () => {
+    navigate(`/profile/${friend?._id}`);
+    window.scrollTo(0, 0);
+  };
+
+  // Effects
   useEffect(() => {
     if (data?.data && friendsMutate) {
       setUser(data.data);
@@ -68,11 +83,7 @@ const Friend: React.FC<FriendProps> = ({
     }
   }, [userFriends]);
 
-  const onClick = () => {
-    navigate(`/profile/${friend?._id}`);
-    window.scrollTo(0, 0);
-  };
-
+  // Main render
   return (
     <div className="sidebar-row">
       <div className="friend-img">
@@ -83,12 +94,12 @@ const Friend: React.FC<FriendProps> = ({
           <h1>{friend?.username}</h1>
         </div>
         <div className="friend-sidebar-btn">
-          {friendId !== id &&
-            (!isFriend ? (
-              <SecondaryBtn onClick={patchFriend} btnText="Add Friend" />
-            ) : (
-              <SecondaryBtn onClick={patchFriend} btnText="Remove Friend" />
-            ))}
+          {friendId !== id && (
+            <SecondaryBtn
+              onClick={patchFriend}
+              btnText={isFriend ? 'Remove Friend' : 'Add Friend'}
+            />
+          )}
         </div>
       </div>
     </div>

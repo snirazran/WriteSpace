@@ -13,16 +13,14 @@ import ProjectGenreSelector from './Project/ProjectGenreSelector';
 import { useState } from 'react';
 import QuickProjectBtn from './Buttons/QuickProjectBtn';
 import { useAuth } from '../context/AuthContext';
+import widthMove from '../utils/widthOfBtn';
 
-type ProjectGenreSelectorProps = {
+type SliderProps = {
   content?: GetAllUserProjectsDTO;
   shownUser?: GetUserByIdDTO;
 };
 
-const Slider: React.FC<ProjectGenreSelectorProps> = ({
-  content,
-  shownUser,
-}) => {
+const Slider: React.FC<SliderProps> = ({ content, shownUser }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const isUserProfile = () => user?._id === shownUser?._id;
@@ -34,10 +32,15 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
   const onBtnClick = () => {
     setSelectorVisible(true);
   };
-  console.log(isSelectorVisible);
   if (content) {
     let items: Array<ProjectResponseDTO> = [];
     items = content.projects;
+
+    const slider = document.getElementById('profileProjectBtn');
+    if (slider) {
+      slider.style.maxWidth = `${widthMove(items)}px`;
+    }
+
     return (
       <>
         {isSelectorVisible && (
@@ -46,8 +49,12 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
         {items.length > 0 ? (
           <>
             <div className="slider">
-              <div className="slider-title">
-                <h1>{`${toCapital(shownUser?.username!)}'s Projects`}</h1>
+              <div id="profileProjectBtn" className="slider-title">
+                <h1>
+                  {isUserProfile()
+                    ? 'My Projects'
+                    : `${toCapital(shownUser?.username!)}'s Projects`}
+                </h1>
                 {isUserProfile() && (
                   <QuickProjectBtn
                     btnText="Create Project"

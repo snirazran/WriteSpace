@@ -2,7 +2,7 @@ import '../Login_Register.css';
 import EditProfileForm from './EditProfileForm';
 import { useAuth } from '../../context/AuthContext';
 
-function EditProfile() {
+const EditProfile: React.FC = () => {
   //get user from api
   const { user: loggedInUser, setUser } = useAuth();
 
@@ -19,6 +19,6 @@ function EditProfile() {
       </div>
     </>
   );
-}
+};
 
 export default EditProfile;

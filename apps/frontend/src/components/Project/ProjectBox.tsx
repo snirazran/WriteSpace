@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './ProjectBox.css';
 import { FaTrash } from 'react-icons/fa';
-import SecondaryBtn from './../Buttons/SecondaryBtn';
 import { useAuth } from '../../context/AuthContext';
 import { ProjectResponseDTO } from 'api-client/projects';
+import { toCapital } from '../../utils/toCapital';
 
 type ProjectBoxProps = {
   content?: ProjectResponseDTO;
@@ -23,58 +23,45 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
     navigate(`/profile/${user!._id}`);
   };
 
-  // Determine if project page or post page
-  const isProject = () => {
-    return window.location.href.includes('projects/') ? true : false;
-  };
-
-  let project: boolean;
-  if (window.location.href.includes('projects/')) {
-    project = true;
-  }
-  if (window.location.href.includes('posts/')) {
-    project = false;
-  }
   // Edit button click function
 
-  const onClick = (id: string) => {
-    if (project) {
-      navigate(`/projects/project/edit/${id}`);
-    }
-    if (!project) {
-      navigate(`/posts/edit/${id}`);
-    }
+  const onEditClick = (id: string) => {
+    navigate(`/projects/project/edit/${id}`);
     window.scrollTo(0, 0);
   };
 
   return (
-    <div className="project-box">
-      {isUserProject() ? (
-        <div className="trash-btn" onClick={deleteContent}>
-          <FaTrash />
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="project-details">
-        <div className="project-datails-image">
-          <img src={content ? content.img : ''} alt="" />
-        </div>
-
-        <h1>{content ? content.name : ''}</h1>
-      </div>
-      <div className="author-details">
-        <p>
-          <span>{content ? content.genre : ''}, </span>
-          <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
-            {`By ${content ? content.userInfo.username : ''}`}
-          </Link>
-        </p>
-        <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
-          <div className="project-author-img">
-            <img src={content ? content.userInfo.img : ''} alt="" />
+    <div className="project">
+      <div className="project-box">
+        {/* {isUserProject() ? (
+          <div className="trash-btn" onClick={deleteContent}>
+            <FaTrash />
           </div>
-        </Link>
+        ) : (
+          <></>
+        )} */}
+        <div className="project-details">
+          <div className="project-datails-image">
+            <img src={content?.img} alt="" />
+          </div>
+
+          <div className="project-details-text">
+            <h1>{content?.name}</h1>
+            <div className="project-details-author">
+              <p>
+                <span>{content?.genre}, </span>
+                <Link to={`/profile/${content?.userInfo.userId}`}>
+                  {`By ${toCapital(content?.userInfo.username!)}`}
+                </Link>
+              </p>
+              <Link to={`/profile/${content?.userInfo.userId}`}>
+                <div className="project-author-img">
+                  <img src={content?.userInfo.img} alt="" />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

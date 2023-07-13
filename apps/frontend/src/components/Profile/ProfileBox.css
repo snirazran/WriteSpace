@@ -41,6 +41,7 @@
   text-align: left;
   margin-top: 10px;
   font-size: 18px;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -97,6 +98,7 @@
   }
   .profile-img .profile-bio {
     font-size: 14px;
+    margin-top: 15px;
   }
   .profile-name h1 {
     font-size: 20px;

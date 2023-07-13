@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Spinner from '../../components/Spinner';
-import Slider from '../../components/Slider';
 import './ProjectPage.css';
 import ProjectBox from '../../components/Project/ProjectBox';
 import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
@@ -63,11 +62,11 @@ const ProjectPage = () => {
     <section className="ProjectPage">
       <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
-      {/* <Slider content={documents?.data} /> */}
-      <MainBtn
+
+      {/* <MainBtn
         btnText={`Create a new ${docType(project?.data.genre!)}`}
         onClick={onClick}
-      ></MainBtn>
+      ></MainBtn> */}
     </section>
   );
 };
