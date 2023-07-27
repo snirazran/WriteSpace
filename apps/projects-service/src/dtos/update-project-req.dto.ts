@@ -5,25 +5,29 @@ export class UpdateProjectRequestDTO {
     description: 'Project name',
     minimum: 2,
     maximum: 40,
+    required: false,
   })
-  name: string;
+  name?: string;
 
   @ApiProperty({
     description: 'Project img',
     default: '',
+    required: false,
   })
-  img: string;
+  img?: string;
 
   @ApiProperty({
     description: 'Project description',
     maximum: 300,
     default: '',
+    required: false,
   })
-  description: string;
+  description?: string;
 
   @ApiProperty({
     description: 'Project share status',
     default: true,
+    required: false,
   })
-  shared: boolean;
+  shared?: boolean;
 }

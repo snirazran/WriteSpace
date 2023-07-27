@@ -44,7 +44,6 @@ const ProjectPage = () => {
   }
   return (
     <section className="ProjectPage">
-      <BreadCrumbs content={project?.data}></BreadCrumbs>
       <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
       <DocumentSlider
         project={project}

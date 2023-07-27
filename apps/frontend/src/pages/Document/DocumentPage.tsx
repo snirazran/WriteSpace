@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import './DocumentPage.css';
 import DocumentBox from '../../components/Documents/DocumentBox';
-import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
 import {
   useGetDocumentById,
   useDeleteDocument,
@@ -26,10 +25,9 @@ function DocumentPage() {
   if (postIsLoading) {
     return <Spinner />;
   }
-  console.log(post);
+
   return (
     <section className="PostPage">
-      <BreadCrumbs content={post?.data}></BreadCrumbs>
       <DocumentBox content={post?.data} deleteFunc={useDeleteDocument} />
     </section>
   );

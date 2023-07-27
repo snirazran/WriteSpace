@@ -31,7 +31,6 @@
 .document-slider-title {
   display: flex;
   align-items: center;
-  max-width: 1000px !important;
   justify-content: space-between;
 }
 
@@ -69,6 +68,70 @@
 .document-slider .swiper-button-next::after {
   font-size: 8px;
   font-weight: bold;
+}
+
+.document-slider .qp-btn {
+  width: 222px;
+}
+
+@media only screen and (max-width: 768px) {
+  .document-box {
+    background-color: var(--green);
+    border-radius: 6px;
+    color: #fff;
+    width: 100%;
+    height: auto;
+  }
+  .document-box .document-box-text {
+    padding: 20px;
+  }
+  .document-box .document-box-text h1 {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+  }
+  .document-box .document-box-text p {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 555px) {
+  .document-slider h1 {
+    font-size: 20px;
+  }
+  .document-slider .qp-btn {
+    font-size: 12px;
+    padding: 10px 16px;
+    width: 180px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .document-slider .qp-btn {
+    font-size: 11px;
+    padding: 10px 10px;
+    width: 150px;
+  }
+  .document-box {
+    background-color: var(--green);
+    border-radius: 6px;
+    color: #fff;
+    width: 100%;
+    height: auto;
+  }
+  .document-box .document-box-text {
+    padding: 20px;
+  }
+  .document-box .document-box-text h1 {
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+  }
+  .document-box .document-box-text p {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 10px;
+  }
 }
 
 /*# sourceMappingURL=DocumentSlider.css.map */

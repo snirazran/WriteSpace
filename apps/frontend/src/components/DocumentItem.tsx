@@ -9,7 +9,7 @@ const DocumentItem: React.FC<DocumentItemProp> = ({ document }) => {
     <div className="document-box">
       <div className="document-box-text ">
         <h1>{document?.name}</h1>
-        <p>{document?.type}</p>
+        {/* <p>{document?.createdAt}</p> */}
       </div>
     </div>
   );

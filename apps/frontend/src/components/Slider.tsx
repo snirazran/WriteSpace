@@ -13,7 +13,6 @@ import ProjectGenreSelector from './Project/ProjectGenreSelector';
 import { useState } from 'react';
 import QuickProjectBtn from './Buttons/QuickProjectBtn';
 import { useAuth } from '../context/AuthContext';
-import widthMove from '../utils/widthOfBtn';
 
 type SliderProps = {
   content?: GetAllUserProjectsDTO;
@@ -35,11 +34,6 @@ const Slider: React.FC<SliderProps> = ({ content, shownUser }) => {
   if (content) {
     let items: Array<ProjectResponseDTO> = [];
     items = content.projects;
-
-    const slider = document.getElementById('profileProjectBtn');
-    if (slider) {
-      slider.style.maxWidth = `${widthMove(items)}px`;
-    }
 
     return (
       <>

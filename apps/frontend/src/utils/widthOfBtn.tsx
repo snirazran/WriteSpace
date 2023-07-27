@@ -6,7 +6,7 @@ const widthMove = (
   items: Array<ProjectResponseDTO> | Array<DocumentResponseDTO>
 ) => {
   if (items.length === 1) {
-    return width;
+    return 420;
   }
   for (let item of items) {
     if (width > 9000) {

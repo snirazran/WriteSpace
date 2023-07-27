@@ -8,9 +8,11 @@ $color_4: var(--secondaryColor);
 }
 
 .project-box {
+  width: 100%;
   align-items: start;
   border-radius: 10px;
 }
+
 .trash-btn {
   position: relative;
   width: fit-content;
@@ -28,12 +30,12 @@ $color_4: var(--secondaryColor);
 }
 
 .project-datails-image {
-  width: 116px;
-  height: 116px;
+  width: 222px;
+  height: 222px;
   img {
     object-fit: cover;
-    width: 116px;
-    height: 116px;
+    width: 222px;
+    height: 222px;
     border-radius: 6px;
   }
 }
@@ -42,7 +44,7 @@ $color_4: var(--secondaryColor);
   margin-left: 20px;
   flex-direction: column;
   display: flex;
-
+  overflow-wrap: break-word;
   width: max-content;
   h1 {
     font-size: 32px;
@@ -68,6 +70,21 @@ $color_4: var(--secondaryColor);
     border-radius: 100px;
   }
 }
+
+.project-details-text input {
+  font-size: 32px;
+  font-weight: bolder;
+  border: 0px solid;
+  margin: 0;
+  padding: 0;
+}
+
+.project-details-text textarea:focus,
+.project-details-text input:focus {
+  outline: none;
+  color: $color_3;
+}
+
 .project-details-author {
   align-items: center;
   margin-top: 10px;
@@ -85,18 +102,80 @@ $color_4: var(--secondaryColor);
 .from {
   margin-top: 20px;
 }
-// @media only screen and (max-width: 1024px) {
-//   .project-box {
-//     width: 50%;
-//   }
-// }
-// @media only screen and (max-width: 768px) {
-//   .project-box {
-//     width: 60%;
-//   }
-// }
-// @media only screen and (max-width: 425px) {
-//   .project-box {
-//     width: 85%;
-//   }
-// }
+@media only screen and (max-width: 1024px) {
+}
+@media only screen and (max-width: 768px) {
+  .project-datails-image {
+    width: 135px;
+    height: 135px;
+    img {
+      object-fit: cover;
+      width: 135px;
+      height: 135px;
+      border-radius: 6px;
+    }
+  }
+  .project-details-text {
+    h1 {
+      font-size: 22px;
+      font-weight: bolder;
+    }
+    a {
+      text-decoration: none;
+      color: $color_3;
+    }
+    p {
+      font-size: 12px;
+      color: $color_3;
+    }
+    span {
+      font-size: 16px;
+      color: $color_4;
+    }
+    img {
+      object-fit: cover;
+      margin-left: 5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 100px;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .project-datails-image {
+    width: 100px;
+    height: 100px;
+    img {
+      object-fit: cover;
+      width: 100px;
+      height: 100px;
+      border-radius: 6px;
+    }
+  }
+  .project-details-text {
+    h1 {
+      font-size: 22px;
+      font-weight: bolder;
+    }
+    a {
+      text-decoration: none;
+      color: $color_3;
+    }
+    p {
+      font-size: 12px;
+      color: $color_3;
+    }
+    span {
+      font-size: 16px;
+      color: $color_4;
+    }
+    img {
+      object-fit: cover;
+      margin-left: 5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 100px;
+    }
+  }
+}

@@ -44,7 +44,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
   const { user } = useAuth();
 
   const onClick = (id: string) => {
-    navigate(`/projects/project/${id}`);
+    navigate(`/document/${id}`);
     window.scrollTo(0, 0);
   };
 
@@ -81,7 +81,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
             <div className="document-slider-title">
               <h1>{`${toCapital(items?.[0].type)}s`}</h1>
               {isUserProfile() && (
-                <ProfileBtn
+                <QuickProjectBtn
                   btnText={`Create A New ${items?.[0].type}`}
                   onClick={onCreateBtn}
                 />

@@ -159,25 +159,25 @@ export interface UpdateProjectRequestDTO {
      * @type {string}
      * @memberof UpdateProjectRequestDTO
      */
-    'name': string;
+    'name'?: string;
     /**
      * Project img
      * @type {string}
      * @memberof UpdateProjectRequestDTO
      */
-    'img': string;
+    'img'?: string;
     /**
      * Project description
      * @type {string}
      * @memberof UpdateProjectRequestDTO
      */
-    'description': string;
+    'description'?: string;
     /**
      * Project share status
      * @type {boolean}
      * @memberof UpdateProjectRequestDTO
      */
-    'shared': boolean;
+    'shared'?: boolean;
 }
 /**
  * 

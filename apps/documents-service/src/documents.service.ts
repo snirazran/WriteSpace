@@ -63,7 +63,7 @@ export class DocumentsService {
       document.name = docName(project.genre);
 
       document.userInfo = {
-        userId: user._id.toString(),
+        userId: user?._id.toString(),
         username: user.username,
         img: user.img,
       };
@@ -298,8 +298,6 @@ export class DocumentsService {
     if (userData._id !== document.userInfo.userId) {
       throw new UserNotAuthorized();
     }
-
-    // Update document
 
     const updatedDocument = await this.documentModel.findByIdAndUpdate(
       id,
