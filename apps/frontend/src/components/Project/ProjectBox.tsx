@@ -16,8 +16,12 @@ type ProjectBoxProps = {
 const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [editMode, setEditMode] = useState(false);
+  const [editNameMode, setEditNameMode] = useState(false);
+  const [editDescriptionMode, setEditDescriptionMode] = useState(false);
   const [projectName, setProjectName] = useState(content?.name);
+  const [projectDescription, setProjecDescription] = useState(
+    content?.description
+  );
   const {
     register,
     handleSubmit,
@@ -39,15 +43,16 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
     navigate(`/profile/${user!._id}`);
   };
 
-  const onEditClick = (id: string) => {
-    navigate(`/projects/project/edit/${id}`);
-    window.scrollTo(0, 0);
-  };
-
-  const onSubmit = (data: any) => {
-    setEditMode(false);
+  const onNameSubmit = (data: any) => {
+    setEditNameMode(false);
     trigger({ name: data.name });
     setProjectName(data.name);
+  };
+
+  const onDescriptionSubmit = (data: any) => {
+    setEditDescriptionMode(false);
+    trigger({ description: data.description });
+    setProjecDescription(data.description);
   };
 
   return (
@@ -66,8 +71,8 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
           </div>
 
           <div className="project-details-text">
-            {editMode ? (
-              <form onSubmit={handleSubmit(onSubmit)}>
+            {editNameMode ? (
+              <form onSubmit={handleSubmit(onNameSubmit)}>
                 <input
                   {...register('name', {
                     maxLength: {
@@ -75,14 +80,17 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
                       message: 'Input exceeded 25 characters',
                     },
                   })}
+                  placeholder="Add a title..."
                   defaultValue={projectName}
                   autoFocus
-                  onBlur={handleSubmit(onSubmit)}
+                  onBlur={handleSubmit(onNameSubmit)}
                 />
                 {errors.name && <p>{errors.name.message as string}</p>}
               </form>
             ) : (
-              <h1 onClick={() => setEditMode(true)}>{projectName}</h1>
+              <h1 onClick={() => setEditNameMode(true)}>
+                {projectName?.trim() === '' ? 'Add a title...' : projectName}
+              </h1>
             )}
             <div className="project-details-author">
               <p>
@@ -99,6 +107,33 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
                   <img src={content?.userInfo.img} alt="" />
                 </div>
               </Link>
+            </div>
+            <div className="project-details-description">
+              {editDescriptionMode ? (
+                <form onSubmit={handleSubmit(onDescriptionSubmit)}>
+                  <input
+                    {...register('description', {
+                      maxLength: {
+                        value: 100,
+                        message: 'Input exceeded 100 characters',
+                      },
+                    })}
+                    placeholder="Add a description..."
+                    defaultValue={projectDescription}
+                    autoFocus
+                    onBlur={handleSubmit(onDescriptionSubmit)}
+                  />
+                  {errors.description && (
+                    <p>{errors.description.message as string}</p>
+                  )}
+                </form>
+              ) : (
+                <p onClick={() => setEditDescriptionMode(true)}>
+                  {projectDescription?.trim() === ''
+                    ? 'Add a description...'
+                    : projectDescription}
+                </p>
+              )}
             </div>
           </div>
         </div>

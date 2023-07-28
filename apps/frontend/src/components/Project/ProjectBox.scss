@@ -46,6 +46,7 @@ $color_4: var(--secondaryColor);
   display: flex;
   overflow-wrap: break-word;
   width: max-content;
+
   h1 {
     font-size: 32px;
     font-weight: bolder;
@@ -85,10 +86,35 @@ $color_4: var(--secondaryColor);
   color: $color_3;
 }
 
+.project-details-description p {
+  margin-top: 10px;
+  max-width: 800px;
+}
+
+.project-details-description input {
+  min-width: 800px;
+  width: max-content;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: normal;
+  margin: 0px;
+  padding: 10px 0px 30px 5px;
+  background-color: var(--blue);
+}
+
+.project-details-description textarea:focus,
+.project-details-description input:focus,
+.project-details-description input::placeholder {
+  outline: none;
+  color: #fff;
+}
+
 .project-details-author {
   align-items: center;
   margin-top: 10px;
   display: flex;
+  margin-bottom: 10px;
 }
 
 .project-description {
