@@ -89,6 +89,7 @@ $color_4: var(--secondaryColor);
 .project-details-description p {
   margin-top: 10px;
   max-width: 800px;
+  cursor: pointer;
 }
 
 .project-details-description input {

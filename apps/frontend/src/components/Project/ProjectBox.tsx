@@ -71,24 +71,30 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
           </div>
 
           <div className="project-details-text">
-            {editNameMode ? (
-              <form onSubmit={handleSubmit(onNameSubmit)}>
-                <input
-                  {...register('name', {
-                    maxLength: {
-                      value: 25,
-                      message: 'Input exceeded 25 characters',
-                    },
-                  })}
-                  placeholder="Add a title..."
-                  defaultValue={projectName}
-                  autoFocus
-                  onBlur={handleSubmit(onNameSubmit)}
-                />
-                {errors.name && <p>{errors.name.message as string}</p>}
-              </form>
-            ) : (
-              <h1 onClick={() => setEditNameMode(true)}>
+            {isUserProject() &&
+              (editNameMode ? (
+                <form onSubmit={handleSubmit(onNameSubmit)}>
+                  <input
+                    {...register('name', {
+                      maxLength: {
+                        value: 25,
+                        message: 'Input exceeded 25 characters',
+                      },
+                    })}
+                    placeholder="Add a title..."
+                    defaultValue={projectName}
+                    autoFocus
+                    onBlur={handleSubmit(onNameSubmit)}
+                  />
+                  {errors.name && <p>{errors.name.message as string}</p>}
+                </form>
+              ) : (
+                <h1 onClick={() => setEditNameMode(true)}>
+                  {projectName?.trim() === '' ? 'Add a title...' : projectName}
+                </h1>
+              ))}
+            {!isUserProject() && (
+              <h1>
                 {projectName?.trim() === '' ? 'Add a title...' : projectName}
               </h1>
             )}
@@ -109,28 +115,36 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
               </Link>
             </div>
             <div className="project-details-description">
-              {editDescriptionMode ? (
-                <form onSubmit={handleSubmit(onDescriptionSubmit)}>
-                  <input
-                    {...register('description', {
-                      maxLength: {
-                        value: 100,
-                        message: 'Input exceeded 100 characters',
-                      },
-                    })}
-                    placeholder="Add a description..."
-                    defaultValue={projectDescription}
-                    autoFocus
-                    onBlur={handleSubmit(onDescriptionSubmit)}
-                  />
-                  {errors.description && (
-                    <p>{errors.description.message as string}</p>
-                  )}
-                </form>
-              ) : (
-                <p onClick={() => setEditDescriptionMode(true)}>
+              {isUserProject() &&
+                (editDescriptionMode ? (
+                  <form onSubmit={handleSubmit(onDescriptionSubmit)}>
+                    <input
+                      {...register('description', {
+                        maxLength: {
+                          value: 100,
+                          message: 'Input exceeded 100 characters',
+                        },
+                      })}
+                      placeholder="Add synopsis..."
+                      defaultValue={projectDescription}
+                      autoFocus
+                      onBlur={handleSubmit(onDescriptionSubmit)}
+                    />
+                    {errors.description && (
+                      <p>{errors.description.message as string}</p>
+                    )}
+                  </form>
+                ) : (
+                  <p onClick={() => setEditDescriptionMode(true)}>
+                    {projectDescription?.trim() === ''
+                      ? 'Add synopsis...'
+                      : projectDescription}
+                  </p>
+                ))}
+              {!isUserProject() && (
+                <p>
                   {projectDescription?.trim() === ''
-                    ? 'Add a description...'
+                    ? 'Add synopsis...'
                     : projectDescription}
                 </p>
               )}
