@@ -6,6 +6,7 @@ import './Profile.css';
 import { useGetUserById } from '../../features/users/usersApi';
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useGetAllUserProjects } from '../../features/projects/ProjectsApi';
+import { useEffect } from 'react';
 const Profile: React.FC = () => {
   let { id } = useParams();
 
@@ -30,6 +31,10 @@ const Profile: React.FC = () => {
     isLoading: projectIsLoading,
     mutate: projectMutate,
   } = useGetAllUserProjects(id!);
+
+  useEffect(() => {
+    projectMutate();
+  }, [projects]);
 
   if (userIsLoading || projectIsLoading) {
     return <Spinner />;

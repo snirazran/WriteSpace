@@ -3,11 +3,7 @@ import { useEffect } from 'react';
 import Spinner from '../../components/Spinner';
 import './ProjectPage.css';
 import ProjectBox from '../../components/Project/ProjectBox';
-import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
-import {
-  useGetUserProjectById,
-  useDeleteProject,
-} from '../../features/projects/ProjectsApi';
+import { useGetUserProjectById } from '../../features/projects/ProjectsApi';
 import MainBtn from '../../components/Buttons/MainBtn';
 import { docType } from '../../utils/DocTypeCheck';
 import {
@@ -44,7 +40,7 @@ const ProjectPage = () => {
   }
   return (
     <section className="ProjectPage">
-      <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
+      <ProjectBox content={project?.data} mutateProject={mutateProject} />
       <DocumentSlider
         project={project}
         documents={documents}

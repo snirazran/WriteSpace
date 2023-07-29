@@ -85,7 +85,13 @@
 .no-projects {
   margin-top: 100px;
   margin-bottom: 30px;
+  text-align: center;
 }
+
+.no-projects .qp-btn {
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: 768px) {
   .slider .swiper-button-prev,
   .slider swiper-button-next {
