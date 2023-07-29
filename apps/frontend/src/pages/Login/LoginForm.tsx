@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLogin } from '../../features/auth/authApi';
 import Spinner from '../../components/Spinner';
 
-function LoginForm() {
+const LoginForm: React.FC = () => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const { trigger, data: loginResponse, error, reset, isLoading } = useLogin();
@@ -86,6 +86,6 @@ function LoginForm() {
       </section>
     </>
   );
-}
+};
 
 export default LoginForm;

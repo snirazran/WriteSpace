@@ -5,7 +5,7 @@
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 30px;
+  padding: 6px 18px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   &:hover {
@@ -20,7 +20,7 @@
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 6px 12px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   &:hover {
@@ -36,7 +36,7 @@
     0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
   width: 300px;
   padding: 15px 60px;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 18px;
   color: #fff;
   transition: all 0.3s ease-in-out;
@@ -49,11 +49,11 @@
 }
 
 .secondaryBtn {
-  width: auto;
-  padding: 8px 16px;
+  width: max-content;
+  padding: 6px 12px;
   font-size: 12px;
   background-color: var(--secondaryColor);
-  border-radius: 10px;
+  border-radius: 6px;
   cursor: pointer;
   outline: none;
   border: none;
@@ -61,5 +61,55 @@
   transition: all 0.3s ease-in-out;
   &:hover {
     background-color: var(--mainColor);
+  }
+}
+
+.ProfileBtn {
+  background: var(--mainColor);
+  width: 180px;
+  padding: 8px 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background: var(--secondaryColor);
+  }
+}
+
+.qp-btn {
+  cursor: pointer;
+  border: 0;
+  background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
+  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
+    0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
+    0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 14px 20px;
+  transition: all 0.3s ease-in-out;
+  width: 200px;
+
+  &:hover {
+    background: linear-gradient(15deg, #e76f51 0%, #f4a261 103.33%);
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .ProfileBtn {
+    width: 140px;
+    padding: 8px 40px;
+    font-size: 14px;
+  }
+  .qp-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+    width: 150px;
   }
 }

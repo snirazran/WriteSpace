@@ -28,11 +28,3 @@
   height: 44px;
   width: 150px;
 }
-
-.quick-post .qp-secondary {
-}
-
-.show-div {
-  background-color: rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out;
-}

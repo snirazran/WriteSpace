@@ -15,6 +15,10 @@ import {
   UserNotFoundError,
   UsersNotFoundError,
 } from './errors';
+import { UserResponseDTO } from './dtos/user-response.dto';
+import { GetAllUsersFriendsDTO } from './dtos/get-user-friends-res.dto';
+import { UserDTO } from './dtos/user.dto';
+import { get } from 'http';
 
 @ApiHeader({
   name: 'Friends-API',
@@ -27,7 +31,7 @@ export class FriendController {
 
   //Get User Friends List
   @Get('/:id')
-  @ApiResponse({ type: GetUserFriendsRequestDTO })
+  @ApiResponse({ type: GetAllUsersFriendsDTO })
   @ApiParam({
     name: 'id',
     required: true,
@@ -36,9 +40,9 @@ export class FriendController {
   })
   async getUserFriends(
     @Param() { id }: { id: string },
-  ): Promise<GetUserFriendsRequestDTO[] | undefined> {
+  ): Promise<GetAllUsersFriendsDTO | undefined> {
     try {
-      return await this.friendsService.getUserFriends(id);
+      return { userFriends: await this.friendsService.getUserFriends(id) };
     } catch (e) {
       if (e instanceof UserFriendsNotFoundError) {
         throw new NotFoundException();
@@ -48,7 +52,7 @@ export class FriendController {
 
   //Add / Remove User Friend
   @Patch('/:id/:friendId')
-  @ApiResponse({ type: AddRemoveFriendDTO })
+  @ApiResponse({ type: UserDTO })
   @ApiParam({
     name: 'id',
     required: true,
@@ -64,7 +68,7 @@ export class FriendController {
   async addRemoveFriend(
     @Param() { id }: { id: string },
     @Param() { friendId }: { friendId: string },
-  ): Promise<AddRemoveFriendDTO | undefined> {
+  ): Promise<UserDTO | undefined> {
     try {
       return await this.friendsService.addRemoveFriend(id, friendId);
     } catch (e) {

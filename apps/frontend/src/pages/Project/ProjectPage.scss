@@ -1,0 +1,25 @@
+.ProjectPage {
+  padding-top: 50px;
+  margin: 0 auto;
+  width: 66%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .ProjectPage {
+    margin: 0 auto;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .ProjectPage {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+}

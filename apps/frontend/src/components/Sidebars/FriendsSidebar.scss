@@ -1,0 +1,126 @@
+/* Side Bars Css */
+.find-friends {
+  height: max-content;
+  width: 100%;
+  min-width: 220px;
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
+    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
+    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  h1 {
+    text-align: left;
+    font-size: 18px;
+  }
+}
+.find-friends .sidebar-row {
+  display: flex;
+  margin-top: 30px;
+  img {
+    cursor: pointer;
+  }
+}
+.friend-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
+}
+
+.find-friends .sidebar-text {
+  cursor: pointer;
+  text-align: left;
+  margin-left: 0;
+  h1 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 400;
+  }
+}
+.friend-sidebar-right {
+  margin-left: 15px;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+}
+.sidebar-btn {
+  height: 33px;
+  margin-left: 5px;
+  background-color: var(--secondaryColor);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+
+.friend-list .sidebar-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  flex-direction: row;
+}
+
+.friend-list .friend-sidebar-right {
+  margin-left: 15px;
+  align-items: flex-start;
+}
+
+.friend-list .sidebar-row .sidebar-text {
+  margin: 0;
+  h1 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .friend-sidebar-right {
+    margin-left: 0px;
+  }
+  .sidebar-row {
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+
+  .find-friends {
+    min-width: 175px;
+    h1 {
+      text-align: center;
+    }
+  }
+  .sidebar-text {
+    margin-top: 10px;
+    margin-left: 0px;
+    text-align: center;
+  }
+
+  .friend-list .friend-sidebar-btn {
+    margin-top: 0px;
+  }
+
+  .friend-sidebar-btn {
+    margin-top: 5px;
+    position: inherit;
+  }
+}
+@media only screen and (max-width: 1010px) {
+  .find-friends {
+    display: none;
+  }
+}

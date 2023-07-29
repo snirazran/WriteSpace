@@ -1,13 +1,19 @@
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.project-create-overlay {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .project-genre-selector {
+  z-index: 99;
   box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
     0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
     0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
@@ -20,7 +26,6 @@
   background-color: #fff;
   padding: 20px 30px;
   animation: fadeIn 0.3s ease-in-out;
-  opacity: 0;
 
   h1 {
     font-size: 24px;
@@ -28,10 +33,6 @@
     padding: 15px;
     margin-bottom: 10px;
   }
-}
-
-.project-genre-selector.visible {
-  opacity: 1;
 }
 
 .project-genre-selector-grid {

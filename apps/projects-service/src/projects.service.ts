@@ -32,8 +32,12 @@ export class ProjectsService {
     try {
       const project = new this.projectModel(ProjectData);
 
-      project.name = `A New ${project.genre}`;
-      project.description = `A ${project.genre} Description`;
+      if (project.genre === 'Songs' || project.genre === 'Poems') {
+        project.name = `New ${project.genre}`;
+      } else {
+        project.name = `A New ${project.genre}`;
+      }
+
       project.img = `https://firebasestorage.googleapis.com/v0/b/writespace-f343f.appspot.com/o/projectImages%2Fplaceholder.png?alt=media&token=5c87f4fa-d7a8-4800-873f-82f4947952bf`;
 
       let user;

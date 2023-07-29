@@ -1,0 +1,19 @@
+$color_1: var(--gray);
+$color_2: var(--mainColor);
+
+.bread-crumbs {
+  text-align: left;
+  position: absolute;
+  top: 0;
+  left: -10%;
+  p {
+    font-size: 16px;
+    a {
+      text-decoration: none;
+      color: $color_1;
+    }
+    .main-bread {
+      color: $color_2;
+    }
+  }
+}

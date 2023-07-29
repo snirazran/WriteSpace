@@ -1,0 +1,64 @@
+.profile-box .profile-bar-stats {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-box .profile-bar-friends,
+.profile-box .profile-bar-projects,
+.profile-box .profile-bar-likes {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 33%;
+}
+.profile-box .profile-bar-friends h1,
+.profile-box .profile-bar-projects h1,
+.profile-box .profile-bar-likes h1 {
+  margin: 0 auto;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 24px;
+}
+.profile-box .profile-bar-friends p,
+.profile-box .profile-bar-projects p,
+.profile-box .profile-bar-likes p {
+  color: var(--gray);
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.profile-bar .profile-bar-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.profile-bar .profile-bar-friends,
+.profile-bar .profile-bar-projects,
+.profile-bar .profile-bar-likes {
+  width: 25%;
+  margin: 0 10px;
+}
+.profile-bar .profile-bar-friends h1,
+.profile-bar .profile-bar-projects h1,
+.profile-bar .profile-bar-likes h1 {
+  margin: 0 auto;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 18px;
+}
+.profile-bar .profile-bar-friends p,
+.profile-bar .profile-bar-projects p,
+.profile-bar .profile-bar-likes p {
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=ProfileStats.css.map */

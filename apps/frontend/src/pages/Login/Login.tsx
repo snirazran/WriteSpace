@@ -1,7 +1,7 @@
 import '../Login_Register.css';
 import LoginForm from './LoginForm';
 
-function Login() {
+const Login: React.FC = () => {
   return (
     <>
       <section className="heading">
@@ -13,6 +13,6 @@ function Login() {
       <LoginForm />
     </>
   );
-}
+};
 
 export default Login;

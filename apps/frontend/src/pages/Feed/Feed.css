@@ -1,14 +1,12 @@
 /* Feed CSS */
 /* Main Posts CSS */
 .feed {
-  padding: 25px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .top-text {
-  margin-top: 40px;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -37,9 +35,9 @@
 }
 
 .main-feed {
-  width: 60%;
+  width: 75%;
+  margin-top: 50px;
   height: max-content;
-  margin-top: 30px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -47,21 +45,25 @@
 .side-bars {
   display: flex;
   flex-direction: column;
-  margin-top: 115px;
+  margin-top: 77px;
   top: 50px;
-  width: 20%;
+  width: 15%;
 }
 
 .post-row {
   width: 50%;
 }
 
-@media only screen and (max-width: 1240px) {
+@media only screen and (max-width: 1440px) {
   .post-row {
     width: 50%;
   }
+  .side-bars {
+    width: 15%;
+    min-width: 140px;
+  }
 }
-@media only screen and (max-width: 1010px) {
+@media only screen and (max-width: 1023px) {
   .side-bars {
     display: none;
   }

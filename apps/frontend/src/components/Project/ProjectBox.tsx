@@ -1,9 +1,12 @@
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import './ProjectBox.css';
 import { FaTrash } from 'react-icons/fa';
-import SecondaryBtn from './../Buttons/SecondaryBtn';
 import { useAuth } from '../../context/AuthContext';
 import { ProjectResponseDTO } from 'api-client/projects';
+import { toCapital } from '../../utils/toCapital';
+import { useUpdateProject } from '../../features/projects/ProjectsApi';
 
 type ProjectBoxProps = {
   content?: ProjectResponseDTO;
@@ -13,8 +16,25 @@ type ProjectBoxProps = {
 const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [editNameMode, setEditNameMode] = useState(false);
+  const [editDescriptionMode, setEditDescriptionMode] = useState(false);
+  const [projectName, setProjectName] = useState(content?.name);
+  const [projectDescription, setProjecDescription] = useState(
+    content?.description
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const {
+    data,
+    error,
+    isLoading: isMutating,
+    reset,
+    trigger,
+  } = useUpdateProject(content?._id!);
 
-  // Determine if user is the owner of the project
   let isUserProject = () =>
     user?._id === content?.userInfo.userId ? true : false;
 
@@ -23,58 +43,114 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
     navigate(`/profile/${user!._id}`);
   };
 
-  // Determine if project page or post page
-  const isProject = () => {
-    return window.location.href.includes('projects/') ? true : false;
+  const onNameSubmit = (data: any) => {
+    setEditNameMode(false);
+    trigger({ name: data.name });
+    setProjectName(data.name);
   };
 
-  let project: boolean;
-  if (window.location.href.includes('projects/')) {
-    project = true;
-  }
-  if (window.location.href.includes('posts/')) {
-    project = false;
-  }
-  // Edit button click function
-
-  const onClick = (id: string) => {
-    if (project) {
-      navigate(`/projects/project/edit/${id}`);
-    }
-    if (!project) {
-      navigate(`/posts/edit/${id}`);
-    }
-    window.scrollTo(0, 0);
+  const onDescriptionSubmit = (data: any) => {
+    setEditDescriptionMode(false);
+    trigger({ description: data.description });
+    setProjecDescription(data.description);
   };
 
   return (
-    <div className="project-box">
-      {isUserProject() ? (
-        <div className="trash-btn" onClick={deleteContent}>
-          <FaTrash />
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="project-details">
-        <div className="project-datails-image">
-          <img src={content ? content.img : ''} alt="" />
-        </div>
-
-        <h1>{content ? content.name : ''}</h1>
-      </div>
-      <div className="author-details">
-        <p>
-          <span>{content ? content.genre : ''}, </span>
-          <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
-            {`By ${content ? content.userInfo.username : ''}`}
-          </Link>
-        </p>
-        <Link to={`/projects/${content ? content.userInfo.userId : ''}`}>
-          <div className="project-author-img">
-            <img src={content ? content.userInfo.img : ''} alt="" />
+    <div className="project">
+      <div className="project-box">
+        {isUserProject() ? (
+          <div className="trash-btn" onClick={deleteContent}>
+            <FaTrash />
           </div>
-        </Link>
+        ) : (
+          <></>
+        )}
+        <div className="project-details">
+          <div className="project-datails-image">
+            <img src={content?.img} alt="" />
+          </div>
+
+          <div className="project-details-text">
+            {isUserProject() &&
+              (editNameMode ? (
+                <form onSubmit={handleSubmit(onNameSubmit)}>
+                  <input
+                    {...register('name', {
+                      maxLength: {
+                        value: 25,
+                        message: 'Input exceeded 25 characters',
+                      },
+                    })}
+                    placeholder="Add a title..."
+                    defaultValue={projectName}
+                    autoFocus
+                    onBlur={handleSubmit(onNameSubmit)}
+                  />
+                  {errors.name && <p>{errors.name.message as string}</p>}
+                </form>
+              ) : (
+                <h1 onClick={() => setEditNameMode(true)}>
+                  {projectName?.trim() === '' ? 'Add a title...' : projectName}
+                </h1>
+              ))}
+            {!isUserProject() && (
+              <h1>
+                {projectName?.trim() === '' ? 'Add a title...' : projectName}
+              </h1>
+            )}
+            <div className="project-details-author">
+              <p>
+                <span>{content?.genre}, </span>
+                <Link to={`/profile/${content?.userInfo.userId}`}>
+                  {`By ${
+                    content?.userInfo.username ??
+                    toCapital(content?.userInfo.username)
+                  }`}
+                </Link>
+              </p>
+              <Link to={`/profile/${content?.userInfo.userId}`}>
+                <div className="project-author-img">
+                  <img src={content?.userInfo.img} alt="" />
+                </div>
+              </Link>
+            </div>
+            <div className="project-details-description">
+              {isUserProject() &&
+                (editDescriptionMode ? (
+                  <form onSubmit={handleSubmit(onDescriptionSubmit)}>
+                    <input
+                      {...register('description', {
+                        maxLength: {
+                          value: 100,
+                          message: 'Input exceeded 100 characters',
+                        },
+                      })}
+                      placeholder="Add synopsis..."
+                      defaultValue={projectDescription}
+                      autoFocus
+                      onBlur={handleSubmit(onDescriptionSubmit)}
+                    />
+                    {errors.description && (
+                      <p>{errors.description.message as string}</p>
+                    )}
+                  </form>
+                ) : (
+                  <p onClick={() => setEditDescriptionMode(true)}>
+                    {projectDescription?.trim() === ''
+                      ? 'Add synopsis...'
+                      : projectDescription}
+                  </p>
+                ))}
+              {!isUserProject() && (
+                <p>
+                  {projectDescription?.trim() === ''
+                    ? 'Add synopsis...'
+                    : projectDescription}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

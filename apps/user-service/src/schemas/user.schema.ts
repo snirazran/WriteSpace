@@ -21,7 +21,7 @@ export class DBUser {
   @Prop({ type: String, default: '', maxlength: 200 })
   bio: string;
 
-  @Prop({ type: String, default: '', maxlength: 100 })
+  @Prop({ type: String })
   img: string;
 
   @Prop({ type: String })

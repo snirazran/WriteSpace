@@ -1,17 +1,33 @@
 .profile-bar {
-  height: max-content;
-  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
-    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
-    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  position: relative;
+  height: fit-content;
+  min-height: 320px;
+  max-height: 400px;
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01), 0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09), 0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   border-radius: 10px;
   padding: 20px;
 }
+.profile-bar h1 {
+  margin: 0 auto;
+  width: fit-content;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.profile-bar p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--gray);
+  position: relative;
+}
+
 .profile-bar-img {
+  cursor: pointer;
   margin: 0 auto;
   height: 80px;
   width: 80px;
 }
-
 .profile-bar-img img {
   object-fit: cover;
   height: 80px;
@@ -19,25 +35,11 @@
   border-radius: 100px;
 }
 
-.profile-bar h1 {
-  font-size: 18px;
+.profile-bar-edit-profile {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-.profile-bar p {
-  font-size: 12px;
-  color: var(--gray);
-}
-
-.profile-bar-stats {
-  margin-top: 20px;
-}
-
-.profile-bar-likes {
-}
-
-.profile-bar-likes h1 {
-  font-size: 20px;
-}
-.profile-bar-likes p {
-  font-size: 12px;
-}
+/*# sourceMappingURL=ProfileBar.css.map */

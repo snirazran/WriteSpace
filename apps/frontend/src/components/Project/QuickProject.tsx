@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import './QuickProject.css';
-import { FaPen } from 'react-icons/fa';
+import React, { useState } from 'react';
 import ProjectGenreSelector from '../Project/ProjectGenreSelector';
+import QuickProjectBtn from '../Buttons/QuickProjectBtn';
+import './QuickProject.css';
 
-function QuickProject() {
-  const [isActive, setIsActive] = useState(false);
+const QuickProject: React.FC = () => {
+  const [isSelectorVisible, setSelectorVisible] = useState(false);
 
-  const btnClicked = () => {
-    setIsActive(!isActive);
+  const handleBtnClick = () => {
+    setSelectorVisible(true);
+  };
+
+  const handleSelectorClose = () => {
+    setSelectorVisible(false);
   };
 
   return (
-    <React.Fragment>
-      {isActive && (
-        <ProjectGenreSelector setIsActive={btnClicked} isActive={isActive} />
+    <section className="quick-post">
+      {isSelectorVisible && (
+        <ProjectGenreSelector close={handleSelectorClose} />
       )}
-      <section className="quick-post">
-        <div className="qp-main">
-          <h1>Write something new!</h1>
-          <button className="qp-btn" onClick={btnClicked}>
-            <FaPen />
-          </button>
-        </div>
-        <div className="qp-secondary"></div>
-      </section>
-    </React.Fragment>
+      <div className="qp-main">
+        <h1>Write something new!</h1>
+        <QuickProjectBtn onClick={handleBtnClick} />
+      </div>
+      <div className="qp-secondary"></div>
+    </section>
   );
-}
+};
 
 export default QuickProject;

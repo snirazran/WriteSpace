@@ -1,5 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ProfileBox from '../../components/Profile/ProfileBox';
 import Slider from '../../components/Slider';
 import Spinner from '../../components/Spinner';
@@ -7,8 +6,7 @@ import './Profile.css';
 import { useGetUserById } from '../../features/users/usersApi';
 import { useGetUserFriends } from '../../features/users/friendsApi';
 import { useGetAllUserProjects } from '../../features/projects/ProjectsApi';
-const Profile = () => {
-  const navigate = useNavigate();
+const Profile: React.FC = () => {
   let { id } = useParams();
 
   const {
@@ -38,8 +36,12 @@ const Profile = () => {
   }
 
   return (
-    <section className="projects">
-      <ProfileBox shownUser={user?.data} userFriends={userFriends?.data} />
+    <section className="profile-page">
+      <ProfileBox
+        friendsMutate={userFriendsMutate}
+        shownUser={user?.data}
+        userFriends={userFriends?.data}
+      />
       <Slider shownUser={user?.data} content={projects?.data} />
     </section>
   );

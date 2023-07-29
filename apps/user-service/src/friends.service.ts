@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { DBUser } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { GetUserFriendsResponseDTO } from './dtos/get-user-friends.dto';
 import { UserService } from './user.service';
 import { UserFriendsNotFoundError, UserNotFoundError } from './errors';
 import { UserResponseDTO } from './dtos/user-response.dto';
+import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
 export class FriendsService {
@@ -27,9 +27,8 @@ export class FriendsService {
       (f): f is UserResponseDTO => !!f,
     );
 
-    if (!friends?.length) {
-      console.log(`Friends of ${id} not found`);
-      throw new UserFriendsNotFoundError();
+    if (friends?.length === 0) {
+      return [];
     }
 
     return friends;
@@ -52,17 +51,21 @@ export class FriendsService {
   }
 
   //addRemoveFriend to the user friends
-  async addRemoveFriend(id: string, friendId: string): Promise<DBUser> {
+  async addRemoveFriend(id: string, friendId: string): Promise<UserDTO> {
     const user = await this.userModel.findById(id).exec();
     const friend = await this.userModel.findById(friendId).exec();
     if (!user || !friend) throw new UserNotFoundError();
-    if (!user.friends.includes(friendId)) {
-      user.friends = user.friends.filter((id) => id !== friendId);
-      friend.friends = friend.friends.filter((id) => id !== id);
+    if (user.friends.includes(friendId)) {
+      user.friends = user.friends.filter((fId) => fId !== friendId);
+      friend.friends = friend.friends.filter((fId) => fId !== id);
     } else {
       user.friends.push(friendId);
       friend.friends.push(id);
     }
+
+    user.markModified('friends');
+    friend.markModified('friends');
+
     await user.save();
     await friend.save();
     return user.toObject();

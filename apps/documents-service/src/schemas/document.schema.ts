@@ -51,6 +51,12 @@ export class DBDocument {
 
   @Prop({ type: Boolean, default: true })
   shared: boolean;
+
+  @Prop()
+  createdAt: Date;
+
+  @Prop()
+  updatedAt: Date;
 }
 
 export const DocumentSchema = SchemaFactory.createForClass(DBDocument);

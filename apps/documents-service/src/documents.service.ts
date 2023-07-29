@@ -16,6 +16,7 @@ import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { docName } from './utils/docName';
 
 @Injectable()
 export class DocumentsService {
@@ -59,8 +60,10 @@ export class DocumentsService {
 
       const document = new this.documentModel(DocumentData);
 
+      document.name = docName(project.genre);
+
       document.userInfo = {
-        userId: user._id.toString(),
+        userId: user?._id.toString(),
         username: user.username,
         img: user.img,
       };
@@ -120,7 +123,16 @@ export class DocumentsService {
           console.error(error);
         }
 
-        const { _id, name, type, content, wordCount, shared } = doc;
+        const {
+          _id,
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          updatedAt,
+          createdAt,
+        } = doc;
         return {
           _id: _id.toString(),
           userInfo: {
@@ -139,6 +151,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          updatedAt,
+          createdAt,
         };
       }),
     );
@@ -180,7 +194,16 @@ export class DocumentsService {
           console.error(error);
         }
 
-        const { _id, name, type, content, wordCount, shared } = doc;
+        const {
+          _id,
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          updatedAt,
+          createdAt,
+        } = doc;
         return {
           _id: _id.toString(),
           userInfo: {
@@ -199,6 +222,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          updatedAt,
+          createdAt,
         };
       }),
     );
@@ -273,8 +298,6 @@ export class DocumentsService {
     if (userData._id !== document.userInfo.userId) {
       throw new UserNotAuthorized();
     }
-
-    // Update document
 
     const updatedDocument = await this.documentModel.findByIdAndUpdate(
       id,

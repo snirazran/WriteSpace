@@ -2,57 +2,66 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProjectItem from './Project/ProjectItem';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import './Slider.css';
-import { EffectCoverflow, Navigation, Pagination } from 'swiper';
+import { Navigation } from 'swiper';
 import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../utils/toCapital';
 
-type ProjectGenreSelectorProps = {
+import ProjectGenreSelector from './Project/ProjectGenreSelector';
+import { useState } from 'react';
+import QuickProjectBtn from './Buttons/QuickProjectBtn';
+import { useAuth } from '../context/AuthContext';
+
+type SliderProps = {
   content?: GetAllUserProjectsDTO;
   shownUser?: GetUserByIdDTO;
 };
 
-const Slider: React.FC<ProjectGenreSelectorProps> = ({
-  content,
-  shownUser,
-}) => {
+const Slider: React.FC<SliderProps> = ({ content, shownUser }) => {
   const navigate = useNavigate();
-
+  const { user } = useAuth();
+  const isUserProfile = () => user?._id === shownUser?._id;
   const onClick = (id: string) => {
     navigate(`/projects/project/${id}`);
     window.scrollTo(0, 0);
   };
-
+  const [isSelectorVisible, setSelectorVisible] = useState(false);
+  const onBtnClick = () => {
+    setSelectorVisible(true);
+  };
   if (content) {
     let items: Array<ProjectResponseDTO> = [];
     items = content.projects;
+
     return (
-      <div className="content">
+      <>
+        {isSelectorVisible && (
+          <ProjectGenreSelector close={() => setSelectorVisible(false)} />
+        )}
         {items.length > 0 ? (
           <>
             <div className="slider">
-              <h1>
-                {`${toCapital(shownUser ? shownUser?.username : '')}'s Page`}
-              </h1>
+              <div id="profileProjectBtn" className="slider-title">
+                <h1>
+                  {isUserProfile()
+                    ? 'My Projects'
+                    : `${toCapital(shownUser?.username!)}'s Projects`}
+                </h1>
+                {isUserProfile() && (
+                  <QuickProjectBtn
+                    btnText="Create Project"
+                    onClick={onBtnClick}
+                  />
+                )}
+              </div>
               <Swiper
-                effect={'coverflow'}
-                centeredSlides={true}
                 slidesPerView={'auto'}
-                spaceBetween={120}
-                coverflowEffect={{
-                  rotate: 20,
-                  stretch: 0,
-                  depth: 20,
-                  modifier: 1,
-                  slideShadows: false,
-                }}
+                spaceBetween={20}
                 navigation={true}
                 pagination={true}
-                modules={[EffectCoverflow, Navigation, Pagination]}
+                modules={[Navigation]}
                 className="mySwiper"
               >
                 {items.map((content) => (
@@ -73,7 +82,7 @@ const Slider: React.FC<ProjectGenreSelectorProps> = ({
             <h3>You have not created any projects yet</h3>
           </div>
         )}
-      </div>
+      </>
     );
   } else {
     return null;
