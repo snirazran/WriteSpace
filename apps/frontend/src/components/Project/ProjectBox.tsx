@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import './ProjectBox.css';
@@ -6,14 +6,22 @@ import { FaTrash } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { ProjectResponseDTO } from 'api-client/projects';
 import { toCapital } from '../../utils/toCapital';
-import { useUpdateProject } from '../../features/projects/ProjectsApi';
+import {
+  useDeleteProject,
+  useUpdateProject,
+} from '../../features/projects/ProjectsApi';
+import { toast } from 'react-toastify';
+import Spinner from '../Spinner';
+import { KeyedMutator } from 'swr';
+import { AxiosResponse } from 'axios';
+import ProjectImg from './ProjectImg';
 
 type ProjectBoxProps = {
   content?: ProjectResponseDTO;
-  deleteFunc: (id: string) => void;
+  mutateProject: KeyedMutator<AxiosResponse<ProjectResponseDTO, any>>;
 };
 
-const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
+const ProjectBox: React.FC<ProjectBoxProps> = ({ content, mutateProject }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [editNameMode, setEditNameMode] = useState(false);
@@ -28,32 +36,62 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
     formState: { errors },
   } = useForm();
   const {
-    data,
-    error,
-    isLoading: isMutating,
-    reset,
-    trigger,
+    data: updatedProject,
+    error: updateError,
+    isLoading: isUpdating,
+    reset: resetUpdate,
+    trigger: updateFunc,
   } = useUpdateProject(content?._id!);
+
+  const {
+    data: deletedProject,
+    error: deleteError,
+    isLoading: isDeleting,
+    reset: resetDelete,
+    trigger: deleteFunc,
+  } = useDeleteProject(content?._id!);
 
   let isUserProject = () =>
     user?._id === content?.userInfo.userId ? true : false;
 
   const deleteContent = () => {
-    deleteFunc(content?.userInfo.userId!);
-    navigate(`/profile/${user!._id}`);
+    deleteFunc();
+    if (!isDeleting) {
+      navigate(`/profile/${user!._id}`);
+      toast.success('Project deleted successfully');
+    }
   };
 
   const onNameSubmit = (data: any) => {
     setEditNameMode(false);
-    trigger({ name: data.name });
+    updateFunc({ name: data.name });
     setProjectName(data.name);
+    toast.success('Project updated');
   };
 
   const onDescriptionSubmit = (data: any) => {
     setEditDescriptionMode(false);
-    trigger({ description: data.description });
+    updateFunc({ description: data.description });
     setProjecDescription(data.description);
+    toast.success('Project updated');
   };
+
+  useEffect(() => {
+    mutateProject();
+  }, [updatedProject]);
+
+  useEffect(() => {
+    if (deleteError) {
+      toast.error('Project could not be deleted');
+    }
+    if (updateError) {
+      toast.error('Project could not be updated');
+    }
+  }, [updateError, deleteError]);
+
+  if (isDeleting) {
+    return <Spinner />;
+  }
 
   return (
     <div className="project">
@@ -67,7 +105,11 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, deleteFunc }) => {
         )}
         <div className="project-details">
           <div className="project-datails-image">
-            <img src={content?.img} alt="" />
+            {isUserProject() ? (
+              <ProjectImg updateFunc={updateFunc} img={content?.img} />
+            ) : (
+              <img src={content?.img} alt="" />
+            )}
           </div>
 
           <div className="project-details-text">

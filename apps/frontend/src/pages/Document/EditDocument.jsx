@@ -5,7 +5,6 @@ import axios from 'axios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../../firebase';
 import { v4 } from 'uuid';
-import '../Project/CreateProject.css';
 import {
   getPost,
   updatePost,

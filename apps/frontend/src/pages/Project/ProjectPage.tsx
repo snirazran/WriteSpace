@@ -3,11 +3,7 @@ import { useEffect } from 'react';
 import Spinner from '../../components/Spinner';
 import './ProjectPage.css';
 import ProjectBox from '../../components/Project/ProjectBox';
-import BreadCrumbs from '../../components/Navigation/BreadCrumbs';
-import {
-  useGetUserProjectById,
-  useDeleteProject,
-} from '../../features/projects/ProjectsApi';
+import { useGetUserProjectById } from '../../features/projects/ProjectsApi';
 import MainBtn from '../../components/Buttons/MainBtn';
 import { docType } from '../../utils/DocTypeCheck';
 import {
@@ -15,6 +11,8 @@ import {
   useGetAllProjectDocuments,
 } from '../../features/documents/documentsApi';
 import DocumentSlider from '../../components/DocumentSlider';
+import { useGetUserById } from '../../features/users/usersApi';
+import { toast } from 'react-toastify';
 
 const ProjectPage = () => {
   const navigate = useNavigate();
@@ -36,6 +34,7 @@ const ProjectPage = () => {
   useEffect(() => {
     if (projectError || documentsError) {
       console.log(projectError || documentsError);
+      toast.error('Something went wrong');
     }
   }, [projectError]);
 
@@ -44,11 +43,12 @@ const ProjectPage = () => {
   }
   return (
     <section className="ProjectPage">
-      <ProjectBox content={project?.data} deleteFunc={useDeleteProject} />
+      <ProjectBox content={project?.data} mutateProject={mutateProject} />
       <DocumentSlider
         project={project}
         documents={documents}
         content={documents?.data}
+        mutateDocuments={mutateDocuments}
       />
     </section>
   );

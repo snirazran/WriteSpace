@@ -27,17 +27,24 @@ import { useCreateDocument } from '../features/documents/documentsApi';
 import { AxiosResponse } from 'axios';
 import { ProjectResponseDTO } from 'api-client/projects';
 import ProfileBtn from './Buttons/ProfileBtn';
+import { GetUserByIdDTO } from 'api-client/users';
+import { KeyedMutator } from 'swr';
+import Spinner from './Spinner';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 type DocumentSliderProps = {
   content?: GetAllProjectDocumentsDTO;
   project: AxiosResponse<ProjectResponseDTO, any> | undefined;
   documents: AxiosResponse<GetAllProjectDocumentsDTO, any> | undefined;
+  mutateDocuments: KeyedMutator<AxiosResponse<GetAllProjectDocumentsDTO, any>>;
 };
 
 const DocumentSlider: React.FC<DocumentSliderProps> = ({
   content,
   project,
   documents,
+  mutateDocuments,
 }) => {
   // Hooks
   const navigate = useNavigate();
@@ -56,11 +63,25 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
     trigger: triggerDocument,
   } = useCreateDocument();
 
+  useEffect(() => {
+    if (documentError) {
+      toast.error('Failed to create document');
+    }
+  }, [documentError]);
+
+  useEffect(() => {
+    mutateDocuments();
+  }, [createdDocument]);
+
+  if (isLoadingDocument) {
+    return <Spinner />;
+  }
+
   // Main render
   if (content) {
     let items: Array<DocumentResponseDTO> = content.documents;
     // Functions
-    const isUserProfile = () => user?._id === items?.[0]?.userInfo?.userId;
+    const isUserProfile = () => user?._id === project?.data.userInfo.userId;
     const slider = document.getElementById('profileProjectBtn');
     if (slider) {
       slider.style.maxWidth = `${widthMove(items)}px`;
@@ -72,6 +93,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
         type: docType(project!.data.genre),
       };
       triggerDocument(documentData);
+      toast.success(`${content.documents[0].type} created successfully`);
     };
 
     return (
@@ -113,6 +135,12 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
         ) : (
           <div className="no-documents">
             <h3>You have not created any documents yet</h3>
+            {isUserProfile() && (
+              <QuickProjectBtn
+                btnText={`Create A New ${docType(project?.data.genre!)}`}
+                onClick={onCreateBtn}
+              />
+            )}
           </div>
         )}
       </>

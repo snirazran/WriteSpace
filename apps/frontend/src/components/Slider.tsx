@@ -80,6 +80,9 @@ const Slider: React.FC<SliderProps> = ({ content, shownUser }) => {
         ) : (
           <div className="no-projects">
             <h3>You have not created any projects yet</h3>
+            {isUserProfile() && (
+              <QuickProjectBtn btnText="Create Project" onClick={onBtnClick} />
+            )}
           </div>
         )}
       </>
