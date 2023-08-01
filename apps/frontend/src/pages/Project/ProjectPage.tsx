@@ -11,6 +11,8 @@ import {
   useGetAllProjectDocuments,
 } from '../../features/documents/documentsApi';
 import DocumentSlider from '../../components/DocumentSlider';
+import { useGetUserById } from '../../features/users/usersApi';
+import { toast } from 'react-toastify';
 
 const ProjectPage = () => {
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const ProjectPage = () => {
   useEffect(() => {
     if (projectError || documentsError) {
       console.log(projectError || documentsError);
+      toast.error('Something went wrong');
     }
   }, [projectError]);
 
@@ -45,6 +48,7 @@ const ProjectPage = () => {
         project={project}
         documents={documents}
         content={documents?.data}
+        mutateDocuments={mutateDocuments}
       />
     </section>
   );

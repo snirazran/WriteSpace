@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../Spinner';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
+import ProjectImg from './ProjectImg';
 
 type ProjectBoxProps = {
   content?: ProjectResponseDTO;
@@ -77,7 +78,7 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, mutateProject }) => {
 
   useEffect(() => {
     mutateProject();
-  }, [content]);
+  }, [updatedProject]);
 
   useEffect(() => {
     if (deleteError) {
@@ -104,7 +105,15 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, mutateProject }) => {
         )}
         <div className="project-details">
           <div className="project-datails-image">
-            <img src={content?.img} alt="" />
+            {isUserProject() ? (
+              <ProjectImg
+                mutateProject={mutateProject}
+                updateFunc={updateFunc}
+                img={content?.img}
+              />
+            ) : (
+              <img src={content?.img} alt="" />
+            )}
           </div>
 
           <div className="project-details-text">

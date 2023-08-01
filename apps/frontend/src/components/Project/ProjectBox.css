@@ -170,6 +170,12 @@
     height: 100px;
     border-radius: 6px;
   }
+  .project-details-author span {
+    display: block;
+  }
+  .project-author-img img {
+    opacity: 0;
+  }
   .project-details-text h1 {
     font-size: 22px;
     font-weight: bolder;

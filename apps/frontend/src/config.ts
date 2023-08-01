@@ -9,6 +9,8 @@ function getEnvVar(name: string): string {
 }
 
 const config = {
+  unsplashAPI: `https://api.unsplash.com/`,
+  unsplashAPIKEY: `?client_id=${getEnvVar('VITE_UNSPLASH_KEY')}`,
   baseURL: 'http://localhost:5173',
   firebaseConfig: {
     firebaseStorage: getEnvVar('VITE_FIREBASE_STORAGE'),
