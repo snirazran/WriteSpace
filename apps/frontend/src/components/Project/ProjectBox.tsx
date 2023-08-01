@@ -106,11 +106,7 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({ content, mutateProject }) => {
         <div className="project-details">
           <div className="project-datails-image">
             {isUserProject() ? (
-              <ProjectImg
-                mutateProject={mutateProject}
-                updateFunc={updateFunc}
-                img={content?.img}
-              />
+              <ProjectImg updateFunc={updateFunc} img={content?.img} />
             ) : (
               <img src={content?.img} alt="" />
             )}
