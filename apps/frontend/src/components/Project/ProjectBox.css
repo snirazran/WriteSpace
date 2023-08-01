@@ -9,12 +9,15 @@
 }
 
 .trash-btn {
-  position: relative;
+  z-index: 999;
+  position: absolute;
   width: fit-content;
-  right: 0;
+  left: 99%;
+  top: 55px;
   font-size: 20px;
   cursor: pointer;
   color: var(--lightGray);
+  transition: color 0.3s ease-in-out;
 }
 .trash-btn:hover {
   color: var(--mainColor);
@@ -198,6 +201,20 @@
     width: 18px;
     height: 18px;
     border-radius: 100px;
+  }
+  .trash-btn {
+    z-index: 999;
+    position: relative;
+    width: fit-content;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--lightGray);
+    transition: color 0.3s ease-in-out;
+  }
+  .trash-btn:hover {
+    color: var(--mainColor);
   }
 }
 

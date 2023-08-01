@@ -14,12 +14,15 @@ $color_4: var(--secondaryColor);
 }
 
 .trash-btn {
-  position: relative;
+  z-index: 999;
+  position: absolute;
   width: fit-content;
-  right: 0;
+  left: 99%;
+  top: 55px;
   font-size: 20px;
   cursor: pointer;
   color: $color_1;
+  transition: color 0.3s ease-in-out;
   &:hover {
     color: $color_2;
   }
@@ -215,6 +218,21 @@ $color_4: var(--secondaryColor);
       width: 18px;
       height: 18px;
       border-radius: 100px;
+    }
+  }
+
+  .trash-btn {
+    z-index: 999;
+    position: relative;
+    width: fit-content;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    cursor: pointer;
+    color: $color_1;
+    transition: color 0.3s ease-in-out;
+    &:hover {
+      color: $color_2;
     }
   }
 }

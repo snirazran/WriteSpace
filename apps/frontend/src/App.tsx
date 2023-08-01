@@ -9,12 +9,10 @@ import { AppProviders } from './context/AppProviders';
 import Login from './pages/Login/Login';
 import Header from './components/Navigation/Header';
 import Profile from './pages/Profile/Profile';
-import CreateProject from './pages/Project/CreateProject';
 import ProjectPage from './pages/Project/ProjectPage';
 import DocumentPage from './pages/Document/DocumentPage';
 import CreateDocument from './pages/Document/CreateDocument';
 import EditDocument from './pages/Document/EditDocument';
-import EditProject from './pages/Project/EditProject';
 import EditProfile from './pages/Profile/EditProfile';
 import Feed from './pages/Feed/Feed';
 import { Suspense, lazy } from 'react';
@@ -43,14 +41,9 @@ const App: React.FC = () => {
                   />
                   <Route path="/profile/:id" element={<Profile />} />
                   <Route path="/profile/edit" element={<EditProfile />} />
-                  <Route path="/projects/create" element={<CreateProject />} />
                   <Route
                     path="/projects/project/:id"
                     element={<ProjectPage />}
-                  />
-                  <Route
-                    path="/projects/project/edit/:id"
-                    element={<EditProject />}
                   />
                   <Route path="/document/create" element={<CreateDocument />} />
                   <Route path="/document/:id" element={<DocumentPage />} />

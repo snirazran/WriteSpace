@@ -6,7 +6,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import storage from '../../firebase';
 import { v4 } from 'uuid';
 import placeHolder from '../../media/placeholder.png';
-import '../Project/CreateProject.css';
 import { createPost } from '../../features/posts/postSlice';
 import './CreateDocument.css';
 import Quill from 'quill';

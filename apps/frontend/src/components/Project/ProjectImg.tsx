@@ -82,7 +82,7 @@ const ProjectImg: React.FC<ProjectImgProps> = ({ img, updateFunc }) => {
       <div className="projectbox-img">
         <label htmlFor="file-input">
           <div className="img-container">
-            <img src={projectImg || 'path/to/error-image.jpg'} alt="project" />
+            <img src={projectImg} alt="project" />
           </div>
         </label>
         <input

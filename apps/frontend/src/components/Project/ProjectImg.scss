@@ -2,6 +2,10 @@
   position: relative;
   width: 222px;
   height: 222px;
+
+  #file-input {
+    display: none;
+  }
   img {
     cursor: pointer;
     object-fit: cover;
@@ -80,11 +84,11 @@
 @media only screen and (max-width: 425px) {
   .projectbox-img {
     .pick-photo-text {
-      width: 100px;
+      width: 120px;
       text-align: center;
       position: inherit;
       margin-top: 30px;
-      margin-left: 16px;
+      margin-left: 5px;
       background-color: #fff;
       border-radius: 6px;
 
