@@ -10,9 +10,12 @@
   background-color: var(--green);
   border-radius: 6px;
   color: #fff;
-
+  transition: all 0.3s ease-in-out;
   width: 100%;
   height: auto;
+  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
+    0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
+    0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
   .document-box-text {
     padding: 20px;
 
@@ -26,6 +29,9 @@
       font-weight: 500;
       font-size: 14px;
     }
+  }
+  &:hover {
+    background-color: var(--blue);
   }
 }
 
@@ -63,9 +69,13 @@
   height: 40px;
   border-radius: 80px;
   color: #fff;
+  transition: all 0.3s ease-in-out;
   &::after {
     font-size: 8px;
     font-weight: bold;
+  }
+  &:hover {
+    background-color: var(--mainColor);
   }
 }
 

@@ -78,11 +78,16 @@
   height: 40px;
   border-radius: 80px;
   color: #fff;
+  transition: all 0.3s ease-in-out;
 }
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 8px;
   font-weight: bold;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: var(--mainColor);
 }
 
 .no-projects {
