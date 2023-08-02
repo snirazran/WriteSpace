@@ -7,6 +7,7 @@ import {
   useGetDocumentById,
   useDeleteDocument,
 } from '../../features/documents/documentsApi';
+import MainBtn from '../../components/Buttons/MainBtn';
 function DocumentPage() {
   let { id } = useParams();
   const {
@@ -15,6 +16,14 @@ function DocumentPage() {
     isLoading: postIsLoading,
     mutate: postMutate,
   } = useGetDocumentById(id!);
+
+  const {
+    data,
+    error,
+    isLoading: isMutating,
+    reset,
+    trigger,
+  } = useDeleteDocument(id!);
 
   useEffect(() => {
     if (postError) {
@@ -28,6 +37,7 @@ function DocumentPage() {
 
   return (
     <section className="PostPage">
+      <MainBtn btnText="Delete" onClick={() => trigger()} />
       <DocumentBox content={post?.data} deleteFunc={useDeleteDocument} />
     </section>
   );

@@ -243,6 +243,33 @@ export class ProjectsService {
       throw new UserNotAuthorized();
     }
 
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(
+          `http://localhost:3003/api/documents/${project.id}`,
+        ),
+      );
+
+      const documents = response.data;
+      console.log(userData.token);
+      if (documents) {
+        for (const document of documents.documents) {
+          await firstValueFrom(
+            this.httpService.delete(
+              `http://localhost:3003/api/documents/${document._id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${userData.token}`,
+                },
+              },
+            ),
+          );
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     await project.remove();
 
     const deleteProjectResDTO: DeleteProjectResDTO = { _id: id };

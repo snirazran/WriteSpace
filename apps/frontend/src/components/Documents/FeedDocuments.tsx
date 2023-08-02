@@ -2,6 +2,7 @@ import { useGetFeedPosts } from '../../features/documents/documentsApi';
 import { DocumentResponseDTO } from 'api-client/documents';
 import Document from './Document';
 import Spinner from '../Spinner';
+import { useEffect } from 'react';
 
 const FeedDocuments: React.FC = () => {
   const {
@@ -13,7 +14,7 @@ const FeedDocuments: React.FC = () => {
   } = useGetFeedPosts();
 
   let feedPostsArray: Array<DocumentResponseDTO> = [];
-
+  console.log(feedPosts);
   if (feedPostsLoading) {
     return <Spinner />;
   }

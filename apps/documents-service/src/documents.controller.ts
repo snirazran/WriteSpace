@@ -18,6 +18,7 @@ import {
   DocumentNotFound,
   DocumentsNotFound,
   InvalidDetails,
+  UserNotAuthorized,
   UserNotFoundError,
 } from './errors';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -152,7 +153,7 @@ export class DocumentsController {
     }
   }
 
-  //Delete a project
+  //Delete a document
   @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   @ApiResponse({ type: DeleteDocumentResDTO })
@@ -172,6 +173,9 @@ export class DocumentsController {
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
       }
     }
   }
