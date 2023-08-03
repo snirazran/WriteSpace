@@ -7,9 +7,10 @@ import {
   useGetDocumentById,
   useDeleteDocument,
 } from '../../features/documents/documentsApi';
-import MainBtn from '../../components/Buttons/MainBtn';
+import { toast } from 'react-toastify';
 function DocumentPage() {
   let { id } = useParams();
+
   const {
     data: post,
     error: postError,
@@ -18,7 +19,7 @@ function DocumentPage() {
   } = useGetDocumentById(id!);
 
   const {
-    data,
+    data: deletedPost,
     error,
     isLoading: isMutating,
     reset,
@@ -26,9 +27,7 @@ function DocumentPage() {
   } = useDeleteDocument(id!);
 
   useEffect(() => {
-    if (postError) {
-      console.log(postError.message);
-    }
+    if (postError) toast.error('Something went wrong');
   }, [postError]);
 
   if (postIsLoading) {
@@ -37,8 +36,7 @@ function DocumentPage() {
 
   return (
     <section className="PostPage">
-      <MainBtn btnText="Delete" onClick={() => trigger()} />
-      <DocumentBox content={post?.data} deleteFunc={useDeleteDocument} />
+      <DocumentBox content={post?.data} deleteFunc={trigger} />
     </section>
   );
 }

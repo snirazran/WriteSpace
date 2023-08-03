@@ -4,6 +4,10 @@
   "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
+    "@iconify/icons-fa-regular": "^1.2.4",
+    "@iconify/icons-fa-solid": "^1.2.4",
+    "@iconify/icons-ic": "^1.2.13",
+    "@iconify/react": "^4.1.1",
     "@reduxjs/toolkit": "^1.9.2",
     "@types/react": "^18.0.33",
     "api-client": "workspace:^",

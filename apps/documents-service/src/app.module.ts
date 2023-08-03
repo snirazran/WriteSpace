@@ -9,6 +9,7 @@ import { DocumentSchema } from './schemas/document.schema';
 import { JwtStrategy } from './jwt.strategy';
 import { HttpModule } from '@nestjs/axios';
 import { PassportModule } from '@nestjs/passport';
+import { OpenAiService } from './OpenAi.service';
 
 config();
 @Module({
@@ -23,6 +24,6 @@ config();
     HttpModule,
   ],
   controllers: [DocumentsController],
-  providers: [DocumentsService, JwtStrategy],
+  providers: [DocumentsService, JwtStrategy, OpenAiService],
 })
 export class AppModule {}

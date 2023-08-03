@@ -5,81 +5,79 @@ import { FaTrash } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import './DocumentBox.css';
 import 'quill/dist/quill.snow.css';
+import { DocumentResponseDTO } from 'api-client/documents';
+import { Icon, InlineIcon } from '@iconify/react';
+import commentIcon from '@iconify/icons-fa-solid/comment';
+import commentOutlinedIcon from '@iconify/icons-fa-regular/comment';
 
-const DocumentBox = ({ content, deleteFunc }) => {
+type DocumentBoxProps = {
+  content: DocumentResponseDTO | undefined;
+  deleteFunc: () => void;
+};
+
+const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const isUserPost = () => user!._id === content.userId;
+  const isUserPost = () => user!._id === content?.userInfo.userId;
 
-  let options = {
+  let options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   };
-  const date = new Date(content?.createdAt);
-
-  // Determine if project page or post page
-
-  let project: boolean;
-  const url = window.location.href;
-  project = url.includes('projects/') && !url.includes('posts/');
+  const date = new Date(content?.createdAt!);
 
   // Edit button click function
 
-  const onClick = (id) => {
-    if (project) {
-      navigate(`/projects/project/edit/${id}`);
-    }
-    if (!project) {
-      navigate(`/documents/edit/${id}`);
-    }
+  const onClick = (id: string) => {
+    navigate(`/documents/edit/${id}`);
     window.scrollTo(0, 0);
   };
 
-  const deleteContent = () => {
-    deleteFunc(content._id);
-    navigate(`/projects/project/${content.projectId}`);
+  const deletePost = () => {
+    deleteFunc();
+    navigate(`/projects/project/${content?.projectInfo.projectId}`);
   };
 
   return (
     <div className="scribble-box">
       {isUserPost() && (
-        <div className="trash-btn" onClick={deleteContent}>
+        <div className="trash-btn" onClick={() => deletePost()}>
           <FaTrash />
         </div>
       )}
-      {/* <div className="date">{date.toLocaleDateString('en-us', options)}</div> */}
+      <div className="date">{date.toLocaleDateString('en-us', options)}</div>
       <div className="title">
-        <div className="post-box-img">
-          <img src={content.img} alt="img"></img>
-        </div>
-        <h1>{`${content.name}`}</h1>
-        <h2> {content.type}</h2>
+        <h1>{`${content?.name}`}</h1>
       </div>
       <div className="author">
-        <Link to={`/projects/${content.userId}`}>
-          <h1>by {content.username}</h1>
+        <Link to={`/profile/${content?.userInfo.userId}`}>
+          <h1>By {content?.userInfo.username}</h1>
           <div className="post-user-img">
-            <img src={content.userImg} alt="" />
+            <img src={content?.userInfo.img} alt="" />
           </div>
         </Link>
       </div>
 
       <div className="project-details">
-        <Link to={`/projects/project/${content.projectId}`}>
+        <Link to={`/projects/project/${content?.projectInfo.projectId}`}>
           <h1>
-            Post of{' '}
-            {<span className="project-title">"{content.projectName}",</span>}
-            <span> {content.projectGenre}</span>
+            {`${content?.type} of `}
+            {
+              <span className="project-title">
+                "{content?.projectInfo.name}",
+              </span>
+            }
+            <span> {content?.projectInfo.genre}</span>
           </h1>
           <div className="post-project-img">
-            <img src={content.projectImg} alt="img"></img>
+            <img src={content?.projectInfo.img} alt="img"></img>
           </div>
         </Link>
       </div>
 
       <div
-        dangerouslySetInnerHTML={{ __html: content.content }}
+        dangerouslySetInnerHTML={{ __html: content?.content! }}
         className="ql-editor"
         id="post-content"
       ></div>
@@ -87,7 +85,7 @@ const DocumentBox = ({ content, deleteFunc }) => {
         <div
           className="edit-btn"
           onClick={() => {
-            onClick(content._id);
+            onClick(content?._id!);
           }}
         ></div>
       ) : (
@@ -97,7 +95,7 @@ const DocumentBox = ({ content, deleteFunc }) => {
       <div className="like-comment">
         <div className="icons">
           <FaHeart className="like-icon" />
-          <FaComment className="comment-icon" />
+          <Icon icon={commentOutlinedIcon} className="comment-icon" />
         </div>
         <div className="like-text">
           <h1>Liked by Johnny sins and 100 more</h1>

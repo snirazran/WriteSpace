@@ -23,9 +23,9 @@
     "webpack": "^5.75.0"
   },
   "devDependencies": {
+    "@nrwl/nx-cloud": "latest",
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.20",
-    "nx": "15.9.2",
-    "@nrwl/nx-cloud": "latest"
+    "nx": "15.9.2"
   }
 }
