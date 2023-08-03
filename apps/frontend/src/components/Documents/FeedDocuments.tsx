@@ -14,7 +14,6 @@ const FeedDocuments: React.FC = () => {
   } = useGetFeedPosts();
 
   let feedPostsArray: Array<DocumentResponseDTO> = [];
-  console.log(feedPosts);
   if (feedPostsLoading) {
     return <Spinner />;
   }

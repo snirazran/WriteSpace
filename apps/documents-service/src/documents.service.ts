@@ -17,12 +17,15 @@ import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { docName } from './utils/docName';
+import { docContent } from './utils/docContent';
+import { OpenAiService } from './OpenAi.service';
 
 @Injectable()
 export class DocumentsService {
   constructor(
     @InjectModel('documents') private documentModel: Model<DBDocument>,
     private readonly httpService: HttpService,
+    private openAiService: OpenAiService,
   ) {}
 
   //Create a new document
@@ -57,8 +60,13 @@ export class DocumentsService {
       } catch (error) {
         console.error(error);
       }
-
+      const openingSentence = await docContent(
+        project.genre,
+        this.openAiService.getConfiguration(),
+      );
       const document = new this.documentModel(DocumentData);
+
+      document.content = openingSentence;
 
       document.name = docName(project.genre);
 

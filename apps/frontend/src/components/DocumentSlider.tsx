@@ -23,7 +23,10 @@ import {
 import DocumentItem from './DocumentItem';
 import MainBtn from './Buttons/MainBtn';
 import { docType } from '../utils/DocTypeCheck';
-import { useCreateDocument } from '../features/documents/documentsApi';
+import {
+  useCreateDocument,
+  useDeleteDocument,
+} from '../features/documents/documentsApi';
 import { AxiosResponse } from 'axios';
 import { ProjectResponseDTO } from 'api-client/projects';
 import ProfileBtn from './Buttons/ProfileBtn';
@@ -71,6 +74,10 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
 
   useEffect(() => {
     mutateDocuments();
+  }, []);
+
+  useEffect(() => {
+    mutateDocuments();
   }, [createdDocument]);
 
   if (isLoadingDocument) {
@@ -80,6 +87,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
   // Main render
   if (content) {
     let items: Array<DocumentResponseDTO> = content.documents;
+
     // Functions
     const isUserProfile = () => user?._id === project?.data.userInfo.userId;
     const slider = document.getElementById('profileProjectBtn');
@@ -93,7 +101,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
         type: docType(project!.data.genre),
       };
       triggerDocument(documentData);
-      toast.success(`${content.documents[0].type} created successfully`);
+      toast.success(`${docType(project?.data.genre!)} created successfully`);
     };
 
     return (
@@ -104,7 +112,7 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
               <h1>{`${toCapital(items?.[0].type)}s`}</h1>
               {isUserProfile() && (
                 <QuickProjectBtn
-                  btnText={`Create A New ${items?.[0].type}`}
+                  btnText={`+ New ${items?.[0].type}`}
                   onClick={onCreateBtn}
                 />
               )}

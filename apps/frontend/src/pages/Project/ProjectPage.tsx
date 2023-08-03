@@ -1,21 +1,14 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Spinner from '../../components/Spinner';
 import './ProjectPage.css';
 import ProjectBox from '../../components/Project/ProjectBox';
 import { useGetUserProjectById } from '../../features/projects/ProjectsApi';
-import MainBtn from '../../components/Buttons/MainBtn';
-import { docType } from '../../utils/DocTypeCheck';
-import {
-  useCreateDocument,
-  useGetAllProjectDocuments,
-} from '../../features/documents/documentsApi';
+import { useGetAllProjectDocuments } from '../../features/documents/documentsApi';
 import DocumentSlider from '../../components/DocumentSlider';
-import { useGetUserById } from '../../features/users/usersApi';
 import { toast } from 'react-toastify';
 
 const ProjectPage = () => {
-  const navigate = useNavigate();
   let { id } = useParams();
   const {
     data: project,

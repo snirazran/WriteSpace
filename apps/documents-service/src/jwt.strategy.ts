@@ -26,7 +26,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<IUser> {
-    console.log(payload);
     const response = await firstValueFrom(
       this.httpService.get(`http://localhost:3000/api/users/${payload._id}`),
     );

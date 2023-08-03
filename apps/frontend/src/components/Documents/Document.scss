@@ -1,0 +1,144 @@
+$post-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
+  0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
+  0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+$btn-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
+  0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
+  0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
+
+.post {
+  box-shadow: $post-shadow;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 250px;
+  max-height: 500px;
+  position: relative;
+
+  &-user {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 55px;
+    }
+
+    &-text {
+      text-align: left;
+      margin-left: 10px;
+
+      h1 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 12px;
+        color: var(--gray);
+      }
+    }
+  }
+
+  &-content {
+    margin-top: 20px;
+    text-align: left;
+
+    &-title {
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      span {
+        color: var(--mainColor);
+        font-weight: 400;
+      }
+    }
+
+    &-text {
+      .ql-editor {
+        min-height: min-content;
+        max-height: 500px;
+        padding: 0;
+      }
+
+      margin-top: 20px;
+      height: fit-content;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--gray);
+      }
+    }
+
+    &-like {
+      margin-top: 20px;
+
+      .comment,
+      .like {
+        font-size: 30px;
+        margin-right: 12px;
+      }
+
+      .like {
+        color: var(--mainColor);
+      }
+
+      .comment {
+        color: var(--lightGray);
+      }
+    }
+
+    &-comment {
+      margin-top: 5px;
+
+      h1 {
+        font-size: 16px;
+      }
+
+      p {
+        margin-top: 5px;
+        font-size: 14px;
+        color: var(--lightGray);
+      }
+    }
+
+    &-btn {
+      width: 150px;
+      height: 44px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      color: #fff;
+      background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
+      box-shadow: $btn-shadow;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1010px) {
+  .post-content-btn {
+    width: 150px;
+    position: absolute;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .post-content-btn {
+    width: 150px;
+    position: absolute;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .post-content-btn {
+    width: 100%;
+    margin-top: 20px;
+    position: static;
+  }
+}
