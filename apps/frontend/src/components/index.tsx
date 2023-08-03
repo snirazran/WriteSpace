@@ -1,2 +1,2 @@
 export * from './Buttons';
-export { default as UploadImage } from './UploadImage';
+export { default as UploadImage } from './Profile/UploadImage';

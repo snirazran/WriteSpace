@@ -245,25 +245,25 @@ export interface UpdateDocumentRequestDTO {
      * @type {string}
      * @memberof UpdateDocumentRequestDTO
      */
-    'name': string;
+    'name'?: string;
     /**
      * Document description
      * @type {string}
      * @memberof UpdateDocumentRequestDTO
      */
-    'content': string;
+    'content'?: string;
     /**
      * Document wordCount
      * @type {number}
      * @memberof UpdateDocumentRequestDTO
      */
-    'wordCount': number;
+    'wordCount'?: number;
     /**
      * Project share status
      * @type {boolean}
      * @memberof UpdateDocumentRequestDTO
      */
-    'shared': boolean;
+    'shared'?: boolean;
 }
 /**
  * 

@@ -135,10 +135,6 @@ export class DocumentsController {
     @Request() req: any, // change to specific type
     @Body() documentData: UpdateDocumentRequestDTO,
   ): Promise<DocumentResponseDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
     // Update user
     try {
       return await this.documentsService.updateDocument(
@@ -149,6 +145,9 @@ export class DocumentsController {
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
       }
     }
   }

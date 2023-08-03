@@ -1,0 +1,9 @@
+.ql-editor {
+  min-height: 250px;
+  max-height: max-content;
+}
+.ql-editor p {
+  font-size: 18px;
+}
+
+/*# sourceMappingURL=TextEditor.css.map */

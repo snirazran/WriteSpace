@@ -1,6 +1,6 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
-import SecondaryBtn from '../Buttons/SecondaryBtn';
+import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import './DocumentBox.css';
@@ -9,16 +9,63 @@ import { DocumentResponseDTO } from 'api-client/documents';
 import { Icon, InlineIcon } from '@iconify/react';
 import commentIcon from '@iconify/icons-fa-solid/comment';
 import commentOutlinedIcon from '@iconify/icons-fa-regular/comment';
+import { useEffect, useState } from 'react';
+import { useUpdateDocument } from '../../features/documents/documentsApi';
+import { toast } from 'react-toastify';
+import { KeyedMutator } from 'swr';
+import { AxiosResponse } from 'axios';
+import TextEditor from './TextEditor';
 
 type DocumentBoxProps = {
   content: DocumentResponseDTO | undefined;
   deleteFunc: () => void;
+  postMutate: KeyedMutator<AxiosResponse<DocumentResponseDTO, any>>;
 };
 
-const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
+const DocumentBox: React.FC<DocumentBoxProps> = ({
+  content,
+  deleteFunc,
+  postMutate,
+}) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const isUserPost = () => user!._id === content?.userInfo.userId;
+  const [editNameMode, setEditNameMode] = useState(false);
+  const [editContentMode, setEditContentMode] = useState(false);
+  const [documentName, setDocumentName] = useState(content?.name);
+  const [documentContent, setDocumentContent] = useState(content?.content);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const {
+    data: updatedDocument,
+    error: updateError,
+    isLoading: isUpdating,
+    reset: resetUpdate,
+    trigger: updateFunc,
+  } = useUpdateDocument(content?._id!);
+
+  const onNameSubmit = (data: any) => {
+    setEditNameMode(false);
+    updateFunc({ name: data.name });
+    setDocumentName(data.name);
+    toast.success('Post updated');
+  };
+
+  const onContentSubmit = (data: any) => {
+    setEditContentMode(false);
+    updateFunc({ content: data.content });
+    setDocumentContent(data.description);
+    toast.success('Post updated');
+  };
+
+  useEffect(() => {
+    postMutate();
+  }, [updatedDocument]);
 
   let options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -26,8 +73,6 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
     day: 'numeric',
   };
   const date = new Date(content?.createdAt!);
-
-  // Edit button click function
 
   const onClick = (id: string) => {
     navigate(`/documents/edit/${id}`);
@@ -48,7 +93,33 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
       )}
       <div className="date">{date.toLocaleDateString('en-us', options)}</div>
       <div className="title">
-        <h1>{`${content?.name}`}</h1>
+        {isUserPost() &&
+          (editNameMode ? (
+            <form onSubmit={handleSubmit(onNameSubmit)}>
+              <input
+                {...register('name', {
+                  maxLength: {
+                    value: 25,
+                    message: 'Input exceeded 25 characters',
+                  },
+                })}
+                placeholder="Add a title..."
+                defaultValue={documentName}
+                autoFocus
+                onBlur={handleSubmit(onNameSubmit)}
+              />
+              {errors.name && <p>{errors.name.message as string}</p>}
+            </form>
+          ) : (
+            <h1 onClick={() => setEditNameMode(true)}>
+              {documentName?.trim() === '' ? 'Add a title...' : documentName}
+            </h1>
+          ))}
+        {!isUserPost() && (
+          <h1>
+            {documentName?.trim() === '' ? 'Add a title...' : documentName}
+          </h1>
+        )}
       </div>
       <div className="author">
         <Link to={`/profile/${content?.userInfo.userId}`}>
@@ -60,6 +131,12 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
       </div>
 
       <div className="project-details">
+        {isUserPost() && (
+          <div className="word-count">
+            <h1>{`${content?.wordCount} words`}</h1>
+          </div>
+        )}
+
         <Link to={`/projects/project/${content?.projectInfo.projectId}`}>
           <h1>
             {`${content?.type} of `}
@@ -75,21 +152,14 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({ content, deleteFunc }) => {
           </div>
         </Link>
       </div>
-
-      <div
-        dangerouslySetInnerHTML={{ __html: content?.content! }}
-        className="ql-editor"
-        id="post-content"
-      ></div>
       {isUserPost() ? (
-        <div
-          className="edit-btn"
-          onClick={() => {
-            onClick(content?._id!);
-          }}
-        ></div>
+        <TextEditor content={content?.content} updateFunc={updateFunc} />
       ) : (
-        <></>
+        <div
+          dangerouslySetInnerHTML={{ __html: content?.content! }}
+          className="ql-editor"
+          id="post-content"
+        ></div>
       )}
 
       <div className="like-comment">

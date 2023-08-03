@@ -1,9 +1,0 @@
-.ql-toolbar.ql-snow {
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
-.text-editor .ql-editor {
-  min-height: 250px;
-  max-height: max-content;
-  font-size: 15px;
-}

@@ -35,6 +35,12 @@
     border-bottom: 2px;
     border-color: var(--secondaryColor);
     border-style: dashed;
+
+    .word-count {
+      position: absolute;
+      right: 20px;
+    }
+
     a {
       margin: 0 auto;
       display: flex;
@@ -90,6 +96,21 @@
     font-size: 32px;
     font-weight: bolder;
     margin-top: 20px;
+  }
+
+  input {
+    font-size: 32px;
+    font-weight: bolder;
+    border: 0px solid;
+    margin: 20px 0px 0px 0px;
+    text-align: center;
+    padding: 0;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none;
+    color: var(--gray);
   }
 
   h2 {

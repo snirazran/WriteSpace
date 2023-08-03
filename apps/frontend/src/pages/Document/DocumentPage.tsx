@@ -27,6 +27,10 @@ function DocumentPage() {
   } = useDeleteDocument(id!);
 
   useEffect(() => {
+    postMutate();
+  }, []);
+
+  useEffect(() => {
     if (postError) toast.error('Something went wrong');
   }, [postError]);
 
@@ -36,7 +40,11 @@ function DocumentPage() {
 
   return (
     <section className="PostPage">
-      <DocumentBox content={post?.data} deleteFunc={trigger} />
+      <DocumentBox
+        content={post?.data}
+        deleteFunc={trigger}
+        postMutate={postMutate}
+      />
     </section>
   );
 }
