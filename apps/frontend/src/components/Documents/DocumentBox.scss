@@ -171,39 +171,6 @@
   }
 }
 
-.like-comment {
-  margin-top: 25px;
-  padding: 0 20px;
-
-  .icons {
-    font-size: 30px;
-  }
-
-  .comment-icon {
-    margin-left: 10px;
-    color: var(--gray);
-
-    &.active {
-      color: var(--mainColor);
-    }
-  }
-
-  .like-text {
-    h1 {
-      margin-top: 10px;
-      font-size: 16px;
-    }
-  }
-
-  .comment-text {
-    p {
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--gray);
-    }
-  }
-}
-
 .post-project-img {
   width: 20px;
   height: 20px;

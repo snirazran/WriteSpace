@@ -4,6 +4,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import { toast } from 'react-toastify';
 import { countWords } from '../../utils/countWords';
+import { UpdateDocumentRequestDTO } from 'api-client/documents';
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -18,10 +19,17 @@ const toolbarOptions = [
 
 type TextEditorProps = {
   content: string | undefined;
-  updateFunc: (data: any) => void;
+  updateFunc: (data: UpdateDocumentRequestDTO) => void;
+  setIsWriting: (data: boolean) => void;
+  isWriting: boolean;
 };
 
-const TextEditor: React.FC<TextEditorProps> = ({ content, updateFunc }) => {
+const TextEditor: React.FC<TextEditorProps> = ({
+  content,
+  updateFunc,
+  setIsWriting,
+  isWriting,
+}) => {
   const quillRef = useRef<Quill>();
 
   const wrapperRef = useCallback((wrapper) => {
@@ -54,12 +62,21 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, updateFunc }) => {
           updateFunc({ content: justHtml });
           updateFunc({ wordCount: countWords(justHtml) });
           toast.success('Post updated');
+          setIsWriting(false);
+        } else {
+          setIsWriting(true);
         }
       });
     }
   }, []);
 
-  return <div id="container" ref={wrapperRef}></div>;
+  return (
+    <div
+      id="container"
+      className={isWriting ? 'writing' : ''}
+      ref={wrapperRef}
+    ></div>
+  );
 };
 
 export default TextEditor;

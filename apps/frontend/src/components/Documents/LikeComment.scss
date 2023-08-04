@@ -1,0 +1,40 @@
+.like-comment {
+  transition: opacity 0.5s ease-in-out, visibility 0.5s;
+  visibility: visible;
+  opacity: 1;
+  margin-top: 25px;
+  padding: 0 20px;
+
+  &.writing {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .icons {
+    font-size: 30px;
+    color: #000;
+  }
+
+  .comment-icon {
+    cursor: pointer;
+    margin-left: 10px;
+
+    &.active {
+      color: var(--mainColor);
+    }
+  }
+
+  .like-icon {
+    cursor: pointer;
+    &.active {
+      color: var(--mainColor);
+    }
+  }
+
+  .like-text {
+    h1 {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  }
+}

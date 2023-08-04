@@ -1,7 +1,19 @@
-.ql-editor {
-  min-height: 250px;
-  max-height: max-content;
-  p {
-    font-size: 18px;
+#container {
+  .ql-editor {
+    transition: height 1s ease-in-out;
+    visibility: visible;
+    opacity: 1;
+    height: 250px;
+    max-height: max-content;
+    padding: 20px;
+    line-height: 300%;
+    p {
+      font-size: 18px;
+    }
+  }
+  &.writing {
+    .ql-editor {
+      height: 750px;
+    }
   }
 }

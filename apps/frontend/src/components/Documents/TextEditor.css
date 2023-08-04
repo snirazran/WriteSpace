@@ -1,9 +1,17 @@
-.ql-editor {
-  min-height: 250px;
+#container .ql-editor {
+  transition: height 1s ease-in-out;
+  visibility: visible;
+  opacity: 1;
+  height: 250px;
   max-height: max-content;
+  padding: 20px;
+  line-height: 300%;
 }
-.ql-editor p {
+#container .ql-editor p {
   font-size: 18px;
+}
+#container.writing .ql-editor {
+  height: 750px;
 }
 
 /*# sourceMappingURL=TextEditor.css.map */

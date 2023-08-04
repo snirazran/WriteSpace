@@ -4,12 +4,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Grid, Pagination } from 'swiper';
 
 // Local imports
-import ProjectItem from './Project/ProjectItem';
-import ProjectGenreSelector from './Project/ProjectGenreSelector';
-import QuickProjectBtn from './Buttons/QuickProjectBtn';
-import { useAuth } from '../context/AuthContext';
-import widthMove from '../utils/widthOfBtn';
-import { toCapital } from '../utils/toCapital';
+import QuickProjectBtn from '../Buttons/QuickProjectBtn';
+import { useAuth } from '../../context/AuthContext';
+import widthMove from '../../utils/widthOfBtn';
+import { toCapital } from '../../utils/toCapital';
 import './DocumentSlider.css';
 import 'swiper/css';
 import 'swiper/css/grid';
@@ -21,18 +19,12 @@ import {
   GetAllProjectDocumentsDTO,
 } from 'api-client/documents';
 import DocumentItem from './DocumentItem';
-import MainBtn from './Buttons/MainBtn';
-import { docType } from '../utils/DocTypeCheck';
-import {
-  useCreateDocument,
-  useDeleteDocument,
-} from '../features/documents/documentsApi';
+import { docType } from '../../utils/DocTypeCheck';
+import { useCreateDocument } from '../../features/documents/documentsApi';
 import { AxiosResponse } from 'axios';
 import { ProjectResponseDTO } from 'api-client/projects';
-import ProfileBtn from './Buttons/ProfileBtn';
-import { GetUserByIdDTO } from 'api-client/users';
 import { KeyedMutator } from 'swr';
-import Spinner from './Spinner';
+import Spinner from './../Spinner';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 

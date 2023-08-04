@@ -10,11 +10,12 @@ type DocumentProps = {
 
 const Document: React.FC<DocumentProps> = ({ content }) => {
   const navigate = useNavigate();
-  let options = {
+  let options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   };
+  const date = new Date(content?.createdAt!);
 
   const id = content?._id;
   const onClick = (id: string) => {
@@ -29,7 +30,7 @@ const Document: React.FC<DocumentProps> = ({ content }) => {
         <img src={content?.userInfo.img} alt="" />
         <div className="post-user-text">
           <h1>{content?.userInfo.username}</h1>
-          {/* <p>{date.toLocaleDateString('en-us', options)}</p> */}
+          <p>{date.toLocaleDateString('en-us', options)}</p>
         </div>
       </div>
       <div className="post-content">

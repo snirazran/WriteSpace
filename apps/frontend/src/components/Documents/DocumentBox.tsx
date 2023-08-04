@@ -1,4 +1,3 @@
-import { FaHeart, FaComment } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
@@ -6,15 +5,13 @@ import { useAuth } from '../../context/AuthContext';
 import './DocumentBox.css';
 import 'quill/dist/quill.snow.css';
 import { DocumentResponseDTO } from 'api-client/documents';
-import { Icon, InlineIcon } from '@iconify/react';
-import commentIcon from '@iconify/icons-fa-solid/comment';
-import commentOutlinedIcon from '@iconify/icons-fa-regular/comment';
 import { useEffect, useState } from 'react';
 import { useUpdateDocument } from '../../features/documents/documentsApi';
 import { toast } from 'react-toastify';
 import { KeyedMutator } from 'swr';
 import { AxiosResponse } from 'axios';
 import TextEditor from './TextEditor';
+import LikeComment from './LikeComment';
 
 type DocumentBoxProps = {
   content: DocumentResponseDTO | undefined;
@@ -31,9 +28,8 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
   const navigate = useNavigate();
   const isUserPost = () => user!._id === content?.userInfo.userId;
   const [editNameMode, setEditNameMode] = useState(false);
-  const [editContentMode, setEditContentMode] = useState(false);
   const [documentName, setDocumentName] = useState(content?.name);
-  const [documentContent, setDocumentContent] = useState(content?.content);
+  const [isWriting, setIsWriting] = useState(false);
 
   const {
     register,
@@ -53,13 +49,6 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
     setEditNameMode(false);
     updateFunc({ name: data.name });
     setDocumentName(data.name);
-    toast.success('Post updated');
-  };
-
-  const onContentSubmit = (data: any) => {
-    setEditContentMode(false);
-    updateFunc({ content: data.content });
-    setDocumentContent(data.description);
     toast.success('Post updated');
   };
 
@@ -153,7 +142,12 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
         </Link>
       </div>
       {isUserPost() ? (
-        <TextEditor content={content?.content} updateFunc={updateFunc} />
+        <TextEditor
+          content={content?.content}
+          updateFunc={updateFunc}
+          isWriting={isWriting}
+          setIsWriting={setIsWriting}
+        />
       ) : (
         <div
           dangerouslySetInnerHTML={{ __html: content?.content! }}
@@ -162,18 +156,7 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
         ></div>
       )}
 
-      <div className="like-comment">
-        <div className="icons">
-          <FaHeart className="like-icon" />
-          <Icon icon={commentOutlinedIcon} className="comment-icon" />
-        </div>
-        <div className="like-text">
-          <h1>Liked by Johnny sins and 100 more</h1>
-        </div>
-        <div className="comment-text">
-          <p>View all 20 comments</p>
-        </div>
-      </div>
+      <LikeComment isWriting={isWriting} updateFunc={updateFunc} />
     </div>
   );
 };

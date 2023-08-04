@@ -5,7 +5,7 @@ import './ProjectPage.css';
 import ProjectBox from '../../components/Project/ProjectBox';
 import { useGetUserProjectById } from '../../features/projects/ProjectsApi';
 import { useGetAllProjectDocuments } from '../../features/documents/documentsApi';
-import DocumentSlider from '../../components/DocumentSlider';
+import DocumentSlider from '../../components/Documents/DocumentSlider';
 import { toast } from 'react-toastify';
 
 const ProjectPage = () => {
