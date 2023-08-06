@@ -22,7 +22,7 @@ import {
   UserNotFoundError,
 } from './errors';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { DocumentResponseDTO } from './dtos/document.dto';
+import { Comments, DocumentResponseDTO } from './dtos/document.dto';
 import { CreateDocumentRequestDTO } from './dtos/create-document-req.dto';
 import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
@@ -175,6 +175,73 @@ export class DocumentsController {
       }
       if (e instanceof UserNotAuthorized) {
         throw new UnauthorizedException();
+      }
+    }
+  }
+
+  //Add remove like
+  @Get('/document/like/:documentId/:userId')
+  @ApiResponse({ type: DocumentResponseDTO })
+  @ApiParam({
+    name: 'documentId',
+    required: true,
+    description: 'string for the document id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async addRemoveLike(
+    @Param() { documentId }: { documentId: string },
+    @Param() { userId }: { userId: string },
+  ): Promise<DocumentResponseDTO | undefined> {
+    try {
+      return await this.documentsService.addRemoveLike(documentId, userId);
+    } catch (e) {
+      if (e instanceof DocumentNotFound) {
+        throw new NotFoundException();
+      }
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Add comment
+  @Get('/document/comment/:documentId/:userId')
+  @ApiResponse({ type: DocumentResponseDTO })
+  @ApiParam({
+    name: 'documentId',
+    required: true,
+    description: 'string for the document id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async addComment(
+    @Body() CommentData: Comments,
+    @Param() { documentId }: { documentId: string },
+    @Param() { userId }: { userId: string },
+  ): Promise<DocumentResponseDTO | undefined> {
+    try {
+      return await this.documentsService.addComment(
+        documentId,
+        userId,
+        CommentData,
+      );
+    } catch (e) {
+      if (e instanceof DocumentNotFound) {
+        throw new NotFoundException();
+      }
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
       }
     }
   }

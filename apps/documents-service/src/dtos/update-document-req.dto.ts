@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Comments, Likes } from './document.dto';
 
 export class UpdateDocumentRequestDTO {
   @ApiProperty({
