@@ -27,6 +27,7 @@ import { CreateDocumentRequestDTO } from './dtos/create-document-req.dto';
 import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { GetAllProjectDocumentsDTO } from './dtos/get-project-documents.dto';
+import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
 
 @ApiTags('documents')
 @ApiHeader({
@@ -226,15 +227,15 @@ export class DocumentsController {
     schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
   })
   async addComment(
-    @Body() CommentData: Comments,
     @Param() { documentId }: { documentId: string },
     @Param() { userId }: { userId: string },
+    @Body() content: CreateCommentRequestDTO,
   ): Promise<DocumentResponseDTO | undefined> {
     try {
       return await this.documentsService.addComment(
         documentId,
         userId,
-        CommentData,
+        content,
       );
     } catch (e) {
       if (e instanceof DocumentNotFound) {

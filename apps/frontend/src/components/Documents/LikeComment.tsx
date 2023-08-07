@@ -4,23 +4,59 @@ import commentOutlinedIcon from '@iconify/icons-fa-regular/comment';
 import likeIcon from '@iconify/icons-fa-solid/heart';
 import likeOutlinedIcon from '@iconify/icons-fa-regular/heart';
 import './LikeComment.css';
-import { useState } from 'react';
-import { UpdateDocumentRequestDTO } from 'api-client/documents';
+import { useEffect, useState } from 'react';
+import {
+  DocumentResponseDTO,
+  UpdateDocumentRequestDTO,
+} from 'api-client/documents';
+import { useAddRemoveLike } from '../../features/documents/documentsApi';
 
 type LikeCommentProps = {
   isWriting: boolean;
   updateFunc: (data: UpdateDocumentRequestDTO) => void;
+  document: DocumentResponseDTO | undefined;
+  userId: string | undefined;
+  postMutate: () => void;
+  isComment: boolean;
+  setIsComment: (isComment: boolean) => void;
 };
 
-const LikeComment: React.FC<LikeCommentProps> = ({ isWriting, updateFunc }) => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [isComment, setIsComment] = useState<boolean>(false);
+const LikeComment: React.FC<LikeCommentProps> = ({
+  isWriting,
+  updateFunc,
+  document,
+  userId,
+  postMutate,
+  isComment,
+  setIsComment,
+}) => {
+  const [isLiked, setIsLiked] = useState(
+    document!.likes.some((like) => like.id === userId)
+  );
+
+  const {
+    data: likeUnlikeDocument,
+    error: likeError,
+    isLoading: isLiking,
+    reset: resetLike,
+    trigger: likeUnlikeFunc,
+  } = useAddRemoveLike();
 
   const onLikeClick = () => {
     setIsLiked(!isLiked);
+    let documentId = document?._id;
+    if (documentId && userId) {
+      likeUnlikeFunc({ documentId, userId });
+    }
   };
 
-  const onCommentClick = () => {};
+  const onCommentClick = () => {
+    setIsComment(!isComment);
+  };
+
+  useEffect(() => {
+    postMutate();
+  }, [likeUnlikeDocument]);
 
   return (
     <div className={`like-comment ${isWriting ? 'writing' : ''}`}>
@@ -49,10 +85,18 @@ const LikeComment: React.FC<LikeCommentProps> = ({ isWriting, updateFunc }) => {
         )}
       </div>
       <div className="like-text">
-        <h1>Liked by Johnny sins and 100 more</h1>
+        <h1>
+          {document?.likes.length
+            ? `Liked by ${document.likes.length}`
+            : 'Be the first to like!'}
+        </h1>
       </div>
       <div className="comment-text">
-        <p>View all 20 comments</p>
+        {document?.comments.length ? (
+          <p>View all {document?.comments.length} comments</p>
+        ) : (
+          <p>No comments yet...</p>
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import SWRMutate from 'swr/mutation';
 import SWR from 'swr';
 import {
+  CreateCommentRequestDTO,
   CreateDocumentRequestDTO,
   DocumentsApiFactory,
   UpdateDocumentRequestDTO,
@@ -100,6 +101,28 @@ export const useDeleteDocument = (id: string) => {
   const { data, error, isMutating, reset, trigger } = SWRMutate(
     'deleteDocument',
     (_url: string) => documentsControllerDeleteDocument(id)
+  );
+
+  return { data, error, isLoading: isMutating, reset, trigger };
+};
+
+export const useAddRemoveLike = () => {
+  const { documentsControllerAddRemoveLike } = useDocumentsApi();
+  const { data, error, isMutating, reset, trigger } = SWRMutate(
+    'addRemoveLike',
+    (_url: string, { arg }: { arg: { documentId: string; userId: string } }) =>
+      documentsControllerAddRemoveLike(arg.userId, arg.documentId)
+  );
+
+  return { data, error, isLoading: isMutating, reset, trigger };
+};
+
+export const useCreateComment = (documentId: string, userId: string) => {
+  const { documentsControllerAddComment } = useDocumentsApi();
+  const { data, error, isMutating, reset, trigger } = SWRMutate(
+    'addRemoveComment',
+    (_url: string, { arg }: { arg: CreateCommentRequestDTO }) =>
+      documentsControllerAddComment(userId, documentId, arg)
   );
 
   return { data, error, isLoading: isMutating, reset, trigger };

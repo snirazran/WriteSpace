@@ -26,6 +26,56 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface Comments
+ */
+export interface Comments {
+    /**
+     * id of the comment
+     * @type {string}
+     * @memberof Comments
+     */
+    'id': string;
+    /**
+     * Comment user username
+     * @type {string}
+     * @memberof Comments
+     */
+    'username': string;
+    /**
+     * Comment user Image
+     * @type {string}
+     * @memberof Comments
+     */
+    'img': string;
+    /**
+     * Comment user id
+     * @type {string}
+     * @memberof Comments
+     */
+    'userId': string;
+    /**
+     * Comment content
+     * @type {string}
+     * @memberof Comments
+     */
+    'commentContent': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateCommentRequestDTO
+ */
+export interface CreateCommentRequestDTO {
+    /**
+     * comment content
+     * @type {string}
+     * @memberof CreateCommentRequestDTO
+     */
+    'content': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateDocumentRequestDTO
  */
 export interface CreateDocumentRequestDTO {
@@ -116,6 +166,18 @@ export interface DocumentResponseDTO {
      */
     'shared': boolean;
     /**
+     * Document comments
+     * @type {Array<Comments>}
+     * @memberof DocumentResponseDTO
+     */
+    'comments': Array<Comments>;
+    /**
+     * Document likes
+     * @type {Array<Likes>}
+     * @memberof DocumentResponseDTO
+     */
+    'likes': Array<Likes>;
+    /**
      * Date document created at
      * @type {string}
      * @memberof DocumentResponseDTO
@@ -202,6 +264,31 @@ export interface GetAllProjectDocumentsDTO {
      * @memberof GetAllProjectDocumentsDTO
      */
     'documents': Array<DocumentResponseDTO>;
+}
+/**
+ * 
+ * @export
+ * @interface Likes
+ */
+export interface Likes {
+    /**
+     * Like user username
+     * @type {string}
+     * @memberof Likes
+     */
+    'username': string;
+    /**
+     * Like user Image
+     * @type {string}
+     * @memberof Likes
+     */
+    'img': string;
+    /**
+     * Like user id
+     * @type {string}
+     * @memberof Likes
+     */
+    'id': string;
 }
 /**
  * 
@@ -297,6 +384,96 @@ export interface UserInfo {
  */
 export const DocumentsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {CreateCommentRequestDTO} createCommentRequestDTO 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerAddComment: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('documentsControllerAddComment', 'userId', userId)
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('documentsControllerAddComment', 'documentId', documentId)
+            // verify required parameter 'createCommentRequestDTO' is not null or undefined
+            assertParamExists('documentsControllerAddComment', 'createCommentRequestDTO', createCommentRequestDTO)
+            const localVarPath = `/api/documents/document/comment/{documentId}/{userId}`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)))
+                .replace(`{${"documentId"}}`, encodeURIComponent(String(documentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createCommentRequestDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerAddRemoveLike: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('documentsControllerAddRemoveLike', 'userId', userId)
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('documentsControllerAddRemoveLike', 'documentId', documentId)
+            const localVarPath = `/api/documents/document/like/{documentId}/{userId}`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)))
+                .replace(`{${"documentId"}}`, encodeURIComponent(String(documentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @param {CreateDocumentRequestDTO} createDocumentRequestDTO 
@@ -541,6 +718,31 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {CreateCommentRequestDTO} createCommentRequestDTO 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {CreateDocumentRequestDTO} createDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -617,6 +819,29 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {CreateCommentRequestDTO} createCommentRequestDTO 
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+            return localVarFp.documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+            return localVarFp.documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {CreateDocumentRequestDTO} createDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -685,6 +910,33 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
  * @extends {BaseAPI}
  */
 export class DocumentsApi extends BaseAPI {
+    /**
+     * 
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+     * @param {CreateCommentRequestDTO} createCommentRequestDTO 
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {CreateDocumentRequestDTO} createDocumentRequestDTO 

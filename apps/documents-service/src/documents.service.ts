@@ -20,6 +20,7 @@ import { docName } from './utils/docName';
 import { docContent } from './utils/docContent';
 import { OpenAiService } from './OpenAi.service';
 import { v4 as uuidv4 } from 'uuid';
+import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
 
 @Injectable()
 export class DocumentsService {
@@ -399,11 +400,11 @@ export class DocumentsService {
     return documentStringId;
   }
 
-  //Add Remove like
+  //Add Remove comment
   async addComment(
     documentId: string,
     userId: string,
-    CommentData: Comments,
+    content: CreateCommentRequestDTO,
   ): Promise<DocumentResponseDTO> {
     // Check if document exists
     const document = await this.documentModel.findById(documentId).exec();
@@ -425,7 +426,7 @@ export class DocumentsService {
       username: user.data.username,
       img: user.data.img,
       userId: user.data._id,
-      commentContent: CommentData.commentContent,
+      commentContent: content,
     });
 
     await document.save();

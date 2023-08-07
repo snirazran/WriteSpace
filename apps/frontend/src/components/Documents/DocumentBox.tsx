@@ -8,10 +8,11 @@ import { DocumentResponseDTO } from 'api-client/documents';
 import { useEffect, useState } from 'react';
 import { useUpdateDocument } from '../../features/documents/documentsApi';
 import { toast } from 'react-toastify';
-import { KeyedMutator } from 'swr';
+import { KeyedMutator, mutate } from 'swr';
 import { AxiosResponse } from 'axios';
 import TextEditor from './TextEditor';
 import LikeComment from './LikeComment';
+import CommentForm from './CommentForm';
 
 type DocumentBoxProps = {
   content: DocumentResponseDTO | undefined;
@@ -30,6 +31,7 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
   const [editNameMode, setEditNameMode] = useState(false);
   const [documentName, setDocumentName] = useState(content?.name);
   const [isWriting, setIsWriting] = useState(false);
+  const [isComment, setIsComment] = useState<boolean>(false);
 
   const {
     register,
@@ -156,7 +158,24 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
         ></div>
       )}
 
-      <LikeComment isWriting={isWriting} updateFunc={updateFunc} />
+      <LikeComment
+        document={content}
+        userId={user?._id}
+        isWriting={isWriting}
+        updateFunc={updateFunc}
+        postMutate={postMutate}
+        isComment={isComment}
+        setIsComment={setIsComment}
+      />
+      {isComment ? (
+        <CommentForm
+          document={content}
+          userId={user?._id}
+          postMutate={postMutate}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
