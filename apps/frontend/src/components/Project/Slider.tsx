@@ -1,18 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ProjectItem from './Project/ProjectItem';
+import ProjectItem from './ProjectItem';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './Slider.css';
 import { Navigation } from 'swiper';
 import { GetUserByIdDTO } from 'api-client/users';
 import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
-import { toCapital } from '../utils/toCapital';
+import { toCapital } from '../../utils/toCapital';
 
-import ProjectGenreSelector from './Project/ProjectGenreSelector';
+import ProjectGenreSelector from './ProjectGenreSelector';
 import { useState } from 'react';
-import QuickProjectBtn from './Buttons/QuickProjectBtn';
-import { useAuth } from '../context/AuthContext';
+import QuickProjectBtn from '../Buttons/QuickProjectBtn';
+import { useAuth } from '../../context/AuthContext';
 
 type SliderProps = {
   content?: GetAllUserProjectsDTO;

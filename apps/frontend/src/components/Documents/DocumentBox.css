@@ -32,6 +32,10 @@
   border-color: var(--secondaryColor);
   border-style: dashed;
 }
+.scribble-box .project-details .word-count {
+  position: absolute;
+  right: 20px;
+}
 .scribble-box .project-details a {
   margin: 0 auto;
   display: flex;
@@ -78,6 +82,19 @@
   font-size: 32px;
   font-weight: bolder;
   margin-top: 20px;
+}
+.title input {
+  font-size: 32px;
+  font-weight: bolder;
+  border: 0px solid;
+  margin: 20px 0px 0px 0px;
+  text-align: center;
+  padding: 0;
+}
+.title textarea:focus,
+.title input:focus {
+  outline: none;
+  color: var(--gray);
 }
 .title h2 {
   color: var(--mainColor);
@@ -131,35 +148,26 @@
   font-size: 18px;
 }
 
-.like-comment {
-  margin-top: 25px;
-  padding: 0 20px;
-}
-.like-comment .icons {
-  font-size: 30px;
-}
-.like-comment .comment-icon {
-  margin-left: 10px;
-  color: var(--gray);
-}
-.like-comment .comment-icon.active {
-  color: var(--mainColor);
-}
-.like-comment .like-text h1 {
-  margin-top: 10px;
-  font-size: 16px;
-}
-.like-comment .comment-text p {
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--gray);
-}
-
 .post-project-img {
   width: 20px;
   height: 20px;
 }
 
+@media only screen and (max-width: 1800px) {
+  .scribble-box {
+    width: 55%;
+  }
+}
+@media only screen and (max-width: 1575px) {
+  .scribble-box {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 1280px) {
+  .scribble-box {
+    width: 65%;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .scribble-box {
     width: 70%;
@@ -171,27 +179,58 @@
     padding: 20px 0px;
   }
 }
-@media only screen and (max-width: 666px) {
-  .scribble-box .project-details img {
-    display: none;
-  }
-}
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 570px) {
   .scribble-box {
     width: 90%;
   }
   .scribble-box .date {
-    font-size: 8px;
+    font-size: 12px;
   }
   .scribble-box .title h1 {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: bolder;
+  }
+  .scribble-box input {
+    font-size: 22px;
+    font-weight: bolder;
+    border: 0px solid;
+    margin: 20px 0px 0px 0px;
+    text-align: center;
+    padding: 0;
+  }
+  .scribble-box .author {
+    margin-top: 10px;
+  }
+  .scribble-box .author a {
+    margin: 10px auto;
+    margin-bottom: 0px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .scribble-box .author a h1 {
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+  }
+  .scribble-box .author img {
+    width: 14px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 100px;
+    margin-left: 5px;
   }
   .scribble-box .content p {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 150%;
     letter-spacing: 0.03em;
+  }
+  .scribble-box .word-count {
+    display: none;
   }
 }
 

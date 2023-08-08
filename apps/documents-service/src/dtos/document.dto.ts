@@ -38,6 +38,50 @@ class ProjectInfo {
   genre: string;
 }
 
+export class Comments {
+  @ApiProperty({
+    description: 'id of the comment',
+  })
+  id: string;
+
+  @ApiProperty({
+    description: 'Comment user username',
+  })
+  username: string;
+
+  @ApiProperty({
+    description: 'Comment user Image',
+  })
+  img: string;
+
+  @ApiProperty({
+    description: 'Comment user id',
+  })
+  userId: string;
+
+  @ApiProperty({
+    description: 'Comment content',
+  })
+  commentContent: string;
+}
+
+export class Likes {
+  @ApiProperty({
+    description: 'Like user username',
+  })
+  username: string;
+
+  @ApiProperty({
+    description: 'Like user Image',
+  })
+  img: string;
+
+  @ApiProperty({
+    description: 'Like user id',
+  })
+  id: string;
+}
+
 export class DocumentResponseDTO {
   @ApiProperty({
     description: 'Document id',
@@ -85,6 +129,20 @@ export class DocumentResponseDTO {
     default: true,
   })
   shared: boolean;
+
+  @ApiProperty({
+    description: 'Document comments',
+    type: [Comments],
+    default: [],
+  })
+  comments: Comments[];
+
+  @ApiProperty({
+    description: 'Document likes',
+    type: [Likes],
+    default: [],
+  })
+  likes: Likes[];
 
   @ApiProperty({
     description: 'Date document created at',

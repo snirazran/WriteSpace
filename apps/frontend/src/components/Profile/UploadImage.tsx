@@ -1,5 +1,5 @@
 import { ChangeEvent, HTMLAttributes, useState } from 'react';
-import placeholderImgUrl from '../media/placeholder.png';
+import placeholderImgUrl from '../../media/placeholder.png';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type Props<T extends FieldValues> = {

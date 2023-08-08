@@ -33,10 +33,11 @@ export async function docContent(
       model: 'text-davinci-003',
       prompt: prompt,
       max_tokens: 60,
-      temperature: 0,
+      temperature: 1.2,
     });
 
     if (response?.data?.choices?.[0]?.text) {
+      console.log(response?.data.choices);
       return response.data.choices[0].text.trim() + '..';
     } else {
       console.error('Unexpected API response:', response);

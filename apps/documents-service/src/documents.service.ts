@@ -10,7 +10,7 @@ import {
   UserNotAuthorized,
   UserNotFoundError,
 } from './errors';
-import { DocumentResponseDTO } from './dtos/document.dto';
+import { Comments, DocumentResponseDTO } from './dtos/document.dto';
 import { CreateDocumentRequestDTO } from './dtos/create-document-req.dto';
 import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
@@ -19,6 +19,8 @@ import { firstValueFrom } from 'rxjs';
 import { docName } from './utils/docName';
 import { docContent } from './utils/docContent';
 import { OpenAiService } from './OpenAi.service';
+import { v4 as uuidv4 } from 'uuid';
+import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
 
 @Injectable()
 export class DocumentsService {
@@ -138,6 +140,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          likes,
+          comments,
           updatedAt,
           createdAt,
         } = doc;
@@ -159,6 +163,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          likes,
+          comments,
           updatedAt,
           createdAt,
         };
@@ -209,6 +215,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          likes,
+          comments,
           updatedAt,
           createdAt,
         } = doc;
@@ -230,6 +238,8 @@ export class DocumentsService {
           content,
           wordCount,
           shared,
+          likes,
+          comments,
           updatedAt,
           createdAt,
         };
@@ -332,7 +342,7 @@ export class DocumentsService {
     id: string,
     userData: any,
   ): Promise<DeleteDocumentResDTO> {
-    // Check if project exists
+    // Check if document exists
     const document = await this.documentModel.findById(id).exec();
     if (!document) {
       throw new DocumentNotFound();
@@ -347,5 +357,87 @@ export class DocumentsService {
 
     const deleteDocumentResDTO: DeleteDocumentResDTO = { _id: id };
     return deleteDocumentResDTO;
+  }
+
+  //Add Remove like
+  async addRemoveLike(
+    documentId: string,
+    userId: string,
+  ): Promise<DocumentResponseDTO> {
+    // Check if document exists
+    const document = await this.documentModel.findById(documentId).exec();
+    if (!document) {
+      throw new DocumentNotFound();
+    }
+
+    // Check if user exists
+    const user = await firstValueFrom(
+      this.httpService.get(`http://localhost:3000/api/users/${userId}`),
+    );
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    if (document.likes.some((like) => like.id === userId)) {
+      document.likes.pull({ id: userId });
+    } else {
+      document.likes.push({
+        username: user.data.username,
+        img: user.data.img,
+        id: user.data._id,
+      });
+    }
+
+    await document.save();
+
+    const documentPlainObject = document.toObject();
+    const documentStringId: DocumentResponseDTO = {
+      ...documentPlainObject,
+      _id: document._id.toString(),
+    };
+
+    return documentStringId;
+  }
+
+  //Add Remove comment
+  async addComment(
+    userId: string,
+    content: CreateCommentRequestDTO,
+  ): Promise<DocumentResponseDTO> {
+    // Check if document exists
+    const document = await this.documentModel
+      .findById(content.documentId)
+      .exec();
+    if (!document) {
+      throw new DocumentNotFound();
+    }
+
+    // Check if user exists
+    const user = await firstValueFrom(
+      this.httpService.get(`http://localhost:3000/api/users/${userId}`),
+    );
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    document.comments.push({
+      id: uuidv4(),
+      username: user.data.username,
+      img: user.data.img,
+      userId: user.data._id,
+      commentContent: content.content,
+    });
+
+    await document.save();
+
+    const documentPlainObject = document.toObject();
+    const documentStringId: DocumentResponseDTO = {
+      ...documentPlainObject,
+      _id: document._id.toString(),
+    };
+
+    return documentStringId;
   }
 }

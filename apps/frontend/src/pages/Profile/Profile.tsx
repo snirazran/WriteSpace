@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import ProfileBox from '../../components/Profile/ProfileBox';
-import Slider from '../../components/Slider';
+import Slider from '../../components/Project/Slider';
 import Spinner from '../../components/Spinner';
 import './Profile.css';
 import { useGetUserById } from '../../features/users/usersApi';

@@ -1,0 +1,72 @@
+.like-comment {
+  transition: opacity 0.5s ease-in-out, visibility 0.5s;
+  visibility: visible;
+  opacity: 1;
+  margin-top: 25px;
+  padding: 0 20px;
+
+  .comment-text {
+    .all-comments {
+      margin-top: 20px;
+      p {
+        cursor: pointer;
+      }
+    }
+    p {
+      margin-top: 20px;
+    }
+  }
+
+  &.writing {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .icons {
+    font-size: 30px;
+    color: #000;
+  }
+
+  .like-icon {
+    cursor: pointer;
+    &.active {
+      color: var(--mainColor);
+    }
+  }
+  .like-section {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    .like-img {
+      display: flex;
+      position: relative; // Add relative positioning here
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      img {
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+
+        &:nth-child(2) {
+          position: absolute;
+          left: 9px;
+        }
+      }
+    }
+    .like-text {
+      h1 {
+        font-size: 16px;
+      }
+      span {
+        cursor: pointer;
+      }
+    }
+    .like-text.empty {
+      h1 {
+      }
+    }
+  }
+}

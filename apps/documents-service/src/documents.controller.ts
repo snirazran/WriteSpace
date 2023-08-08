@@ -11,6 +11,7 @@ import {
   Request,
   UnauthorizedException,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { DocumentsService } from './documents.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
@@ -22,11 +23,12 @@ import {
   UserNotFoundError,
 } from './errors';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { DocumentResponseDTO } from './dtos/document.dto';
+import { Comments, DocumentResponseDTO } from './dtos/document.dto';
 import { CreateDocumentRequestDTO } from './dtos/create-document-req.dto';
 import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { GetAllProjectDocumentsDTO } from './dtos/get-project-documents.dto';
+import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
 
 @ApiTags('documents')
 @ApiHeader({
@@ -135,10 +137,6 @@ export class DocumentsController {
     @Request() req: any, // change to specific type
     @Body() documentData: UpdateDocumentRequestDTO,
   ): Promise<DocumentResponseDTO | undefined> {
-    // Check if the user is the same as the one that is logged in
-    if (req.user._id !== id) {
-      throw new UnauthorizedException();
-    }
     // Update user
     try {
       return await this.documentsService.updateDocument(
@@ -149,6 +147,9 @@ export class DocumentsController {
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
       }
     }
   }
@@ -176,6 +177,62 @@ export class DocumentsController {
       }
       if (e instanceof UserNotAuthorized) {
         throw new UnauthorizedException();
+      }
+    }
+  }
+
+  //Add remove like
+  @Patch('/document/like/:documentId/:userId')
+  @ApiResponse({ type: DocumentResponseDTO })
+  @ApiParam({
+    name: 'documentId',
+    required: true,
+    description: 'string for the document id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async addRemoveLike(
+    @Param() { documentId }: { documentId: string },
+    @Param() { userId }: { userId: string },
+  ): Promise<DocumentResponseDTO | undefined> {
+    try {
+      return await this.documentsService.addRemoveLike(documentId, userId);
+    } catch (e) {
+      if (e instanceof DocumentNotFound) {
+        throw new NotFoundException();
+      }
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Add comment
+  @Post('/document/comment/:userId')
+  @ApiResponse({ type: DocumentResponseDTO })
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async addComment(
+    @Param() { userId }: { userId: string },
+    @Body() content: CreateCommentRequestDTO,
+  ): Promise<DocumentResponseDTO | undefined> {
+    try {
+      return await this.documentsService.addComment(userId, content);
+    } catch (e) {
+      if (e instanceof DocumentNotFound) {
+        throw new NotFoundException();
+      }
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
       }
     }
   }

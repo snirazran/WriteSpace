@@ -1,0 +1,57 @@
+.comments-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.comments-container .comment-user-img {
+  margin-right: 10px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.comments-container .comment-user-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.comments-container .commentForm {
+  width: 100%;
+  height: fit-content;
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  padding-left: 15px;
+  display: flex;
+}
+.comments-container .commentForm form {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.comments-container .commentForm form textarea {
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  resize: none;
+  overflow: hidden;
+  text-align: left;
+  line-height: 50px;
+  transition: all 0.3s;
+}
+.comments-container .commentForm form textarea:focus {
+  height: 75px;
+  line-height: normal;
+  padding-top: 10px;
+}
+.comments-container .commentForm form textarea:focus + .comment-btn {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/*# sourceMappingURL=CommentForm.css.map */
