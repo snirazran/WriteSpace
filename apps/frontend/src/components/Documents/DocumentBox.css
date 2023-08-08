@@ -153,6 +153,21 @@
   height: 20px;
 }
 
+@media only screen and (max-width: 1800px) {
+  .scribble-box {
+    width: 55%;
+  }
+}
+@media only screen and (max-width: 1575px) {
+  .scribble-box {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 1280px) {
+  .scribble-box {
+    width: 65%;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .scribble-box {
     width: 70%;
@@ -164,27 +179,58 @@
     padding: 20px 0px;
   }
 }
-@media only screen and (max-width: 666px) {
-  .scribble-box .project-details img {
-    display: none;
-  }
-}
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 570px) {
   .scribble-box {
     width: 90%;
   }
   .scribble-box .date {
-    font-size: 8px;
+    font-size: 12px;
   }
   .scribble-box .title h1 {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: bolder;
+  }
+  .scribble-box input {
+    font-size: 22px;
+    font-weight: bolder;
+    border: 0px solid;
+    margin: 20px 0px 0px 0px;
+    text-align: center;
+    padding: 0;
+  }
+  .scribble-box .author {
+    margin-top: 10px;
+  }
+  .scribble-box .author a {
+    margin: 10px auto;
+    margin-bottom: 0px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .scribble-box .author a h1 {
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+  }
+  .scribble-box .author img {
+    width: 14px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 100px;
+    margin-left: 5px;
   }
   .scribble-box .content p {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 150%;
     letter-spacing: 0.03em;
+  }
+  .scribble-box .word-count {
+    display: none;
   }
 }
 
