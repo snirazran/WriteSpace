@@ -1,6 +1,4 @@
 import { Icon, InlineIcon } from '@iconify/react';
-import commentIcon from '@iconify/icons-fa-solid/comment';
-import commentOutlinedIcon from '@iconify/icons-fa-regular/comment';
 import likeIcon from '@iconify/icons-fa-solid/heart';
 import likeOutlinedIcon from '@iconify/icons-fa-regular/heart';
 import './LikeComment.css';
@@ -10,12 +8,15 @@ import {
   UpdateDocumentRequestDTO,
 } from 'api-client/documents';
 import { useAddRemoveLike } from '../../features/documents/documentsApi';
+import Comment from './Comment';
+import CommentForm from './CommentForm';
+import { User } from '../../utils/user';
 
 type LikeCommentProps = {
   isWriting: boolean;
   updateFunc: (data: UpdateDocumentRequestDTO) => void;
   document: DocumentResponseDTO | undefined;
-  userId: string | undefined;
+  user: User | null;
   postMutate: () => void;
   isComment: boolean;
   setIsComment: (isComment: boolean) => void;
@@ -25,14 +26,19 @@ const LikeComment: React.FC<LikeCommentProps> = ({
   isWriting,
   updateFunc,
   document,
-  userId,
+  user,
   postMutate,
   isComment,
   setIsComment,
 }) => {
   const [isLiked, setIsLiked] = useState(
-    document!.likes.some((like) => like.id === userId)
+    document!.likes.some((like) => like.id === user?._id)
   );
+  const [showAllComments, setShowAllComments] = useState(
+    document?.comments.length! < 3
+  );
+
+  const reversedComments = document?.comments?.slice().reverse();
 
   const {
     data: likeUnlikeDocument,
@@ -45,13 +51,13 @@ const LikeComment: React.FC<LikeCommentProps> = ({
   const onLikeClick = () => {
     setIsLiked(!isLiked);
     let documentId = document?._id;
-    if (documentId && userId) {
-      likeUnlikeFunc({ documentId, userId });
+    if (documentId && user?._id) {
+      likeUnlikeFunc({ documentId, userId: user?._id });
     }
   };
 
-  const onCommentClick = () => {
-    setIsComment(!isComment);
+  const onShowComments = () => {
+    setShowAllComments(!showAllComments);
   };
 
   useEffect(() => {
@@ -61,28 +67,11 @@ const LikeComment: React.FC<LikeCommentProps> = ({
   return (
     <div className={`like-comment ${isWriting ? 'writing' : ''}`}>
       <div className="icons">
-        {isLiked ? (
-          <Icon onClick={onLikeClick} icon={likeIcon} className="like-icon" />
-        ) : (
-          <Icon
-            onClick={onLikeClick}
-            icon={likeOutlinedIcon}
-            className="like-icon"
-          />
-        )}
-        {isComment ? (
-          <Icon
-            onClick={onCommentClick}
-            icon={commentIcon}
-            className="comment-icon"
-          />
-        ) : (
-          <Icon
-            onClick={onCommentClick}
-            icon={commentOutlinedIcon}
-            className="comment-icon"
-          />
-        )}
+        <Icon
+          onClick={onLikeClick}
+          icon={isLiked ? likeIcon : likeOutlinedIcon}
+          className={`like-icon ${isLiked ? 'active' : ''}`}
+        />
       </div>
       <div className="like-text">
         <h1>
@@ -92,10 +81,41 @@ const LikeComment: React.FC<LikeCommentProps> = ({
         </h1>
       </div>
       <div className="comment-text">
-        {document?.comments.length ? (
-          <p>View all {document?.comments.length} comments</p>
+        {showAllComments ? (
+          <>
+            <CommentForm
+              document={document}
+              user={user}
+              postMutate={postMutate}
+            />
+            {reversedComments?.map((comment) => (
+              <Comment key={comment.id} comment={comment} />
+            ))}
+            <div
+              onClick={() => {
+                onShowComments();
+              }}
+              className="all-comments"
+            >
+              <p>Show less...</p>
+            </div>
+          </>
         ) : (
-          <p>No comments yet...</p>
+          <>
+            <div
+              onClick={() => {
+                onShowComments();
+              }}
+              className="all-comments"
+            >
+              <p>View all {document?.comments.length} comments</p>
+            </div>
+            <CommentForm
+              document={document}
+              user={user}
+              postMutate={postMutate}
+            />
+          </>
         )}
       </div>
     </div>

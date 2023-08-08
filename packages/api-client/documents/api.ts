@@ -72,6 +72,12 @@ export interface CreateCommentRequestDTO {
      * @memberof CreateCommentRequestDTO
      */
     'content': string;
+    /**
+     * document id
+     * @type {string}
+     * @memberof CreateCommentRequestDTO
+     */
+    'documentId': string;
 }
 /**
  * 
@@ -387,22 +393,18 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddComment: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerAddComment: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('documentsControllerAddComment', 'userId', userId)
-            // verify required parameter 'documentId' is not null or undefined
-            assertParamExists('documentsControllerAddComment', 'documentId', documentId)
             // verify required parameter 'createCommentRequestDTO' is not null or undefined
             assertParamExists('documentsControllerAddComment', 'createCommentRequestDTO', createCommentRequestDTO)
-            const localVarPath = `/api/documents/document/comment/{documentId}/{userId}`
-                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)))
-                .replace(`{${"documentId"}}`, encodeURIComponent(String(documentId)));
+            const localVarPath = `/api/documents/document/comment/{userId}`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -410,7 +412,7 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -455,7 +457,7 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -719,14 +721,13 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options);
+        async documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -820,14 +821,13 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
-            return localVarFp.documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options).then((request) => request(axios, basePath));
+        documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+            return localVarFp.documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -913,15 +913,14 @@ export class DocumentsApi extends BaseAPI {
     /**
      * 
      * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
      * @param {CreateCommentRequestDTO} createCommentRequestDTO 
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
-        return DocumentsApiFp(this.configuration).documentsControllerAddComment(userId, documentId, createCommentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    public documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

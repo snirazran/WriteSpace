@@ -11,6 +11,7 @@ import {
   Request,
   UnauthorizedException,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { DocumentsService } from './documents.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
@@ -181,7 +182,7 @@ export class DocumentsController {
   }
 
   //Add remove like
-  @Get('/document/like/:documentId/:userId')
+  @Patch('/document/like/:documentId/:userId')
   @ApiResponse({ type: DocumentResponseDTO })
   @ApiParam({
     name: 'documentId',
@@ -212,14 +213,8 @@ export class DocumentsController {
   }
 
   //Add comment
-  @Get('/document/comment/:documentId/:userId')
+  @Post('/document/comment/:userId')
   @ApiResponse({ type: DocumentResponseDTO })
-  @ApiParam({
-    name: 'documentId',
-    required: true,
-    description: 'string for the document id',
-    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
-  })
   @ApiParam({
     name: 'userId',
     required: true,
@@ -227,16 +222,11 @@ export class DocumentsController {
     schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
   })
   async addComment(
-    @Param() { documentId }: { documentId: string },
     @Param() { userId }: { userId: string },
     @Body() content: CreateCommentRequestDTO,
   ): Promise<DocumentResponseDTO | undefined> {
     try {
-      return await this.documentsService.addComment(
-        documentId,
-        userId,
-        content,
-      );
+      return await this.documentsService.addComment(userId, content);
     } catch (e) {
       if (e instanceof DocumentNotFound) {
         throw new NotFoundException();

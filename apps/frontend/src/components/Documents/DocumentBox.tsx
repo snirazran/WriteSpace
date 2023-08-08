@@ -65,11 +65,6 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
   };
   const date = new Date(content?.createdAt!);
 
-  const onClick = (id: string) => {
-    navigate(`/documents/edit/${id}`);
-    window.scrollTo(0, 0);
-  };
-
   const deletePost = () => {
     deleteFunc();
     navigate(`/projects/project/${content?.projectInfo.projectId}`);
@@ -160,22 +155,13 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
 
       <LikeComment
         document={content}
-        userId={user?._id}
+        user={user}
         isWriting={isWriting}
         updateFunc={updateFunc}
         postMutate={postMutate}
         isComment={isComment}
         setIsComment={setIsComment}
       />
-      {isComment ? (
-        <CommentForm
-          document={content}
-          userId={user?._id}
-          postMutate={postMutate}
-        />
-      ) : (
-        <></>
-      )}
     </div>
   );
 };

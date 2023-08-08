@@ -101,6 +101,29 @@
   }
 }
 
+.comment-btn {
+  cursor: pointer;
+  border: 0;
+  background-color: #fff;
+  color: var(--mainColor);
+  font-weight: 600;
+  border-radius: 18px;
+  font-size: 20px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap; // Prevent the text from breaking into multiple lines
+
+  &:hover {
+    background-color: var(--mainColor);
+    color: #fff;
+  }
+}
+
 @media only screen and (max-width: 475px) {
   .ProfileBtn {
     width: 140px;

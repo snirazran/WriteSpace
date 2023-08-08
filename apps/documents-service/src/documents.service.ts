@@ -402,12 +402,13 @@ export class DocumentsService {
 
   //Add Remove comment
   async addComment(
-    documentId: string,
     userId: string,
     content: CreateCommentRequestDTO,
   ): Promise<DocumentResponseDTO> {
     // Check if document exists
-    const document = await this.documentModel.findById(documentId).exec();
+    const document = await this.documentModel
+      .findById(content.documentId)
+      .exec();
     if (!document) {
       throw new DocumentNotFound();
     }
@@ -426,7 +427,7 @@ export class DocumentsService {
       username: user.data.username,
       img: user.data.img,
       userId: user.data._id,
-      commentContent: content,
+      commentContent: content.content,
     });
 
     await document.save();

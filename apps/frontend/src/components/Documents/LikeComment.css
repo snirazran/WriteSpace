@@ -5,6 +5,12 @@
   margin-top: 25px;
   padding: 0 20px;
 }
+.like-comment .all-comments {
+  margin-top: 20px;
+}
+.like-comment .all-comments p {
+  cursor: pointer;
+}
 .like-comment.writing {
   visibility: hidden;
   opacity: 0;

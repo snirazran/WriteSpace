@@ -6,4 +6,10 @@ export class CreateCommentRequestDTO {
     required: true,
   })
   content: string;
+
+  @ApiProperty({
+    description: 'document id',
+    required: true,
+  })
+  documentId: string;
 }

@@ -96,6 +96,28 @@
   background: linear-gradient(15deg, #e76f51 0%, #f4a261 103.33%);
 }
 
+.comment-btn {
+  cursor: pointer;
+  border: 0;
+  background-color: #fff;
+  color: var(--mainColor);
+  font-weight: 600;
+  border-radius: 18px;
+  font-size: 20px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+.comment-btn:hover {
+  background-color: var(--mainColor);
+  color: #fff;
+}
+
 @media only screen and (max-width: 475px) {
   .ProfileBtn {
     width: 140px;

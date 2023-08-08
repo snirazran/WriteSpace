@@ -117,12 +117,12 @@ export const useAddRemoveLike = () => {
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
-export const useCreateComment = (documentId: string, userId: string) => {
+export const useCreateComment = (id: string) => {
   const { documentsControllerAddComment } = useDocumentsApi();
   const { data, error, isMutating, reset, trigger } = SWRMutate(
     'addRemoveComment',
     (_url: string, { arg }: { arg: CreateCommentRequestDTO }) =>
-      documentsControllerAddComment(userId, documentId, arg)
+      documentsControllerAddComment(id, arg)
   );
 
   return { data, error, isLoading: isMutating, reset, trigger };
