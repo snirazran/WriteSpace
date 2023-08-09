@@ -1,4 +1,4 @@
-import '../Login_Register.css';
+import '../Register/Login_Register.css';
 import EditProfileForm from './EditProfileForm';
 import { useAuth } from '../../context/AuthContext';
 

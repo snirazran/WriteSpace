@@ -14,27 +14,21 @@ import { User } from '../../utils/user';
 import { useNavigate } from 'react-router-dom';
 
 type LikeCommentProps = {
-  isWriting: boolean;
-  updateFunc: (data: UpdateDocumentRequestDTO) => void;
+  isWriting?: boolean;
   document: DocumentResponseDTO | undefined;
   user: User | null;
   postMutate: () => void;
-  isComment: boolean;
-  setIsComment: (isComment: boolean) => void;
 };
 
 const LikeComment: React.FC<LikeCommentProps> = ({
   isWriting,
-  updateFunc,
   document,
   user,
   postMutate,
-  isComment,
-  setIsComment,
 }) => {
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(
-    document!.likes.some((like) => like.id === user?._id)
+    document?.likes.some((like) => like.id === user?._id)
   );
   const [showAllComments, setShowAllComments] = useState(
     document?.comments.length! < 3
@@ -42,6 +36,13 @@ const LikeComment: React.FC<LikeCommentProps> = ({
 
   const onClickNav = (id: string) => {
     navigate(`/profile/${id}`);
+    window.scrollTo(0, 0);
+  };
+
+  const isFeedPage = window.location.pathname === '/';
+
+  const onFeedPage = (id: string) => {
+    navigate(`/document/${id}`);
     window.scrollTo(0, 0);
   };
 
@@ -91,9 +92,9 @@ const LikeComment: React.FC<LikeCommentProps> = ({
   };
 
   const getTextMarginLeft = () => {
-    if (document!.likes.length === 0) return '0px';
-    if (document!.likes.length === 1) return '7px';
-    if (document!.likes.length === 2) return '15px';
+    if (document?.likes.length === 0) return '0px';
+    if (document?.likes.length === 1) return '7px';
+    if (document?.likes.length === 2) return '15px';
     return '10px';
   };
 
@@ -133,7 +134,7 @@ const LikeComment: React.FC<LikeCommentProps> = ({
       <div className="like-section">
         <div
           className="like-img"
-          style={{ display: document!.likes.length === 0 ? 'none' : 'flex' }}
+          style={{ display: document?.likes.length === 0 ? 'none' : 'flex' }}
         >
           {reversedLikes?.map((like) => (
             <img
@@ -152,7 +153,7 @@ const LikeComment: React.FC<LikeCommentProps> = ({
         </div>
       </div>
       <div className="comment-text">
-        {showAllComments ? (
+        {document?.comments.length !== 1 && showAllComments ? (
           <>
             <CommentForm
               document={document}
@@ -164,14 +165,16 @@ const LikeComment: React.FC<LikeCommentProps> = ({
                 {reversedComments.map((comment) => (
                   <Comment key={comment.id} comment={comment} />
                 ))}
-                <div
-                  onClick={() => {
-                    onShowComments();
-                  }}
-                  className="all-comments"
-                >
-                  <p>Show less...</p>
-                </div>
+                {reversedComments?.length > 2 ? (
+                  <div
+                    onClick={() => {
+                      onShowComments();
+                    }}
+                    className="all-comments"
+                  >
+                    <p>Show less...</p>
+                  </div>
+                ) : null}
               </>
             ) : (
               <p>No comments yet...</p>
@@ -179,6 +182,11 @@ const LikeComment: React.FC<LikeCommentProps> = ({
           </>
         ) : (
           <>
+            <CommentForm
+              document={document}
+              user={user}
+              postMutate={postMutate}
+            />
             {twoComments?.length ? (
               twoComments.map((comment) => (
                 <Comment key={comment.id} comment={comment} />
@@ -186,19 +194,16 @@ const LikeComment: React.FC<LikeCommentProps> = ({
             ) : (
               <p className="no-comments">No comments yet</p>
             )}
-            <div
-              onClick={() => {
-                onShowComments();
-              }}
-              className="all-comments"
-            >
-              <p>View all {document?.comments.length} comments</p>
-            </div>
-            <CommentForm
-              document={document}
-              user={user}
-              postMutate={postMutate}
-            />
+            {document?.comments.length! > 2 ? (
+              <div
+                onClick={() => {
+                  isFeedPage ? onFeedPage(document?._id!) : onShowComments();
+                }}
+                className="all-comments"
+              >
+                <p>View all {document?.comments.length} comments</p>
+              </div>
+            ) : null}
           </>
         )}
       </div>

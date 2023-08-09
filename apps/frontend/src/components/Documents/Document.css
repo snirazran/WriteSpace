@@ -1,104 +1,145 @@
 .post {
-  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01),
-    0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09),
-    0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
+  box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01), 0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09), 0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   padding: 20px;
+  height: max-content;
   min-height: 250px;
-  max-height: 500px;
+  max-height: 750px;
   position: relative;
 }
-
+.post .like-comment {
+  padding: 0;
+}
 .post-user {
   display: flex;
   align-items: center;
 }
-
+.post-user-img {
+  width: 40px;
+  height: 40px;
+}
+.post-user-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
 .post-user-text {
   text-align: left;
   margin-left: 10px;
 }
-
-.post-user img {
-  width: 55px;
-}
-
 .post-user-text h1 {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  width: min-content;
+  cursor: pointer;
 }
-
+.post-user-text a {
+  text-decoration: none;
+  color: #000;
+  width: min-content;
+  cursor: default;
+}
 .post-user-text p {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--gray);
 }
-
 .post-content {
   margin-top: 20px;
   text-align: left;
+  position: relative;
 }
-
+.post-content-title a {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+}
 .post-content-title h1 {
-  font-size: 18px;
+  color: #000;
+  font-size: 20px;
   font-weight: 600;
 }
-
-.post-content-title span {
-  color: var(--mainColor);
-  font-weight: 400;
+.post-content-subtitle {
+  height: fit-content;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
 }
-
+.post-content-subtitle-type {
+  cursor: default;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+}
+.post-content-subtitle-project {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gray);
+}
+.post-content-subtitle-project-type {
+  color: var(--secondaryColor);
+  font-size: 16px;
+  font-weight: 500;
+}
+.post-content-subtitle-img {
+  margin-left: 5px;
+  width: 22px;
+  height: 22px;
+}
+.post-content-subtitle-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.post-content-text {
+  position: relative;
+  margin-top: 20px;
+  height: fit-content;
+}
 .post-content-text .ql-editor {
   min-height: min-content;
   max-height: 500px;
   padding: 0;
+  line-height: 175%;
+  text-overflow: ellipsis;
 }
-
-.post-content-text {
-  margin-top: 20px;
-  height: fit-content;
+.post-content-text p {
+  color: #000;
+  width: fit-content;
 }
-
-.post-content-text h1 {
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--gray);
-}
-
 .post-content-like {
   margin-top: 20px;
 }
-
 .post-content-like .comment,
-.like {
+.post-content-like .like {
   font-size: 30px;
   margin-right: 12px;
 }
-
 .post-content-like .like {
   color: var(--mainColor);
 }
-
 .post-content-like .comment {
   color: var(--lightGray);
 }
-
 .post-content-comment {
   margin-top: 5px;
 }
-
 .post-content-comment h1 {
   font-size: 16px;
 }
-
 .post-content-comment p {
   margin-top: 5px;
   font-size: 14px;
   color: var(--lightGray);
 }
-
 .post-content-btn {
   width: 150px;
   height: 44px;
@@ -108,12 +149,10 @@
   border: none;
   color: #fff;
   background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
-  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
-    0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13),
-    0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
+  box-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02), 0px 8px 5px rgba(238, 137, 89, 0.08), 0px 4px 4px rgba(238, 137, 89, 0.13), 0px 1px 2px rgba(238, 137, 89, 0.15), 0px 0px 0px rgba(238, 137, 89, 0.15);
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: -66px;
+  right: 0;
 }
 
 @media only screen and (max-width: 1010px) {
@@ -122,14 +161,12 @@
     position: absolute;
   }
 }
-
 @media only screen and (max-width: 768px) {
   .post-content-btn {
     width: 150px;
     position: absolute;
   }
 }
-
 @media only screen and (max-width: 600px) {
   .post-content-btn {
     width: 100%;
@@ -137,3 +174,5 @@
     position: static;
   }
 }
+
+/*# sourceMappingURL=Document.css.map */

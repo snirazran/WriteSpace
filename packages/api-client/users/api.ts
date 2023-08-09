@@ -93,6 +93,19 @@ export interface GetUserByIdDTO {
     'img': string;
 }
 /**
+ * 
+ * @export
+ * @interface GetUserLikesDTO
+ */
+export interface GetUserLikesDTO {
+    /**
+     * User likes
+     * @type {number}
+     * @memberof GetUserLikesDTO
+     */
+    'totalLikes': number;
+}
+/**
  * @type UserControllerGetUserByIdIdParameter
  * @export
  */
@@ -456,6 +469,44 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {UserControllerGetUserByIdIdParameter} id string for the user id
+         * @param {string} [usersAPI] User related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userControllerGetUserLikes: async (id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('userControllerGetUserLikes', 'id', id)
+            const localVarPath = `/api/users/likes/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (usersAPI != null) {
+                localVarHeaderParameter['Users-API'] = String(usersAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -487,6 +538,17 @@ export const UsersApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.userControllerGetUserById(id, usersAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {UserControllerGetUserByIdIdParameter} id string for the user id
+         * @param {string} [usersAPI] User related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userControllerGetUserLikes(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserLikesDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userControllerGetUserLikes(id, usersAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -515,6 +577,16 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: any): AxiosPromise<GetUserByIdDTO> {
             return localVarFp.userControllerGetUserById(id, usersAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UserControllerGetUserByIdIdParameter} id string for the user id
+         * @param {string} [usersAPI] User related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userControllerGetUserLikes(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: any): AxiosPromise<GetUserLikesDTO> {
+            return localVarFp.userControllerGetUserLikes(id, usersAPI, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -547,6 +619,18 @@ export class UsersApi extends BaseAPI {
      */
     public userControllerGetUserById(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: AxiosRequestConfig) {
         return UsersApiFp(this.configuration).userControllerGetUserById(id, usersAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UserControllerGetUserByIdIdParameter} id string for the user id
+     * @param {string} [usersAPI] User related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public userControllerGetUserLikes(id: UserControllerGetUserByIdIdParameter, usersAPI?: string, options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).userControllerGetUserLikes(id, usersAPI, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

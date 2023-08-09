@@ -52,3 +52,12 @@ export const useGetAllUsers = () => {
   } = SWR('/allUsers', userControllerGetAllUsers);
   return { data, error, isLoading, isInitiallyLoading, mutate };
 };
+
+export const useGetUserLikes = (id: string) => {
+  const { userControllerGetUserLikes } = useUsersApi();
+
+  const fetcher = (_key: string) => userControllerGetUserLikes(id);
+
+  const { data, error, isLoading, mutate } = SWR(`userlikes-${id}`, fetcher);
+  return { data, error, isLoading, mutate };
+};

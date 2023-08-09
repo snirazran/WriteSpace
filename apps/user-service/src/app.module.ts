@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { FriendsService } from './friends.service';
 import { UserSchema } from './schemas/user.schema';
 import { SwaggerModule } from '@nestjs/swagger';
+import { HttpModule } from '@nestjs/axios';
 
 config();
 @Module({
@@ -18,6 +19,7 @@ config();
     MongooseModule.forRoot(`${process.env.MONGO_URI}`),
     MongooseModule.forFeature([{ name: 'users', schema: UserSchema }]),
     SwaggerModule,
+    HttpModule,
   ],
 
   controllers: [UserController, FriendController],

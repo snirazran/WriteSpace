@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import RegisterForm from './RegisterForm';
 import { toast } from 'react-toastify';
 
-import '../../pages/Login_Register.css';
+import './Login_Register.css';
 import { useRegister } from '../../features/auth/authApi';
 
 const Register: FC = () => {

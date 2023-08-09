@@ -3,12 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import './Document.css';
 import { DocumentResponseDTO } from 'api-client/documents';
+import LikeComment from './LikeComment';
+import { User } from '../../utils/user';
 
 type DocumentProps = {
   content: DocumentResponseDTO | undefined;
+  postMutate: () => void;
+  user: User | null;
 };
 
-const Document: React.FC<DocumentProps> = ({ content }) => {
+const Document: React.FC<DocumentProps> = ({ content, user, postMutate }) => {
   const navigate = useNavigate();
   let options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -22,48 +26,65 @@ const Document: React.FC<DocumentProps> = ({ content }) => {
     navigate(`/document/${id}`);
     window.scrollTo(0, 0);
   };
-  const shortContent = content?.content.slice(0, 300) + '...';
+  const shortContent = content?.content.slice(0, 300);
 
   return (
     <div className="post">
       <div className="post-user">
-        <img src={content?.userInfo.img} alt="" />
+        <div className="post-user-img">
+          <Link to={`/profile/${content?.userInfo.userId}`}>
+            <img src={content?.userInfo.img} alt="" />
+          </Link>
+        </div>
         <div className="post-user-text">
-          <h1>{content?.userInfo.username}</h1>
+          <Link to={`/profile/${content?.userInfo.userId}`}>
+            <h1>{content?.userInfo.username}</h1>
+          </Link>
           <p>{date.toLocaleDateString('en-us', options)}</p>
         </div>
       </div>
       <div className="post-content">
         <div className="post-content-title">
-          <h1>
-            {content?.name}, <span>{content?.type}</span>
-          </h1>
+          <Link to={`/document/${content?._id}`}>
+            <h1>{content?.name}</h1>
+          </Link>
+          <Link to={`/projects/project/${content?.projectInfo.projectId}`}>
+            <div className="post-content-subtitle">
+              <h2>
+                {' '}
+                <span className="post-content-subtitle-type">
+                  {content?.type} of{' '}
+                </span>
+                <span className="post-content-subtitle-project">
+                  "{content?.projectInfo.name}"{', '}
+                </span>
+                <span className="post-content-subtitle-project-type">
+                  {content?.projectInfo.genre}
+                </span>
+              </h2>
+              <div className="post-content-subtitle-img">
+                <img src={content?.projectInfo.img} alt="" />
+              </div>
+            </div>
+          </Link>
         </div>
+
         <div className="post-content-text">
           <div
-            dangerouslySetInnerHTML={{ __html: shortContent }}
+            dangerouslySetInnerHTML={{ __html: shortContent! }}
             className="ql-editor"
           ></div>
+          <button
+            onClick={() => {
+              onClick(id!);
+            }}
+            className="post-content-btn"
+          >
+            Read More
+          </button>
         </div>
-
-        <div className="post-content-like">
-          <FaHeart className="like" />
-
-          <FaComment className="comment" />
-        </div>
-        <div className="post-content-comment border ">
-          <h1>Liked by Johnny sins and 100 more</h1>
-          <p>View all 20 comments</p>
-        </div>
+        <LikeComment document={content} user={user} postMutate={postMutate} />
       </div>
-      <button
-        onClick={() => {
-          onClick(id!);
-        }}
-        className="post-content-btn"
-      >
-        Read More
-      </button>
     </div>
   );
 };

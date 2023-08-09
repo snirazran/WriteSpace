@@ -9,10 +9,12 @@
     .all-comments {
       margin-top: 20px;
       p {
+        width: fit-content;
         cursor: pointer;
       }
     }
     p {
+      width: fit-content;
       margin-top: 20px;
     }
   }

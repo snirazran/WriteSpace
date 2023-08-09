@@ -10,6 +10,12 @@ export class UserNotFoundError extends Error {
   }
 }
 
+export class DocumentsNotFound extends Error {
+  constructor() {
+    super('Documents not found');
+  }
+}
+
 export class UserFriendsNotFoundError extends Error {
   constructor() {
     super('User friends not found');

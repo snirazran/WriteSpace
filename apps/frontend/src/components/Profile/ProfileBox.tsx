@@ -18,10 +18,14 @@ import {
   GetUserByIdDTO,
   UserResponseDTO,
 } from 'api-client/users';
+import { GetAllUserProjectsDTO } from 'api-client/projects';
+import ProjectList from '../Project/ProjectList';
+import { set } from 'react-hook-form';
 
 type ProfileBoxProps = {
   shownUser: GetUserByIdDTO | undefined;
   userFriends: GetAllUsersFriendsDTO | undefined;
+  userProjects: GetAllUserProjectsDTO | undefined;
   friendsMutate: KeyedMutator<AxiosResponse<GetAllUsersFriendsDTO, any>>;
 };
 
@@ -29,10 +33,12 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({
   shownUser,
   userFriends,
   friendsMutate,
+  userProjects,
 }) => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [showFriends, setShowFriends] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
 
   let friendsArray: Array<UserResponseDTO> = userFriends
@@ -74,6 +80,14 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({
         />
       )}
 
+      {showProjects && (
+        <ProjectList
+          user={user}
+          userProjects={userProjects}
+          close={() => setShowProjects(false)}
+        />
+      )}
+
       <div className="profile-box">
         <div className="profile-details">
           <div className="profile-img">
@@ -101,6 +115,9 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({
 
         <ProfileStats
           setShowFriends={setShowFriends}
+          setShowProjects={setShowProjects}
+          user={user}
+          userProjects={userProjects}
           userFriends={friendsArray}
         />
 

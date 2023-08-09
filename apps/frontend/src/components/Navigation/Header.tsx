@@ -48,7 +48,7 @@ function Header() {
                 <Link
                   onClick={onClick}
                   className=" "
-                  to={`/projects/${user._id}`}
+                  to={`/profile/${user._id}`}
                 >
                   My Projects
                 </Link>

@@ -3,7 +3,12 @@ import { UserService } from './user.service';
 import { GetAllUsersDTO } from './dtos/get-users.dto';
 import { GetUserByIdDTO } from './dtos/get-user.dto';
 import { ApiTags, ApiHeader, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { UserNotFoundError, UsersNotFoundError } from './errors';
+import {
+  DocumentsNotFound,
+  UserNotFoundError,
+  UsersNotFoundError,
+} from './errors';
+import { GetUserLikesDTO } from './dtos/get-user-likes-res.dto';
 
 @ApiTags('users')
 @ApiHeader({
@@ -43,6 +48,30 @@ export class UserController {
       return await this.userService.getUserById(id);
     } catch (e) {
       if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Get User likes By Id
+  @Get('/likes/:id')
+  @ApiResponse({ type: GetUserLikesDTO })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async getUserLikes(
+    @Param() { id }: { id: string },
+  ): Promise<GetUserLikesDTO | undefined> {
+    try {
+      return await this.userService.getUserLikes(id);
+    } catch (e) {
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+      if (e instanceof DocumentsNotFound) {
         throw new NotFoundException();
       }
     }

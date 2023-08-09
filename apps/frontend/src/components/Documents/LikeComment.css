@@ -9,9 +9,11 @@
   margin-top: 20px;
 }
 .like-comment .comment-text .all-comments p {
+  width: fit-content;
   cursor: pointer;
 }
 .like-comment .comment-text p {
+  width: fit-content;
   margin-top: 20px;
 }
 .like-comment.writing {

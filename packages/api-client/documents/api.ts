@@ -594,6 +594,44 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetAllUserDocuments: async (id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('documentsControllerGetAllUserDocuments', 'id', id)
+            const localVarPath = `/api/documents/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -777,6 +815,17 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetAllUserDocuments(id, documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -869,6 +918,16 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
          */
         documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
             return localVarFp.documentsControllerGetAllProjectDocuments(id, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
+            return localVarFp.documentsControllerGetAllUserDocuments(id, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -970,6 +1029,18 @@ export class DocumentsApi extends BaseAPI {
      */
     public documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerGetAllProjectDocuments(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerGetAllUserDocuments(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
