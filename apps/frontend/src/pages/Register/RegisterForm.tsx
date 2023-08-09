@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { UploadImage } from '../../components';
 import storage from '../../firebase';
-import '../../pages/Login_Register.css';
+import './Login_Register.css';
 import { RegisterForm, RegistrationFormItem } from './RegisterTypes';
 import { useRegister } from '../../features/auth/authApi';
 import { useAuth } from '../../context/AuthContext';

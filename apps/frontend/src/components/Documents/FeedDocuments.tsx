@@ -2,8 +2,13 @@ import { useGetFeedPosts } from '../../features/documents/documentsApi';
 import { DocumentResponseDTO } from 'api-client/documents';
 import Document from './Document';
 import Spinner from '../Spinner';
+import { User } from '../../utils/user';
 
-const FeedDocuments: React.FC = () => {
+type FeedDocumentsProps = {
+  user: User | null;
+};
+
+const FeedDocuments: React.FC<FeedDocumentsProps> = ({ user }) => {
   const {
     data: feedPosts,
     error: feedPostsError,
@@ -26,7 +31,12 @@ const FeedDocuments: React.FC = () => {
   return (
     <>
       {feedPostsArray?.map((content) => (
-        <Document key={content._id} content={content} />
+        <Document
+          postMutate={feedPostsMutate}
+          key={content._id}
+          content={content}
+          user={user}
+        />
       ))}
     </>
   );

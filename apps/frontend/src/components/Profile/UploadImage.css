@@ -1,0 +1,28 @@
+.register-photo {
+  margin-top: 50px;
+}
+.register-photo .register-photo-img {
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+}
+.register-photo .register-photo-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.register-photo #file-input {
+  display: none;
+}
+
+.register-photo-text {
+  margin-top: 10px;
+  color: var(--gray);
+}
+.register-photo-text label {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=UploadImage.css.map */

@@ -157,10 +157,7 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
         document={content}
         user={user}
         isWriting={isWriting}
-        updateFunc={updateFunc}
         postMutate={postMutate}
-        isComment={isComment}
-        setIsComment={setIsComment}
       />
     </div>
   );

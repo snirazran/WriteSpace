@@ -22,6 +22,15 @@
   position: relative;
 }
 
+.add-bio {
+  margin: 0 auto;
+  cursor: pointer;
+  width: fit-content;
+}
+.add-bio a {
+  text-decoration: none;
+}
+
 .profile-bar-img {
   cursor: pointer;
   margin: 0 auto;

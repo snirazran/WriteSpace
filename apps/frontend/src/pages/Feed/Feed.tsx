@@ -13,6 +13,7 @@ import { useGetAllUsers } from '../../features/users/usersApi';
 import QuickProject from '../../components/Project/QuickProject';
 import { UserResponseDTO } from 'api-client/users';
 import FeedDocuments from '../../components/Documents/FeedDocuments';
+import { GetAllUserProjectsDTO, ProjectResponseDTO } from 'api-client/projects';
 
 function Feed() {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function Feed() {
             friendsMutate={friendsMutate}
             usersMutate={usersMutate}
             userFriends={friendsArray}
+            userProjects={userProjects?.data}
             user={user}
           />
 
@@ -100,7 +102,7 @@ function Feed() {
           {/* Quick post section */}
           <QuickProject />
           {/* Main Feed */}
-          <FeedDocuments />
+          <FeedDocuments user={user} />
         </div>
         <div className="side-bars">
           {/* Find Friends sidebar */}

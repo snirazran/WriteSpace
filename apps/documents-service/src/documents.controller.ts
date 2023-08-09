@@ -101,6 +101,32 @@ export class DocumentsController {
     }
   }
 
+  //Get all user documents
+  @Get('/user/:id')
+  @ApiResponse({ type: GetAllProjectDocumentsDTO })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async getAllUserDocuments(
+    @Param() { id }: { id: string },
+  ): Promise<GetAllProjectDocumentsDTO | undefined> {
+    try {
+      return {
+        documents: await this.documentsService.getAllUserDocuments(id),
+      };
+    } catch (e) {
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+      if (e instanceof DocumentsNotFound) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
   //Get a document by id
   @Get('/document/:documentId')
   @ApiResponse({ type: DocumentResponseDTO })

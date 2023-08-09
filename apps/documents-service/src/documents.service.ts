@@ -249,6 +249,81 @@ export class DocumentsService {
     return documentsWithUserAndProjectData;
   }
 
+  //Get all user documents
+  async getAllUserDocuments(id: string): Promise<DocumentResponseDTO[]> {
+    const docs = await this.documentModel
+      .find({ 'userInfo.userId': id })
+      .exec();
+
+    if (!docs) {
+      throw new DocumentsNotFound();
+    }
+
+    const documentsWithUserAndProjectData = await Promise.all(
+      docs.map(async (doc) => {
+        let user;
+        let project;
+        try {
+          const responses = await Promise.all([
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+              ),
+            ),
+            firstValueFrom(
+              this.httpService.get(
+                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+              ),
+            ),
+          ]);
+
+          user = responses[0].data;
+          project = responses[1].data;
+        } catch (error) {
+          console.error(error);
+        }
+
+        const {
+          _id,
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          likes,
+          comments,
+          updatedAt,
+          createdAt,
+        } = doc;
+        return {
+          _id: _id.toString(),
+          userInfo: {
+            userId: user._id.toString(),
+            username: user.username,
+            img: user.img,
+          },
+          projectInfo: {
+            projectId: project._id.toString(),
+            name: project.name,
+            img: project.img,
+            genre: project.genre,
+          },
+          name,
+          type,
+          content,
+          wordCount,
+          shared,
+          likes,
+          comments,
+          updatedAt,
+          createdAt,
+        };
+      }),
+    );
+
+    return documentsWithUserAndProjectData;
+  }
+
   //Get a document by id
   async getDocumentById(documentId: string): Promise<DocumentResponseDTO> {
     const document = await this.documentModel.findById(documentId).exec();

@@ -1,0 +1,45 @@
+.project-list-overlay {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.project-list-overlay .project-list {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  min-width: min-content;
+  max-width: 300px;
+  width: 20%;
+  height: auto;
+  max-height: 80%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.project-list-overlay .project-list .view-all-projects a {
+  text-decoration: none;
+  color: #000;
+}
+.project-list-overlay .project-list h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.project-list-overlay .project-list::-webkit-scrollbar {
+  display: none;
+}
+.project-list-overlay .project-list .project-list-closebtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+/*# sourceMappingURL=ProjectList.css.map */

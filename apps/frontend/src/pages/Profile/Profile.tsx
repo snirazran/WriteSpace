@@ -46,6 +46,7 @@ const Profile: React.FC = () => {
         friendsMutate={userFriendsMutate}
         shownUser={user?.data}
         userFriends={userFriends?.data}
+        userProjects={projects?.data}
       />
       <Slider shownUser={user?.data} content={projects?.data} />
     </section>

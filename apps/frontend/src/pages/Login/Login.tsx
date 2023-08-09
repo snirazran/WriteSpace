@@ -1,4 +1,4 @@
-import '../Login_Register.css';
+import '../Register/Login_Register.css';
 import LoginForm from './LoginForm';
 
 const Login: React.FC = () => {

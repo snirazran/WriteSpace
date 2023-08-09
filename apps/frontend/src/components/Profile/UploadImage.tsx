@@ -1,6 +1,7 @@
 import { ChangeEvent, HTMLAttributes, useState } from 'react';
 import placeholderImgUrl from '../../media/placeholder.png';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import './UploadImage.css';
 
 type Props<T extends FieldValues> = {
   alt?: string;
@@ -33,7 +34,9 @@ const UploadImage = <T extends object>({
     <>
       <div className="register-photo">
         <label htmlFor="file-input">
-          <img src={imageLocal ?? placeholderImgUrl} alt={alt} />
+          <div className="register-photo-img">
+            <img src={imageLocal ?? placeholderImgUrl} alt={alt} />
+          </div>
         </label>
 
         <input
