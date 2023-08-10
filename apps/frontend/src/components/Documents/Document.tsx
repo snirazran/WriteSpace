@@ -74,14 +74,17 @@ const Document: React.FC<DocumentProps> = ({ content, user, postMutate }) => {
             dangerouslySetInnerHTML={{ __html: shortContent! }}
             className="ql-editor"
           ></div>
-          <button
-            onClick={() => {
-              onClick(id!);
-            }}
-            className="post-content-btn"
-          >
-            Read More
-          </button>
+          <div className="post-content-readmore">
+            <Link to={`/document/${content?._id}`}>
+              <h1
+                onClick={() => {
+                  onClick(id!);
+                }}
+              >
+                Read More...
+              </h1>
+            </Link>
+          </div>
         </div>
         <LikeComment document={content} user={user} postMutate={postMutate} />
       </div>

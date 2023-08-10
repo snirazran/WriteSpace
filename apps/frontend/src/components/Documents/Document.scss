@@ -116,6 +116,36 @@ $btn-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
       }
     }
 
+    &-readmore {
+      margin-top: 5px;
+      a {
+        text-decoration: none;
+        color: #000;
+        cursor: pointer;
+        font-weight: bolder;
+      }
+      h1 {
+        font-size: 18px;
+        font-weight: bolder;
+        background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background: linear-gradient(
+            202deg,
+            var(--blue) 0%,
+            var(--green) 103.33%
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline;
+        }
+      }
+    }
+
     &-text {
       position: relative;
       .ql-editor {
@@ -196,6 +226,9 @@ $btn-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
     width: 150px;
     position: absolute;
   }
+  .post-content-subtitle {
+    text-align: left;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -203,5 +236,8 @@ $btn-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
     width: 100%;
     margin-top: 20px;
     position: static;
+  }
+  .post-content-subtitle-img {
+    display: none;
   }
 }

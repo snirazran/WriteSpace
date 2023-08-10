@@ -10,18 +10,37 @@
 .scribble-box .date {
   position: absolute;
   right: 20px;
+  top: 20px;
   color: var(--gray);
 }
-.scribble-box .trash-btn {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
-.scribble-box .edit-btn {
-  margin: 0 auto;
-  justify-content: center;
-  margin-top: 20px;
+.scribble-box .document-top-buttons {
+  display: inline-flex;
   width: fit-content;
+  margin-left: 20px;
+  align-items: center;
+  cursor: pointer;
+}
+.scribble-box .document-top-buttons .trash-btn {
+  position: static;
+}
+.scribble-box .document-top-buttons .share-btn-cover:hover .share-btn,
+.scribble-box .document-top-buttons .share-btn-cover:hover .share-btn h1 {
+  color: var(--mainColor);
+}
+.scribble-box .document-top-buttons .share-btn-cover .share-btn {
+  width: fit-content;
+  margin-left: 10px;
+  display: flex;
+  font-size: 20px;
+  color: var(--gray);
+  transition: all 0.3s ease-in-out;
+}
+.scribble-box .document-top-buttons .share-btn-cover .share-btn h1 {
+  font-size: 20px;
+  margin-left: 5px;
+  color: #000;
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
 }
 .scribble-box .project-details {
   margin-top: 30px;
@@ -177,6 +196,9 @@
     width: 80%;
     padding: 20px 0px;
   }
+  .word-count {
+    display: none;
+  }
 }
 @media only screen and (max-width: 570px) {
   .scribble-box {
@@ -227,9 +249,6 @@
     font-size: 14px;
     line-height: 150%;
     letter-spacing: 0.03em;
-  }
-  .scribble-box .word-count {
-    display: none;
   }
 }
 

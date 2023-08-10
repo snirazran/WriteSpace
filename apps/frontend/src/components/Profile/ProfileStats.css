@@ -41,7 +41,7 @@
 .profile-bar .profile-bar-friends,
 .profile-bar .profile-bar-projects,
 .profile-bar .profile-bar-likes {
-  width: 25%;
+  width: 30%;
   margin: 0 10px;
 }
 .profile-bar .profile-bar-friends h1,
@@ -59,6 +59,55 @@
   width: fit-content;
   margin: 0 auto;
   font-size: 12px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .profile-bar .profile-bar-friends,
+  .profile-bar .profile-bar-projects,
+  .profile-bar .profile-bar-likes {
+    width: 30%;
+    margin: 0 10px;
+  }
+  .profile-bar .profile-bar-friends h1,
+  .profile-bar .profile-bar-projects h1,
+  .profile-bar .profile-bar-likes h1 {
+    margin: 0 auto;
+    cursor: pointer;
+    width: fit-content;
+    font-size: 16px;
+  }
+  .profile-bar .profile-bar-friends p,
+  .profile-bar .profile-bar-projects p,
+  .profile-bar .profile-bar-likes p {
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 1111px) {
+  .profile-bar .profile-bar-friends,
+  .profile-bar .profile-bar-projects,
+  .profile-bar .profile-bar-likes {
+    width: 33%;
+    margin: 0 10px;
+  }
+  .profile-bar .profile-bar-friends h1,
+  .profile-bar .profile-bar-projects h1,
+  .profile-bar .profile-bar-likes h1 {
+    margin: 0 auto;
+    cursor: pointer;
+    width: fit-content;
+    font-size: 14px;
+  }
+  .profile-bar .profile-bar-friends p,
+  .profile-bar .profile-bar-projects p,
+  .profile-bar .profile-bar-likes p {
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 10px;
+  }
 }
 
 /*# sourceMappingURL=ProfileStats.css.map */

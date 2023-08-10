@@ -15,7 +15,12 @@
     }
     p {
       width: fit-content;
-      margin-top: 20px;
+    }
+
+    .no-comments {
+      p {
+        margin-top: 20px;
+      }
     }
   }
 

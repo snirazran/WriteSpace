@@ -2,7 +2,8 @@
 .find-friends {
   height: max-content;
   width: 100%;
-  min-width: 220px;
+  position: sticky;
+  top: 50px;
   box-shadow: 0px 23px 9px rgba(231, 111, 81, 0.01), 0px 13px 8px rgba(231, 111, 81, 0.05), 0px 6px 6px rgba(231, 111, 81, 0.09), 0px 1px 3px rgba(231, 111, 81, 0.1), 0px 0px 0px rgba(231, 111, 81, 0.1);
   border-radius: 10px;
   padding: 20px;
@@ -27,6 +28,7 @@
   overflow: hidden;
 }
 .friend-img img {
+  cursor: pointer;
   object-fit: cover;
   width: 50px;
   height: 50px;
@@ -89,27 +91,31 @@
   font-weight: 600;
 }
 
-@media only screen and (max-width: 1300px) {
-  .friend-sidebar-right {
-    margin-left: 0px;
-  }
+@media only screen and (max-width: 1700px) {
   .sidebar-row {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 20px;
     flex-direction: column;
   }
-  .find-friends {
-    min-width: 175px;
-  }
   .find-friends h1 {
     text-align: center;
+  }
+  .friend-sidebar-right {
+    margin-left: 0px;
   }
   .sidebar-text {
     margin-top: 10px;
     margin-left: 0px;
     text-align: center;
   }
+}
+@media only screen and (max-width: 1440px) {
+  .find-friends h1 {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 1300px) {
   .friend-list .friend-sidebar-btn {
     margin-top: 0px;
   }
@@ -118,7 +124,45 @@
     position: inherit;
   }
 }
-@media only screen and (max-width: 1010px) {
+@media only screen and (max-width: 1100px) {
+  .sidebar-row {
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+  }
+  .find-friends h1 {
+    text-align: left;
+  }
+  .friend-sidebar-right {
+    margin-left: 20px;
+  }
+  .sidebar-text {
+    margin-top: 0px;
+    margin-left: 0px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .sidebar-row {
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  .find-friends h1 {
+    text-align: center;
+  }
+  .friend-sidebar-right {
+    margin-left: 0px;
+  }
+  .sidebar-text {
+    margin-top: 10px;
+    margin-left: 0px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 900px) {
   .find-friends {
     display: none;
   }

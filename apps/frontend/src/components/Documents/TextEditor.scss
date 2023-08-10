@@ -1,8 +1,8 @@
 #container {
-  transition: min-height 1s ease-in-out; // Transition only on min-height
+  transition: min-height 1s ease-in-out;
   .ql-editor {
     min-height: 250px;
-    transition: min-height 1s ease-in-out; // Transition only on min-height
+    transition: min-height 1s ease-in-out;
     visibility: visible;
     opacity: 1;
     padding: 20px;
@@ -15,5 +15,18 @@
 
   &.writing .ql-editor {
     min-height: var(--editor-height, 250px);
+  }
+}
+
+.ql-editor {
+  min-height: 250px;
+  transition: min-height 1s ease-in-out;
+  visibility: visible;
+  opacity: 1;
+  padding: 20px;
+  line-height: 300%;
+
+  p {
+    font-size: 18px;
   }
 }

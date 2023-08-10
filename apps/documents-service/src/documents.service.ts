@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DBDocument } from './schemas/document.schema';
 import {
+  CommentNotFound,
   DocumentNotFound,
   DocumentsNotFound,
   InvalidDetails,
@@ -21,6 +22,7 @@ import { docContent } from './utils/docContent';
 import { OpenAiService } from './OpenAi.service';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
+import { DeleteCommentResDTO } from './dtos/delete-comment-res.dto';
 
 @Injectable()
 export class DocumentsService {
@@ -514,5 +516,40 @@ export class DocumentsService {
     };
 
     return documentStringId;
+  }
+
+  //Delete a comment
+  async deleteComment(
+    userId: string,
+    documentId: string,
+    commentId: string,
+  ): Promise<DeleteCommentResDTO> {
+    // Check if document exists
+    const document = await this.documentModel.findById(documentId).exec();
+    if (!document) {
+      throw new DocumentNotFound();
+    }
+    console.log(commentId);
+    console.log(document);
+    const comment = document.comments.find(
+      (comment) => comment.id === commentId,
+    );
+
+    console.log(comment);
+
+    if (!comment) {
+      throw new CommentNotFound();
+    }
+
+    if (comment.userId !== userId) {
+      throw new UserNotAuthorized();
+    }
+
+    document.comments.pull({ id: commentId });
+
+    await document.save();
+
+    const deleteCommentResDTO: DeleteCommentResDTO = { commentId: commentId };
+    return deleteCommentResDTO;
   }
 }

@@ -16,6 +16,7 @@ import {
 import { DocumentsService } from './documents.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
 import {
+  CommentNotFound,
   DocumentNotFound,
   DocumentsNotFound,
   InvalidDetails,
@@ -29,6 +30,7 @@ import { DeleteDocumentResDTO } from './dtos/delete.document.res.dto';
 import { UpdateDocumentRequestDTO } from './dtos/update-document-req.dto';
 import { GetAllProjectDocumentsDTO } from './dtos/get-project-documents.dto';
 import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
+import { DeleteCommentResDTO } from './dtos/delete-comment-res.dto';
 
 @ApiTags('documents')
 @ApiHeader({
@@ -258,6 +260,52 @@ export class DocumentsController {
         throw new NotFoundException();
       }
       if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
+  //Delete comment
+  @Delete('/document/comment/delete/:userId/:documentId/:commentId')
+  @ApiResponse({ type: DeleteCommentResDTO })
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  @ApiParam({
+    name: 'documentId',
+    required: true,
+    description: 'string for the document id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  @ApiParam({
+    name: 'commentId',
+    required: true,
+    description: 'string for the comment id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async deleteComment(
+    @Param() { userId }: { userId: string },
+    @Param() { documentId }: { documentId: string },
+    @Param() { commentId }: { commentId: string },
+  ): Promise<DeleteCommentResDTO | undefined> {
+    // delete Comment
+    try {
+      return await this.documentsService.deleteComment(
+        userId,
+        documentId,
+        commentId,
+      );
+    } catch (e) {
+      if (e instanceof DocumentNotFound) {
+        throw new NotFoundException();
+      }
+      if (e instanceof UserNotAuthorized) {
+        throw new UnauthorizedException();
+      }
+      if (e instanceof CommentNotFound) {
         throw new NotFoundException();
       }
     }

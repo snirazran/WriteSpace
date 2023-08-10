@@ -1,7 +1,7 @@
 /* Side Bars Css */
 .your-projects {
   margin-top: 50px;
-  top: 50px;
+  top: 420px;
   align-self: flex-start;
   height: max-content;
   position: sticky;
@@ -57,10 +57,7 @@
 }
 
 @media only screen and (max-width: 1700px) {
-  .your-projects {
-    min-width: min-content;
-  }
-  .your-projects h1 {
+  #project-sidebar h1 {
     text-align: center;
   }
   #project-sidebar .sidebar-row {
@@ -76,10 +73,15 @@
     margin-top: 10px;
   }
 }
-@media only screen and (max-width: 1010px) {
+@media only screen and (max-width: 1440px) {
+  #project-sidebar h1 {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 900px) {
   .your-projects {
     display: none;
   }
 }
 
-/*# sourceMappingURL=ProjectSidebar.css.map */
+/*# sourceMappingURL=ProjectSideBar.css.map */

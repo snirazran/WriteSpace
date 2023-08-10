@@ -14,6 +14,8 @@
 }
 .like-comment .comment-text p {
   width: fit-content;
+}
+.like-comment .comment-text .no-comments p {
   margin-top: 20px;
 }
 .like-comment.writing {

@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaLock, FaUnlock } from 'react-icons/fa';
+
 import { useAuth } from '../../context/AuthContext';
 import './DocumentBox.css';
 import 'quill/dist/quill.snow.css';
@@ -53,6 +54,15 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
     toast.success('Post updated');
   };
 
+  const onShareUpdate = () => {
+    updateFunc({ shared: !content?.shared });
+    if (content?.shared) {
+      toast.success('Post set to private');
+    } else {
+      toast.success('Post set to public');
+    }
+  };
+
   useEffect(() => {
     postMutate();
   }, [updatedDocument]);
@@ -71,11 +81,21 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
 
   return (
     <div className="scribble-box">
-      {isUserPost() && (
-        <div className="trash-btn" onClick={() => deletePost()}>
-          <FaTrash />
-        </div>
-      )}
+      <div className="document-top-buttons">
+        {isUserPost() && (
+          <>
+            <div className="trash-btn" onClick={() => deletePost()}>
+              <FaTrash />
+            </div>
+            <div className="share-btn-cover">
+              <div onClick={onShareUpdate} className="share-btn">
+                {content?.shared ? <FaUnlock /> : <FaLock />}
+                {content?.shared ? <h1>Public</h1> : <h1>Private</h1>}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
       <div className="date">{date.toLocaleDateString('en-us', options)}</div>
       <div className="title">
         {isUserPost() &&

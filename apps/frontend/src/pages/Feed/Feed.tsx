@@ -67,7 +67,7 @@ function Feed() {
       {/* Main Area _ Main feed + side bars */}
 
       <div className="main-feed">
-        <div className="side-bars">
+        <div className="side-bars" id="left-sidebar">
           {/* profile sidebar */}
           <ProfileBar
             friendsMutate={friendsMutate}
