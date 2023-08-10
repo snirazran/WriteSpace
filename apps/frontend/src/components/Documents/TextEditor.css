@@ -1,3 +1,6 @@
+#container {
+  transition: min-height 1s ease-in-out;
+}
 #container .ql-editor {
   min-height: 250px;
   transition: min-height 1s ease-in-out;
@@ -8,6 +11,9 @@
 }
 #container .ql-editor p {
   font-size: 18px;
+}
+#container.writing .ql-editor {
+  min-height: var(--editor-height, 250px);
 }
 
 /*# sourceMappingURL=TextEditor.css.map */
