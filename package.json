@@ -4,11 +4,9 @@
   "description": "Writing Platform Project",
   "main": "server.js",
   "scripts": {
-    "start": "node apps/backend/server.js",
-    "server": "nodemon apps/backend/server.js",
     "client": "pnpm start --prefix frontend",
     "serve": "pnpm nx run-many --target=serve",
-    "dev": "pnpm nx run-many --target=dev"
+    "dev": "cd apps/frontend && pnpm dev"
   },
   "author": "Snir Azran",
   "license": "MIT",
