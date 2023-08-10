@@ -30,7 +30,8 @@ const TextEditor: React.FC<TextEditorProps> = ({
   setIsWriting,
   isWriting,
 }) => {
-  const quillRef = useRef<Quill>();
+  const quillRef = useRef<Quill | null>(null);
+  const lastSelectionRef = useRef<any>(null);
 
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
@@ -48,24 +49,26 @@ const TextEditor: React.FC<TextEditorProps> = ({
 
   useEffect(() => {
     if (quillRef.current && content) {
-      const range = quillRef.current.getSelection(true);
-      quillRef.current.clipboard.dangerouslyPasteHTML(content);
-      setTimeout(() => quillRef.current?.setSelection(range), 0);
+      quillRef.current.root.innerHTML = content;
     }
   }, [content]);
 
   useEffect(() => {
     if (quillRef.current) {
       quillRef.current.on('selection-change', function (range) {
-        if (range == null) {
+        if (range == null && lastSelectionRef.current != null) {
           let justHtml = quillRef.current?.root.innerHTML;
-          updateFunc({ content: justHtml });
-          updateFunc({ wordCount: countWords(justHtml) });
+          updateFunc({ content: justHtml, wordCount: countWords(justHtml) });
           toast.success('Post updated');
           setIsWriting(false);
-        } else {
+        } else if (range != null) {
           setIsWriting(true);
         }
+        lastSelectionRef.current = range;
+      });
+
+      quillRef.current.on('text-change', function () {
+        setIsWriting(true);
       });
     }
   }, []);
