@@ -31,7 +31,6 @@ const DocumentBox: React.FC<DocumentBoxProps> = ({
   const [editNameMode, setEditNameMode] = useState(false);
   const [documentName, setDocumentName] = useState(content?.name);
   const [isWriting, setIsWriting] = useState(false);
-  const [isComment, setIsComment] = useState<boolean>(false);
 
   const {
     register,
