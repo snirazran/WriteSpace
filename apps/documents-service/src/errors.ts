@@ -1,3 +1,5 @@
+import e from 'express';
+
 export class UserNotFoundError extends Error {
   constructor() {
     super('Users not found');
@@ -13,6 +15,12 @@ export class ProjectNotFoundError extends Error {
 export class DocumentsNotFound extends Error {
   constructor() {
     super('Documents not found');
+  }
+}
+
+export class CommentNotFound extends Error {
+  constructor() {
+    super('Comment not found');
   }
 }
 

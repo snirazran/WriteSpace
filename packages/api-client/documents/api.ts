@@ -107,6 +107,19 @@ export interface CreateDocumentRequestDTO {
 /**
  * 
  * @export
+ * @interface DeleteCommentResDTO
+ */
+export interface DeleteCommentResDTO {
+    /**
+     * Comment id
+     * @type {string}
+     * @memberof DeleteCommentResDTO
+     */
+    'commentId': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteDocumentResDTO
  */
 export interface DeleteDocumentResDTO {
@@ -518,6 +531,52 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerDeleteComment: async (commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'commentId' is not null or undefined
+            assertParamExists('documentsControllerDeleteComment', 'commentId', commentId)
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('documentsControllerDeleteComment', 'documentId', documentId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('documentsControllerDeleteComment', 'userId', userId)
+            const localVarPath = `/api/documents/document/comment/delete/{userId}/{documentId}/{commentId}`
+                .replace(`{${"commentId"}}`, encodeURIComponent(String(commentId)))
+                .replace(`{${"documentId"}}`, encodeURIComponent(String(documentId)))
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -793,6 +852,19 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteCommentResDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -901,6 +973,18 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DeleteCommentResDTO> {
+            return localVarFp.documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
@@ -1005,6 +1089,20 @@ export class DocumentsApi extends BaseAPI {
      */
     public documentsControllerCreateDocument(createDocumentRequestDTO: CreateDocumentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerCreateDocument(createDocumentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

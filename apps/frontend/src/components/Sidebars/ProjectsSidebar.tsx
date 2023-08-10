@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProjectsSidebar.css';
+import './ProjectSideBar.css';
 import ProjectSidebarItem from './ProjectSidebarItem';
 import { GetAllUserProjectsDTO } from 'api-client/projects';
 

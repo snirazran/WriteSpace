@@ -16,6 +16,7 @@
   object-fit: cover;
 }
 .comments-section .comment-content {
+  position: relative;
   width: fit-content;
   line-break: anywhere;
   margin-left: 10px;
@@ -23,7 +24,20 @@
   padding: 5px 15px;
   border-radius: 18px;
 }
+.comments-section .comment-content .comment-delete {
+  width: fit-content;
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.comments-section .comment-content .comment-delete:hover {
+  color: var(--mainColor);
+}
 .comments-section .comment-content .comment-user-name {
+  width: fit-content;
   cursor: pointer;
   font-weight: 700;
 }

@@ -11,7 +11,6 @@ const toolbarOptions = [
   ['blockquote'],
   [{ list: 'bullet' }],
   [{ direction: 'rtl' }], // text direction
-  [{ font: [] }],
   [{ align: [] }],
 
   ['clean'], // remove formatting button
@@ -59,7 +58,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
       quillRef.current.on('selection-change', function (range) {
         if (range != null) {
           // Calculate height based on content and update state
-          const height = quillRef.current?.root.scrollHeight || 250;
+          const height = quillRef.current?.root.scrollHeight ?? 250;
           setEditorHeight(`${height + 300}px`);
           setIsWriting(true);
         } else if (range == null && lastSelectionRef.current != null) {

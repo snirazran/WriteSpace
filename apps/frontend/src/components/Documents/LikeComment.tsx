@@ -86,7 +86,7 @@ const LikeComment: React.FC<LikeCommentProps> = ({
             {index < 1 && ', '}
           </span>
         ))}
-        {`and ${reversedLikes?.length! - 2} more likes this post`}
+        {` and ${reversedLikes?.length! - 2} more likes this post`}
       </>
     );
   };
@@ -95,7 +95,7 @@ const LikeComment: React.FC<LikeCommentProps> = ({
     if (document?.likes.length === 0) return '0px';
     if (document?.likes.length === 1) return '7px';
     if (document?.likes.length === 2) return '15px';
-    return '10px';
+    return '15px';
   };
 
   const {
@@ -136,7 +136,7 @@ const LikeComment: React.FC<LikeCommentProps> = ({
           className="like-img"
           style={{ display: document?.likes.length === 0 ? 'none' : 'flex' }}
         >
-          {reversedLikes?.map((like) => (
+          {twoLikes?.map((like) => (
             <img
               onClick={() => {
                 onClickNav(like.id);
@@ -163,7 +163,13 @@ const LikeComment: React.FC<LikeCommentProps> = ({
             {reversedComments?.length ? (
               <>
                 {reversedComments.map((comment) => (
-                  <Comment key={comment.id} comment={comment} />
+                  <Comment
+                    key={comment.id}
+                    document={document}
+                    postMutate={postMutate}
+                    user={user}
+                    comment={comment}
+                  />
                 ))}
                 {reversedComments?.length > 2 ? (
                   <div
@@ -177,7 +183,9 @@ const LikeComment: React.FC<LikeCommentProps> = ({
                 ) : null}
               </>
             ) : (
-              <p>No comments yet...</p>
+              <div className="no-comments">
+                <p>No comments yet...</p>
+              </div>
             )}
           </>
         ) : (
@@ -189,10 +197,18 @@ const LikeComment: React.FC<LikeCommentProps> = ({
             />
             {twoComments?.length ? (
               twoComments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
+                <Comment
+                  key={comment.id}
+                  document={document}
+                  postMutate={postMutate}
+                  user={user}
+                  comment={comment}
+                />
               ))
             ) : (
-              <p className="no-comments">No comments yet</p>
+              <div className="no-comments">
+                <p>No comments yet...</p>
+              </div>
             )}
             {document?.comments.length! > 2 ? (
               <div

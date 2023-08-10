@@ -14,3 +14,21 @@
     align-items: center;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .qp-main {
+    h1 {
+      font-size: 18px;
+      text-align: left;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .qp-main {
+    h1 {
+      font-size: 14px;
+      text-align: left;
+    }
+  }
+}
