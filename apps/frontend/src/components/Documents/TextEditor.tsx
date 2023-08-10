@@ -32,6 +32,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
 }) => {
   const quillRef = useRef<Quill | null>(null);
   const lastSelectionRef = useRef<any>(null);
+  const [editorHeight, setEditorHeight] = useState('250px');
 
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
@@ -56,13 +57,18 @@ const TextEditor: React.FC<TextEditorProps> = ({
   useEffect(() => {
     if (quillRef.current) {
       quillRef.current.on('selection-change', function (range) {
-        if (range == null && lastSelectionRef.current != null) {
+        if (range != null) {
+          // Calculate height based on content and update state
+          const height = quillRef.current?.root.scrollHeight || 250;
+          setEditorHeight(`${height + 300}px`);
+          setIsWriting(true);
+        } else if (range == null && lastSelectionRef.current != null) {
           let justHtml = quillRef.current?.root.innerHTML;
           updateFunc({ content: justHtml, wordCount: countWords(justHtml) });
           toast.success('Post updated');
+          // Reset height
+          setEditorHeight('250px');
           setIsWriting(false);
-        } else if (range != null) {
-          setIsWriting(true);
         }
         lastSelectionRef.current = range;
       });
@@ -78,6 +84,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
       id="container"
       className={isWriting ? 'writing' : ''}
       ref={wrapperRef}
+      style={{ minHeight: editorHeight }} // Set the height based on state
     ></div>
   );
 };
