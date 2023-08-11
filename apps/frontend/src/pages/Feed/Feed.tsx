@@ -89,14 +89,6 @@ function Feed() {
             <h1>
               Good {hour} {user ? user.username.split(' ')[0] : 'user'},
             </h1>
-            <div className="selector">
-              <label htmlFor="sort">Sort by: </label>
-              <select name="sort" id="sort">
-                <option value="new">New</option>
-                <option value="old">Old</option>
-                <option value="most-liked">Most Liked</option>
-              </select>
-            </div>
           </div>
 
           {/* Quick post section */}
