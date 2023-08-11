@@ -74,6 +74,8 @@ export class DocumentsService {
 
       document.name = docName(project.genre);
 
+      document.shared = true;
+
       document.userInfo = {
         userId: user?._id.toString(),
         username: user.username,
@@ -103,7 +105,7 @@ export class DocumentsService {
     }
   }
 
-  //Get all project documents
+  //Get all feed  documents
   async getFeedDocuments(): Promise<DocumentResponseDTO[]> {
     const docs = await this.documentModel.find({}).exec();
 
@@ -173,7 +175,106 @@ export class DocumentsService {
       }),
     );
 
-    return documentsWithUserAndProjectData;
+    const filteredDocuments = documentsWithUserAndProjectData.filter(
+      (doc) => doc.shared !== false,
+    );
+
+    return filteredDocuments;
+  }
+
+  //Get all friends feed documents
+  async getFeedFriendsDocuments(id: string): Promise<DocumentResponseDTO[]> {
+    let friends;
+
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(`http://localhost:3000/api/friends/${id}`),
+      );
+      friends = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+
+    const friendsDocs = await Promise.all(
+      friends.userFriends.map(async (friend: any) => {
+        const docs = await this.documentModel
+          .find({ 'userInfo.userId': friend._id })
+          .exec();
+
+        if (!docs) {
+          throw new DocumentsNotFound();
+        }
+
+        const documentsWithUserAndProjectData = await Promise.all(
+          docs.map(async (doc) => {
+            let user;
+            let project;
+            try {
+              const responses = await Promise.all([
+                firstValueFrom(
+                  this.httpService.get(
+                    `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+                  ),
+                ),
+                firstValueFrom(
+                  this.httpService.get(
+                    `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+                  ),
+                ),
+              ]);
+
+              user = responses[0].data;
+              project = responses[1].data;
+            } catch (error) {
+              console.error(error);
+            }
+
+            const {
+              _id,
+              name,
+              type,
+              content,
+              wordCount,
+              shared,
+              likes,
+              comments,
+              updatedAt,
+              createdAt,
+            } = doc;
+            return {
+              _id: _id.toString(),
+              userInfo: {
+                userId: user._id.toString(),
+                username: user.username,
+                img: user.img,
+              },
+              projectInfo: {
+                projectId: project._id.toString(),
+                name: project.name,
+                img: project.img,
+                genre: project.genre,
+              },
+              name,
+              type,
+              content,
+              wordCount,
+              shared,
+              likes,
+              comments,
+              updatedAt,
+              createdAt,
+            };
+          }),
+        );
+
+        return documentsWithUserAndProjectData;
+      }),
+    );
+    const filteredResult = friendsDocs
+      .reduce((acc, curr) => acc.concat(curr), [])
+      .filter((item: any) => Object.keys(item).length > 0);
+
+    return filteredResult;
   }
 
   //Get all project documents

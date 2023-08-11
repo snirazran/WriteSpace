@@ -266,10 +266,10 @@ export interface DocumentResponseDTOUserInfo {
     'img': string;
 }
 /**
- * @type DocumentsControllerGetAllProjectDocumentsIdParameter
+ * @type DocumentsControllerGetFeedFriendsDocumentsIdParameter
  * @export
  */
-export type DocumentsControllerGetAllProjectDocumentsIdParameter = number | string;
+export type DocumentsControllerGetFeedFriendsDocumentsIdParameter = number | string;
 
 /**
  * 
@@ -405,13 +405,13 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddComment: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerAddComment: async (userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('documentsControllerAddComment', 'userId', userId)
             // verify required parameter 'createCommentRequestDTO' is not null or undefined
@@ -449,13 +449,13 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddRemoveLike: async (userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerAddRemoveLike: async (userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('documentsControllerAddRemoveLike', 'userId', userId)
             // verify required parameter 'documentId' is not null or undefined
@@ -531,14 +531,14 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerDeleteComment: async (commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerDeleteComment: async (commentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'commentId' is not null or undefined
             assertParamExists('documentsControllerDeleteComment', 'commentId', commentId)
             // verify required parameter 'documentId' is not null or undefined
@@ -577,12 +577,12 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerDeleteDocument: async (id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerDeleteDocument: async (id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('documentsControllerDeleteDocument', 'id', id)
             const localVarPath = `/api/documents/{id}`
@@ -615,12 +615,12 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetAllProjectDocuments: async (id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerGetAllProjectDocuments: async (id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('documentsControllerGetAllProjectDocuments', 'id', id)
             const localVarPath = `/api/documents/{id}`
@@ -653,12 +653,12 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetAllUserDocuments: async (id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerGetAllUserDocuments: async (id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('documentsControllerGetAllUserDocuments', 'id', id)
             const localVarPath = `/api/documents/user/{id}`
@@ -691,12 +691,12 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetDocumentById: async (documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerGetDocumentById: async (documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'documentId' is not null or undefined
             assertParamExists('documentsControllerGetDocumentById', 'documentId', documentId)
             const localVarPath = `/api/documents/document/{documentId}`
@@ -763,13 +763,51 @@ export const DocumentsApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetFeedFriendsDocuments: async (id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('documentsControllerGetFeedFriendsDocuments', 'id', id)
+            const localVarPath = `/api/documents/friends/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (documentsAPI != null) {
+                localVarHeaderParameter['Documents-API'] = String(documentsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerUpdateDocument: async (id: DocumentsControllerGetAllProjectDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsControllerUpdateDocument: async (id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('documentsControllerUpdateDocument', 'id', id)
             // verify required parameter 'updateDocumentRequestDTO' is not null or undefined
@@ -817,25 +855,25 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+        async documentsControllerAddComment(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+        async documentsControllerAddRemoveLike(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -852,58 +890,58 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteCommentResDTO>> {
+        async documentsControllerDeleteComment(commentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteCommentResDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerDeleteDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteDocumentResDTO>> {
+        async documentsControllerDeleteDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteDocumentResDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerDeleteDocument(id, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
+        async documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetAllProjectDocuments(id, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
+        async documentsControllerGetAllUserDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetAllUserDocuments(id, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerGetDocumentById(documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+        async documentsControllerGetDocumentById(documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetDocumentById(documentId, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -919,13 +957,24 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsControllerGetFeedFriendsDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllProjectDocumentsDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerGetFeedFriendsDocuments(id, documentsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsControllerUpdateDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
+        async documentsControllerUpdateDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentResponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsControllerUpdateDocument(id, updateDocumentRequestDTO, documentsAPI, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -941,24 +990,24 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {CreateCommentRequestDTO} createCommentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+        documentsControllerAddComment(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
             return localVarFp.documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+        documentsControllerAddRemoveLike(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
             return localVarFp.documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
@@ -973,54 +1022,54 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} commentId string for the comment id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DeleteCommentResDTO> {
+        documentsControllerDeleteComment(commentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DeleteCommentResDTO> {
             return localVarFp.documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the project id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerDeleteDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DeleteDocumentResDTO> {
+        documentsControllerDeleteDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DeleteDocumentResDTO> {
             return localVarFp.documentsControllerDeleteDocument(id, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
+        documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
             return localVarFp.documentsControllerGetAllProjectDocuments(id, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
+        documentsControllerGetAllUserDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
             return localVarFp.documentsControllerGetAllUserDocuments(id, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerGetDocumentById(documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+        documentsControllerGetDocumentById(documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
             return localVarFp.documentsControllerGetDocumentById(documentId, documentsAPI, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1034,13 +1083,23 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
+         * @param {string} [documentsAPI] Documents related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsControllerGetFeedFriendsDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: any): AxiosPromise<GetAllProjectDocumentsDTO> {
+            return localVarFp.documentsControllerGetFeedFriendsDocuments(id, documentsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
          * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
          * @param {string} [documentsAPI] Documents related endpoints
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsControllerUpdateDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
+        documentsControllerUpdateDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: any): AxiosPromise<DocumentResponseDTO> {
             return localVarFp.documentsControllerUpdateDocument(id, updateDocumentRequestDTO, documentsAPI, options).then((request) => request(axios, basePath));
         },
     };
@@ -1055,27 +1114,27 @@ export const DocumentsApiFactory = function (configuration?: Configuration, base
 export class DocumentsApi extends BaseAPI {
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
      * @param {CreateCommentRequestDTO} createCommentRequestDTO 
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerAddComment(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerAddComment(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, createCommentRequestDTO: CreateCommentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerAddComment(userId, createCommentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerAddRemoveLike(userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerAddRemoveLike(userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerAddRemoveLike(userId, documentId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1093,63 +1152,63 @@ export class DocumentsApi extends BaseAPI {
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} commentId string for the comment id
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} userId string for the user id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} commentId string for the comment id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} userId string for the user id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerDeleteComment(commentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, userId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerDeleteComment(commentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, userId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerDeleteComment(commentId, documentId, userId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the project id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the project id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerDeleteDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerDeleteDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerDeleteDocument(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerGetAllProjectDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerGetAllProjectDocuments(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the user id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerGetAllUserDocuments(id: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerGetAllUserDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerGetAllUserDocuments(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} documentId string for the document id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} documentId string for the document id
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerGetDocumentById(documentId: DocumentsControllerGetAllProjectDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerGetDocumentById(documentId: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerGetDocumentById(documentId, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1166,14 +1225,26 @@ export class DocumentsApi extends BaseAPI {
 
     /**
      * 
-     * @param {DocumentsControllerGetAllProjectDocumentsIdParameter} id string for the document id
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the user id
+     * @param {string} [documentsAPI] Documents related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public documentsControllerGetFeedFriendsDocuments(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, documentsAPI?: string, options?: AxiosRequestConfig) {
+        return DocumentsApiFp(this.configuration).documentsControllerGetFeedFriendsDocuments(id, documentsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DocumentsControllerGetFeedFriendsDocumentsIdParameter} id string for the document id
      * @param {UpdateDocumentRequestDTO} updateDocumentRequestDTO 
      * @param {string} [documentsAPI] Documents related endpoints
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentsApi
      */
-    public documentsControllerUpdateDocument(id: DocumentsControllerGetAllProjectDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
+    public documentsControllerUpdateDocument(id: DocumentsControllerGetFeedFriendsDocumentsIdParameter, updateDocumentRequestDTO: UpdateDocumentRequestDTO, documentsAPI?: string, options?: AxiosRequestConfig) {
         return DocumentsApiFp(this.configuration).documentsControllerUpdateDocument(id, updateDocumentRequestDTO, documentsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 }

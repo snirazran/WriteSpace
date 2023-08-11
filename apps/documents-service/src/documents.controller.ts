@@ -77,6 +77,32 @@ export class DocumentsController {
     }
   }
 
+  //Get feed documents
+  @Get('/friends/:id')
+  @ApiResponse({ type: GetAllProjectDocumentsDTO })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'string for the user id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
+  async getFeedFriendsDocuments(
+    @Param() { id }: { id: string },
+  ): Promise<GetAllProjectDocumentsDTO | undefined> {
+    try {
+      return {
+        documents: await this.documentsService.getFeedFriendsDocuments(id),
+      };
+    } catch (e) {
+      if (e instanceof UserNotFoundError) {
+        throw new NotFoundException();
+      }
+      if (e instanceof DocumentsNotFound) {
+        throw new NotFoundException();
+      }
+    }
+  }
+
   //Get all project documents
   @Get('/:id')
   @ApiResponse({ type: GetAllProjectDocumentsDTO })

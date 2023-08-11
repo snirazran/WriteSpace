@@ -1,0 +1,68 @@
+.feed-document-selector {
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+.feed-document-selector-box {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+}
+.feed-document-selector-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0px;
+  height: 3px;
+  background: linear-gradient(0deg, #e76f51 0%, #f4a261 103.33%);
+  transition: all 0.3s ease-in-out;
+}
+.feed-document-selector-box:hover::after, .feed-document-selector-box.active::after {
+  right: 0;
+}
+.feed-document-selector-box h1 {
+  font-size: 20px;
+  font-weight: bolder;
+  background: linear-gradient(90deg, #e76f51 0%, #f4a261 103.33%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline;
+}
+
+.feed-document-sort {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  margin-bottom: 30px;
+}
+.feed-document-sort::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 170px;
+  top: 55%;
+  transform: translateY(-50%);
+  height: 1px;
+  border-top: 2px dashed var(--secondaryColor);
+}
+.feed-document-sort .selector {
+  width: max-content;
+}
+.feed-document-sort .selector #sort {
+  width: fit-content;
+}
+.feed-document-sort .selector select {
+  width: fit-content;
+  cursor: pointer;
+}
+.feed-document-sort .selector select option {
+  width: max-content;
+}
+
+/*# sourceMappingURL=FeedDocuments.css.map */

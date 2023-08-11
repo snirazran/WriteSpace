@@ -10,6 +10,7 @@ import Header from './components/Navigation/Header';
 
 import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
 import { Suspense } from 'react';
+import Spinner from './components/Spinner';
 
 const App: React.FC = () => {
   const { user } = useAuth();
@@ -20,7 +21,7 @@ const App: React.FC = () => {
         <Router>
           <div className="container">
             <Header />
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Routes>
                 {user ? [...AuthenticatedRoutes] : [...UnauthenticatedRoutes]}
               </Routes>

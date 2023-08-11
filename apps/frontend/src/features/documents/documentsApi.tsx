@@ -60,6 +60,20 @@ export const useGetFeedPosts = () => {
   return { data, error, isLoading, isInitiallyLoading, mutate };
 };
 
+export const useGetFeedFriendsPosts = (id: string) => {
+  const { documentsControllerGetFeedFriendsDocuments } = useDocumentsApi();
+
+  const fetcher = (_key: string) =>
+    documentsControllerGetFeedFriendsDocuments(id);
+
+  const { data, error, isLoading, mutate } = SWR(
+    `feedFriendsPosts-${id}`,
+    fetcher
+  );
+
+  return { data, error, isLoading, mutate };
+};
+
 export const useGetAllProjectDocuments = (id: string) => {
   const { documentsControllerGetAllProjectDocuments } = useDocumentsApi();
 
