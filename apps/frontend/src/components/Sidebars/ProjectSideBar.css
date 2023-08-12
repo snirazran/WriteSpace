@@ -17,6 +17,9 @@
 .your-projects p {
   width: fit-content;
 }
+.your-projects .sidebar-noprojects p {
+  margin-top: 10px;
+}
 
 .your-projects .sidebar-row {
   display: flex;
@@ -84,4 +87,4 @@
   }
 }
 
-/*# sourceMappingURL=ProjectSideBar.css.map */
+/*# sourceMappingURL=ProjectSidebar.css.map */

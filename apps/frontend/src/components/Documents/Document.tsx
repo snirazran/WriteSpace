@@ -1,10 +1,11 @@
 import { FaHeart, FaComment } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import './Document.css';
 import { DocumentResponseDTO } from 'api-client/documents';
 import LikeComment from './LikeComment';
 import { User } from '../../utils/user';
+import DocumentFeedBox from './DocumentFeedBox';
 
 type DocumentProps = {
   content: DocumentResponseDTO | undefined;
@@ -13,6 +14,16 @@ type DocumentProps = {
 };
 
 const Document: React.FC<DocumentProps> = ({ content, user, postMutate }) => {
+  const [isPostActive, setIsPostActive] = useState(false);
+
+  const handleBtnClick = () => {
+    setIsPostActive(true);
+  };
+
+  const handleSelectorClose = () => {
+    setIsPostActive(false);
+  };
+
   const navigate = useNavigate();
   let options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -30,6 +41,14 @@ const Document: React.FC<DocumentProps> = ({ content, user, postMutate }) => {
 
   return (
     <div className="post">
+      {isPostActive && (
+        <DocumentFeedBox
+          content={content}
+          close={handleSelectorClose}
+          user={user}
+          postMutate={postMutate}
+        />
+      )}
       <div className="post-user">
         <div className="post-user-img">
           <Link to={`/profile/${content?.userInfo.userId}`}>
@@ -75,15 +94,13 @@ const Document: React.FC<DocumentProps> = ({ content, user, postMutate }) => {
             className="ql-editor"
           ></div>
           <div className="post-content-readmore">
-            <Link to={`/document/${content?._id}`}>
-              <h1
-                onClick={() => {
-                  onClick(id!);
-                }}
-              >
-                Read More...
-              </h1>
-            </Link>
+            <h1
+              onClick={() => {
+                handleBtnClick();
+              }}
+            >
+              Read More...
+            </h1>
           </div>
         </div>
         <LikeComment document={content} user={user} postMutate={postMutate} />
