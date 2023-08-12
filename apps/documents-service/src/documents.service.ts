@@ -274,7 +274,10 @@ export class DocumentsService {
       .reduce((acc, curr) => acc.concat(curr), [])
       .filter((item: any) => Object.keys(item).length > 0);
 
-    return filteredResult;
+    const filteredDocuments = filteredResult.filter(
+      (doc: any) => doc.shared !== false,
+    );
+    return filteredDocuments;
   }
 
   //Get all project documents

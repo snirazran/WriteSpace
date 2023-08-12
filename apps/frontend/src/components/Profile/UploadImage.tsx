@@ -43,6 +43,7 @@ const UploadImage = <T extends object>({
           id="file-input"
           type="file"
           key="file"
+          accept=".jpg, .jpeg, .png"
           {...inputAttr}
           {...register?.(name, { onChange: handleChange })}
         />

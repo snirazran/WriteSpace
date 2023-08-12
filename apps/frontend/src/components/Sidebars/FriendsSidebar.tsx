@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Friend from '../Friends/Friend';
 import {
   GetAllUsersDTO,
@@ -25,9 +25,26 @@ const FriendsSidebar: React.FC<FriendsSidebarProps> = ({
   friendsMutate,
   usersMutate,
 }) => {
-  const filteredUserList = content?.users
-    .filter((user) => user._id !== myUser?._id)
-    .slice(0, 5);
+  const [filteredUserList, setFilteredUserList] = useState<
+    UserResponseDTO[] | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const getRandomUsers = (users: UserResponseDTO[], myUser: User | null) => {
+      const usersCopy = [...users];
+
+      const shuffledUsers = usersCopy
+        .filter((user) => user._id !== myUser?._id)
+        .filter((user) => !myUser?.friends?.includes(user._id))
+        .sort(() => Math.random() - 0.5);
+
+      return shuffledUsers.slice(0, 5);
+    };
+
+    if (content) {
+      setFilteredUserList(getRandomUsers(content.users, myUser));
+    }
+  }, []);
 
   if (!filteredUserList?.length)
     return (

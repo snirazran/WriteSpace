@@ -19,7 +19,7 @@ const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
     return noProjectsMessage;
   }
 
-  const projects = content.projects.slice(0, 3);
+  const projects = [...content.projects].reverse().slice(0, 3);
 
   return (
     <div className="sidebar your-projects" id="project-sidebar">

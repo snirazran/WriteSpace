@@ -45,32 +45,36 @@ const FeedDocuments: React.FC<FeedDocumentsProps> = ({ user }) => {
 
   const renderFriendsPosts = () => {
     if (user?.friends?.length === 0) {
-      return <h1>Please add some friends</h1>;
+      return <h1>Please add some friends to view their posts</h1>;
     }
     if (friendsPosts?.length === 0) {
       return <h1>No friends posts yet...</h1>;
     }
-    return (
-      <>
-        {friendsPosts?.map((content) => (
-          <Document
-            postMutate={feedPostsMutate}
-            key={content._id}
-            content={content}
-            user={user}
-          />
-        ))}
-      </>
-    );
+    if (user?.friends?.length! > 0) {
+      return (
+        <>
+          {friendsPosts?.map((content) => (
+            <Document
+              postMutate={feedPostsMutate}
+              key={content._id}
+              content={content}
+              user={user}
+            />
+          ))}
+        </>
+      );
+    }
   };
 
   useEffect(() => {
     if (!feedPosts) return;
-    forYouPostsArray = feedPosts.data.documents.reverse();
+    forYouPostsArray = [...feedPosts.data.documents].reverse();
     setForYouPosts(forYouPostsArray);
-    if (!feedFriendsPosts) return;
-    friendsPostsArray = feedFriendsPosts.data.documents.reverse();
-    setFriendsPosts(friendsPostsArray);
+    if (user?.friends?.length! > 0) {
+      if (!feedFriendsPosts) return;
+      friendsPostsArray = [...feedFriendsPosts.data.documents].reverse();
+      setFriendsPosts(friendsPostsArray);
+    }
   }, [feedPosts, feedFriendsPosts]);
 
   const onForYouClick = () => {
