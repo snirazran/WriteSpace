@@ -30,6 +30,7 @@ export class CreateUserDto {
     nullable: true,
     description: 'User img',
     default: '',
+    required: false,
   })
   img: string | undefined;
 }

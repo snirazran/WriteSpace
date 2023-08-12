@@ -58,7 +58,7 @@ export interface CreateUserDto {
      * @type {string}
      * @memberof CreateUserDto
      */
-    'img': string | null;
+    'img'?: string | null;
 }
 /**
  * 

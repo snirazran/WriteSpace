@@ -32,6 +32,8 @@ export class AuthService {
     // Create new user
     const user = new this.userModel(userData);
     const TOKEN_EXPIRY = '30d';
+    user.img =
+      'https://firebasestorage.googleapis.com/v0/b/writespace-f343f.appspot.com/o/projectImages%2Fuserplaceholder.png3e796394-9401-4682-976c-953e87e611e1?alt=media&token=edbf545b-68f8-4aea-b648-f16d4143f464';
     user.password = await hash(user.password, 10); // bcrypt password hashing
     user.token = this.jwtService.sign(
       { _id: user._id },
