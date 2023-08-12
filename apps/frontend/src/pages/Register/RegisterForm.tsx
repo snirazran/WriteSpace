@@ -55,13 +55,10 @@ const RegisterForm: FC = () => {
       toast.error('Passwords do not match');
     } else {
       try {
-        if (!data.profileImage[0]) toast.error('Please upload a profile image');
-        const img = await uploadImage(data.profileImage[0]);
         const userData = {
           username: data.name,
           email: data.email,
           password: data.password,
-          img: img !== undefined ? img : null,
         };
         trigger(userData);
       } catch (error: any) {
@@ -89,20 +86,6 @@ const RegisterForm: FC = () => {
   };
 
   const formItems: RegistrationFormItem[] = [
-    {
-      type: 'file',
-      id: 'file-input',
-      name: 'profileImage',
-      placeholder: 'Pick a profile picture',
-      render: ({ name, ...rest }) => (
-        <UploadImage
-          name={name}
-          alt="profile"
-          register={registerForm}
-          {...rest}
-        />
-      ),
-    },
     {
       type: 'name',
       id: 'name',

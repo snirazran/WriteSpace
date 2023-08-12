@@ -101,6 +101,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
     type,
     placeholder,
     registerOptions,
+    required,
   }: EditProfileFormItem) => {
     return (
       <input
@@ -108,7 +109,8 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
         type={type}
         id={id}
         placeholder={placeholder}
-        {...registerForm(name, { required: true, ...registerOptions })}
+        required={required} // Set the required attribute here
+        {...registerForm(name, { required, ...registerOptions })} // Or include it inside registerOptions
       />
     );
   };
@@ -135,6 +137,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
       name: 'username',
       placeholder: 'Enter your name',
       render: renderInput,
+      required: true,
     },
     {
       type: 'email',
@@ -142,6 +145,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
       name: 'email',
       placeholder: 'Enter your email',
       render: renderInput,
+      required: true,
     },
     {
       type: 'bio',
@@ -149,6 +153,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
       name: 'bio',
       placeholder: 'Enter your bio',
       render: renderInput,
+      required: false,
     },
   ];
 
