@@ -11,7 +11,9 @@ const ProjectsSidebar: React.FC<ProjectsSideBarProps> = ({ content }) => {
   const noProjectsMessage = (
     <div className="sidebar your-projects" id="project-sidebar">
       <h1>Recent Projects</h1>
-      <p>You have no projects yet</p>
+      <div className="sidebar-noprojects">
+        <p>You have no projects yet</p>
+      </div>
     </div>
   );
 

@@ -65,6 +65,12 @@ $btn-shadow: 0px 15px 6px rgba(238, 137, 89, 0.02),
     text-align: left;
     position: relative;
 
+    &-readmore {
+      h1 {
+        cursor: pointer;
+      }
+    }
+
     &-title {
       a {
         width: fit-content;

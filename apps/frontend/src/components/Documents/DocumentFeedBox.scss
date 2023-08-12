@@ -1,0 +1,85 @@
+.document-feed-box-overlay {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+
+  .scribble-box {
+    z-index: 100;
+    background-color: #fff;
+
+    .document-top-buttons {
+      .trash-btn {
+      }
+      .share-btn {
+      }
+      .edit-btn-cover {
+        cursor: pointer;
+        width: fit-content;
+        .edit-btn {
+          display: flex;
+          width: fit-content;
+          color: var(--gray);
+          margin-left: 10px;
+          margin-bottom: 8px;
+          font-size: 22px;
+          transition: all 0.3s ease-in-out;
+        }
+        &:hover {
+          .edit-btn,
+          .edit-btn h1 {
+            color: var(--mainColor);
+          }
+        }
+      }
+    }
+
+    #post-content {
+      max-height: 333px;
+    }
+
+    .ql-editor {
+      line-height: 175%;
+      p {
+      }
+    }
+
+    .like-comment {
+      padding: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .document-feed-box-overlay {
+    .scribble-box {
+      .document-top-buttons {
+        .trash-btn {
+          font-size: 14px;
+        }
+        .share-btn-cover {
+          .share-btn {
+            font-size: 14px;
+            margin-top: 2px;
+            h1 {
+              font-size: 14px;
+            }
+          }
+        }
+        .edit-btn-cover {
+          .edit-btn {
+            margin-bottom: 5px;
+            font-size: 17px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -53,6 +53,9 @@
   text-align: left;
   position: relative;
 }
+.post-content-readmore h1 {
+  cursor: pointer;
+}
 .post-content-title a {
   width: fit-content;
   height: fit-content;
