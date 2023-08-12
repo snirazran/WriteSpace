@@ -91,8 +91,9 @@ const ProjectImg: React.FC<ProjectImgProps> = ({ img, updateFunc }) => {
             updateFunc({ img });
             toast.success('Project image updated');
           }}
-          id="file-input"
           type="file"
+          accept=".jpg, .jpeg, .png, .gif"
+          id="file-input"
           key="file"
         />
         <div className="pick-photo-text">

@@ -1,36 +1,30 @@
-/* Header CSS */
-
 header {
   background: linear-gradient(180deg, #f4a261 0%, rgba(217, 217, 217, 0) 100%);
   padding: 25px 50px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.logo img {
+header .logo img {
   width: 200px;
 }
-
-ul {
+header ul {
   list-style: none;
   display: flex;
   align-items: center;
 }
-
-li a {
+header ul li a {
   text-decoration: none;
   color: #000;
   margin: 0 10px;
   font-size: 16px;
+  transition: color 0.3s ease-in-out;
 }
-
-li a:hover {
+header ul li a:hover {
   color: var(--secondaryColor);
+  background-color: transition-background(0.3s ease-in-out);
 }
-
-li .circled {
+header ul li .circled {
   text-decoration: none;
   color: #fff;
   background-color: var(--mainColor);
@@ -41,13 +35,12 @@ li .circled {
   border: 0;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
-
-li .circled:hover {
+header ul li .circled:hover {
   color: #fff;
   background-color: var(--secondaryColor);
 }
-
 header .nav-btn {
   padding: 5px;
   font-size: 20px;
@@ -57,24 +50,19 @@ header .nav-btn {
   outline: none;
   display: none;
 }
-
 header .nav-btn:hover {
   color: var(--secondaryColor);
 }
-
 header .nav-login-btn svg path {
   color: #000;
 }
-
 header .nav-login-btn svg path:hover {
   color: var(--secondaryColor);
 }
-
 @media only screen and (max-width: 1023px) {
   header .nav-btn {
     display: inline-block;
   }
-
   header nav {
     position: fixed;
     top: 0;
@@ -86,30 +74,26 @@ header .nav-login-btn svg path:hover {
     align-items: center;
     justify-content: center;
     background-color: var(--mainColor);
-    transition: 1s;
+    transition: background-color 0.3s ease-in-out, 1s;
     transform: translateY(-100vh);
   }
-
   header ul {
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
-
   header li {
     margin: 30px 0;
     font-size: 3rem;
   }
-
   header li a {
     color: white;
   }
-
   header li .signup:hover {
     background-color: transparent;
     color: var(--secondaryColor);
+    transition: background-color 0.3s ease-in-out;
   }
-
   header .nav-close-btn {
     position: absolute;
     top: 2rem;
@@ -117,24 +101,22 @@ header .nav-login-btn svg path:hover {
     font-size: 30px;
     color: white;
   }
-
   header .responsive_nav {
     transform: none;
     z-index: 2;
   }
 }
-
 @media only screen and (max-width: 425px) {
   header {
     padding: 25px 20px;
   }
-
   header .logo img {
     width: 160px;
   }
-
-  #nav-icon-btn {
+  header #nav-icon-btn {
     padding: 5px;
     font-size: 20px;
   }
 }
+
+/*# sourceMappingURL=Header.css.map */

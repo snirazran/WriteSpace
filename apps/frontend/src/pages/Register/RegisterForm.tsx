@@ -15,7 +15,13 @@ import Spinner from '../../components/Spinner';
 const RegisterForm: FC = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth();
-  const { trigger, data: registerResponse, reset, isLoading } = useRegister();
+  const {
+    trigger,
+    data: registerResponse,
+    reset,
+    isLoading,
+    error: registerError,
+  } = useRegister();
 
   useEffect(() => {
     if (registerResponse) {
@@ -58,8 +64,8 @@ const RegisterForm: FC = () => {
           img: img !== undefined ? img : null,
         };
         trigger(userData);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        console.log(error.response.data.message);
       }
     }
   };

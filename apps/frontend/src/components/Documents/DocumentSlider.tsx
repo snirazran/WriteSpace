@@ -96,6 +96,10 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
       toast.success(`${docType(project?.data.genre!)} created successfully`);
     };
 
+    if (!isUserProfile()) {
+      items = items.filter((item) => item.shared);
+    }
+
     return (
       <>
         {items.length > 0 ? (
@@ -134,7 +138,14 @@ const DocumentSlider: React.FC<DocumentSliderProps> = ({
           </div>
         ) : (
           <div className="no-documents">
-            <h3>You have not created any documents yet</h3>
+            {isUserProfile() ? (
+              <h3>You have not created any posts yet</h3>
+            ) : (
+              <h3>
+                {project?.data.userInfo.username} has not created any posts in{' '}
+                {project?.data.name} yet
+              </h3>
+            )}
             {isUserProfile() && (
               <QuickProjectBtn
                 btnText={`Create A New ${docType(project?.data.genre!)}`}
