@@ -19,7 +19,11 @@
   cursor: pointer;
   width: fit-content;
 }
-.document-feed-box-overlay .scribble-box .document-top-buttons .edit-btn-cover .edit-btn {
+.document-feed-box-overlay
+  .scribble-box
+  .document-top-buttons
+  .edit-btn-cover
+  .edit-btn {
   display: flex;
   width: fit-content;
   color: var(--gray);
@@ -28,8 +32,17 @@
   font-size: 22px;
   transition: all 0.3s ease-in-out;
 }
-.document-feed-box-overlay .scribble-box .document-top-buttons .edit-btn-cover:hover .edit-btn,
-.document-feed-box-overlay .scribble-box .document-top-buttons .edit-btn-cover:hover .edit-btn h1 {
+.document-feed-box-overlay
+  .scribble-box
+  .document-top-buttons
+  .edit-btn-cover:hover
+  .edit-btn,
+.document-feed-box-overlay
+  .scribble-box
+  .document-top-buttons
+  .edit-btn-cover:hover
+  .edit-btn
+  h1 {
   color: var(--mainColor);
 }
 .document-feed-box-overlay .scribble-box #post-content {
@@ -46,14 +59,27 @@
   .document-feed-box-overlay .scribble-box .document-top-buttons .trash-btn {
     font-size: 14px;
   }
-  .document-feed-box-overlay .scribble-box .document-top-buttons .share-btn-cover .share-btn {
+  .document-feed-box-overlay
+    .scribble-box
+    .document-top-buttons
+    .share-btn-cover
+    .share-btn {
     font-size: 14px;
     margin-top: 2px;
   }
-  .document-feed-box-overlay .scribble-box .document-top-buttons .share-btn-cover .share-btn h1 {
+  .document-feed-box-overlay
+    .scribble-box
+    .document-top-buttons
+    .share-btn-cover
+    .share-btn
+    h1 {
     font-size: 14px;
   }
-  .document-feed-box-overlay .scribble-box .document-top-buttons .edit-btn-cover .edit-btn {
+  .document-feed-box-overlay
+    .scribble-box
+    .document-top-buttons
+    .edit-btn-cover
+    .edit-btn {
     margin-bottom: 5px;
     font-size: 17px;
   }
