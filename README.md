@@ -43,6 +43,7 @@ WriteSpace is packed with several features to enhance the experience of its user
 ### Tools
 
 - OpenAPI
+- Nx
 
 ## Getting Started
 
