@@ -10,6 +10,7 @@ import {
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import './DocumentFeedBox.css';
+import '../Documents/DocumentBox.css';
 
 type DocumentFeedBoxProps = {
   content: DocumentResponseDTO | undefined;
