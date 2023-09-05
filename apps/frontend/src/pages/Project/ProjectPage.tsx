@@ -15,14 +15,17 @@ const ProjectPage = () => {
     error: projectError,
     isLoading: isLoadingProject,
     mutate: mutateProject,
-  } = useGetUserProjectById(id!);
+  } = useGetUserProjectById(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: documents,
     error: documentsError,
     isLoading: isLoadingDocuments,
     mutate: mutateDocuments,
-  } = useGetAllProjectDocuments(id!);
+  } = useGetAllProjectDocuments(id!, {
+    refreshInterval: 5000,
+    errorRetryCount: 5,
+  });
 
   useEffect(() => {
     if (projectError || documentsError) {

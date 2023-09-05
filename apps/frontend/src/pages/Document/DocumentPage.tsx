@@ -16,7 +16,7 @@ function DocumentPage() {
     error: postError,
     isLoading: postIsLoading,
     mutate: postMutate,
-  } = useGetDocumentById(id!);
+  } = useGetDocumentById(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: deletedPost,

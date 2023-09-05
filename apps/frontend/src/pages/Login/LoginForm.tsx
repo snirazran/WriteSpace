@@ -14,6 +14,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (loginResponse) {
+      console.log(loginResponse);
       setUser(loginResponse.data);
       navigate('/');
     }
