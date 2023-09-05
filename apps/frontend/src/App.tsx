@@ -11,12 +11,13 @@ import Header from './components/Navigation/Header';
 import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
 import { Suspense, useEffect, useState } from 'react';
 import Spinner from './components/Spinner';
+import ServerSpinner from './components/ServerSpinner';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const serviceURLs = [
+    let serviceURLs = [
       'https://write-space-user-service.onrender.com/api/users',
       'https://write-space-auth-service.onrender.com/api/auth',
       'https://write-space-documents-service.onrender.com/api/documents',
@@ -26,10 +27,7 @@ const App: React.FC = () => {
     const intervalIDs: NodeJS.Timeout[] = [];
 
     const handleSuccessfulFetch = (url: string) => {
-      const index = serviceURLs.indexOf(url);
-      if (index > -1) {
-        serviceURLs.splice(index, 1);
-      }
+      serviceURLs = serviceURLs.filter((serviceURL) => serviceURL !== url);
 
       if (serviceURLs.length === 0) {
         setIsLoading(false);
@@ -48,16 +46,19 @@ const App: React.FC = () => {
       return false;
     };
 
-    serviceURLs.forEach((url) => {
-      const intervalID = setInterval(() => {
-        fetchData(url).then((isSuccessful) => {
-          if (isSuccessful) {
-            clearInterval(intervalID);
-            handleSuccessfulFetch(url);
-          }
-        });
-      }, 5000);
+    const pollService = (url: string) => {
+      fetchData(url).then((isSuccessful) => {
+        if (isSuccessful) {
+          handleSuccessfulFetch(url);
+        }
+      });
+    };
 
+    serviceURLs.forEach((url) => {
+      // Call the function immediately for the first time
+      pollService(url);
+
+      const intervalID = setInterval(() => pollService(url), 5000);
       intervalIDs.push(intervalID);
     });
 
@@ -69,9 +70,9 @@ const App: React.FC = () => {
   const { user } = useAuth();
 
   if (isLoading) {
-    return <h1>loading baby</h1>;
+    return <ServerSpinner />;
   }
-
+  console.log('user', user);
   return (
     <AppProviders>
       <>
