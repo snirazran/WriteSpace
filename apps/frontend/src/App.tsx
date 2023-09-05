@@ -24,13 +24,18 @@ const App: React.FC = () => {
       'https://write-space-projects-service.onrender.com/api/projects',
     ];
 
-    const intervalIDs: NodeJS.Timeout[] = [];
+    const intervalIDs: { [url: string]: NodeJS.Timeout } = {};
 
     const handleSuccessfulFetch = (url: string) => {
       serviceURLs = serviceURLs.filter((serviceURL) => serviceURL !== url);
 
       if (serviceURLs.length === 0) {
         setIsLoading(false);
+      }
+
+      if (intervalIDs[url]) {
+        clearInterval(intervalIDs[url]);
+        delete intervalIDs[url];
       }
     };
 
@@ -55,15 +60,17 @@ const App: React.FC = () => {
     };
 
     serviceURLs.forEach((url) => {
-      // Call the function immediately for the first time
       pollService(url);
 
       const intervalID = setInterval(() => pollService(url), 5000);
-      intervalIDs.push(intervalID);
+
+      intervalIDs[url] = intervalID;
     });
 
     return () => {
-      intervalIDs.forEach((id) => clearInterval(id));
+      Object.values(intervalIDs).forEach((intervalID) =>
+        clearInterval(intervalID)
+      );
     };
   }, []);
 
