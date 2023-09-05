@@ -10,7 +10,9 @@ import { useAxios } from '../../context/AxiosContext';
 
 export const useAuthApi = () => {
   const axios = useAxios();
-  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3001');
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    'https://write-space-auth-service.onrender.com'
+  );
   const [api, setApi] = useState(
     AuthApiFactory(
       {

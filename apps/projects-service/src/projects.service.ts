@@ -44,7 +44,7 @@ export class ProjectsService {
       try {
         const response = await firstValueFrom(
           this.httpService.get(
-            `http://localhost:3000/api/users/${ProjectData.userId}`,
+            `https://write-space-user-service.onrender.com/api/users/${ProjectData.userId}`,
           ),
         );
         user = response.data;
@@ -68,7 +68,7 @@ export class ProjectsService {
       try {
         const documentResponse = await firstValueFrom(
           this.httpService.post(
-            'http://localhost:3003/api/documents',
+            'https://write-space-documents-service.onrender.com/api/documents',
             documentData,
           ),
         );
@@ -106,7 +106,7 @@ export class ProjectsService {
         try {
           const response = await firstValueFrom(
             this.httpService.get(
-              `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+              `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
             ),
           );
           const { _id, img, username } = response.data;
@@ -147,7 +147,7 @@ export class ProjectsService {
     try {
       const response = await firstValueFrom(
         this.httpService.get(
-          `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+          `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
         ),
       );
       const { _id, img, username } = response.data;
@@ -193,7 +193,7 @@ export class ProjectsService {
     try {
       const response = await firstValueFrom(
         this.httpService.get(
-          `http://localhost:3000/api/users/${project.userInfo.userId}`,
+          `https://write-space-user-service.onrender.com/api/users/${project.userInfo.userId}`,
         ),
       );
 
@@ -246,7 +246,7 @@ export class ProjectsService {
     try {
       const response = await firstValueFrom(
         this.httpService.get(
-          `http://localhost:3003/api/documents/${project.id}`,
+          `https://write-space-documents-service.onrender.com/api/documents/${project.id}`,
         ),
       );
 
@@ -256,7 +256,7 @@ export class ProjectsService {
         for (const document of documents.documents) {
           await firstValueFrom(
             this.httpService.delete(
-              `http://localhost:3003/api/documents/${document._id}`,
+              `https://write-space-documents-service.onrender.com/api/documents/${document._id}`,
               {
                 headers: {
                   Authorization: `Bearer ${userData.token}`,

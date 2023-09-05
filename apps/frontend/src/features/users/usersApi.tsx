@@ -6,7 +6,9 @@ import { useAuth } from '../../context/AuthContext';
 
 export const useUsersApi = () => {
   const axios = useAxios();
-  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3000');
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    'https://write-space-user-service.onrender.com'
+  );
   const [api, setApi] = useState(
     UsersApiFactory(
       {
