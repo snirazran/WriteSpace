@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "client": "pnpm start --prefix frontend",
+    "build": "pnpm nx run-many --target=build --parallel --maxParallel=100",
     "serve": "pnpm nx run-many --target=serve --parallel --maxParallel=100",
     "dev": "cd apps/frontend && pnpm dev"
   },
