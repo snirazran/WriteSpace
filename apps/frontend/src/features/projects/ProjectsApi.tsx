@@ -10,7 +10,9 @@ import { useAxios } from '../../context/AxiosContext';
 
 export const useProjectsApi = () => {
   const axios = useAxios();
-  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3002');
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    'https://write-space-projects-service.onrender.com'
+  );
   const [api, setApi] = useState(
     ProjectsApiFactory(
       {

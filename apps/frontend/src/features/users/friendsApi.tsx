@@ -5,7 +5,9 @@ import { useAxios } from '../../context/AxiosContext';
 import SWRMutate from 'swr/mutation';
 export const useFriendsApi = () => {
   const axios = useAxios();
-  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3000');
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    'https://write-space-user-service.onrender.com'
+  );
   const [api, setApi] = useState(
     FriendsApiFactory(
       {

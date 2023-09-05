@@ -11,7 +11,9 @@ import { useAxios } from '../../context/AxiosContext';
 
 export const useDocumentsApi = () => {
   const axios = useAxios();
-  const [apiBaseUrl, setApiBaseUrl] = useState('http://localhost:3003');
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    'https://write-space-documents-service.onrender.com'
+  );
   const [api, setApi] = useState(
     DocumentsApiFactory(
       {
