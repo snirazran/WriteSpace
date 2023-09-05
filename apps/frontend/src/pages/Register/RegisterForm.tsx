@@ -25,6 +25,7 @@ const RegisterForm: FC = () => {
 
   useEffect(() => {
     if (registerResponse) {
+      console.log(registerResponse.data);
       setUser(registerResponse.data);
       navigate('/');
     }

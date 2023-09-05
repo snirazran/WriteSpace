@@ -1,4 +1,4 @@
-/* Spinner Css */
+/* Spinner CSS */
 
 .loadingSpinnerContainer {
   position: fixed;
@@ -11,6 +11,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.loadingServerSpinnerContainer {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .loadingSpinner {
@@ -20,6 +25,13 @@
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
+  margin-bottom: 20px; /* Optional: Adds some space between spinner and sentence */
+}
+
+.sentence {
+  margin-top: 10px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 @keyframes spin {
