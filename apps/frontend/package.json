@@ -33,8 +33,6 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "serve": "pnpm dev",
     "preview": "vite preview",
     "lint": "eslint src",
     "lint:fix": "pnpm lint --fix"
