@@ -12,6 +12,7 @@
 /build
 
 # misc
+frontend_build.sh
 .DS_Store
 .env
 .env.local
