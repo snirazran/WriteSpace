@@ -8,18 +8,26 @@ import {
   ConflictException,
   UnauthorizedException,
   Param,
+  Get,
   NotFoundException,
+  RequestTimeoutException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/Create-user.dto';
 import { ApiTags, ApiHeader, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { UserAlreadyExists, InvalidDetails, UserNotFoundError } from './errors';
+import {
+  UserAlreadyExists,
+  InvalidDetails,
+  UserNotFoundError,
+  ServiceNotRunning,
+} from './errors';
 import { LoginUserReqDto } from './dtos/Login-user.dto';
 import { LoginUserResDto } from './dtos/Login-user-response.dto';
 import { CreateUserResponseDto } from './dtos/Create-user-response.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UpdateUserResDto } from './dtos/Update-user-response.dto';
 import { UpdateUserReqDto } from './dtos/Update-user.dto';
+import { isServerUpDTO } from './dtos/isup.dto';
 
 @ApiTags('auth')
 @ApiHeader({
@@ -29,6 +37,19 @@ import { UpdateUserReqDto } from './dtos/Update-user.dto';
 @Controller('/api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  //Is server up
+  @Get('/')
+  @ApiResponse({ type: isServerUpDTO })
+  async isServerUp(): Promise<isServerUpDTO | undefined> {
+    try {
+      return await this.authService.isServerUp();
+    } catch (e) {
+      if (e instanceof ServiceNotRunning) {
+        throw new RequestTimeoutException();
+      }
+    }
+  }
 
   //Register new user
   @Post('/')

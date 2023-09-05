@@ -17,6 +17,7 @@ import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { docType } from './utils/docType';
+import { isServerUpDTO } from './dtos/isup.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -24,6 +25,12 @@ export class ProjectsService {
     @InjectModel('projects') private projectModel: Model<DBProject>,
     private readonly httpService: HttpService,
   ) {}
+
+  //Is server up
+  async isServerUp(): Promise<isServerUpDTO> {
+    const message = 'Projects service is up and running';
+    return { message };
+  }
 
   //Create a new project
   async createProject(

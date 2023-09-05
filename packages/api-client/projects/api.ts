@@ -71,6 +71,19 @@ export interface GetAllUserProjectsDTO {
 /**
  * 
  * @export
+ * @interface IsServerUpDTO
+ */
+export interface IsServerUpDTO {
+    /**
+     * message
+     * @type {string}
+     * @memberof IsServerUpDTO
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
  * @interface ProjectResponseDTO
  */
 export interface ProjectResponseDTO {
@@ -367,6 +380,40 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerIsServerUp: async (projectsAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (projectsAPI != null) {
+                localVarHeaderParameter['Projects-API'] = String(projectsAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
          * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
          * @param {string} [projectsAPI] Projects related endpoints
@@ -465,6 +512,16 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async projectsControllerIsServerUp(projectsAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IsServerUpDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.projectsControllerIsServerUp(projectsAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {ProjectsControllerGetAllUserProjectsIdParameter} id string for the project id
          * @param {UpdateProjectRequestDTO} updateProjectRequestDTO 
          * @param {string} [projectsAPI] Projects related endpoints
@@ -524,6 +581,15 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          */
         projectsControllerGetUserProjectById(projectId: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: any): AxiosPromise<ProjectResponseDTO> {
             return localVarFp.projectsControllerGetUserProjectById(projectId, projectsAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [projectsAPI] Projects related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsControllerIsServerUp(projectsAPI?: string, options?: any): AxiosPromise<IsServerUpDTO> {
+            return localVarFp.projectsControllerIsServerUp(projectsAPI, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -592,6 +658,17 @@ export class ProjectsApi extends BaseAPI {
      */
     public projectsControllerGetUserProjectById(projectId: ProjectsControllerGetAllUserProjectsIdParameter, projectsAPI?: string, options?: AxiosRequestConfig) {
         return ProjectsApiFp(this.configuration).projectsControllerGetUserProjectById(projectId, projectsAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [projectsAPI] Projects related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public projectsControllerIsServerUp(projectsAPI?: string, options?: AxiosRequestConfig) {
+        return ProjectsApiFp(this.configuration).projectsControllerIsServerUp(projectsAPI, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

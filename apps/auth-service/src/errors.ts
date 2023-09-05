@@ -21,3 +21,9 @@ export class UserNotAuthorized extends Error {
     super('User not authorized');
   }
 }
+
+export class ServiceNotRunning extends Error {
+  constructor() {
+    super('Service not running');
+  }
+}

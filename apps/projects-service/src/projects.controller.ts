@@ -11,6 +11,7 @@ import {
   Request,
   UnauthorizedException,
   Delete,
+  RequestTimeoutException,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ApiHeader, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
@@ -22,12 +23,14 @@ import {
   UserNotFoundError,
   UserNotAuthorized,
   DocumentCreationFailed,
+  ServiceNotRunning,
 } from './errors';
 import { ProjectResponseDTO } from './dtos/project.dto';
 import { CreateProjectRequestDTO } from './dtos/create-project-req.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UpdateProjectRequestDTO } from './dtos/update-project-req.dto';
 import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
+import { isServerUpDTO } from './dtos/isup.dto';
 
 @ApiTags('projects')
 @ApiHeader({
@@ -37,6 +40,19 @@ import { DeleteProjectResDTO } from './dtos/delete.project.res.dto';
 @Controller('/api/projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
+
+  //Is server up
+  @Get('/')
+  @ApiResponse({ type: isServerUpDTO })
+  async isServerUp(): Promise<isServerUpDTO | undefined> {
+    try {
+      return await this.projectsService.isServerUp();
+    } catch (e) {
+      if (e instanceof ServiceNotRunning) {
+        throw new RequestTimeoutException();
+      }
+    }
+  }
 
   //Create a project
   @Post('/')

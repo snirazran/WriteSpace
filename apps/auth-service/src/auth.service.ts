@@ -11,6 +11,7 @@ import { LoginUserResDto } from './dtos/Login-user-response.dto';
 import { CreateUserResponseDto } from './dtos/Create-user-response.dto';
 import { UpdateUserReqDto } from './dtos/Update-user.dto';
 import { UpdateUserResDto } from './dtos/Update-user-response.dto';
+import { isServerUpDTO } from './dtos/isup.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,12 @@ export class AuthService {
     @InjectModel('users') private userModel: Model<DBUser>,
     private jwtService: JwtService,
   ) {}
+
+  //Is server up
+  async isServerUp(): Promise<isServerUpDTO> {
+    const message = 'Auth service is up and running';
+    return { message };
+  }
 
   //Register new User
   async registerUser(userData: CreateUserDto): Promise<CreateUserResponseDto> {
