@@ -118,6 +118,19 @@ export interface CreateUserResponseDto {
 /**
  * 
  * @export
+ * @interface IsServerUpDTO
+ */
+export interface IsServerUpDTO {
+    /**
+     * message
+     * @type {string}
+     * @memberof IsServerUpDTO
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
  * @interface LoginUserReqDto
  */
 export interface LoginUserReqDto {
@@ -278,6 +291,40 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * 
+         * @param {string} [authAPI] Auth related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authControllerIsServerUp: async (authAPI?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/auth`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authAPI != null) {
+                localVarHeaderParameter['Auth-API'] = String(authAPI);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {LoginUserReqDto} loginUserReqDto 
          * @param {string} [authAPI] Auth related endpoints
          * @param {*} [options] Override http request option.
@@ -412,6 +459,16 @@ export const AuthApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {string} [authAPI] Auth related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authControllerIsServerUp(authAPI?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IsServerUpDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authControllerIsServerUp(authAPI, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {LoginUserReqDto} loginUserReqDto 
          * @param {string} [authAPI] Auth related endpoints
          * @param {*} [options] Override http request option.
@@ -456,6 +513,15 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * 
+         * @param {string} [authAPI] Auth related endpoints
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authControllerIsServerUp(authAPI?: string, options?: any): AxiosPromise<IsServerUpDTO> {
+            return localVarFp.authControllerIsServerUp(authAPI, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {LoginUserReqDto} loginUserReqDto 
          * @param {string} [authAPI] Auth related endpoints
          * @param {*} [options] Override http request option.
@@ -495,6 +561,17 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class AuthApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} [authAPI] Auth related endpoints
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public authControllerIsServerUp(authAPI?: string, options?: AxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authControllerIsServerUp(authAPI, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {LoginUserReqDto} loginUserReqDto 
