@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
+import * as process from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('projectsApi', app, document);
   fs.writeFileSync('./openapi.json', JSON.stringify(document));
-  await app.listen(3002);
+  await app.listen(process.env.PROJECTS_PORT || 3002, '0.0.0.0');
 }
 bootstrap();
