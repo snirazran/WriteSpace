@@ -44,7 +44,7 @@ export class DocumentsService {
         const responses = await Promise.all([
           firstValueFrom(
             this.httpService.get(
-              `http://localhost:3000/api/users/${DocumentData.userId}`,
+              `https://write-space-user-service.onrender.com/api/users/${DocumentData.userId}`,
             ),
           ).catch(() => {
             throw new UserNotFoundError();
@@ -52,7 +52,7 @@ export class DocumentsService {
 
           firstValueFrom(
             this.httpService.get(
-              `http://localhost:3002/api/projects/project/${DocumentData.projectId}`,
+              `https://write-space-projects-service.onrender.com/api/projects/project/${DocumentData.projectId}`,
             ),
           ).catch(() => {
             throw new ProjectNotFoundError();
@@ -121,12 +121,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -188,7 +188,9 @@ export class DocumentsService {
 
     try {
       const response = await firstValueFrom(
-        this.httpService.get(`http://localhost:3000/api/friends/${id}`),
+        this.httpService.get(
+          `https://write-space-user-service.onrender.com/api/friends/${id}`,
+        ),
       );
       friends = response.data;
     } catch (error) {
@@ -213,12 +215,12 @@ export class DocumentsService {
               const responses = await Promise.all([
                 firstValueFrom(
                   this.httpService.get(
-                    `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+                    `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
                   ),
                 ),
                 firstValueFrom(
                   this.httpService.get(
-                    `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+                    `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
                   ),
                 ),
               ]);
@@ -298,12 +300,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -373,12 +375,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3000/api/users/${doc.userInfo.userId}`,
+                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `http://localhost:3002/api/projects/project/${doc.projectInfo.projectId}`,
+                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -444,12 +446,12 @@ export class DocumentsService {
       const responses = await Promise.all([
         firstValueFrom(
           this.httpService.get(
-            `http://localhost:3000/api/users/${document.userInfo.userId}`,
+            `https://write-space-user-service.onrender.com/api/users/${document.userInfo.userId}`,
           ),
         ),
         firstValueFrom(
           this.httpService.get(
-            `http://localhost:3002/api/projects/project/${document.projectInfo.projectId}`,
+            `https://write-space-projects-service.onrender.com/api/projects/project/${document.projectInfo.projectId}`,
           ),
         ),
       ]);
@@ -553,7 +555,9 @@ export class DocumentsService {
 
     // Check if user exists
     const user = await firstValueFrom(
-      this.httpService.get(`http://localhost:3000/api/users/${userId}`),
+      this.httpService.get(
+        `https://write-space-user-service.onrender.com/api/users/${userId}`,
+      ),
     );
 
     if (!user) {
@@ -596,7 +600,9 @@ export class DocumentsService {
 
     // Check if user exists
     const user = await firstValueFrom(
-      this.httpService.get(`http://localhost:3000/api/users/${userId}`),
+      this.httpService.get(
+        `https://write-space-user-service.onrender.com/api/users/${userId}`,
+      ),
     );
 
     if (!user) {

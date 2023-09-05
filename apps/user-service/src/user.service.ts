@@ -67,7 +67,7 @@ export class UserService {
     try {
       const response = await firstValueFrom(
         this.httpService.get(
-          `http://localhost:3003/api/documents/user/${doc.id}`,
+          `https://write-space-documents-service.onrender.com/api/documents/user/${doc.id}`,
         ),
       );
       documents = response.data.documents;

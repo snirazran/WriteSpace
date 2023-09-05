@@ -22,7 +22,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JwtPayload): Promise<IUser> {
     const response = await firstValueFrom(
-      this.httpService.get(`http://localhost:3000/api/users/${payload._id}`),
+      this.httpService.get(
+        `https://write-space-user-service.onrender.com/api/users/${payload._id}`,
+      ),
     );
     if (!response.data) {
       throw new UnauthorizedException();
