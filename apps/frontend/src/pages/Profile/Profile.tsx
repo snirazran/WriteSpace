@@ -15,7 +15,7 @@ const Profile: React.FC = () => {
     error: userError,
     isLoading: userIsLoading,
     mutate: userMutate,
-  } = useGetUserById(id!);
+  } = useGetUserById(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: userFriends,
@@ -23,14 +23,14 @@ const Profile: React.FC = () => {
     isLoading: userFriendsIsLoading,
     isValidating: isInitiallyLoading,
     mutate: userFriendsMutate,
-  } = useGetUserFriends(id!);
+  } = useGetUserFriends(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: projects,
     error: projectError,
     isLoading: projectIsLoading,
     mutate: projectMutate,
-  } = useGetAllUserProjects(id!);
+  } = useGetAllUserProjects(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   useEffect(() => {
     projectMutate();

@@ -49,7 +49,7 @@ export const useCreateProject = () => {
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
-export const useGetAllUserProjects = (id: string) => {
+export const useGetAllUserProjects = (id: string, options = {}) => {
   const { projectsControllerGetAllUserProjects } = useProjectsApi();
 
   const fetcher = (_key: string) => projectsControllerGetAllUserProjects(id);
@@ -59,7 +59,7 @@ export const useGetAllUserProjects = (id: string) => {
   return { data, error, isLoading, mutate };
 };
 
-export const useGetUserProjectById = (projectId: string) => {
+export const useGetUserProjectById = (projectId: string, options = {}) => {
   const { projectsControllerGetUserProjectById } = useProjectsApi();
 
   const fetcher = (_key: string) =>

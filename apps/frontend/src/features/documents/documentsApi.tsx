@@ -39,7 +39,7 @@ export const useDocumentsApi = () => {
   return api;
 };
 
-export const useCreateDocument = () => {
+export const useCreateDocument = (options = {}) => {
   const { documentsControllerCreateDocument } = useDocumentsApi();
   const { data, error, isMutating, reset, trigger } = SWRMutate(
     'createDocument',
@@ -50,7 +50,7 @@ export const useCreateDocument = () => {
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
-export const useGetFeedPosts = () => {
+export const useGetFeedPosts = (options = {}) => {
   const { documentsControllerGetFeedDocuments } = useDocumentsApi();
   const {
     data,
@@ -62,7 +62,7 @@ export const useGetFeedPosts = () => {
   return { data, error, isLoading, isInitiallyLoading, mutate };
 };
 
-export const useGetFeedFriendsPosts = (id: string) => {
+export const useGetFeedFriendsPosts = (id: string, options = {}) => {
   const { documentsControllerGetFeedFriendsDocuments } = useDocumentsApi();
 
   const fetcher = (_key: string) =>
@@ -76,7 +76,7 @@ export const useGetFeedFriendsPosts = (id: string) => {
   return { data, error, isLoading, mutate };
 };
 
-export const useGetAllProjectDocuments = (id: string) => {
+export const useGetAllProjectDocuments = (id: string, options = {}) => {
   const { documentsControllerGetAllProjectDocuments } = useDocumentsApi();
 
   const fetcher = (_key: string) =>
@@ -87,7 +87,7 @@ export const useGetAllProjectDocuments = (id: string) => {
   return { data, error, isLoading, mutate };
 };
 
-export const useGetDocumentById = (documentId: string) => {
+export const useGetDocumentById = (documentId: string, options = {}) => {
   const { documentsControllerGetDocumentById } = useDocumentsApi();
 
   const fetcher = (_key: string) =>

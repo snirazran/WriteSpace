@@ -44,7 +44,7 @@ export const useAddRemoveFriend = () => {
   return { data, error, isLoading: isMutating, reset, trigger };
 };
 
-export const useGetUserFriends = (id: string) => {
+export const useGetUserFriends = (id: string, options = {}) => {
   const { friendControllerGetUserFriends } = useFriendsApi();
 
   const fetcher = (_key: string) => friendControllerGetUserFriends(id);

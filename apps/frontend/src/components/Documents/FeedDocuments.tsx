@@ -23,14 +23,17 @@ const FeedDocuments: React.FC<FeedDocumentsProps> = ({ user }) => {
     isLoading: feedPostsLoading,
     isInitiallyLoading: feedPostsInitiallyLoading,
     mutate: feedPostsMutate,
-  } = useGetFeedPosts();
+  } = useGetFeedPosts({ refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: feedFriendsPosts,
     error: feedFriendsPostsError,
     isLoading: feedFriendsPostsLoading,
     mutate: feedFriendsPostsMutate,
-  } = useGetFeedFriendsPosts(user?._id!);
+  } = useGetFeedFriendsPosts(user?._id!, {
+    refreshInterval: 5000,
+    errorRetryCount: 5,
+  });
 
   let forYouPostsArray: Array<DocumentResponseDTO> = [];
   let friendsPostsArray: Array<DocumentResponseDTO> = [];

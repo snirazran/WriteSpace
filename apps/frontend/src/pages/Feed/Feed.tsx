@@ -35,7 +35,7 @@ function Feed() {
     error: projectsError,
     isLoading: projectsLoading,
     mutate: projectsMutate,
-  } = useGetAllUserProjects(id!);
+  } = useGetAllUserProjects(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   const {
     data: userFriends,
@@ -43,7 +43,7 @@ function Feed() {
     isLoading: isFriendsLoading,
     isValidating: isFriendsInitiallyLoading,
     mutate: friendsMutate,
-  } = useGetUserFriends(id!);
+  } = useGetUserFriends(id!, { refreshInterval: 5000, errorRetryCount: 5 });
 
   let friendsArray: Array<UserResponseDTO> = [];
   if (userFriends) {
@@ -56,7 +56,7 @@ function Feed() {
     isLoading: usersLoading,
     isInitiallyLoading: usersInitiallyLoading,
     mutate: usersMutate,
-  } = useGetAllUsers();
+  } = useGetAllUsers({ refreshInterval: 5000, errorRetryCount: 5 });
 
   if (usersLoading || projectsLoading) {
     return <Spinner />;

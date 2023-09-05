@@ -34,7 +34,7 @@ export const useUsersApi = () => {
   return api;
 };
 
-export const useGetUserById = (id: string) => {
+export const useGetUserById = (id: string, options = {}) => {
   const { userControllerGetUserById } = useUsersApi();
 
   const fetcher = (_key: string) => userControllerGetUserById(id);
@@ -43,7 +43,7 @@ export const useGetUserById = (id: string) => {
   return { data, error, isLoading, mutate };
 };
 
-export const useGetAllUsers = () => {
+export const useGetAllUsers = (options = {}) => {
   const { userControllerGetAllUsers } = useUsersApi();
   const {
     data,
@@ -55,7 +55,7 @@ export const useGetAllUsers = () => {
   return { data, error, isLoading, isInitiallyLoading, mutate };
 };
 
-export const useGetUserLikes = (id: string) => {
+export const useGetUserLikes = (id: string, options = {}) => {
   const { userControllerGetUserLikes } = useUsersApi();
 
   const fetcher = (_key: string) => userControllerGetUserLikes(id);
