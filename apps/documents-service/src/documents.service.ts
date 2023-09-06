@@ -23,6 +23,7 @@ import { OpenAiService } from './OpenAi.service';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateCommentRequestDTO } from './dtos/create-comment-req.dto';
 import { DeleteCommentResDTO } from './dtos/delete-comment-res.dto';
+import * as process from 'process';
 
 @Injectable()
 export class DocumentsService {
@@ -44,7 +45,7 @@ export class DocumentsService {
         const responses = await Promise.all([
           firstValueFrom(
             this.httpService.get(
-              `https://write-space-user-service.onrender.com/api/users/${DocumentData.userId}`,
+              `${process.env.USERS_SERVICE_URL}/api/users/${DocumentData.userId}`,
             ),
           ).catch(() => {
             throw new UserNotFoundError();
@@ -52,7 +53,7 @@ export class DocumentsService {
 
           firstValueFrom(
             this.httpService.get(
-              `https://write-space-projects-service.onrender.com/api/projects/project/${DocumentData.projectId}`,
+              `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${DocumentData.projectId}`,
             ),
           ).catch(() => {
             throw new ProjectNotFoundError();
@@ -121,12 +122,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
+                `${process.env.USERS_SERVICE_URL}/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
+                `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -189,7 +190,7 @@ export class DocumentsService {
     try {
       const response = await firstValueFrom(
         this.httpService.get(
-          `https://write-space-user-service.onrender.com/api/friends/${id}`,
+          `${process.env.USERS_SERVICE_URL}/api/friends/${id}`,
         ),
       );
       friends = response.data;
@@ -215,12 +216,12 @@ export class DocumentsService {
               const responses = await Promise.all([
                 firstValueFrom(
                   this.httpService.get(
-                    `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
+                    `${process.env.USERS_SERVICE_URL}/api/users/${doc.userInfo.userId}`,
                   ),
                 ),
                 firstValueFrom(
                   this.httpService.get(
-                    `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
+                    `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${doc.projectInfo.projectId}`,
                   ),
                 ),
               ]);
@@ -300,12 +301,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
+                `${process.env.USERS_SERVICE_URL}/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
+                `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -375,12 +376,12 @@ export class DocumentsService {
           const responses = await Promise.all([
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-user-service.onrender.com/api/users/${doc.userInfo.userId}`,
+                `${process.env.USERS_SERVICE_URL}/api/users/${doc.userInfo.userId}`,
               ),
             ),
             firstValueFrom(
               this.httpService.get(
-                `https://write-space-projects-service.onrender.com/api/projects/project/${doc.projectInfo.projectId}`,
+                `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${doc.projectInfo.projectId}`,
               ),
             ),
           ]);
@@ -446,12 +447,12 @@ export class DocumentsService {
       const responses = await Promise.all([
         firstValueFrom(
           this.httpService.get(
-            `https://write-space-user-service.onrender.com/api/users/${document.userInfo.userId}`,
+            `${process.env.USERS_SERVICE_URL}/api/users/${document.userInfo.userId}`,
           ),
         ),
         firstValueFrom(
           this.httpService.get(
-            `https://write-space-projects-service.onrender.com/api/projects/project/${document.projectInfo.projectId}`,
+            `${process.env.PROJECTS_SERVICE_URL}/api/projects/project/${document.projectInfo.projectId}`,
           ),
         ),
       ]);
@@ -556,7 +557,7 @@ export class DocumentsService {
     // Check if user exists
     const user = await firstValueFrom(
       this.httpService.get(
-        `https://write-space-user-service.onrender.com/api/users/${userId}`,
+        `${process.env.USERS_SERVICE_URL}/api/users/${userId}`,
       ),
     );
 
@@ -601,7 +602,7 @@ export class DocumentsService {
     // Check if user exists
     const user = await firstValueFrom(
       this.httpService.get(
-        `https://write-space-user-service.onrender.com/api/users/${userId}`,
+        `${process.env.USERS_SERVICE_URL}/api/users/${userId}`,
       ),
     );
 

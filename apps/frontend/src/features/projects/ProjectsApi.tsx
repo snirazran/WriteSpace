@@ -7,11 +7,12 @@ import {
   UpdateProjectRequestDTO,
 } from 'api-client/projects';
 import { useAxios } from '../../context/AxiosContext';
+import { getEnvVar } from '../../utils/getENV';
 
 export const useProjectsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    'https://write-space-projects-service.onrender.com'
+    getEnvVar('VITE_API_PROJECTS_SERVICE_URL')
   );
   const [api, setApi] = useState(
     ProjectsApiFactory(

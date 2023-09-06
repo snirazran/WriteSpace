@@ -7,11 +7,12 @@ import {
   UpdateUserReqDto,
 } from 'api-client/auth';
 import { useAxios } from '../../context/AxiosContext';
+import { getEnvVar } from '../../utils/getENV';
 
 export const useAuthApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    'https://write-space-auth-service.onrender.com'
+    getEnvVar('VITE_API_AUTH_SERVICE_URL')
   );
   const [api, setApi] = useState(
     AuthApiFactory(

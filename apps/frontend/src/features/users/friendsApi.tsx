@@ -3,10 +3,11 @@ import SWR from 'swr';
 import { FriendsApiFactory } from 'api-client/users';
 import { useAxios } from '../../context/AxiosContext';
 import SWRMutate from 'swr/mutation';
+import { getEnvVar } from '../../utils/getENV';
 export const useFriendsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    'https://write-space-user-service.onrender.com'
+    getEnvVar('VITE_API_USERS_SERVICE_URL')
   );
   const [api, setApi] = useState(
     FriendsApiFactory(

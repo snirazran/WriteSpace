@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import SWR from 'swr';
 import { UsersApiFactory } from 'api-client/users';
 import { useAxios } from '../../context/AxiosContext';
-import { useAuth } from '../../context/AuthContext';
+import { getEnvVar } from '../../utils/getENV';
 
 export const useUsersApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    'https://write-space-user-service.onrender.com'
+    getEnvVar('VITE_API_USERS_SERVICE_URL')
   );
   const [api, setApi] = useState(
     UsersApiFactory(
