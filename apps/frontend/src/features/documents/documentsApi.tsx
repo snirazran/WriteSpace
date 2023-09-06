@@ -13,7 +13,7 @@ import { getEnvVar } from '../../utils/getENV';
 export const useDocumentsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    `${getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL')}/api/documents`
+    `${getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL')}`
   );
   const [api, setApi] = useState(
     DocumentsApiFactory(
