@@ -8,9 +8,7 @@ import svgrPlugin from 'vite-plugin-svgr';
 export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
-    server: {
-      proxy: {},
-    },
+    server: {},
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   });
 };
