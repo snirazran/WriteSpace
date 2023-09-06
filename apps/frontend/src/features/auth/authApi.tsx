@@ -12,7 +12,7 @@ import { getEnvVar } from '../../utils/getENV';
 export const useAuthApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    getEnvVar('VITE_API_AUTH_SERVICE_URL')
+    `${getEnvVar('VITE_API_AUTH_SERVICE_URL')}/api/auth`
   );
   const [api, setApi] = useState(
     AuthApiFactory(

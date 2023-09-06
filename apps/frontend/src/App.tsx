@@ -14,10 +14,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     let serviceURLs = [
-      getEnvVar('VITE_API_USERS_SERVICE_URL'),
-      getEnvVar('VITE_API_AUTH_SERVICE_URL'),
-      getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL'),
-      getEnvVar('VITE_API_PROJECTS_SERVICE_URL'),
+      `${getEnvVar('VITE_API_USERS_SERVICE_URL')}/api/users`,
+      `${getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL')}/api/documents`,
+      `${getEnvVar('VITE_API_AUTH_SERVICE_URL')}/api/auth`,
+      `${getEnvVar('VITE_API_PROJECTS_SERVICE_URL')}/api/projects`,
     ];
 
     const intervalIDs: { [url: string]: NodeJS.Timeout } = {};
