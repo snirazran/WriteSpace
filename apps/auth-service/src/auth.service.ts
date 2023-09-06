@@ -47,9 +47,14 @@ export class AuthService {
       {
         expiresIn: TOKEN_EXPIRY,
       },
-    ); // generate token
+    );
 
-    user.save();
+    try {
+      await user.save();
+    } catch (err) {
+      console.error('Error saving user:', err);
+      throw err;
+    }
 
     const userPlainObject = user.toObject();
     const userStringId: CreateUserResponseDto = {
@@ -72,6 +77,7 @@ export class AuthService {
 
     const passwordValid = await compare(userData.password, user.password);
     if (!passwordValid) {
+      console.log('Invalid password for user:', userData.email);
       throw new InvalidDetails();
     }
 
