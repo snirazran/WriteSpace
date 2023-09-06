@@ -7,16 +7,17 @@ import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
 import { Suspense, useEffect, useState } from 'react';
 import Spinner from './components/Spinner';
 import ServerSpinner from './components/ServerSpinner';
+import { getEnvVar } from './utils/getENV';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let serviceURLs = [
-      'https://write-space-user-service.onrender.com/api/users',
-      'https://write-space-auth-service.onrender.com/api/auth',
-      'https://write-space-documents-service.onrender.com/api/documents',
-      'https://write-space-projects-service.onrender.com/api/projects',
+      getEnvVar('VITE_API_USERS_SERVICE_URL'),
+      getEnvVar('VITE_API_AUTH_SERVICE_URL'),
+      getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL'),
+      getEnvVar('VITE_API_PROJECTS_SERVICE_URL'),
     ];
 
     const intervalIDs: { [url: string]: NodeJS.Timeout } = {};
