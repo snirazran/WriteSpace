@@ -6,6 +6,7 @@ MONGO_URI = Enter mongoURL
 JWT_SECRET = Pick a secret
 JWT_EXPIRES_IN = Pick expire date
 OPENAI_API_KEY = enter openai key
+CLIENT_URL = enter your client url or https://write-space-client.vercel.app
 AUTH_SERVICE_URL = enter auth service url or use https://writespace-authservice.fly.dev
 USERS_SERVICE_URL = enter users service url or use https://writespace-userservice.fly.dev
 PROJECTS_SERVICE_URL = enter projects service url or use https://writespace-projectservice.fly.dev
