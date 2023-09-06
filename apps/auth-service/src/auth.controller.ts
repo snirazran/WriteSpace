@@ -10,6 +10,7 @@ import {
   Param,
   Get,
   NotFoundException,
+  HttpCode,
   RequestTimeoutException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -53,6 +54,7 @@ export class AuthController {
 
   //Register new user
   @Post('/')
+  @HttpCode(201)
   @ApiResponse({ type: CreateUserResponseDto })
   async registerUser(
     @Body() userData: CreateUserDto,
@@ -68,6 +70,7 @@ export class AuthController {
 
   //Login user
   @Post('/login')
+  @HttpCode(200)
   @ApiResponse({ type: LoginUserResDto })
   async loginUser(
     @Body() userData: LoginUserReqDto,

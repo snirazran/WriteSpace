@@ -3,7 +3,7 @@ import { getEnvVar } from './utils/getENV';
 const config = {
   unsplashAPI: `https://api.unsplash.com/`,
   unsplashAPIKEY: `?client_id=${getEnvVar('VITE_UNSPLASH_KEY')}`,
-  baseURL: 'http://localhost:5173',
+  baseURL: getEnvVar('VITE_CLIENT_URL'),
   firebaseConfig: {
     firebaseStorage: getEnvVar('VITE_FIREBASE_STORAGE'),
     apiKey: getEnvVar('VITE_API_KEY'),
