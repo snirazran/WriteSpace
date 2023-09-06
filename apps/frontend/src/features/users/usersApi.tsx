@@ -7,7 +7,7 @@ import { getEnvVar } from '../../utils/getENV';
 export const useUsersApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    `${getEnvVar('VITE_API_USERS_SERVICE_URL')}/api/users`
+    `${getEnvVar('VITE_API_USERS_SERVICE_URL')}`
   );
   const [api, setApi] = useState(
     UsersApiFactory(
