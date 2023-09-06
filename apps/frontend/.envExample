@@ -6,6 +6,7 @@ VITE_STORAGE_BUCKET = firebase storage bucket
 VITE_MESSAGING_SENDER_ID = firebase messaging sender id
 VITE_APP_ID = firebase app id
 VITE_UNSPLASH_KEY = your unsplash key
+VITE_CLIENT_URL = use your api url or "https://writespace-api.fly.dev"
 VITE_API_AUTH_SERVICE_URL = use your auth service or "https://writespace-authservice.fly.dev"
 VITE_API_USERS_SERVICE_URL = use your users service or "https://writespace-userservice.fly.dev"
 VITE_API_PROJECTS_SERVICE_URL = use your projects service or "https://writespace-projectservice.fly.dev"
