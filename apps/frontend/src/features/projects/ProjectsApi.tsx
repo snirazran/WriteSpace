@@ -12,7 +12,7 @@ import { getEnvVar } from '../../utils/getENV';
 export const useProjectsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    getEnvVar('VITE_API_PROJECTS_SERVICE_URL')
+    `${getEnvVar('VITE_API_PROJECTS_SERVICE_URL')}/api/projects`
   );
   const [api, setApi] = useState(
     ProjectsApiFactory(
