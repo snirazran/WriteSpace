@@ -1,11 +1,6 @@
 import { BrowserRouter as Router, Routes } from 'react-router-dom';
-
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { useAuth } from './context/AuthContext';
-import { AppProviders } from './context/AppProviders';
-
 import Header from './components/Navigation/Header';
 
 import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
@@ -79,23 +74,17 @@ const App: React.FC = () => {
   if (isLoading) {
     return <ServerSpinner />;
   }
-  console.log('user', user);
   return (
-    <AppProviders>
-      <>
-        <Router>
-          <div className="container">
-            <Header />
-            <Suspense fallback={<Spinner />}>
-              <Routes>
-                {user ? [...AuthenticatedRoutes] : [...UnauthenticatedRoutes]}
-              </Routes>
-            </Suspense>
-          </div>
-        </Router>
-        <ToastContainer />
-      </>
-    </AppProviders>
+    <Router>
+      <div className="container">
+        <Header />
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            {user ? [...AuthenticatedRoutes] : [...UnauthenticatedRoutes]}
+          </Routes>
+        </Suspense>
+      </div>
+    </Router>
   );
 };
 

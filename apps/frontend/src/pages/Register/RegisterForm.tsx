@@ -1,11 +1,7 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { FC, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { v4 } from 'uuid';
-import { UploadImage } from '../../components';
-import storage from '../../firebase';
 import './Login_Register.css';
 import { RegisterForm, RegistrationFormItem } from './RegisterTypes';
 import { useRegister } from '../../features/auth/authApi';
@@ -25,7 +21,6 @@ const RegisterForm: FC = () => {
 
   useEffect(() => {
     if (registerResponse) {
-      console.log(registerResponse.data);
       setUser(registerResponse.data);
       navigate('/');
     }
@@ -37,19 +32,6 @@ const RegisterForm: FC = () => {
     handleSubmit,
     formState: { errors, defaultValues },
   } = useForm<RegisterForm>();
-
-  const uploadImage = async (file: File) => {
-    const imageRef = ref(storage, `postImages/${file!.name + v4()}`);
-    try {
-      await uploadBytes(imageRef, file!);
-      const imageURL = await getDownloadURL(imageRef);
-      if (imageURL) {
-        return imageURL;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     if (data.password !== data.confirmPassword) {
