@@ -8,11 +8,12 @@ import {
   UpdateDocumentRequestDTO,
 } from 'api-client/documents';
 import { useAxios } from '../../context/AxiosContext';
+import { getEnvVar } from '../../utils/getENV';
 
 export const useDocumentsApi = () => {
   const axios = useAxios();
   const [apiBaseUrl, setApiBaseUrl] = useState(
-    'https://write-space-documents-service.onrender.com'
+    getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL')
   );
   const [api, setApi] = useState(
     DocumentsApiFactory(
