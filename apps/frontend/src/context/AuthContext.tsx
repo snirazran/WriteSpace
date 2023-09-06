@@ -37,9 +37,10 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(persistantUser);
 
   useEffect(() => {
-    // Keeps your both states synced
-    setPersistantUser(user);
-  }, [user]);
+    if (JSON.stringify(user) !== JSON.stringify(persistantUser)) {
+      setPersistantUser(user);
+    }
+  }, [user, persistantUser]);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
