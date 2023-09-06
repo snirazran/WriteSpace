@@ -1,0 +1,12 @@
+DOCUMENTS_PORT = Choose your port
+PROJECTS_PORT = Choose your port
+AUTH_PORT = Choose your port
+USERS_SERVICE_PORT = Choose your port
+MONGO_URI = Enter mongoURL
+JWT_SECRET = Pick a secret
+JWT_EXPIRES_IN = Pick expire date
+OPENAI_API_KEY = enter openai key
+AUTH_SERVICE_URL = enter auth service url or use https://writespace-authservice.fly.dev
+USERS_SERVICE_URL = enter users service url or use https://writespace-userservice.fly.dev
+PROJECTS_SERVICE_URL = enter projects service url or use https://writespace-projectservice.fly.dev
+DOCUMENTS_SERVICE_URL = enter documents service url or use https://writespace-documentservice.fly.dev

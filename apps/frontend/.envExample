@@ -1,0 +1,12 @@
+VITE_FIREBASE_STORAGE = firebase storage url
+VITE_API_KEY = firebase api key
+VITE_AUTH_DOMAIN = firebase auth domain
+VITE_PROJECT_ID = firebase project id
+VITE_STORAGE_BUCKET = firebase storage bucket
+VITE_MESSAGING_SENDER_ID = firebase messaging sender id
+VITE_APP_ID = firebase app id
+VITE_UNSPLASH_KEY = your unsplash key
+VITE_API_AUTH_SERVICE_URL = use your auth service or "https://writespace-authservice.fly.dev"
+VITE_API_USERS_SERVICE_URL = use your users service or "https://writespace-userservice.fly.dev"
+VITE_API_PROJECTS_SERVICE_URL = use your projects service or "https://writespace-projectservice.fly.dev"
+VITE_API_DOCUMENTS_SERVICE_URL = use your documents service or "https://writespace-documentservice.fly.dev"
