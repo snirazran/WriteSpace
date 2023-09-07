@@ -6,12 +6,6 @@ import * as process from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: 'https://writespace-client.vercel.app',
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    optionsSuccessStatus: 200,
-  });
 
   const config = new DocumentBuilder()
     .setTitle('Auth Service')
