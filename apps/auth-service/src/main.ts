@@ -9,6 +9,8 @@ async function bootstrap() {
   app.enableCors({
     origin: 'https://writespace-client.vercel.app',
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    optionsSuccessStatus: 200,
   });
 
   const config = new DocumentBuilder()
