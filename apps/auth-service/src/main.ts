@@ -7,10 +7,7 @@ import * as process from 'process';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
+    origin: 'https://writespace-client.vercel.app',
   });
 
   const config = new DocumentBuilder()
