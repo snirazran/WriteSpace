@@ -6,14 +6,11 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [{ "source": "/(.*)", "destination": "src/app.tsx" }],
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "./src/index.tsx",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+      "source": "/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ]
 }
