@@ -1,6 +1,5 @@
 {
-  "version": 2,
-  "headers": [
+  "rewrites": [
     {
       "source": "/(.*)",
       "headers": [
@@ -8,7 +7,8 @@
           "key": "Access-Control-Allow-Origin",
           "value": "*"
         }
-      ]
+      ],
+      "destination": "/"
     }
   ]
 }
