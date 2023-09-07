@@ -1,0 +1,5 @@
+[[headers]]
+  # For all paths:
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
