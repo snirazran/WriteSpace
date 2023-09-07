@@ -22,6 +22,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('authApi', app, document);
   fs.writeFileSync('./openapi.json', JSON.stringify(document));
-  await app.listen(process.env.AUTH_PORT || 3001, '0.0.0.0');
+  await app.listen(process.env.PORT || 3000, '0.0.0.0');
 }
 bootstrap();
