@@ -12,6 +12,7 @@ import {
   NotFoundException,
   HttpCode,
   RequestTimeoutException,
+  BadRequestException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/Create-user.dto';
@@ -78,11 +79,15 @@ export class AuthController {
     try {
       return await this.authService.loginUser(userData);
     } catch (e) {
-      if (e instanceof UserAlreadyExists) {
-        throw new ConflictException('User already exists');
+      if (e instanceof UserNotFoundError) {
+        throw new ConflictException('User not found');
       }
       if (e instanceof InvalidDetails) {
         throw new ConflictException('Invalid email or password');
+      }
+      if (e) {
+        console.log(e);
+        throw new BadRequestException('Something went wrong');
       }
     }
   }

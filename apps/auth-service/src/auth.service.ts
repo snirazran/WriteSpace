@@ -32,6 +32,7 @@ export class AuthService {
     const existingUser = await this.userModel
       .findOne({ email: userData.email })
       .exec();
+    console.log('Existing user:', existingUser);
     if (existingUser) {
       throw new UserAlreadyExists();
     }
@@ -50,7 +51,9 @@ export class AuthService {
     );
 
     try {
+      console.log('Saving user:', user);
       await user.save();
+      console.log('User saved:', user);
     } catch (err) {
       console.error('Error saving user:', err);
       throw err;
@@ -77,7 +80,6 @@ export class AuthService {
 
     const passwordValid = await compare(userData.password, user.password);
     if (!passwordValid) {
-      console.log('Invalid password for user:', userData.email);
       throw new InvalidDetails();
     }
 
@@ -86,7 +88,7 @@ export class AuthService {
       ...userPlainObject,
       _id: user._id.toString(),
     };
-
+    console.log('User logged in:', userStringId);
     return userStringId;
   }
 
