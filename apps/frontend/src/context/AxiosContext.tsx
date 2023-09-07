@@ -19,6 +19,7 @@ interface AxiosProviderProps {
 const config = {
   baseURL: appConfig.baseURL,
   timeout: 5000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
