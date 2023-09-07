@@ -3,10 +3,12 @@
   "headers": [
     {
       "source": "/(.*)",
-      "headers": {
-        "name": "Access-Control-Allow-Origin",
-        "value": "*"
-      }
+      "headers": [
+        {
+          "name": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
     }
   ]
 }
