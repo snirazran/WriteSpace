@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/Create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { hash, compare } from 'bcrypt';
+import { hash, compare } from 'bcryptjs';
 import { UserAlreadyExists, UserNotFoundError, InvalidDetails } from './errors';
 import { LoginUserReqDto } from './dtos/Login-user.dto';
 import { LoginUserResDto } from './dtos/Login-user-response.dto';
@@ -32,11 +32,9 @@ export class AuthService {
     const existingUser = await this.userModel
       .findOne({ email: userData.email })
       .exec();
-    console.log('Existing user:', existingUser);
     if (existingUser) {
       throw new UserAlreadyExists();
     }
-
     // Create new user
     const user = new this.userModel(userData);
     const TOKEN_EXPIRY = '30d';
@@ -51,9 +49,7 @@ export class AuthService {
     );
 
     try {
-      console.log('Saving user:', user);
       await user.save();
-      console.log('User saved:', user);
     } catch (err) {
       console.error('Error saving user:', err);
       throw err;
@@ -70,26 +66,29 @@ export class AuthService {
   //Login User
   async loginUser(userData: LoginUserReqDto): Promise<LoginUserResDto> {
     // Check if user exists
-    const user = await this.userModel
-      .findOne({ email: userData.email })
-      .select('+password')
-      .exec();
-    if (!user) {
-      throw new UserNotFoundError();
-    }
+    try {
+      const user = await this.userModel
+        .findOne({ email: userData.email })
+        .select('+password')
+        .exec();
+      if (!user) {
+        throw new UserNotFoundError();
+      }
+      const passwordValid = await compare(userData.password, user.password);
+      if (!passwordValid) {
+        throw new InvalidDetails();
+      }
 
-    const passwordValid = await compare(userData.password, user.password);
-    if (!passwordValid) {
-      throw new InvalidDetails();
+      const userPlainObject = user.toObject();
+      const userStringId: LoginUserResDto = {
+        ...userPlainObject,
+        _id: user._id.toString(),
+      };
+      return userStringId;
+    } catch (error) {
+      console.log('Error:', error);
+      throw error;
     }
-
-    const userPlainObject = user.toObject();
-    const userStringId: LoginUserResDto = {
-      ...userPlainObject,
-      _id: user._id.toString(),
-    };
-    console.log('User logged in:', userStringId);
-    return userStringId;
   }
 
   async updateUser(

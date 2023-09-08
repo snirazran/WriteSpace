@@ -13,12 +13,7 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let serviceURLs = [
-      `${getEnvVar('VITE_API_USERS_SERVICE_URL')}/api/users`,
-      `${getEnvVar('VITE_API_DOCUMENTS_SERVICE_URL')}/api/documents`,
-      `${getEnvVar('VITE_API_AUTH_SERVICE_URL')}/api/auth`,
-      `${getEnvVar('VITE_API_PROJECTS_SERVICE_URL')}/api/projects`,
-    ];
+    let serviceURLs = [`${getEnvVar('VITE_API_AUTH_SERVICE_URL')}/api/auth`];
 
     const intervalIDs: { [url: string]: NodeJS.Timeout } = {};
 
