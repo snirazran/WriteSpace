@@ -36,7 +36,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
         <p>Friends</p>
       </div>
       <div className="profile-bar-likes">
-        <h1>{data?.data.totalLikes}</h1>
+        <h1>{data?.data.totalLikes || '0'}</h1>
         <p>Likes</p>
       </div>
     </div>
