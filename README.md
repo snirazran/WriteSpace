@@ -6,7 +6,9 @@ Welcome to WriteSpace, a unique social media platform exclusively built for writ
 
 1. [Features](#features)
 2. [Tech Stack](#tech-stack)
-3. [Getting Started](#getting-started)
+3. [Architecture](#architecture)
+4. [API Documentation](#api-documentation)
+5. [Getting Started](#getting-started)
 
 ## Features
 
@@ -46,22 +48,42 @@ WriteSpace is packed with several features to enhance the experience of its user
 - Nx
 - Docker
 
+## Architecture
+
+WriteSpace is designed using a **microservices architecture**. This design pattern breaks down the application into smaller, decoupled services which run as independent processes, enhancing modularity and scalability. Each service caters to a specific functionality and can be developed, deployed, and scaled independently.
+
+## API Documentation
+
+The WriteSpace API is documented using **Swagger**. With Swagger's interactive API documentation, developers can understand the API's capabilities without accessing its source code, facilitating easier integration and collaboration. Access the API documentation at [`[base_url]/api`.] or:
+https://writespace-authservice.fly.dev/authapi,
+https://writespace-userservice.fly.dev/api,
+https://writespace-projectservice.fly.dev/projectsApi,
+https://writespace-documentservice.fly.dev/documentsApi,
+
+
+
 ## Getting Started
 
 To get started with WriteSpace, you'll need to clone the repository and install dependencies. Here's a basic rundown of what you'll need to do.
 
 **Step 1: Clone the Repository**
 
-https://github.com/snirazran/WriteSpace.git
+\```shell
+git clone https://github.com/snirazran/WriteSpace.git
+\```
 
 **Step 2: Install Dependencies**
 
+\```shell
 npm install
+\```
 
-**Step 3: Run the Application**
+**Step 3: Setup Environment Variables**
 
-Create a .env file, there are ExpamleEnv files in each directory that require a .env file.
+Create a .env file, there are ExampleEnv files in each directory that require a .env file.
 
 **Step 4: Run the Application**
 
-npm start
+\```shell
+npm serve
+\```
