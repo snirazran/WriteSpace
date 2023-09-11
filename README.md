@@ -54,7 +54,7 @@ WriteSpace is designed using a **microservices architecture**. This design patte
 
 ## API Documentation
 
-The WriteSpace API is documented using **Swagger**. With Swagger's interactive API documentation, developers can understand the API's capabilities without accessing its source code, facilitating easier integration and collaboration. Access the API documentation at [`[base_url]/api`.] or:
+The WriteSpace API is documented using **Swagger**. With Swagger's interactive API documentation, developers can understand the API's capabilities without accessing its source code, facilitating easier integration and collaboration. Access the API documentation at:
 https://writespace-authservice.fly.dev/authapi,
 https://writespace-userservice.fly.dev/api,
 https://writespace-projectservice.fly.dev/projectsApi,
